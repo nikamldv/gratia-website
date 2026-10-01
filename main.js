@@ -893,3 +893,351 @@ updateSlider();
 /* =========================================================
    END OF MAIN.JS
 ========================================================= */
+ 
+/* =========================
+   KI ASSISTENT
+========================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const aiChatButton = document.getElementById("aiChatButton");
+    const aiChat = document.getElementById("aiChat");
+    const aiChatClose = document.getElementById("aiChatClose");
+
+    const aiChatInput = document.getElementById("aiChatInput");
+    const aiChatSend = document.getElementById("aiChatSend");
+
+    const aiChatMessages = document.getElementById("aiChatMessages");
+
+    const quickButtons =
+        document.querySelectorAll(".ai-quick-buttons button");
+
+
+    /* =========================
+       CHECK ELEMENTS
+    ========================= */
+
+    if (!aiChatButton || !aiChat) {
+        return;
+    }
+
+
+    /* =========================
+       OPEN CHAT
+    ========================= */
+
+    aiChatButton.addEventListener("click", function () {
+
+        aiChat.classList.add("active");
+
+        setTimeout(function () {
+
+            if (aiChatInput) {
+                aiChatInput.focus();
+            }
+
+        }, 100);
+
+    });
+
+
+    /* =========================
+       CLOSE CHAT
+    ========================= */
+
+    if (aiChatClose) {
+
+        aiChatClose.addEventListener("click", function () {
+
+            aiChat.classList.remove("active");
+
+        });
+
+    }
+
+
+    /* =========================
+       ADD MESSAGE
+    ========================= */
+
+    function addMessage(text, type) {
+
+        if (!aiChatMessages) {
+            return;
+        }
+
+        const message =
+            document.createElement("div");
+
+        message.classList.add(
+            "ai-message",
+            type === "user"
+                ? "ai-message-user"
+                : "ai-message-bot"
+        );
+
+        message.innerHTML = text;
+
+        aiChatMessages.appendChild(message);
+
+        aiChatMessages.scrollTop =
+            aiChatMessages.scrollHeight;
+    }
+
+
+    /* =========================
+       SHOW TYPING
+    ========================= */
+
+    function showTyping() {
+
+        if (!aiChatMessages) {
+            return;
+        }
+
+        const typing =
+            document.createElement("div");
+
+        typing.id = "aiTyping";
+
+        typing.className =
+            "ai-message ai-message-bot";
+
+        typing.textContent =
+            "KI schreibt...";
+
+        aiChatMessages.appendChild(typing);
+
+        aiChatMessages.scrollTop =
+            aiChatMessages.scrollHeight;
+    }
+
+
+    /* =========================
+       REMOVE TYPING
+    ========================= */
+
+    function removeTyping() {
+
+        const typing =
+            document.getElementById("aiTyping");
+
+        if (typing) {
+            typing.remove();
+        }
+    }
+
+
+    /* =========================
+       SEND MESSAGE TO BACKEND
+    ========================= */
+
+    async function sendMessage() {
+
+        if (!aiChatInput) {
+            return;
+        }
+
+        const question =
+            aiChatInput.value.trim();
+
+        if (!question) {
+            return;
+        }
+
+
+        /* User message */
+
+        addMessage(
+            question,
+            "user"
+        );
+
+        aiChatInput.value = "";
+
+
+        /* AI typing */
+
+        showTyping();
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "http://localhost:3000/api/chat",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            message: question
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            removeTyping();
+
+
+            /* Backend error */
+
+            if (!response.ok) {
+
+                addMessage(
+                    "Entschuldigung. Die KI ist momentan nicht verfügbar. Bitte versuchen Sie es später erneut.",
+                    "bot"
+                );
+
+                return;
+            }
+
+
+            /* AI response */
+
+            if (data.reply) {
+
+                addMessage(
+                    data.reply,
+                    "bot"
+                );
+
+            } else {
+
+                addMessage(
+                    "Entschuldigung. Ich konnte keine Antwort erhalten.",
+                    "bot"
+                );
+
+            }
+
+
+        } catch (error) {
+
+            console.error(
+                "KI Verbindungsfehler:",
+                error
+            );
+
+            removeTyping();
+
+            addMessage(
+                `
+                Entschuldigung. Die Verbindung
+                zur KI konnte momentan nicht
+                hergestellt werden.
+                <br><br>
+                Sie können direkt mit unserem
+                Team über WhatsApp sprechen.
+                `,
+                "bot"
+            );
+
+        }
+
+    }
+
+
+    /* =========================
+       SEND BUTTON
+    ========================= */
+
+    if (aiChatSend) {
+
+        aiChatSend.addEventListener(
+            "click",
+            sendMessage
+        );
+
+    }
+
+
+    /* =========================
+       ENTER KEY
+    ========================= */
+
+    if (aiChatInput) {
+
+        aiChatInput.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+                    sendMessage();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       QUICK QUESTIONS
+    ========================= */
+
+    quickButtons.forEach(
+        function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    const question =
+                        button.dataset.question;
+
+                    if (!question) {
+                        return;
+                    }
+
+                    if (aiChatInput) {
+
+                        aiChatInput.value =
+                            question;
+
+                    }
+
+                    sendMessage();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================
+       ESC CLOSE
+    ========================= */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape" &&
+                aiChat.classList.contains("active")
+            ) {
+
+                aiChat.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+});
