@@ -2681,7 +2681,7 @@ p {
 
 /* =========================================================
    GRATIA TOP INFORMATION / MEDIA BAR
-   Compact Luxury Responsive Design
+   FINAL COMPACT RESPONSIVE VERSION
 ========================================================= */
 
 .top-bar {
@@ -2710,7 +2710,6 @@ p {
 .top-bar-left {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
     gap: 20px;
     flex-wrap: nowrap;
     min-width: 0;
@@ -2729,8 +2728,6 @@ p {
     line-height: 1.2;
 
     white-space: nowrap;
-
-    transition: color 0.25s ease;
 }
 
 .top-bar-item:hover {
@@ -2743,11 +2740,6 @@ p {
     line-height: 1;
     flex: 0 0 auto;
 }
-
-
-/* =========================================================
-   SOCIAL MEDIA
-========================================================= */
 
 .top-social {
     display: flex;
@@ -2764,7 +2756,7 @@ p {
     align-items: center;
     justify-content: center;
 
-    border: 1px solid rgba(255, 255, 255, 0.45);
+    border: 1px solid rgba(255,255,255,0.45);
     border-radius: 50%;
 
     color: #ffffff;
@@ -2787,13 +2779,7 @@ p {
     transform: translateY(-2px);
 }
 
-
-/* =========================================================
-   TABLET
-========================================================= */
-
 @media (max-width: 1100px) {
-
     .top-bar-container {
         padding: 5px 20px;
         gap: 14px;
@@ -2823,13 +2809,7 @@ p {
     }
 }
 
-
-/* =========================================================
-   TABLET / SMALL LAPTOP
-========================================================= */
-
 @media (max-width: 900px) {
-
     .top-bar {
         min-height: 40px;
     }
@@ -2859,14 +2839,7 @@ p {
     }
 }
 
-
-/* =========================================================
-   MOBILE
-   Compact two-line layout
-========================================================= */
-
 @media (max-width: 700px) {
-
     .top-bar {
         min-height: 0;
     }
@@ -2891,15 +2864,12 @@ p {
             minmax(0, 1fr);
 
         align-items: center;
-
         gap: 5px 12px;
-
         min-width: 0;
     }
 
     .top-bar-item {
         min-width: 0;
-
         gap: 5px;
 
         font-size: 9px;
@@ -2927,24 +2897,13 @@ p {
     }
 }
 
-
-/* =========================================================
-   SMALL MOBILE
-========================================================= */
-
 @media (max-width: 500px) {
-
     .top-bar-container {
         padding: 5px 9px;
-        grid-template-columns: minmax(0, 1fr) auto;
         gap: 6px;
     }
 
     .top-bar-left {
-        grid-template-columns:
-            minmax(0, 1fr)
-            minmax(0, 1fr);
-
         gap: 4px 8px;
     }
 
@@ -2968,13 +2927,7 @@ p {
     }
 }
 
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
 @media (max-width: 390px) {
-
     .top-bar-container {
         padding: 5px 7px;
         gap: 5px;
@@ -3003,6 +2956,340 @@ p {
     }
 }
 
+
+/* =========================================================
+   FOOTER MEDIA BAR
+   FINAL FIX - NO OVERLAP
+========================================================= */
+
+.footer-media-bar {
+    width: 100%;
+    background: #74100c;
+    overflow: hidden;
+}
+
+.footer-media-container {
+    width: 94%;
+    max-width: 1250px;
+    margin: 0 auto;
+
+    min-height: 78px;
+    padding: 13px 0;
+
+    display: grid;
+    grid-template-columns: minmax(280px, auto) minmax(0, 1fr);
+
+    align-items: center;
+    gap: 28px;
+}
+
+.footer-media-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 13px;
+
+    min-width: 0;
+    white-space: nowrap;
+}
+
+.footer-media-title h2 {
+    margin: 0;
+
+    color: #f0d39b;
+
+    font-family: "Playfair Display", Georgia, serif;
+
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.15;
+
+    white-space: nowrap;
+}
+
+.footer-media-line {
+    width: 38px;
+    height: 2px;
+
+    flex: 0 0 38px;
+
+    background: #f0d39b;
+}
+
+.footer-social {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    align-items: center;
+    gap: 0;
+
+    min-width: 0;
+}
+
+.footer-social > a {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    padding: 0 15px;
+
+    color: #ffffff;
+    text-decoration: none;
+
+    border-left: 1px solid rgba(255,255,255,0.25);
+}
+
+.footer-social > a:last-child {
+    padding-right: 0;
+}
+
+.social-icon {
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 2px solid #f0d39b;
+    border-radius: 50%;
+
+    color: #f0d39b;
+    font-size: 17px;
+    line-height: 1;
+}
+
+.footer-social strong {
+    display: block;
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+.footer-social small {
+    display: block;
+    margin-top: 3px;
+
+    color: rgba(255,255,255,0.65);
+
+    font-size: 7px;
+    line-height: 1.2;
+
+    white-space: nowrap;
+}
+
+@media (max-width: 1200px) {
+    /*
+       At laptop/tablet widths the title gets its own row.
+       This prevents the title from entering the Facebook area.
+    */
+    .footer-media-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        min-height: auto;
+        padding: 12px 0;
+    }
+
+    .footer-media-title {
+        width: 100%;
+        justify-content: flex-start !important;
+        text-align:left;
+    }
+
+    .footer-media-title h2 {
+        font-size: 17px;
+        text-align: left;
+    }
+
+    .footer-media-line {
+        width: 28px;
+        flex-basis: 28px;
+    }
+
+    .footer-social {
+        width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-social > a {
+        padding: 0 8px;
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .footer-social > a:last-child {
+        padding-right: 8px;
+    }
+
+    .social-icon {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+        font-size: 14px;
+    }
+
+    .footer-social strong {
+        font-size: 9px;
+    }
+
+    .footer-social small {
+        font-size: 6px;
+    }
+}
+
+@media (max-width: 800px) {
+    .footer-media-container {
+        width: 94%;
+        grid-template-columns: 1fr;
+        gap: 9px;
+        padding: 10px 0;
+    }
+
+    .footer-media-title {
+        justify-content: center;
+    }
+
+    .footer-media-title h2 {
+        font-size: 15px;
+        white-space: nowrap;
+    }
+
+    .footer-social {
+        width: 100%;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-social > a {
+        flex-direction: column;
+        gap: 3px;
+        padding: 2px 5px;
+        text-align: center;
+    }
+
+    .footer-social > a:last-child {
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 600px) {
+    .footer-media-container {
+        width: 94%;
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 9px 0 8px;
+    }
+
+    .footer-media-title {
+        width: 100%;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .footer-media-title h2 {
+        font-size: 12px;
+    }
+
+    .footer-media-line {
+        width: 16px;
+        flex-basis: 16px;
+    }
+
+    .footer-social {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .footer-social > a {
+        flex-direction: column;
+        gap: 3px;
+        padding: 2px 3px;
+        text-align: center;
+    }
+
+    .footer-social > a:last-child {
+        padding-right: 3px;
+    }
+
+    .social-icon {
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
+        font-size: 12px;
+    }
+
+    .footer-social strong {
+        font-size: 7px;
+        line-height: 1.1;
+    }
+
+    .footer-social small {
+        max-width: 100%;
+        font-size: 5px;
+        line-height: 1.1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (max-width: 390px) {
+    .footer-media-title h2 {
+        font-size: 11px;
+    }
+
+    .footer-media-line {
+        width: 13px;
+        flex-basis: 13px;
+    }
+
+    .social-icon {
+        width: 25px;
+        height: 25px;
+        flex-basis: 25px;
+        font-size: 11px;
+    }
+
+    .footer-social strong {
+        font-size: 6.5px;
+    }
+
+    .footer-social small {
+        font-size: 4.5px;
+    }
+}
+
+
+/* =========================================================
+   FINAL FOOTER MEDIA OVERRIDE
+   Prevent older footer rules from overriding the layout.
+========================================================= */
+
+.footer-media-container {
+    box-sizing: border-box !important;
+}
+
+.footer-media-title,
+.footer-social {
+    box-sizing: border-box !important;
+}
+
+.footer-social > a {
+    box-sizing: border-box !important;
+}
 
 /* =========================================================
    HEADER LOGO POSITION
@@ -5018,4 +5305,1200 @@ a.footer-contact-item:hover {
     height: 100%;
 
     border: 0;
+}
+
+
+
+
+/* =========================================================
+   END OF GRATIA MAIN STYLESHEET
+========================================================= */
+
+
+/* =========================================================
+   FINAL MEDIA BAR SAFETY
+========================================================= */
+
+.footer-media-container,
+.footer-media-title,
+.footer-social,
+.footer-social > a {
+    min-width: 0 !important;
+}
+
+.footer-media-title h2 {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+@media (max-width: 1200px) {
+    .footer-media-title h2 {
+        overflow: visible !important;
+        text-overflow: clip !important;
+    }
+}
+
+
+/* =========================================================
+   FINAL FIX - MEDIA BAR TABLET / PHONE
+   Prevent title from overlapping Facebook
+========================================================= */
+
+@media (max-width: 1050px) {
+
+    .footer-media-container {
+        width: 94% !important;
+
+        display: grid !important;
+
+        grid-template-columns: 1fr !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 10px !important;
+
+        padding: 10px 0 !important;
+
+        min-height: auto !important;
+    }
+
+
+    /* ==============================
+       TITLE
+    ============================== */
+
+    .footer-media-title {
+        width: 100% !important;
+
+        display: flex !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 8px !important;
+
+        flex: none !important;
+
+        min-width: 0 !important;
+    }
+
+
+    .footer-media-title h2 {
+        margin: 0 !important;
+
+        font-size: 14px !important;
+
+        line-height: 1.2 !important;
+
+        white-space: nowrap !important;
+
+        text-align: center !important;
+
+        transform: none !important;
+
+        overflow: visible !important;
+    }
+
+
+    .footer-media-line {
+        width: 20px !important;
+
+        min-width: 20px !important;
+
+        flex: 0 0 20px !important;
+    }
+
+
+    /* ==============================
+       SOCIAL MEDIA
+    ============================== */
+
+    .footer-social {
+        width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        gap: 0 !important;
+
+        flex: none !important;
+
+        min-width: 0 !important;
+    }
+
+
+    .footer-social > a {
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        display: flex !important;
+
+        flex-direction: row !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        gap: 5px !important;
+
+        padding: 0 6px !important;
+
+        border-left: 1px solid
+            rgba(255,255,255,0.20) !important;
+
+        box-sizing: border-box !important;
+    }
+
+
+    .footer-social > a:first-child {
+        border-left: 0 !important;
+    }
+
+
+    .footer-social > a:last-child {
+        padding-right: 6px !important;
+    }
+
+
+    /* ==============================
+       ICON
+    ============================== */
+
+    .social-icon {
+        width: 28px !important;
+
+        height: 28px !important;
+
+        min-width: 28px !important;
+
+        flex: 0 0 28px !important;
+
+        font-size: 12px !important;
+    }
+
+
+    /* ==============================
+       TEXT
+    ============================== */
+
+    .footer-social strong {
+        display: block !important;
+
+        font-size: 8px !important;
+
+        line-height: 1.1 !important;
+
+        white-space: nowrap !important;
+    }
+
+
+    .footer-social small {
+        display: block !important;
+
+        font-size: 5.5px !important;
+
+        line-height: 1.1 !important;
+
+        white-space: nowrap !important;
+    }
+}
+
+
+/* =========================================================
+   PHONE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .footer-media-container {
+        width: 92% !important;
+
+        display: grid !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 8px !important;
+
+        padding: 9px 0 !important;
+    }
+
+
+    .footer-media-title {
+        width: 100% !important;
+
+        justify-content: center !important;
+
+        gap: 6px !important;
+    }
+
+
+    .footer-media-title h2 {
+        font-size: 12px !important;
+
+        white-space: nowrap !important;
+
+        text-align: center !important;
+    }
+
+
+    .footer-media-line {
+        width: 15px !important;
+
+        min-width: 15px !important;
+
+        flex-basis: 15px !important;
+    }
+
+
+    .footer-social {
+        width: 100% !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 0 !important;
+    }
+
+
+    .footer-social > a {
+        width: 100% !important;
+
+        min-width: 0 !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        gap: 3px !important;
+
+        padding: 2px 3px !important;
+
+        border-left: 1px solid
+            rgba(255,255,255,0.18) !important;
+    }
+
+
+    .footer-social > a:first-child {
+        border-left: 0 !important;
+    }
+
+
+    .social-icon {
+        width: 26px !important;
+
+        height: 26px !important;
+
+        min-width: 26px !important;
+
+        flex-basis: 26px !important;
+
+        font-size: 11px !important;
+    }
+
+
+    .footer-social strong {
+        font-size: 6.5px !important;
+
+        text-align: center !important;
+    }
+
+
+    .footer-social small {
+        font-size: 5px !important;
+
+        text-align: center !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .footer-media-container {
+        width: 94% !important;
+
+        gap: 7px !important;
+
+        padding: 8px 0 !important;
+    }
+
+
+    .footer-media-title h2 {
+        font-size: 11px !important;
+    }
+
+
+    .footer-media-line {
+        width: 13px !important;
+
+        min-width: 13px !important;
+
+        flex-basis: 13px !important;
+    }
+
+
+    .social-icon {
+        width: 23px !important;
+
+        height: 23px !important;
+
+        min-width: 23px !important;
+
+        flex-basis: 23px !important;
+
+        font-size: 10px !important;
+    }
+
+
+    .footer-social strong {
+        font-size: 5.5px !important;
+    }
+
+
+    .footer-social small {
+        font-size: 4.5px !important;
+    }
+}
+
+/* =========================================================
+   GRATIA - DEFINITIVE FOOTER MEDIA BAR FIX
+   This block MUST stay at the very end of style.css.
+   Fixes title/social overlap on laptop + desktop.
+========================================================= */
+
+/* ---------- DESKTOP: enough room for title + 3 socials ---------- */
+@media (min-width: 1201px) {
+
+    .footer-media-container {
+        width: min(94%, 1400px) !important;
+        max-width: 1400px !important;
+
+        display: grid !important;
+        grid-template-columns: minmax(390px, 0.95fr) minmax(0, 1.75fr) !important;
+
+        align-items: center !important;
+        column-gap: 35px !important;
+        row-gap: 0 !important;
+
+        min-height: 82px !important;
+        padding: 12px 0 !important;
+    }
+
+    .footer-media-title {
+        width: 100% !important;
+        min-width: 390px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+
+        gap: 12px !important;
+        white-space: nowrap !important;
+    }
+
+    .footer-media-title h2 {
+        flex: 0 0 auto !important;
+
+        margin: 0 !important;
+
+        font-size: 19px !important;
+        line-height: 1.15 !important;
+
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+
+        transform: none !important;
+    }
+
+    .footer-media-line {
+        width: 34px !important;
+        min-width: 34px !important;
+        flex: 0 0 34px !important;
+        height: 2px !important;
+    }
+
+    .footer-social {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+        align-items: center !important;
+        gap: 0 !important;
+    }
+
+    .footer-social > a {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        flex-direction: row !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 8px !important;
+        padding: 0 12px !important;
+
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .footer-social > a:first-child {
+        border-left: none !important;
+    }
+
+    .footer-social > a + a {
+        border-left: 1px solid rgba(255,255,255,0.25) !important;
+    }
+
+    .social-icon {
+        width: 38px !important;
+        height: 38px !important;
+        min-width: 38px !important;
+        flex: 0 0 38px !important;
+
+        font-size: 16px !important;
+    }
+
+    .footer-social > a > span:last-child {
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .footer-social strong {
+        display: block !important;
+
+        font-size: 10px !important;
+        line-height: 1.15 !important;
+
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .footer-social small {
+        display: block !important;
+
+        margin-top: 2px !important;
+
+        font-size: 6.5px !important;
+        line-height: 1.15 !important;
+
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+
+/* ---------- LAPTOP / TABLET ----------
+   Title gets its own row.
+   This is the important part for the screenshot size.
+--------------------------------------------------------- */
+@media (max-width: 1200px) {
+
+    .footer-media-container {
+        width: 94% !important;
+        max-width: 1000px !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+
+        align-items: center !important;
+        justify-items: stretch !important;
+
+        gap: 13px !important;
+
+        min-height: auto !important;
+        padding: 12px 0 13px !important;
+    }
+
+    .footer-media-title {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 10px !important;
+
+        white-space: nowrap !important;
+    }
+
+    .footer-media-title h2 {
+        margin: 0 !important;
+
+        font-size: 17px !important;
+        line-height: 1.2 !important;
+
+        white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+
+        text-align: center !important;
+    }
+
+    .footer-media-line {
+        width: 30px !important;
+        min-width: 30px !important;
+        flex: 0 0 30px !important;
+        height: 2px !important;
+    }
+
+    .footer-social {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+        align-items: center !important;
+        gap: 0 !important;
+    }
+
+    .footer-social > a {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        flex-direction: row !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 6px !important;
+        padding: 0 8px !important;
+
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .footer-social > a:first-child {
+        border-left: none !important;
+    }
+
+    .footer-social > a + a {
+        border-left: 1px solid rgba(255,255,255,0.22) !important;
+    }
+
+    .social-icon {
+        width: 32px !important;
+        height: 32px !important;
+        min-width: 32px !important;
+        flex: 0 0 32px !important;
+
+        font-size: 14px !important;
+    }
+
+    .footer-social > a > span:last-child {
+        min-width: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .footer-social strong {
+        display: block !important;
+
+        font-size: 8.5px !important;
+        line-height: 1.1 !important;
+
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    .footer-social small {
+        display: block !important;
+
+        margin-top: 2px !important;
+
+        font-size: 5.5px !important;
+        line-height: 1.1 !important;
+
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+
+/* ---------- PHONE ---------- */
+@media (max-width: 700px) {
+
+    .footer-media-container {
+        width: 92% !important;
+        max-width: none !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+
+        gap: 9px !important;
+        padding: 10px 0 9px !important;
+    }
+
+    .footer-media-title {
+        width: 100% !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 7px !important;
+    }
+
+    .footer-media-title h2 {
+        font-size: 12px !important;
+        line-height: 1.2 !important;
+
+        white-space: nowrap !important;
+        text-align: center !important;
+    }
+
+    .footer-media-line {
+        width: 17px !important;
+        min-width: 17px !important;
+        flex-basis: 17px !important;
+    }
+
+    .footer-social {
+        width: 100% !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+        gap: 0 !important;
+    }
+
+    .footer-social > a {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 3px !important;
+        padding: 3px 2px !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .footer-social > a:first-child {
+        border-left: none !important;
+    }
+
+    .footer-social > a + a {
+        border-left: 1px solid rgba(255,255,255,0.18) !important;
+    }
+
+    .social-icon {
+        width: 26px !important;
+        height: 26px !important;
+        min-width: 26px !important;
+        flex: 0 0 26px !important;
+
+        font-size: 11px !important;
+    }
+
+    .footer-social strong {
+        font-size: 6.5px !important;
+        line-height: 1.1 !important;
+        text-align: center !important;
+    }
+
+    .footer-social small {
+        max-width: 100% !important;
+
+        font-size: 5px !important;
+        line-height: 1.1 !important;
+        text-align: center !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+
+/* ---------- VERY SMALL PHONE ---------- */
+@media (max-width: 390px) {
+
+    .footer-media-container {
+        width: 94% !important;
+        padding: 8px 0 !important;
+        gap: 7px !important;
+    }
+
+    .footer-media-title h2 {
+        font-size: 11px !important;
+    }
+
+    .footer-media-line {
+        width: 13px !important;
+        min-width: 13px !important;
+        flex-basis: 13px !important;
+    }
+
+    .social-icon {
+        width: 23px !important;
+        height: 23px !important;
+        min-width: 23px !important;
+        flex-basis: 23px !important;
+        font-size: 10px !important;
+    }
+
+    .footer-social strong {
+        font-size: 5.5px !important;
+    }
+
+    .footer-social small {
+        font-size: 4.5px !important;
+    }
+}
+
+/* =========================================================
+   FINAL FIX - MOBILE FOOTER MEDIA BAR
+   Titel links | Social Media rechts
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .footer-media-container {
+        width: 94% !important;
+        max-width: none !important;
+
+        display: grid !important;
+        grid-template-columns: 44% 56% !important;
+
+        align-items: center !important;
+        column-gap: 0 !important;
+        row-gap: 0 !important;
+
+        min-height: 58px !important;
+        padding: 8px 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+    /* -------------------------
+       TEXT: LINKS
+    ------------------------- */
+    .footer-media-title {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+
+        gap: 6px !important;
+        padding: 0 5px 0 0 !important;
+
+        box-sizing: border-box !important;
+
+        text-align: left !important;
+        white-space: normal !important;
+    }
+
+    .footer-media-title .footer-media-line {
+        width: 14px !important;
+        min-width: 14px !important;
+        flex: 0 0 14px !important;
+        height: 1px !important;
+    }
+
+    /* The second decorative line is removed on small screens
+       so the title has enough room and stays clearly on the left. */
+    .footer-media-title .footer-media-line:last-child {
+        display: none !important;
+    }
+
+    .footer-media-title h2 {
+        flex: 0 1 auto !important;
+
+        width: auto !important;
+        max-width: 100% !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        font-size: 10px !important;
+        line-height: 1.25 !important;
+        letter-spacing: 0 !important;
+
+        text-align: left !important;
+        white-space: normal !important;
+
+        overflow: visible !important;
+        text-overflow: clip !important;
+
+        transform: none !important;
+    }
+
+    /* -------------------------
+       SOCIAL MEDIA: RECHTS
+    ------------------------- */
+    .footer-social {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: grid !important;
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+
+        align-items: center !important;
+        justify-content: stretch !important;
+
+        gap: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .footer-social > a {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 2px !important;
+        padding: 2px 3px !important;
+
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    .footer-social > a:first-child {
+        border-left: 0 !important;
+    }
+
+    .footer-social > a + a {
+        border-left: 1px solid rgba(255,255,255,0.18) !important;
+    }
+
+    .social-icon {
+        width: 25px !important;
+        height: 25px !important;
+        min-width: 25px !important;
+        flex: 0 0 25px !important;
+
+        font-size: 11px !important;
+    }
+
+    .footer-social strong {
+        display: block !important;
+
+        font-size: 6px !important;
+        line-height: 1.1 !important;
+
+        text-align: center !important;
+        white-space: nowrap !important;
+    }
+
+    .footer-social small {
+        display: block !important;
+        max-width: 100% !important;
+
+        font-size: 4.5px !important;
+        line-height: 1.1 !important;
+
+        text-align: center !important;
+        white-space: nowrap !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .footer-media-container {
+        width: 95% !important;
+        grid-template-columns: 43% 57% !important;
+
+        min-height: 54px !important;
+        padding: 7px 0 !important;
+    }
+
+    .footer-media-title {
+        gap: 4px !important;
+        padding-right: 3px !important;
+    }
+
+    .footer-media-title .footer-media-line {
+        width: 10px !important;
+        min-width: 10px !important;
+        flex-basis: 10px !important;
+    }
+
+    .footer-media-title h2 {
+        font-size: 9px !important;
+        line-height: 1.2 !important;
+    }
+
+    .social-icon {
+        width: 22px !important;
+        height: 22px !important;
+        min-width: 22px !important;
+        flex-basis: 22px !important;
+        font-size: 10px !important;
+    }
+
+    .footer-social strong {
+        font-size: 5.5px !important;
+    }
+
+    .footer-social small {
+        font-size: 4px !important;
+    }
+}
+
+/* =========================================================
+   DEFINITIVE MOBILE FOOTER MEDIA LAYOUT
+   LEFT: title | RIGHT: social media
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .footer-media-container {
+        position: relative !important;
+
+        width: 94% !important;
+        max-width: none !important;
+
+        min-height: 58px !important;
+        height: 58px !important;
+
+        display: block !important;
+
+        margin: 0 auto !important;
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+    /* TITLE — fixed to the LEFT */
+    .footer-media-title {
+        position: absolute !important;
+
+        left: 0 !important;
+        top: 50% !important;
+
+        width: 40% !important;
+        min-width: 0 !important;
+
+        transform: translateY(-50%) !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+
+        gap: 5px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+
+        text-align: left !important;
+    }
+
+    .footer-media-title .footer-media-line {
+        display: block !important;
+
+        width: 11px !important;
+        min-width: 11px !important;
+        flex: 0 0 11px !important;
+
+        height: 1px !important;
+
+        margin: 0 !important;
+    }
+
+    .footer-media-title .footer-media-line:last-child {
+        display: none !important;
+    }
+
+    .footer-media-title h2 {
+        width: auto !important;
+        max-width: calc(100% - 16px) !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        font-size: 9px !important;
+        line-height: 1.2 !important;
+
+        font-family: "Playfair Display", Georgia, serif !important;
+
+        text-align: left !important;
+        white-space: nowrap !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+
+        transform: none !important;
+    }
+
+    /* SOCIAL MEDIA — fixed to the RIGHT */
+    .footer-social {
+        position: absolute !important;
+
+        right: 0 !important;
+        top: 50% !important;
+
+        width: 58% !important;
+        min-width: 0 !important;
+
+        transform: translateY(-50%) !important;
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+
+        align-items: center !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .footer-social > a {
+        width: 100% !important;
+        min-width: 0 !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        gap: 2px !important;
+
+        margin: 0 !important;
+        padding: 0 2px !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .footer-social > a:first-child {
+        border-left: 0 !important;
+    }
+
+    .footer-social > a + a {
+        border-left: 1px solid rgba(255,255,255,0.18) !important;
+    }
+
+    .social-icon {
+        width: 25px !important;
+        height: 25px !important;
+        min-width: 25px !important;
+        flex: 0 0 25px !important;
+
+        font-size: 11px !important;
+    }
+
+    .footer-social strong {
+        margin: 0 !important;
+
+        font-size: 6px !important;
+        line-height: 1.1 !important;
+
+        text-align: center !important;
+        white-space: nowrap !important;
+    }
+
+    .footer-social small {
+        max-width: 100% !important;
+
+        margin: 0 !important;
+
+        font-size: 4.3px !important;
+        line-height: 1.1 !important;
+
+        text-align: center !important;
+        white-space: nowrap !important;
+
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONE
+========================================================= */
+
+@media (max-width: 390px) {
+
+    .footer-media-container {
+        width: 95% !important;
+        min-height: 53px !important;
+        height: 53px !important;
+    }
+
+    .footer-media-title {
+        width: 39% !important;
+    }
+
+    .footer-media-title h2 {
+        font-size: 8px !important;
+    }
+
+    .footer-media-title .footer-media-line {
+        width: 9px !important;
+        min-width: 9px !important;
+        flex-basis: 9px !important;
+    }
+
+    .footer-social {
+        width: 61% !important;
+    }
+
+    .social-icon {
+        width: 22px !important;
+        height: 22px !important;
+        min-width: 22px !important;
+        flex-basis: 22px !important;
+
+        font-size: 10px !important;
+    }
+
+    .footer-social strong {
+        font-size: 5.3px !important;
+    }
+
+    .footer-social small {
+        font-size: 3.8px !important;
+    }
 }
