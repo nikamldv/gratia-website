@@ -1241,3 +1241,136 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 });
+
+
+
+/* =========================================================
+   FLOATING CONTROLS
+   BACK TO TOP + AI SIDE TAB
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    /* =====================================================
+       1. BACK TO TOP
+    ===================================================== */
+
+    const backToTopButton =
+        document.querySelector(".back-to-top");
+
+    if (backToTopButton) {
+
+        function updateBackToTop() {
+
+            if (window.scrollY > 300) {
+
+                backToTopButton.classList.add("visible");
+
+            } else {
+
+                backToTopButton.classList.remove("visible");
+
+            }
+        }
+
+        // بررسی هنگام اسکرول
+        window.addEventListener(
+            "scroll",
+            updateBackToTop,
+            { passive: true }
+        );
+
+        // بررسی اولیه
+        updateBackToTop();
+
+        // برگشت به بالای صفحه
+        backToTopButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+    }
+
+
+    /* =====================================================
+       2. AI SIDE TAB
+    ===================================================== */
+
+    const aiChatButton =
+        document.getElementById("aiChatButton");
+
+    const aiChat =
+        document.getElementById("aiChat");
+
+    const aiChatClose =
+        document.getElementById("aiChatClose");
+
+
+    if (!aiChatButton || !aiChat) {
+        return;
+    }
+
+
+    /*
+       وقتی روی دکمه AI کلیک شود،
+       تب AI حالت باز می‌گیرد.
+    */
+
+    aiChatButton.addEventListener(
+        "click",
+        function () {
+
+            aiChatButton.classList.add("ai-open");
+
+        }
+    );
+
+
+    /*
+       وقتی پنجره AI بسته شود،
+       دکمه دوباره به کنار صفحه برمی‌گردد.
+    */
+
+    if (aiChatClose) {
+
+        aiChatClose.addEventListener(
+            "click",
+            function () {
+
+                aiChatButton.classList.remove(
+                    "ai-open"
+                );
+
+            }
+        );
+    }
+
+
+    /*
+       با Escape نیز حالت AI بسته می‌شود.
+    */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                aiChatButton.classList.remove(
+                    "ai-open"
+                );
+
+            }
+
+        }
+    );
+
+});

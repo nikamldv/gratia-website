@@ -20,184 +20,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <style>
-        /* =========================================================
-           GRATIA FOOTER - TABLET / MOBILE LAYOUT
-           Schnelllinks links | Kontakt rechts
-           Buttons links | Standort rechts
-        ========================================================= */
 
-        .footer-container {
-            position: relative;
-        }
-
-        .footer-lower-grid {
-            width: 100%;
-            grid-column: 1 / -1 !important;
-            display: grid !important;
-            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-            align-items: start !important;
-            gap: 32px !important;
-            margin-top: 4px !important;
-        }
-
-        .footer-lower-grid .footer-buttons {
-            grid-column: 1 !important;
-            grid-row: 1 !important;
-            width: 100% !important;
-            margin: 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 8px !important;
-            align-items: stretch !important;
-        }
-
-        .footer-lower-grid .footer-buttons a {
-            width: 100% !important;
-            max-width: 100% !important;
-            min-width: 0 !important;
-            height: 40px !important;
-            min-height: 40px !important;
-            box-sizing: border-box !important;
-            margin: 0 !important;
-        }
-
-        .footer-lower-grid .footer-location {
-            grid-column: 2 !important;
-            grid-row: 1 !important;
-            width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-        }
-
-        .footer-lower-grid .footer-location h3 {
-            margin: 0 0 8px !important;
-            text-align: left !important;
-        }
-
-        .footer-lower-grid .footer-location .footer-column-line {
-            align-self: flex-start !important;
-            margin: 0 0 12px !important;
-        }
-
-        .footer-lower-grid .footer-map-card {
-            width: 100% !important;
-            max-width: 100% !important;
-            height: 105px !important;
-            min-height: 105px !important;
-            box-sizing: border-box !important;
-        }
-
-        /* Tablet */
-        @media (max-width: 1050px) {
-            .footer-container {
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-                column-gap: 30px !important;
-                row-gap: 24px !important;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1 !important;
-            }
-
-            .footer-quicklinks-column {
-                grid-column: 1 !important;
-                grid-row: 2 !important;
-            }
-
-            .footer-contact-column {
-                grid-column: 2 !important;
-                grid-row: 2 !important;
-            }
-
-            .footer-lower-grid {
-                grid-column: 1 / -1 !important;
-                grid-row: 3 !important;
-                gap: 30px !important;
-                margin-top: 0 !important;
-            }
-        }
-
-        /* Mobile */
-        @media (max-width: 700px) {
-            .footer-container {
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-                column-gap: 18px !important;
-                row-gap: 22px !important;
-            }
-
-            .footer-brand {
-                grid-column: 1 / -1 !important;
-            }
-
-            .footer-quicklinks-column {
-                grid-column: 1 !important;
-                grid-row: 2 !important;
-            }
-
-            .footer-contact-column {
-                grid-column: 2 !important;
-                grid-row: 2 !important;
-            }
-
-            .footer-lower-grid {
-                grid-column: 1 / -1 !important;
-                grid-row: 3 !important;
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-                gap: 18px !important;
-                margin-top: 0 !important;
-            }
-
-            .footer-lower-grid .footer-buttons a {
-                height: 38px !important;
-                min-height: 38px !important;
-                padding-left: 8px !important;
-                padding-right: 8px !important;
-                font-size: 9px !important;
-            }
-
-            .footer-lower-grid .footer-map-card {
-                height: 100px !important;
-                min-height: 100px !important;
-            }
-        }
-
-        /* Very small phones */
-        @media (max-width: 430px) {
-            .footer-container {
-                grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-                column-gap: 10px !important;
-            }
-
-            .footer-lower-grid {
-                gap: 10px !important;
-            }
-
-            .footer-lower-grid .footer-buttons a {
-                height: 35px !important;
-                min-height: 35px !important;
-                padding-left: 5px !important;
-                padding-right: 5px !important;
-                font-size: 7.5px !important;
-            }
-
-            .footer-lower-grid .footer-map-card {
-                height: 88px !important;
-                min-height: 88px !important;
-            }
-
-            .footer-contact-item {
-                font-size: 9px !important;
-            }
-
-            .footer-quick-links a {
-                font-size: 9px !important;
-            }
-        }
-    </style>
 </head>
 
 <body>
@@ -1503,27 +1326,28 @@
 
                 </div>
 
-                <!-- STANDORT: RECHTS, DIREKT UNTER KONTAKT -->
-                <div class="footer-location">
+                <!-- STANDORT -->
+<div class="footer-location">
 
-                    <h3>Standort</h3>
+    <h3>Standort</h3>
 
-                    <span class="footer-column-line"></span>
+    <span class="footer-column-line"></span>
 
-                    <a href="#home"
-                       class="footer-map-card"
-                       aria-label="Zum Standort">
+    <div class="footer-map-card">
 
-                        <div class="footer-map-pattern">
+        <iframe
+            src="https://www.google.com/maps?q=Pfaffenpfad+1,+97440+Werneck&output=embed"
+            width="100%"
+            height="280"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
 
-                            <span class="footer-map-pin">
-                                ●
-                            </span>
+    </div>
 
-                            <strong>
-                                Pflegedienst<br>
-                                GRATIA GmbH
-                            </strong>
+</div>
 
                         </div>
 
