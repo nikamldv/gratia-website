@@ -5314,1411 +5314,355 @@ a.footer-contact-item:hover {
    END OF GRATIA MAIN STYLESHEET
 ========================================================= */
 
-
 /* =========================================================
-   FINAL MEDIA BAR SAFETY
+   CLEAN RESPONSIVE OVERRIDES
+   One final source of truth for header, hero and footer media.
 ========================================================= */
 
-.footer-media-container,
-.footer-media-title,
-.footer-social,
-.footer-social > a {
-    min-width: 0 !important;
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
 }
 
-.footer-media-title h2 {
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
-@media (max-width: 1200px) {
-    .footer-media-title h2 {
-        overflow: visible !important;
-        text-overflow: clip !important;
+img,
+svg,
+video,
+iframe {
+    max-width: 100%;
+}
+
+/* Desktop logo position */
+@media (min-width: 1051px) {
+    .header .logo {
+        margin-left: -18px;
     }
 }
 
-
-/* =========================================================
-   FINAL FIX - MEDIA BAR TABLET / PHONE
-   Prevent title from overlapping Facebook
-========================================================= */
-
-@media (max-width: 1050px) {
-
+/* Tablet / mobile safety */
+@media (max-width: 900px) {
+    .container,
+    .header-container,
+    .hero-container,
+    .footer-container,
     .footer-media-container {
-        width: 94% !important;
-
-        display: grid !important;
-
-        grid-template-columns: 1fr !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 10px !important;
-
-        padding: 10px 0 !important;
-
-        min-height: auto !important;
+        max-width: 100%;
+        min-width: 0;
     }
 
-
-    /* ==============================
-       TITLE
-    ============================== */
-
-    .footer-media-title {
-        width: 100% !important;
-
-        display: flex !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 8px !important;
-
-        flex: none !important;
-
-        min-width: 0 !important;
+    .hero-container {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-
-    .footer-media-title h2 {
-        margin: 0 !important;
-
-        font-size: 14px !important;
-
-        line-height: 1.2 !important;
-
-        white-space: nowrap !important;
-
-        text-align: center !important;
-
-        transform: none !important;
-
-        overflow: visible !important;
-    }
-
-
-    .footer-media-line {
-        width: 20px !important;
-
-        min-width: 20px !important;
-
-        flex: 0 0 20px !important;
-    }
-
-
-    /* ==============================
-       SOCIAL MEDIA
-    ============================== */
-
-    .footer-social {
-        width: 100% !important;
-
-        display: grid !important;
-
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr)) !important;
-
-        align-items: center !important;
-
-        justify-content: center !important;
-
-        gap: 0 !important;
-
-        flex: none !important;
-
-        min-width: 0 !important;
-    }
-
-
+    .hero-content,
+    .hero-description,
+    .hero h1,
+    .footer-media-title,
+    .footer-social,
     .footer-social > a {
-        width: 100% !important;
-
-        min-width: 0 !important;
-
-        display: flex !important;
-
-        flex-direction: row !important;
-
-        align-items: center !important;
-
-        justify-content: center !important;
-
-        gap: 5px !important;
-
-        padding: 0 6px !important;
-
-        border-left: 1px solid
-            rgba(255,255,255,0.20) !important;
-
-        box-sizing: border-box !important;
-    }
-
-
-    .footer-social > a:first-child {
-        border-left: 0 !important;
-    }
-
-
-    .footer-social > a:last-child {
-        padding-right: 6px !important;
-    }
-
-
-    /* ==============================
-       ICON
-    ============================== */
-
-    .social-icon {
-        width: 28px !important;
-
-        height: 28px !important;
-
-        min-width: 28px !important;
-
-        flex: 0 0 28px !important;
-
-        font-size: 12px !important;
-    }
-
-
-    /* ==============================
-       TEXT
-    ============================== */
-
-    .footer-social strong {
-        display: block !important;
-
-        font-size: 8px !important;
-
-        line-height: 1.1 !important;
-
-        white-space: nowrap !important;
-    }
-
-
-    .footer-social small {
-        display: block !important;
-
-        font-size: 5.5px !important;
-
-        line-height: 1.1 !important;
-
-        white-space: nowrap !important;
+        min-width: 0;
+        max-width: 100%;
     }
 }
 
+/* Phone */
+@media (max-width: 600px) {
+    .container {
+        width: calc(100% - 28px);
+        max-width: none;
+        margin-inline: auto;
+    }
 
-/* =========================================================
-   PHONE
-========================================================= */
+    .header {
+        height: 72px;
+    }
 
-@media (max-width: 700px) {
+    .header-container {
+        width: 100%;
+        height: 72px;
+        padding: 0 10px;
+        gap: 6px;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+    }
 
+    .header-container .logo {
+        width: 104px;
+        height: 72px;
+        flex: 0 1 104px;
+        min-width: 86px;
+        margin: 0;
+    }
+
+    .header-container .logo img {
+        width: 104px;
+        max-width: 100%;
+        max-height: 56px;
+        object-fit: contain;
+    }
+
+    .header-container .header-call-button {
+        width: auto;
+        min-width: 108px;
+        max-width: 118px;
+        height: 38px;
+        flex: 0 1 118px;
+        margin-left: auto;
+        padding: 0 8px;
+        gap: 5px;
+        font-size: 10px;
+        white-space: nowrap;
+    }
+
+    .header-container .menu-button {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        flex: 0 0 38px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .hero {
+        min-height: auto;
+        padding-top: 72px;
+        padding-bottom: 55px;
+        overflow: hidden;
+    }
+
+    .hero-container {
+        width: calc(100% - 28px);
+        max-width: none;
+        margin-inline: auto;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 34px;
+    }
+
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+    }
+
+    .hero-small-title {
+        max-width: 100%;
+        font-size: 11px;
+        letter-spacing: 1.5px;
+        overflow-wrap: anywhere;
+    }
+
+    .hero h1 {
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(34px, 10.5vw, 42px);
+        line-height: 1.08;
+        letter-spacing: -0.5px;
+        overflow-wrap: break-word;
+    }
+
+    .hero-description {
+        width: 100%;
+        max-width: 100%;
+        font-size: 14px;
+        line-height: 1.6;
+        overflow-wrap: break-word;
+    }
+
+    .hero-buttons {
+        width: 100%;
+        max-width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 48px;
+        height: 48px;
+        padding: 0 16px;
+        font-size: 13px;
+    }
+
+    .hero-image,
+    .hero-image img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Footer media: title left, social links right */
     .footer-media-container {
-        width: 92% !important;
-
-        display: grid !important;
-
-        grid-template-columns: 1fr !important;
-
-        gap: 8px !important;
-
-        padding: 9px 0 !important;
-    }
-
-
-    .footer-media-title {
-        width: 100% !important;
-
-        justify-content: center !important;
-
-        gap: 6px !important;
-    }
-
-
-    .footer-media-title h2 {
-        font-size: 12px !important;
-
-        white-space: nowrap !important;
-
-        text-align: center !important;
-    }
-
-
-    .footer-media-line {
-        width: 15px !important;
-
-        min-width: 15px !important;
-
-        flex-basis: 15px !important;
-    }
-
-
-    .footer-social {
-        width: 100% !important;
-
-        display: grid !important;
-
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr)) !important;
-
-        gap: 0 !important;
-    }
-
-
-    .footer-social > a {
-        width: 100% !important;
-
-        min-width: 0 !important;
-
-        display: flex !important;
-
-        flex-direction: column !important;
-
-        align-items: center !important;
-
-        justify-content: center !important;
-
-        gap: 3px !important;
-
-        padding: 2px 3px !important;
-
-        border-left: 1px solid
-            rgba(255,255,255,0.18) !important;
-    }
-
-
-    .footer-social > a:first-child {
-        border-left: 0 !important;
-    }
-
-
-    .social-icon {
-        width: 26px !important;
-
-        height: 26px !important;
-
-        min-width: 26px !important;
-
-        flex-basis: 26px !important;
-
-        font-size: 11px !important;
-    }
-
-
-    .footer-social strong {
-        font-size: 6.5px !important;
-
-        text-align: center !important;
-    }
-
-
-    .footer-social small {
-        font-size: 5px !important;
-
-        text-align: center !important;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONE
-========================================================= */
-
-@media (max-width: 390px) {
-
-    .footer-media-container {
-        width: 94% !important;
-
-        gap: 7px !important;
-
-        padding: 8px 0 !important;
-    }
-
-
-    .footer-media-title h2 {
-        font-size: 11px !important;
-    }
-
-
-    .footer-media-line {
-        width: 13px !important;
-
-        min-width: 13px !important;
-
-        flex-basis: 13px !important;
-    }
-
-
-    .social-icon {
-        width: 23px !important;
-
-        height: 23px !important;
-
-        min-width: 23px !important;
-
-        flex-basis: 23px !important;
-
-        font-size: 10px !important;
-    }
-
-
-    .footer-social strong {
-        font-size: 5.5px !important;
-    }
-
-
-    .footer-social small {
-        font-size: 4.5px !important;
-    }
-}
-
-/* =========================================================
-   GRATIA - DEFINITIVE FOOTER MEDIA BAR FIX
-   This block MUST stay at the very end of style.css.
-   Fixes title/social overlap on laptop + desktop.
-========================================================= */
-
-/* ---------- DESKTOP: enough room for title + 3 socials ---------- */
-@media (min-width: 1201px) {
-
-    .footer-media-container {
-        width: min(94%, 1400px) !important;
-        max-width: 1400px !important;
-
-        display: grid !important;
-        grid-template-columns: minmax(390px, 0.95fr) minmax(0, 1.75fr) !important;
-
-        align-items: center !important;
-        column-gap: 35px !important;
-        row-gap: 0 !important;
-
-        min-height: 82px !important;
-        padding: 12px 0 !important;
+        width: calc(100% - 20px);
+        max-width: none;
+        min-height: 58px;
+        margin: 0 auto;
+        padding: 7px 0;
+        display: grid;
+        grid-template-columns: minmax(105px, 40%) minmax(0, 60%);
+        align-items: center;
+        gap: 0;
     }
 
     .footer-media-title {
-        width: 100% !important;
-        min-width: 390px !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-
-        gap: 12px !important;
-        white-space: nowrap !important;
-    }
-
-    .footer-media-title h2 {
-        flex: 0 0 auto !important;
-
-        margin: 0 !important;
-
-        font-size: 19px !important;
-        line-height: 1.15 !important;
-
-        white-space: nowrap !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-
-        transform: none !important;
-    }
-
-    .footer-media-line {
-        width: 34px !important;
-        min-width: 34px !important;
-        flex: 0 0 34px !important;
-        height: 2px !important;
-    }
-
-    .footer-social {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-
-        align-items: center !important;
-        gap: 0 !important;
-    }
-
-    .footer-social > a {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        flex-direction: row !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 8px !important;
-        padding: 0 12px !important;
-
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    .footer-social > a:first-child {
-        border-left: none !important;
-    }
-
-    .footer-social > a + a {
-        border-left: 1px solid rgba(255,255,255,0.25) !important;
-    }
-
-    .social-icon {
-        width: 38px !important;
-        height: 38px !important;
-        min-width: 38px !important;
-        flex: 0 0 38px !important;
-
-        font-size: 16px !important;
-    }
-
-    .footer-social > a > span:last-child {
-        min-width: 0 !important;
-        overflow: hidden !important;
-    }
-
-    .footer-social strong {
-        display: block !important;
-
-        font-size: 10px !important;
-        line-height: 1.15 !important;
-
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-
-    .footer-social small {
-        display: block !important;
-
-        margin-top: 2px !important;
-
-        font-size: 6.5px !important;
-        line-height: 1.15 !important;
-
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-}
-
-
-/* ---------- LAPTOP / TABLET ----------
-   Title gets its own row.
-   This is the important part for the screenshot size.
---------------------------------------------------------- */
-@media (max-width: 1200px) {
-
-    .footer-media-container {
-        width: 94% !important;
-        max-width: 1000px !important;
-
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-
-        align-items: center !important;
-        justify-items: stretch !important;
-
-        gap: 13px !important;
-
-        min-height: auto !important;
-        padding: 12px 0 13px !important;
-    }
-
-    .footer-media-title {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 10px !important;
-
-        white-space: nowrap !important;
-    }
-
-    .footer-media-title h2 {
-        margin: 0 !important;
-
-        font-size: 17px !important;
-        line-height: 1.2 !important;
-
-        white-space: nowrap !important;
-        overflow: visible !important;
-        text-overflow: clip !important;
-
-        text-align: center !important;
-    }
-
-    .footer-media-line {
-        width: 30px !important;
-        min-width: 30px !important;
-        flex: 0 0 30px !important;
-        height: 2px !important;
-    }
-
-    .footer-social {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-
-        align-items: center !important;
-        gap: 0 !important;
-    }
-
-    .footer-social > a {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        flex-direction: row !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 6px !important;
-        padding: 0 8px !important;
-
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    .footer-social > a:first-child {
-        border-left: none !important;
-    }
-
-    .footer-social > a + a {
-        border-left: 1px solid rgba(255,255,255,0.22) !important;
-    }
-
-    .social-icon {
-        width: 32px !important;
-        height: 32px !important;
-        min-width: 32px !important;
-        flex: 0 0 32px !important;
-
-        font-size: 14px !important;
-    }
-
-    .footer-social > a > span:last-child {
-        min-width: 0 !important;
-        overflow: hidden !important;
-    }
-
-    .footer-social strong {
-        display: block !important;
-
-        font-size: 8.5px !important;
-        line-height: 1.1 !important;
-
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-
-    .footer-social small {
-        display: block !important;
-
-        margin-top: 2px !important;
-
-        font-size: 5.5px !important;
-        line-height: 1.1 !important;
-
-        white-space: nowrap !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-}
-
-
-/* ---------- PHONE ---------- */
-@media (max-width: 700px) {
-
-    .footer-media-container {
-        width: 92% !important;
-        max-width: none !important;
-
-        display: grid !important;
-        grid-template-columns: 1fr !important;
-
-        gap: 9px !important;
-        padding: 10px 0 9px !important;
-    }
-
-    .footer-media-title {
-        width: 100% !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 7px !important;
-    }
-
-    .footer-media-title h2 {
-        font-size: 12px !important;
-        line-height: 1.2 !important;
-
-        white-space: nowrap !important;
-        text-align: center !important;
-    }
-
-    .footer-media-line {
-        width: 17px !important;
-        min-width: 17px !important;
-        flex-basis: 17px !important;
-    }
-
-    .footer-social {
-        width: 100% !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-
-        gap: 0 !important;
-    }
-
-    .footer-social > a {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        flex-direction: column !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 3px !important;
-        padding: 3px 2px !important;
-
-        box-sizing: border-box !important;
-    }
-
-    .footer-social > a:first-child {
-        border-left: none !important;
-    }
-
-    .footer-social > a + a {
-        border-left: 1px solid rgba(255,255,255,0.18) !important;
-    }
-
-    .social-icon {
-        width: 26px !important;
-        height: 26px !important;
-        min-width: 26px !important;
-        flex: 0 0 26px !important;
-
-        font-size: 11px !important;
-    }
-
-    .footer-social strong {
-        font-size: 6.5px !important;
-        line-height: 1.1 !important;
-        text-align: center !important;
-    }
-
-    .footer-social small {
-        max-width: 100% !important;
-
-        font-size: 5px !important;
-        line-height: 1.1 !important;
-        text-align: center !important;
-
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-}
-
-
-/* ---------- VERY SMALL PHONE ---------- */
-@media (max-width: 390px) {
-
-    .footer-media-container {
-        width: 94% !important;
-        padding: 8px 0 !important;
-        gap: 7px !important;
-    }
-
-    .footer-media-title h2 {
-        font-size: 11px !important;
-    }
-
-    .footer-media-line {
-        width: 13px !important;
-        min-width: 13px !important;
-        flex-basis: 13px !important;
-    }
-
-    .social-icon {
-        width: 23px !important;
-        height: 23px !important;
-        min-width: 23px !important;
-        flex-basis: 23px !important;
-        font-size: 10px !important;
-    }
-
-    .footer-social strong {
-        font-size: 5.5px !important;
-    }
-
-    .footer-social small {
-        font-size: 4.5px !important;
-    }
-}
-
-/* =========================================================
-   FINAL FIX - MOBILE FOOTER MEDIA BAR
-   Titel links | Social Media rechts
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .footer-media-container {
-        width: 94% !important;
-        max-width: none !important;
-
-        display: grid !important;
-        grid-template-columns: 44% 56% !important;
-
-        align-items: center !important;
-        column-gap: 0 !important;
-        row-gap: 0 !important;
-
-        min-height: 58px !important;
-        padding: 8px 0 !important;
-
-        box-sizing: border-box !important;
-    }
-
-    /* -------------------------
-       TEXT: LINKS
-    ------------------------- */
-    .footer-media-title {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-
-        gap: 6px !important;
-        padding: 0 5px 0 0 !important;
-
-        box-sizing: border-box !important;
-
-        text-align: left !important;
-        white-space: normal !important;
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 5px;
+        padding-right: 4px;
+        white-space: normal;
     }
 
     .footer-media-title .footer-media-line {
-        width: 14px !important;
-        min-width: 14px !important;
-        flex: 0 0 14px !important;
-        height: 1px !important;
-    }
-
-    /* The second decorative line is removed on small screens
-       so the title has enough room and stays clearly on the left. */
-    .footer-media-title .footer-media-line:last-child {
-        display: none !important;
-    }
-
-    .footer-media-title h2 {
-        flex: 0 1 auto !important;
-
-        width: auto !important;
-        max-width: 100% !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        font-size: 10px !important;
-        line-height: 1.25 !important;
-        letter-spacing: 0 !important;
-
-        text-align: left !important;
-        white-space: normal !important;
-
-        overflow: visible !important;
-        text-overflow: clip !important;
-
-        transform: none !important;
-    }
-
-    /* -------------------------
-       SOCIAL MEDIA: RECHTS
-    ------------------------- */
-    .footer-social {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-
-        align-items: center !important;
-        justify-content: stretch !important;
-
-        gap: 0 !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
-    .footer-social > a {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        flex-direction: column !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 2px !important;
-        padding: 2px 3px !important;
-
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    .footer-social > a:first-child {
-        border-left: 0 !important;
-    }
-
-    .footer-social > a + a {
-        border-left: 1px solid rgba(255,255,255,0.18) !important;
-    }
-
-    .social-icon {
-        width: 25px !important;
-        height: 25px !important;
-        min-width: 25px !important;
-        flex: 0 0 25px !important;
-
-        font-size: 11px !important;
-    }
-
-    .footer-social strong {
-        display: block !important;
-
-        font-size: 6px !important;
-        line-height: 1.1 !important;
-
-        text-align: center !important;
-        white-space: nowrap !important;
-    }
-
-    .footer-social small {
-        display: block !important;
-        max-width: 100% !important;
-
-        font-size: 4.5px !important;
-        line-height: 1.1 !important;
-
-        text-align: center !important;
-        white-space: nowrap !important;
-
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-}
-
-
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
-
-@media (max-width: 390px) {
-
-    .footer-media-container {
-        width: 95% !important;
-        grid-template-columns: 43% 57% !important;
-
-        min-height: 54px !important;
-        padding: 7px 0 !important;
-    }
-
-    .footer-media-title {
-        gap: 4px !important;
-        padding-right: 3px !important;
-    }
-
-    .footer-media-title .footer-media-line {
-        width: 10px !important;
-        min-width: 10px !important;
-        flex-basis: 10px !important;
-    }
-
-    .footer-media-title h2 {
-        font-size: 9px !important;
-        line-height: 1.2 !important;
-    }
-
-    .social-icon {
-        width: 22px !important;
-        height: 22px !important;
-        min-width: 22px !important;
-        flex-basis: 22px !important;
-        font-size: 10px !important;
-    }
-
-    .footer-social strong {
-        font-size: 5.5px !important;
-    }
-
-    .footer-social small {
-        font-size: 4px !important;
-    }
-}
-
-/* =========================================================
-   DEFINITIVE MOBILE FOOTER MEDIA LAYOUT
-   LEFT: title | RIGHT: social media
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .footer-media-container {
-        position: relative !important;
-
-        width: 94% !important;
-        max-width: none !important;
-
-        min-height: 58px !important;
-        height: 58px !important;
-
-        display: block !important;
-
-        margin: 0 auto !important;
-        padding: 0 !important;
-
-        box-sizing: border-box !important;
-    }
-
-    /* TITLE — fixed to the LEFT */
-    .footer-media-title {
-        position: absolute !important;
-
-        left: 0 !important;
-        top: 50% !important;
-
-        width: 40% !important;
-        min-width: 0 !important;
-
-        transform: translateY(-50%) !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-
-        gap: 5px !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        box-sizing: border-box !important;
-
-        text-align: left !important;
-    }
-
-    .footer-media-title .footer-media-line {
-        display: block !important;
-
-        width: 11px !important;
-        min-width: 11px !important;
-        flex: 0 0 11px !important;
-
-        height: 1px !important;
-
-        margin: 0 !important;
+        width: 11px;
+        min-width: 11px;
+        flex: 0 0 11px;
     }
 
     .footer-media-title .footer-media-line:last-child {
-        display: none !important;
+        display: none;
     }
 
     .footer-media-title h2 {
-        width: auto !important;
-        max-width: calc(100% - 16px) !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        font-size: 9px !important;
-        line-height: 1.2 !important;
-
-        font-family: "Playfair Display", Georgia, serif !important;
-
-        text-align: left !important;
-        white-space: nowrap !important;
-
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-
-        transform: none !important;
+        width: auto;
+        max-width: 100%;
+        min-width: 0;
+        margin: 0;
+        font-size: 10px;
+        line-height: 1.2;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: clip;
     }
 
-    /* SOCIAL MEDIA — fixed to the RIGHT */
     .footer-social {
-        position: absolute !important;
-
-        right: 0 !important;
-        top: 50% !important;
-
-        width: 58% !important;
-        min-width: 0 !important;
-
-        transform: translateY(-50%) !important;
-
-        display: grid !important;
-
-        grid-template-columns:
-            repeat(3, minmax(0, 1fr)) !important;
-
-        align-items: center !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        box-sizing: border-box !important;
+        width: 100%;
+        min-width: 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        margin: 0;
+        padding: 0;
     }
 
     .footer-social > a {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        flex-direction: column !important;
-
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 2px !important;
-
-        margin: 0 !important;
-        padding: 0 2px !important;
-
-        box-sizing: border-box !important;
-    }
-
-    .footer-social > a:first-child {
-        border-left: 0 !important;
-    }
-
-    .footer-social > a + a {
-        border-left: 1px solid rgba(255,255,255,0.18) !important;
+        width: 100%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2px;
+        padding: 2px;
+        text-align: center;
     }
 
     .social-icon {
-        width: 25px !important;
-        height: 25px !important;
-        min-width: 25px !important;
-        flex: 0 0 25px !important;
-
-        font-size: 11px !important;
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        flex: 0 0 24px;
+        font-size: 10px;
     }
 
     .footer-social strong {
-        margin: 0 !important;
-
-        font-size: 6px !important;
-        line-height: 1.1 !important;
-
-        text-align: center !important;
-        white-space: nowrap !important;
+        max-width: 100%;
+        font-size: 6px;
+        line-height: 1.1;
+        white-space: nowrap;
     }
 
     .footer-social small {
-        max-width: 100% !important;
+        max-width: 100%;
+        font-size: 4.5px;
+        line-height: 1.1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-        margin: 0 !important;
-
-        font-size: 4.3px !important;
-        line-height: 1.1 !important;
-
-        text-align: center !important;
-        white-space: nowrap !important;
-
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
+    .back-to-top {
+        right: 16px;
+        bottom: 78px;
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
     }
 }
 
-
-/* =========================================================
-   VERY SMALL PHONE
-========================================================= */
-
+/* Very small phones */
 @media (max-width: 390px) {
-
-    .footer-media-container {
-        width: 95% !important;
-        min-height: 53px !important;
-        height: 53px !important;
+    .container,
+    .hero-container {
+        width: calc(100% - 22px);
     }
 
-    .footer-media-title {
-        width: 39% !important;
+    .header-container {
+        padding: 0 8px;
+        gap: 5px;
     }
 
-    .footer-media-title h2 {
-        font-size: 8px !important;
+    .header-container .logo {
+        width: 92px;
+        min-width: 78px;
+        flex-basis: 92px;
     }
 
-    .footer-media-title .footer-media-line {
-        width: 9px !important;
-        min-width: 9px !important;
-        flex-basis: 9px !important;
+    .header-container .logo img {
+        width: 92px;
     }
 
-    .footer-social {
-        width: 61% !important;
+    .header-container .header-call-button {
+        min-width: 100px;
+        max-width: 108px;
+        flex-basis: 108px;
+        padding: 0 6px;
+        font-size: 9px;
     }
 
-    .social-icon {
-        width: 22px !important;
-        height: 22px !important;
-        min-width: 22px !important;
-        flex-basis: 22px !important;
-
-        font-size: 10px !important;
+    .header-container .menu-button {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        flex-basis: 36px;
     }
 
-    .footer-social strong {
-        font-size: 5.3px !important;
-    }
-
-    .footer-social small {
-        font-size: 3.8px !important;
-    }
-}
-
-
-/* =========================================================
-   GRATIA - FINAL MOBILE MEDIA BAR FIX
-   Desktop bleibt unverändert.
-   Mobile: "Folgen Sie uns auf" links,
-   Social Media sauber rechts daneben.
-========================================================= */
-
-@media (max-width: 700px) {
-
-    .footer-media-bar {
-        width: 100% !important;
-        overflow: hidden !important;
+    .hero h1 {
+        font-size: clamp(32px, 10.2vw, 38px);
     }
 
     .footer-media-container {
-        width: 94% !important;
-        max-width: none !important;
-        min-height: 58px !important;
-        height: 58px !important;
-
-        display: grid !important;
-        grid-template-columns: 40% 60% !important;
-        align-items: center !important;
-
-        margin: 0 auto !important;
-        padding: 0 !important;
-        gap: 0 !important;
-
-        box-sizing: border-box !important;
-    }
-
-    /* -----------------------------------------
-       LEFT: ONLY "Folgen Sie uns auf"
-    ----------------------------------------- */
-
-    .footer-media-title {
-        position: static !important;
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-
-        gap: 7px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-
-        transform: none !important;
-        text-align: left !important;
-        box-sizing: border-box !important;
-    }
-
-    .footer-media-title .footer-media-line {
-        display: block !important;
-        width: 13px !important;
-        min-width: 13px !important;
-        flex: 0 0 13px !important;
-        height: 1px !important;
-        margin: 0 !important;
-    }
-
-    /* second decorative line is not needed on mobile */
-    .footer-media-title .footer-media-line:last-child {
-        display: none !important;
+        width: calc(100% - 12px);
+        grid-template-columns: minmax(96px, 39%) minmax(0, 61%);
     }
 
     .footer-media-title h2 {
-        width: auto !important;
-        max-width: calc(100% - 20px) !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        font-family: "Playfair Display", Georgia, serif !important;
-        font-size: 10px !important;
-        font-weight: 500 !important;
-        line-height: 1.15 !important;
-
-        color: #f0d39b !important;
-        text-align: left !important;
-        white-space: nowrap !important;
-
-        overflow: visible !important;
-        text-overflow: clip !important;
-        transform: none !important;
-    }
-
-    /* Hide only "unseren Medien" on mobile */
-    .footer-media-title .media-title-extra {
-        display: none !important;
-    }
-
-    /* -----------------------------------------
-       RIGHT: FACEBOOK / INSTAGRAM / TIKTOK
-    ----------------------------------------- */
-
-    .footer-social {
-        position: static !important;
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: grid !important;
-        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-        align-items: center !important;
-
-        margin: 0 !important;
-        padding: 0 !important;
-
-        transform: none !important;
-        box-sizing: border-box !important;
-    }
-
-    .footer-social > a {
-        width: 100% !important;
-        min-width: 0 !important;
-
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-
-        gap: 2px !important;
-        margin: 0 !important;
-        padding: 0 3px !important;
-
-        box-sizing: border-box !important;
-        overflow: hidden !important;
-    }
-
-    .footer-social > a:first-child {
-        border-left: none !important;
-    }
-
-    .footer-social > a + a {
-        border-left: 1px solid rgba(255,255,255,0.20) !important;
+        font-size: 9px;
     }
 
     .social-icon {
-        width: 26px !important;
-        height: 26px !important;
-        min-width: 26px !important;
-        flex: 0 0 26px !important;
-
-        font-size: 11px !important;
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        flex-basis: 22px;
     }
 
     .footer-social strong {
-        display: block !important;
-        margin: 0 !important;
-
-        font-size: 6.5px !important;
-        line-height: 1.1 !important;
-        text-align: center !important;
-        white-space: nowrap !important;
+        font-size: 5.5px;
     }
 
     .footer-social small {
-        display: block !important;
-        width: 100% !important;
-        max-width: 100% !important;
-
-        margin: 0 !important;
-
-        font-size: 4.5px !important;
-        line-height: 1.1 !important;
-        text-align: center !important;
-        white-space: nowrap !important;
-
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-    }
-}
-
-
-/* -----------------------------------------
-   VERY SMALL PHONES
------------------------------------------ */
-
-@media (max-width: 390px) {
-
-    .footer-media-container {
-        width: 95% !important;
-        grid-template-columns: 41% 59% !important;
-        min-height: 54px !important;
-        height: 54px !important;
-    }
-
-    .footer-media-title {
-        gap: 5px !important;
-    }
-
-    .footer-media-title .footer-media-line {
-        width: 10px !important;
-        min-width: 10px !important;
-        flex-basis: 10px !important;
-    }
-
-    .footer-media-title h2 {
-        font-size: 8.5px !important;
-    }
-
-    .social-icon {
-        width: 23px !important;
-        height: 23px !important;
-        min-width: 23px !important;
-        flex-basis: 23px !important;
-        font-size: 10px !important;
-    }
-
-    .footer-social strong {
-        font-size: 5.7px !important;
-    }
-
-    .footer-social small {
-        font-size: 4px !important;
+        font-size: 4px;
     }
 }
