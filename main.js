@@ -3,22 +3,26 @@
    Main JavaScript
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        ELEMENTS
-       ===================================================== */
+    ===================================================== */
 
-    const header = document.getElementById("header");
+    const socialBar = document.getElementById("socialBar");
+    const siteHeader = document.getElementById("siteHeader");
+
     const menuToggle = document.getElementById("menuToggle");
     const mainNav = document.getElementById("mainNav");
+
     const navLinks = document.querySelectorAll(".nav-link");
+
     const currentYear = document.getElementById("currentYear");
 
 
     /* =====================================================
        CURRENT YEAR
-       ===================================================== */
+    ===================================================== */
 
     if (currentYear) {
         currentYear.textContent = new Date().getFullYear();
@@ -27,173 +31,175 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* =====================================================
        MOBILE MENU
-       ===================================================== */
+    ===================================================== */
 
     if (menuToggle && mainNav) {
 
-        menuToggle.addEventListener("click", function () {
+        menuToggle.addEventListener("click", () => {
 
             const isOpen = mainNav.classList.toggle("open");
-
-            menuToggle.classList.toggle("active", isOpen);
 
             menuToggle.setAttribute(
                 "aria-expanded",
                 isOpen ? "true" : "false"
             );
 
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen ? "Menü schließen" : "Menü öffnen"
+            );
+
         });
 
-    }
 
+        /* Close menu after clicking a navigation link */
 
-    /* =====================================================
-       CLOSE MOBILE MENU AFTER CLICK
-       ===================================================== */
+        navLinks.forEach((link) => {
 
-    navLinks.forEach(function (link) {
+            link.addEventListener("click", () => {
 
-        link.addEventListener("click", function () {
-
-            if (mainNav) {
                 mainNav.classList.remove("open");
-            }
-
-            if (menuToggle) {
-
-                menuToggle.classList.remove("active");
 
                 menuToggle.setAttribute(
                     "aria-expanded",
                     "false"
                 );
 
-            }
+                menuToggle.setAttribute(
+                    "aria-label",
+                    "Menü öffnen"
+                );
 
-        });
-
-    });
-
-
-    /* =====================================================
-       HEADER SCROLL EFFECT
-       ===================================================== */
-
-    function handleHeaderScroll() {
-
-        if (!header) {
-            return;
-        }
-
-        if (window.scrollY > 40) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-    }
-
-    window.addEventListener(
-        "scroll",
-        handleHeaderScroll,
-        { passive: true }
-    );
-
-    handleHeaderScroll();
-
-
-    /* =====================================================
-       SMOOTH SCROLL
-       ===================================================== */
-
-    const internalLinks =
-        document.querySelectorAll('a[href^="#"]');
-
-    internalLinks.forEach(function (link) {
-
-        link.addEventListener("click", function (event) {
-
-            const targetId =
-                link.getAttribute("href");
-
-            if (!targetId || targetId === "#") {
-                return;
-            }
-
-            const target =
-                document.querySelector(targetId);
-
-            if (!target) {
-                return;
-            }
-
-            event.preventDefault();
-
-            const headerHeight =
-                header ? header.offsetHeight : 0;
-
-            const targetPosition =
-                target.getBoundingClientRect().top +
-                window.pageYOffset -
-                headerHeight;
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth"
             });
 
         });
 
-    });
+    }
+
+
+    /* =====================================================
+       SOCIAL BAR / HEADER ON SCROLL
+       ===================================================== */
+
+    let lastScrollY = window.scrollY;
+
+    function handleScroll() {
+
+        const currentScrollY = window.scrollY;
+
+        /*
+         * At the top of the page:
+         * Social bar + header are visible.
+         */
+
+        if (currentScrollY <= 20) {
+
+            if (socialBar) {
+                socialBar.classList.remove("hidden");
+            }
+
+            if (siteHeader) {
+                siteHeader.classList.remove("social-hidden");
+            }
+
+            lastScrollY = currentScrollY;
+
+            return;
+        }
+
+
+        /*
+         * Scrolling down:
+         * Hide social bar.
+         * Move main header to the top.
+         */
+
+        if (currentScrollY > lastScrollY) {
+
+            if (socialBar) {
+                socialBar.classList.add("hidden");
+            }
+
+            if (siteHeader) {
+                siteHeader.classList.add("social-hidden");
+            }
+
+        }
+
+
+        /*
+         * Scrolling up:
+         * Show social bar again.
+         */
+
+        else if (currentScrollY < lastScrollY) {
+
+            if (socialBar) {
+                socialBar.classList.remove("hidden");
+            }
+
+            if (siteHeader) {
+                siteHeader.classList.remove("social-hidden");
+            }
+
+        }
+
+
+        lastScrollY = currentScrollY;
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        handleScroll,
+        { passive: true }
+    );
 
 
     /* =====================================================
        ACTIVE NAVIGATION
        ===================================================== */
 
-    const sections =
-        document.querySelectorAll("main section[id]");
+    const sections = document.querySelectorAll(
+        "main section[id]"
+    );
 
 
     function updateActiveNavigation() {
 
-        let currentSection = "";
-
         const scrollPosition =
-            window.scrollY + 180;
+            window.scrollY +
+            180;
 
 
-        sections.forEach(function (section) {
+        sections.forEach((section) => {
 
-            const sectionTop =
-                section.offsetTop;
+            const sectionTop = section.offsetTop;
 
-            const sectionHeight =
-                section.offsetHeight;
+            const sectionHeight = section.offsetHeight;
+
+            const sectionId = section.getAttribute("id");
+
 
             if (
                 scrollPosition >= sectionTop &&
-                scrollPosition <
-                sectionTop + sectionHeight
+                scrollPosition < sectionTop + sectionHeight
             ) {
-                currentSection =
-                    section.getAttribute("id");
-            }
 
-        });
+                navLinks.forEach((link) => {
 
+                    link.classList.remove("active");
 
-        navLinks.forEach(function (link) {
+                    const href =
+                        link.getAttribute("href");
 
-            link.classList.remove("active");
+                    if (href === `#${sectionId}`) {
+                        link.classList.add("active");
+                    }
 
-            const href =
-                link.getAttribute("href");
+                });
 
-            if (
-                href === "#" + currentSection
-            ) {
-                link.classList.add("active");
             }
 
         });
@@ -207,219 +213,192 @@ document.addEventListener("DOMContentLoaded", function () {
         { passive: true }
     );
 
+
     updateActiveNavigation();
 
 
     /* =====================================================
-       ESC KEY
+       SMOOTH SCROLL
        ===================================================== */
 
-    document.addEventListener(
-        "keydown",
-        function (event) {
+    document.querySelectorAll(
+        'a[href^="#"]'
+    ).forEach((link) => {
+
+        link.addEventListener("click", (event) => {
+
+            const targetId =
+                link.getAttribute("href");
+
+            /*
+             * Ignore empty placeholder links such as "#"
+             * used for future social media URLs.
+             */
 
             if (
-                event.key === "Escape" &&
-                mainNav &&
-                mainNav.classList.contains("open")
+                !targetId ||
+                targetId === "#"
             ) {
-
-                mainNav.classList.remove("open");
-
-                if (menuToggle) {
-
-                    menuToggle.classList.remove("active");
-
-                    menuToggle.setAttribute(
-                        "aria-expanded",
-                        "false"
-                    );
-
-                }
-
-            }
-
-        }
-    );
-
-
-    /* =====================================================
-       CLICK OUTSIDE MOBILE MENU
-       ===================================================== */
-
-    document.addEventListener(
-        "click",
-        function (event) {
-
-            if (!mainNav || !menuToggle) {
                 return;
             }
 
-            const clickedInsideMenu =
-                mainNav.contains(event.target);
 
-            const clickedToggle =
-                menuToggle.contains(event.target);
+            const target =
+                document.querySelector(targetId);
 
-            if (
-                !clickedInsideMenu &&
-                !clickedToggle &&
-                mainNav.classList.contains("open")
-            ) {
 
-                mainNav.classList.remove("open");
+            if (target) {
 
-                menuToggle.classList.remove("active");
+                event.preventDefault();
 
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
+                target.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
 
             }
-
-        }
-    );
-
-
-    /* =====================================================
-       SCROLL REVEAL ANIMATION
-       ===================================================== */
-
-    const revealElements =
-        document.querySelectorAll(
-            ".value-card, " +
-            ".service-card, " +
-            ".team-feature, " +
-            ".contact-item"
-        );
-
-
-    if (
-        "IntersectionObserver" in window &&
-        revealElements.length > 0
-    ) {
-
-        const observer =
-            new IntersectionObserver(
-                function (entries, observerInstance) {
-
-                    entries.forEach(function (entry) {
-
-                        if (entry.isIntersecting) {
-
-                            entry.target.classList.add(
-                                "revealed"
-                            );
-
-                            observerInstance.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.12
-                }
-            );
-
-
-        revealElements.forEach(function (element) {
-
-            element.classList.add("reveal");
-
-            observer.observe(element);
 
         });
 
-    }
-
-
-    /* =====================================================
-       IMAGE ERROR CHECK
-       ===================================================== */
-
-    const images =
-        document.querySelectorAll("img");
-
-
-    images.forEach(function (image) {
-
-        image.addEventListener(
-            "error",
-            function () {
-
-                console.warn(
-                    "Bild konnte nicht geladen werden:",
-                    image.getAttribute("src")
-                );
-
-                image.classList.add(
-                    "image-error"
-                );
-
-            }
-        );
-
     });
 
 
     /* =====================================================
-       PHONE LINKS
-       ===================================================== */
+       CLOSE MOBILE MENU WHEN RESIZING
+    ===================================================== */
 
-    const phoneLinks =
-        document.querySelectorAll(
-            'a[href^="tel:"]'
-        );
+    window.addEventListener("resize", () => {
 
+        if (
+            window.innerWidth > 850 &&
+            mainNav &&
+            menuToggle
+        ) {
 
-    phoneLinks.forEach(function (link) {
+            mainNav.classList.remove("open");
 
-        link.setAttribute(
-            "aria-label",
-            "GRATIA telefonisch kontaktieren"
-        );
+            menuToggle.setAttribute(
+                "aria-expanded",
+                "false"
+            );
 
-    });
+            menuToggle.setAttribute(
+                "aria-label",
+                "Menü öffnen"
+            );
 
-
-    /* =====================================================
-       EMAIL LINKS
-       ===================================================== */
-
-    const emailLinks =
-        document.querySelectorAll(
-            'a[href^="mailto:"]'
-        );
-
-
-    emailLinks.forEach(function (link) {
-
-        link.setAttribute(
-            "aria-label",
-            "GRATIA per E-Mail kontaktieren"
-        );
+        }
 
     });
 
-
-    /* =====================================================
-       HERO INTRO ANIMATION
-       ===================================================== */
-
-    document.body.classList.add("page-ready");
-
-
-    /* =====================================================
-       PAGE LOADED
-       ===================================================== */
-
-    console.log(
-        "GRATIA Website successfully loaded."
-    );
 
 });
+
+
+/* =========================================================
+   GRATIA CONTACT FORM - WEB3FORMS
+   ========================================================= */
+
+const gratiaContactForm = document.getElementById("gratia-contact-form");
+const formResult = document.getElementById("form-result");
+
+if (gratiaContactForm) {
+
+    gratiaContactForm.addEventListener("submit", async function (event) {
+
+        event.preventDefault();
+
+        const submitButton = gratiaContactForm.querySelector(
+            ".contact-submit-btn"
+        );
+
+        const originalButtonText = submitButton.innerHTML;
+
+        submitButton.disabled = true;
+        submitButton.innerHTML = "Wird gesendet ...";
+
+        formResult.className = "form-result";
+        formResult.style.display = "none";
+        formResult.textContent = "";
+
+        try {
+
+            const formData = new FormData(gratiaContactForm);
+
+            const response = await fetch(
+                "https://api.web3forms.com/submit",
+                {
+                    method: "POST",
+                    headers: {
+                        "Accept": "application/json"
+                    },
+                    body: formData
+                }
+            );
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+
+                formResult.className = "form-result success";
+                formResult.textContent =
+                    "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.";
+
+                gratiaContactForm.reset();
+
+            } else {
+
+                formResult.className = "form-result error";
+                formResult.textContent =
+                    "Leider konnte die Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut.";
+
+            }
+
+        } catch (error) {
+
+            console.error("Web3Forms error:", error);
+
+            formResult.className = "form-result error";
+            formResult.textContent =
+                "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+
+        } finally {
+
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+
+            formResult.style.display = "block";
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   BACK TO TOP
+========================================================= */
+
+const backToTop = document.getElementById("backToTop");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 500) {
+        backToTop.classList.add("show");
+    } else {
+        backToTop.classList.remove("show");
+    }
+
+});
+
+backToTop.addEventListener("click", () => {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+});
+
+

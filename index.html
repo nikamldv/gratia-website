@@ -2,32 +2,87 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Pflegedienst GRATIA GmbH | Außerklinische Intensivpflege</title>
 
     <meta
         name="description"
-        content="Pflegedienst GRATIA GmbH - Außerklinische Intensivpflege mit Herz, Kompetenz und Verantwortung."
+        content="Pflegedienst GRATIA GmbH – Außerklinische Intensivpflege, Heimbeatmung und individuelle Pflege mit Herz und Verantwortung."
     >
-
-    <title>Pflegedienst GRATIA GmbH | Außerklinische Intensivpflege</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- =========================
-         HEADER
-    ========================== -->
-    <header class="header" id="header">
+    <!-- =========================================
+         SOCIAL TOP BAR
+    ========================================== -->
+    <div class="social-bar" id="socialBar">
+        <div class="container social-bar-inner">
 
-        <div class="container nav-container">
+            <div class="social-bar-left">
+                <span>Folgen Sie uns</span>
+            </div>
 
-            <a href="#home" class="logo">
+            <div class="social-links">
+
+                <!-- Facebook -->
+                <a href="#"
+                   class="social-link"
+                   aria-label="Facebook"
+                   title="Facebook">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M14 8h3V4h-3c-3.3 0-5 1.7-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1z"/>
+                    </svg>
+
+                </a>
+
+                <!-- Instagram -->
+                <a href="#"
+                   class="social-link"
+                   aria-label="Instagram"
+                   title="Instagram">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+                        <circle cx="12" cy="12" r="4"></circle>
+                        <circle cx="17.5" cy="6.5" r="1"></circle>
+                    </svg>
+
+                </a>
+
+                <!-- TikTok -->
+                <a href="#"
+                   class="social-link"
+                   aria-label="TikTok"
+                   title="TikTok">
+
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M15 3v11.2a4.8 4.8 0 1 1-4-4.7v3.1a1.8 1.8 0 1 0 1 1.6V3h3c.2 1.5 1.2 2.7 3 3.2v3c-1.1-.1-2.1-.5-3-1.1V3z"/>
+                    </svg>
+
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================================
+         HEADER / NAVIGATION
+    ========================================== -->
+    <header class="site-header" id="siteHeader">
+
+        <div class="container header-inner">
+
+            <a href="#home" class="logo-link" aria-label="GRATIA Startseite">
                 <img
                     src="images/gratia-logo.png"
                     alt="Pflegedienst GRATIA GmbH"
+                    class="site-logo"
                 >
             </a>
 
@@ -36,17 +91,16 @@
                 id="menuToggle"
                 aria-label="Menü öffnen"
                 aria-expanded="false"
+                type="button"
             >
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
 
-            <nav class="nav" id="mainNav">
+            <nav class="main-nav" id="mainNav">
 
-                <a href="#home" class="nav-link active">
-                    Startseite
-                </a>
+                <a href="#home" class="nav-link active">Startseite</a>
 
                 <a href="#ueber-uns" class="nav-link">
                     Über uns
@@ -60,26 +114,29 @@
                     Haus Sonnenblume
                 </a>
 
+                <a href="#intensivpflege" class="nav-link">
+                    Intensivpflege
+                </a>
+
                 <a href="#team" class="nav-link">
                     Unser Team
                 </a>
 
-                <a href="#kontakt" class="nav-link nav-contact">
+                <a href="#kontakt" class="nav-link">
                     Kontakt
                 </a>
 
             </nav>
 
         </div>
-
     </header>
 
 
     <main>
 
-        <!-- =========================
+        <!-- =========================================
              HERO
-        ========================== -->
+        ========================================== -->
         <section class="hero" id="home">
 
             <div class="hero-overlay"></div>
@@ -88,30 +145,29 @@
 
                 <div class="hero-text">
 
-                    <span class="hero-label">
+                    <span class="hero-eyebrow">
                         PFLEGEDIENST GRATIA GMBH
                     </span>
 
                     <h1>
-                        Außerklinische
-                        <span>Intensivpflege</span>
-                        mit Herz
+                        Fürsorge mit Herz.
+                        <span>Fachkompetenz mit Verantwortung.</span>
                     </h1>
 
                     <p>
-                        Fachkompetenz, Verantwortung und menschliche
-                        Zuwendung für ein würdevolles und selbstbestimmtes
-                        Leben.
+                        Individuelle außerklinische Intensivpflege,
+                        Heimbeatmung und persönliche Betreuung
+                        mit Menschlichkeit, Vertrauen und Kompetenz.
                     </p>
 
                     <div class="hero-buttons">
 
-                        <a href="#kontakt" class="btn btn-primary">
-                            Kontakt aufnehmen
+                        <a href="#leistungen" class="btn btn-primary">
+                            Unsere Leistungen
                         </a>
 
-                        <a href="#leistungen" class="btn btn-outline">
-                            Unsere Leistungen
+                        <a href="#kontakt" class="btn btn-outline">
+                            Kontakt aufnehmen
                         </a>
 
                     </div>
@@ -119,53 +175,52 @@
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
-             INTRO
-        ========================== -->
-        <section class="intro section">
+        <!-- =========================================
+             INTRO / VALUES
+        ========================================== -->
+        <section class="intro-section section-padding">
 
             <div class="container">
 
-                <div class="section-heading">
+                <div class="section-heading center">
 
-                    <span class="section-label">
+                    <span class="section-kicker">
                         WILLKOMMEN BEI GRATIA
                     </span>
 
                     <h2>
-                        Der Mensch steht im Mittelpunkt
+                        Pflege, die den Menschen in den Mittelpunkt stellt
                     </h2>
 
                     <p>
-                        Bei der GRATIA GmbH steht der Mensch im Mittelpunkt
-                        unseres Handelns. Wir verbinden professionelle
-                        medizinische Versorgung mit Menschlichkeit,
-                        Vertrauen und Respekt.
+                        Wir verbinden fachliche Kompetenz mit
+                        persönlicher Zuwendung und schaffen damit
+                        eine vertrauensvolle Umgebung für unsere
+                        Klientinnen und Klienten.
                     </p>
 
                 </div>
 
 
-                <div class="values-grid">
+                <div class="value-grid">
 
                     <article class="value-card">
 
                         <div class="value-icon">
-                            ♥
+                            ❤
                         </div>
 
                         <h3>
-                            Menschlichkeit
+                            Fürsorge
                         </h3>
 
                         <p>
-                            Wir begegnen unseren Patientinnen und Patienten
-                            mit Empathie, Respekt und persönlicher
-                            Wertschätzung.
+                            Wir begegnen jedem Menschen mit
+                            Respekt, Aufmerksamkeit und persönlicher
+                            Zuwendung.
                         </p>
 
                     </article>
@@ -182,9 +237,9 @@
                         </h3>
 
                         <p>
-                            Unser qualifiziertes Team verfügt über
-                            umfangreiche Erfahrungen in der
-                            außerklinischen Intensivpflege.
+                            Unser qualifiziertes Team wird regelmäßig
+                            geschult und bildet sich kontinuierlich
+                            weiter.
                         </p>
 
                     </article>
@@ -201,28 +256,9 @@
                         </h3>
 
                         <p>
-                            Verlässlichkeit und eine respektvolle
-                            Kommunikation bilden die Grundlage unserer
-                            täglichen Arbeit.
-                        </p>
-
-                    </article>
-
-
-                    <article class="value-card">
-
-                        <div class="value-icon">
-                            +
-                        </div>
-
-                        <h3>
-                            Lebensqualität
-                        </h3>
-
-                        <p>
-                            Unser Ziel ist es, Selbstständigkeit,
-                            soziale Strukturen und Lebensqualität
-                            zu fördern.
+                            Zuverlässigkeit, respektvolle Kommunikation
+                            und ein vertrauensvoller Umgang sind für
+                            uns selbstverständlich.
                         </p>
 
                     </article>
@@ -230,91 +266,93 @@
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
-             ÜBER UNS
-        ========================== -->
-        <section class="about section" id="ueber-uns">
+        <!-- =========================================
+             ABOUT US
+        ========================================== -->
+        <section class="about-section section-padding" id="ueber-uns">
 
-            <div class="container about-grid">
+            <div class="container two-column">
 
                 <div class="about-image">
 
                     <img
                         src="images/pflege.png"
-                        alt="Professionelle Pflege bei GRATIA"
+                        alt="Pflege und Betreuung bei GRATIA"
                     >
+
+                    <div class="image-badge">
+                        <strong>GRATIA</strong>
+                        <span>Pflege mit Verantwortung</span>
+                    </div>
 
                 </div>
 
 
                 <div class="about-content">
 
-                    <span class="section-label">
-                        ÜBER UNS
+                    <span class="section-kicker">
+                        ÜBER GRATIA
                     </span>
 
                     <h2>
-                        Pflege mit Herz,
-                        Kompetenz und Verantwortung
+                        Menschlichkeit und Qualität in der Pflege
                     </h2>
 
                     <p>
-                        Als spezialisierter Anbieter der außerklinischen
-                        Intensivpflege versorgen wir erwachsene Menschen
-                        ab dem 18. Lebensjahr, insbesondere Menschen mit
-                        Beatmung oder Tracheostoma.
+                        Pflegedienst GRATIA GmbH steht für eine
+                        individuelle und verantwortungsvolle
+                        Versorgung von Menschen mit besonderem
+                        Pflegebedarf.
                     </p>
 
                     <p>
-                        Unsere medizinische Versorgung findet in der
-                        häuslichen Umgebung oder in unseren Wohngruppen
-                        statt. Dabei möchten wir unseren Patientinnen und
-                        Patienten ein würdevolles und möglichst
-                        selbstbestimmtes Leben ermöglichen.
+                        Unser Schwerpunkt liegt insbesondere in der
+                        außerklinischen Intensivpflege und
+                        Heimbeatmung. Dabei steht für uns nicht nur
+                        die medizinische Versorgung, sondern immer
+                        der Mensch als Ganzes im Mittelpunkt.
                     </p>
 
                     <p>
-                        Unsere erfahrenen Mitarbeitenden verfügen über
-                        umfassende Qualifikationen und werden regelmäßig
-                        fort- und weitergebildet.
+                        Wir arbeiten vertrauensvoll, zuverlässig und
+                        mit einem hohen Anspruch an Qualität und
+                        fachliche Kompetenz.
                     </p>
 
-                    <a href="#team" class="text-link">
-                        Mehr über unser Team
-                        <span>→</span>
+                    <a href="#kontakt" class="text-link">
+                        Mehr über GRATIA erfahren →
                     </a>
 
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
-             LEISTUNGEN
-        ========================== -->
-        <section class="services section" id="leistungen">
+        <!-- =========================================
+             SERVICES
+        ========================================== -->
+        <section class="services-section section-padding" id="leistungen">
 
             <div class="container">
 
-                <div class="section-heading">
+                <div class="section-heading center">
 
-                    <span class="section-label">
+                    <span class="section-kicker">
                         UNSERE LEISTUNGEN
                     </span>
 
                     <h2>
-                        Außerklinische Intensivpflege
+                        Individuelle Pflege und Betreuung
                     </h2>
 
                     <p>
-                        Individuelle und professionelle Versorgung
-                        in einer vertrauten Umgebung.
+                        Unsere Leistungen orientieren sich an den
+                        persönlichen Bedürfnissen unserer Klientinnen
+                        und Klienten.
                     </p>
 
                 </div>
@@ -324,17 +362,15 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            01
-                        </div>
+                        <div class="service-number">01</div>
 
                         <h3>
-                            Außerklinische Beatmung
+                            Grundpflege
                         </h3>
 
                         <p>
-                            Professionelle Versorgung bei
-                            außerklinischer Beatmung und Heimbeatmung.
+                            Unterstützung bei der täglichen
+                            Grundversorgung und persönlichen Pflege.
                         </p>
 
                     </article>
@@ -342,17 +378,32 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            02
-                        </div>
+                        <div class="service-number">02</div>
+
+                        <h3>
+                            Heimbeatmung
+                        </h3>
+
+                        <p>
+                            Fachgerechte Versorgung und Betreuung
+                            beatmeter Menschen im außerklinischen
+                            Bereich.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">03</div>
 
                         <h3>
                             Trachealkanülenpflege
                         </h3>
 
                         <p>
-                            Fachgerechte Versorgung und Betreuung
-                            bei Tracheostoma und Trachealkanülen.
+                            Professionelle Versorgung und Pflege
+                            von Trachealkanülen.
                         </p>
 
                     </article>
@@ -360,17 +411,15 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            03
-                        </div>
+                        <div class="service-number">04</div>
 
                         <h3>
                             Sauerstoffversorgung
                         </h3>
 
                         <p>
-                            Individuelle Unterstützung und
-                            professionelle Sauerstoffversorgung.
+                            Individuelle Unterstützung bei der
+                            Sauerstoffversorgung.
                         </p>
 
                     </article>
@@ -378,17 +427,15 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            04
-                        </div>
+                        <div class="service-number">05</div>
 
                         <h3>
                             Wundversorgung
                         </h3>
 
                         <p>
-                            Fachgerechte Versorgung und
-                            kontinuierliche Betreuung von Wunden.
+                            Fachgerechte Versorgung und Betreuung
+                            bei Wunden.
                         </p>
 
                     </article>
@@ -396,17 +443,15 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            05
-                        </div>
+                        <div class="service-number">06</div>
 
                         <h3>
-                            Port- und PEG-Versorgung
+                            Portversorgung
                         </h3>
 
                         <p>
-                            Professionelle Versorgung bei Port und
-                            PEG entsprechend den individuellen Bedürfnissen.
+                            Professionelle Versorgung und Betreuung
+                            von Portsystemen.
                         </p>
 
                     </article>
@@ -414,17 +459,15 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            06
-                        </div>
+                        <div class="service-number">07</div>
 
                         <h3>
                             Stomaversorgung
                         </h3>
 
                         <p>
-                            Individuelle und fachkundige Unterstützung
-                            bei der Stomaversorgung.
+                            Individuelle und fachgerechte Versorgung
+                            von Stomata.
                         </p>
 
                     </article>
@@ -432,17 +475,15 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            07
-                        </div>
+                        <div class="service-number">08</div>
 
                         <h3>
-                            Infusions- und Schmerztherapie
+                            PEG & Katheter
                         </h3>
 
                         <p>
-                            Individuelle Betreuung und professionelle
-                            Durchführung der vorgesehenen Therapien.
+                            Versorgung von PEG-Systemen und
+                            Blasenkathetern.
                         </p>
 
                     </article>
@@ -450,17 +491,31 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            08
-                        </div>
+                        <div class="service-number">09</div>
+
+                        <h3>
+                            Infusion & Schmerztherapie
+                        </h3>
+
+                        <p>
+                            Unterstützung bei Infusionstherapien
+                            und Schmerzversorgung.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service-card">
+
+                        <div class="service-number">10</div>
 
                         <h3>
                             Palliativbetreuung
                         </h3>
 
                         <p>
-                            Menschliche und respektvolle Begleitung
-                            in besonderen Lebenssituationen.
+                            Einfühlsame und individuelle Begleitung
+                            in der palliativen Versorgung.
                         </p>
 
                     </article>
@@ -468,17 +523,31 @@
 
                     <article class="service-card">
 
-                        <div class="service-number">
-                            09
-                        </div>
+                        <div class="service-number">11</div>
 
                         <h3>
                             Psychosoziale Betreuung
                         </h3>
 
                         <p>
-                            Unterstützung und Begleitung unter
-                            Berücksichtigung der persönlichen Situation.
+                            Persönliche Begleitung und Unterstützung
+                            im Alltag.
+                        </p>
+
+                    </article>
+
+
+                    <article class="service-card featured">
+
+                        <div class="service-number">12</div>
+
+                        <h3>
+                            1:1 Intensivpflege
+                        </h3>
+
+                        <p>
+                            Individuelle außerklinische Intensivpflege
+                            im persönlichen Umfeld.
                         </p>
 
                     </article>
@@ -486,74 +555,80 @@
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
+        <!-- =========================================
              HAUS SONNENBLUME
-        ========================== -->
+        ========================================== -->
         <section
-            class="sonnenblume section"
+            class="sonnenblume-section section-padding"
             id="haus-sonnenblume"
         >
 
             <div class="container">
 
-                <div class="sonnenblume-grid">
+                <div class="two-column reverse-mobile">
 
                     <div class="sonnenblume-content">
 
-                        <span class="section-label">
+                        <span class="section-kicker">
                             HAUS SONNENBLUME
                         </span>
 
                         <h2>
-                            Ein Zuhause mit
-                            Sicherheit und Wärme
+                            Ein Zuhause mit Sicherheit und Geborgenheit
                         </h2>
 
                         <p>
-                            Mit der Eröffnung des Hauses Sonnenblume
-                            im Jahr 2016 schuf die GRATIA GmbH in
-                            Kolitzheim ein speziell auf die Bedürfnisse
-                            der außerklinischen Intensivpflege
-                            ausgerichtetes Zuhause.
+                            Das Haus Sonnenblume in Kolitzheim bietet
+                            erwachsenen Menschen eine moderne,
+                            barrierefreie Wohn- und Pflegeumgebung.
                         </p>
 
                         <p>
-                            Die barrierefreie und moderne Wohnanlage
-                            bietet intensivpflegebedürftigen Menschen
-                            ab dem 18. Lebensjahr eine familiäre,
-                            sichere und würdevolle Heimat.
+                            Die Einrichtung wurde 2016 eröffnet und
+                            bietet Platz für bis zu acht Personen.
+                            Die Bewohnerinnen und Bewohner verfügen
+                            über private Räume und können gleichzeitig
+                            die gemeinsamen Bereiche nutzen.
                         </p>
 
 
-                        <div class="house-features">
+                        <div class="feature-list">
 
-                            <div class="house-feature">
-                                <strong>550 m²</strong>
-                                <span>Wohnfläche</span>
+                            <div class="feature-item">
+                                <span>✓</span>
+                                <p>
+                                    Moderne und barrierefreie Umgebung
+                                </p>
                             </div>
 
-                            <div class="house-feature">
-                                <strong>8</strong>
-                                <span>Bewohnerplätze</span>
+                            <div class="feature-item">
+                                <span>✓</span>
+                                <p>
+                                    Private Zimmer und Badezimmer
+                                </p>
                             </div>
 
-                            <div class="house-feature">
-                                <strong>24/7</strong>
-                                <span>Betreuung</span>
+                            <div class="feature-item">
+                                <span>✓</span>
+                                <p>
+                                    Gemeinschaftsbereiche und Terrasse
+                                </p>
+                            </div>
+
+                            <div class="feature-item">
+                                <span>✓</span>
+                                <p>
+                                    Qualifizierte Betreuung rund um die Uhr
+                                </p>
                             </div>
 
                         </div>
 
-
-                        <a
-                            href="#kontakt"
-                            class="btn btn-primary"
-                        >
-                            Mehr erfahren
+                        <a href="#kontakt" class="btn btn-primary">
+                            Kontakt aufnehmen
                         </a>
 
                     </div>
@@ -561,22 +636,18 @@
 
                     <div class="sonnenblume-images">
 
-                        <div class="main-house-image">
-
+                        <div class="main-image">
                             <img
                                 src="images/haus-sonnenblumen.png"
-                                alt="Haus Sonnenblume in Kolitzheim"
+                                alt="Haus Sonnenblume"
                             >
-
                         </div>
 
-                        <div class="small-house-images">
-
+                        <div class="secondary-image">
                             <img
                                 src="images/zimmer.png"
                                 alt="Zimmer im Haus Sonnenblume"
                             >
-
                         </div>
 
                     </div>
@@ -584,18 +655,20 @@
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
-             HOME CARE
-        ========================== -->
-        <section class="home-care section">
+        <!-- =========================================
+             INTENSIVPFLEGE
+        ========================================== -->
+        <section
+            class="intensive-section section-padding"
+            id="intensivpflege"
+        >
 
-            <div class="container home-care-grid">
+            <div class="container two-column">
 
-                <div class="home-care-image">
+                <div class="intensive-image">
 
                     <img
                         src="images/intensivpflege.png"
@@ -605,95 +678,89 @@
                 </div>
 
 
-                <div class="home-care-content">
+                <div class="intensive-content">
 
-                    <span class="section-label">
-                        INDIVIDUELLE VERSORGUNG
+                    <span class="section-kicker">
+                        AUSSERKLINISCHE INTENSIVPFLEGE
                     </span>
 
                     <h2>
-                        Intensivpflege
-                        im eigenen Zuhause
+                        Individuelle Versorgung im vertrauten Umfeld
                     </h2>
 
                     <p>
-                        Wir bieten außerklinische Intensivpflege auch
-                        im häuslichen Umfeld an. Unsere qualifizierten
-                        Mitarbeitenden betreuen Patientinnen und
-                        Patienten individuell in ihrem eigenen Zuhause.
+                        Unsere außerklinische Intensivpflege richtet
+                        sich an Erwachsene ab 18 Jahren, insbesondere
+                        an Menschen mit Beatmung und Tracheostoma.
                     </p>
 
                     <p>
-                        Dadurch ist eine kontinuierliche Versorgung
-                        möglich, während die persönliche Lebensweise
-                        und Selbstbestimmung erhalten bleiben.
+                        Unser qualifiziertes Team sorgt für eine
+                        zuverlässige Versorgung und legt großen Wert
+                        auf eine respektvolle und vertrauensvolle
+                        Zusammenarbeit.
                     </p>
 
-                    <ul class="check-list">
+                    <div class="quote-box">
 
-                        <li>
-                            <span>✓</span>
-                            Individuelle Betreuung
-                        </li>
+                        <span class="quote-mark">“</span>
 
-                        <li>
-                            <span>✓</span>
-                            Vertraute Umgebung
-                        </li>
+                        <p>
+                            Fürsorge mit Herz,
+                            Fachkompetenz mit Verantwortung.
+                        </p>
 
-                        <li>
-                            <span>✓</span>
-                            Qualifiziertes Pflegepersonal
-                        </li>
-
-                        <li>
-                            <span>✓</span>
-                            Kontinuierliche Versorgung
-                        </li>
-
-                    </ul>
+                    </div>
 
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
+        <!-- =========================================
              TEAM
-        ========================== -->
-        <section class="team section" id="team">
+        ========================================== -->
+        <section class="team-section section-padding" id="team">
 
             <div class="container">
 
-                <div class="section-heading">
+                <div class="section-heading center">
 
-                    <span class="section-label">
+                    <span class="section-kicker">
                         UNSER TEAM
                     </span>
 
                     <h2>
-                        Erfahrung und Menschlichkeit
+                        Menschen, die für Menschen da sind
                     </h2>
 
                     <p>
-                        Die Qualität unserer Pflege wird von unseren
-                        qualifizierten und erfahrenen Mitarbeitenden
-                        getragen.
+                        Unser Team verfügt über umfangreiche
+                        Qualifikationen und regelmäßige
+                        Fortbildungen.
                     </p>
 
                 </div>
 
 
-                <div class="team-feature">
+                <div class="team-layout">
 
-                    <div class="team-image">
+                    <div class="team-images">
 
-                        <img
-                            src="images/Team.png"
-                            alt="Team der GRATIA GmbH"
-                        >
+                        <div class="team-image">
+                            <img
+                                src="images/Team.png"
+                                alt="Team von Pflegedienst GRATIA"
+                            >
+                        </div>
+
+                        <div class="team-image">
+                            <img
+                                src="images/Team1.png"
+                                alt="Mitarbeiterinnen und Mitarbeiter von GRATIA"
+                            >
+                        </div>
 
                     </div>
 
@@ -705,62 +772,47 @@
                         </h3>
 
                         <p>
-                            Unsere Teams verfügen über langjährige
-                            Erfahrungen in der Gesundheits- und
-                            Krankenpflege, Altenpflege, Atemtherapie
-                            sowie Anästhesie- und Intensivpflege.
+                            Unsere Mitarbeiterinnen und Mitarbeiter
+                            verfügen über Qualifikationen in den
+                            Bereichen Intensivpflege, Beatmung und
+                            Altenpflege.
                         </p>
 
                         <p>
-                            Regelmäßige Fort- und Weiterbildungen
-                            gewährleisten eine Versorgung nach
-                            aktuellen medizinischen und
-                            pflegewissenschaftlichen Standards.
+                            Durch regelmäßige Fort- und Weiterbildungen
+                            stellen wir sicher, dass unsere fachlichen
+                            Kenntnisse kontinuierlich weiterentwickelt
+                            werden.
                         </p>
 
-                        <div class="qualification-list">
+                        <p>
+                            Dabei verbinden wir professionelle Pflege
+                            mit einem menschlichen und respektvollen
+                            Umgang.
+                        </p>
 
-                            <span>
-                                Gesundheits- und Krankenpflege
-                            </span>
-
-                            <span>
-                                Altenpflege
-                            </span>
-
-                            <span>
-                                Atemtherapie
-                            </span>
-
-                            <span>
-                                Anästhesie- und Intensivpflege
-                            </span>
-
-                            <span>
-                                Außerklinische Intensivpflege
-                            </span>
-
-                        </div>
+                        <a href="#kontakt" class="text-link">
+                            Sprechen Sie mit uns →
+                        </a>
 
                     </div>
 
                 </div>
 
             </div>
-
         </section>
 
 
-        <!-- =========================
+        <!-- =========================================
              CTA
-        ========================== -->
-        <section class="cta">
+        ========================================== -->
+        <section class="cta-section">
 
-            <div class="container cta-content">
+            <div class="container cta-inner">
 
-                <div>
+                <div class="cta-content">
 
-                    <span class="section-label">
+                    <span class="section-kicker">
                         WIR SIND FÜR SIE DA
                     </span>
 
@@ -769,17 +821,13 @@
                     </h2>
 
                     <p>
-                        Sprechen Sie uns gerne an. Wir beraten Sie
-                        persönlich und individuell.
+                        Wir beraten Sie gerne persönlich und
+                        informieren Sie über unsere Leistungen.
                     </p>
 
                 </div>
 
-
-                <a
-                    href="#kontakt"
-                    class="btn btn-light"
-                >
+                <a href="#kontakt" class="btn btn-light">
                     Kontakt aufnehmen
                 </a>
 
@@ -788,188 +836,263 @@
         </section>
 
 
-        <!-- =========================
-             KONTAKT
-        ========================== -->
-        <section class="contact section" id="kontakt">
+       <!-- CONTACT -->
+<section class="contact-section" id="kontakt">
+    <div class="container">
 
-            <div class="container">
+        <div class="section-heading">
+            <span>Kontakt</span>
+            <h2>Wir sind für Sie da</h2>
+            <p>
+                Haben Sie Fragen zu unseren Leistungen oder zur außerklinischen
+                Intensivpflege? Schreiben Sie uns gerne. Wir melden uns schnellstmöglich bei Ihnen.
+            </p>
+        </div>
 
-                <div class="section-heading">
+        <div class="contact-layout">
 
-                    <span class="section-label">
-                        KONTAKT
-                    </span>
+            <!-- CONTACT FORM -->
+            <div class="contact-form-box">
 
-                    <h2>
-                        Wir freuen uns auf Sie
-                    </h2>
+                <h3>Kontaktformular</h3>
 
+                <p class="form-intro">
+                    Füllen Sie bitte das Formular aus. Wir freuen uns auf Ihre Nachricht.
+                </p>
+
+                <form
+                    action="https://api.web3forms.com/submit"
+                    method="POST"
+                    id="gratia-contact-form"
+                >
+
+                    <!-- Web3Forms Access Key -->
+                    <input
+                        type="hidden"
+                        name="access_key"
+                        value="f29bd21a-5500-40f0-b146-686cf8bf9bd3"
+                    >
+
+                    <!-- E-Mail Betreff -->
+                    <input
+                        type="hidden"
+                        name="subject"
+                        value="Neue Kontaktanfrage über die GRATIA Website"
+                    >
+
+                    <!-- Absendername -->
+                    <input
+                        type="hidden"
+                        name="from_name"
+                        value="Pflegedienst GRATIA GmbH Website"
+                    >
+
+                    <!-- Spam-Schutz -->
+                    <input
+                        type="checkbox"
+                        name="botcheck"
+                        style="display:none;"
+                    >
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="contact-name">
+                                Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contact-name"
+                                name="name"
+                                placeholder="Ihr vollständiger Name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-email">
+                                E-Mail *
+                            </label>
+
+                            <input
+                                type="email"
+                                id="contact-email"
+                                name="email"
+                                placeholder="Ihre E-Mail-Adresse"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="contact-phone">
+                                Telefon
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="contact-phone"
+                                name="phone"
+                                placeholder="Ihre Telefonnummer"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="contact-subject">
+                                Anliegen
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contact-subject"
+                                name="Anliegen"
+                                placeholder="Worum geht es?"
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="contact-message">
+                            Nachricht *
+                        </label>
+
+                        <textarea
+                            id="contact-message"
+                            name="message"
+                            rows="6"
+                            placeholder="Ihre Nachricht an uns..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="form-consent">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="Datenschutz"
+                                value="Zustimmung"
+                                required
+                            >
+
+                            <span>
+                                Ich stimme zu, dass meine Angaben zur Bearbeitung
+                                meiner Anfrage verwendet werden. *
+                            </span>
+                        </label>
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="contact-submit-btn"
+                    >
+                        Nachricht senden
+                        <span>→</span>
+                    </button>
+
+                    <div
+                        id="form-result"
+                        class="form-result"
+                        aria-live="polite"
+                    ></div>
+
+                </form>
+
+            </div>
+
+
+            <!-- CONTACT INFORMATION -->
+            <div class="contact-info">
+
+                <div class="contact-card">
+                    <div class="contact-card-icon">⌖</div>
+
+                    <div>
+                        <h3>Adresse</h3>
+                        <p>
+                            Pfaffenpfad 1<br>
+                            97440 Werneck<br>
+                            Deutschland
+                        </p>
+                    </div>
                 </div>
 
 
-                <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-card-icon">☎</div>
 
-                    <div class="contact-info">
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                📍
-                            </div>
-
-                            <div>
-                                <h3>
-                                    Adresse
-                                </h3>
-
-                                <p>
-                                    Pflegedienst GRATIA GmbH<br>
-                                    Pfaffenpfad 1<br>
-                                    97440 Werneck<br>
-                                    Deutschland
-                                </p>
-                            </div>
-
-                        </div>
-
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                ☎
-                            </div>
-
-                            <div>
-                                <h3>
-                                    Telefon
-                                </h3>
-
-                                <a href="tel:+4915787757403">
-                                    01578 7757403
-                                </a>
-                            </div>
-
-                        </div>
-
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                ✉
-                            </div>
-
-                            <div>
-                                <h3>
-                                    E-Mail
-                                </h3>
-
-                                <a
-                                    href="mailto:info@pflegedienst-gratia.com"
-                                >
-                                    info@pflegedienst-gratia.com
-                                </a>
-                            </div>
-
-                        </div>
-
-
-                        <div class="contact-item">
-
-                            <div class="contact-icon">
-                                ◷
-                            </div>
-
-                            <div>
-                                <h3>
-                                    Bürozeiten
-                                </h3>
-
-                                <p>
-                                    Montag – Freitag<br>
-                                    09:00 – 12:00 Uhr
-                                </p>
-
-                                <small>
-                                    Außerhalb der Öffnungszeiten
-                                    sind wir 24 Stunden täglich
-                                    erreichbar.
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="contact-card">
-
-                        <div class="contact-card-inner">
-
-                            <span class="section-label">
-                                GRATIA GMBH
-                            </span>
-
-                            <h3>
-                                Außerklinische
-                                Intensivpflege
-                                mit Herz
-                            </h3>
-
-                            <p>
-                                Vertrauen, Verlässlichkeit und
-                                fachliche Kompetenz für Menschen
-                                in individuellen Lebenssituationen.
-                            </p>
-
-                            <a
-                                href="tel:+4915787757403"
-                                class="btn btn-primary"
-                            >
-                                Jetzt anrufen
+                    <div>
+                        <h3>Telefon</h3>
+                        <p>
+                            <a href="tel:+4915787757403">
+                                01578 7757403
                             </a>
-
-                        </div>
-
+                        </p>
+                        <small>
+                            24 Stunden täglich erreichbar
+                        </small>
                     </div>
+                </div>
 
+
+                <div class="contact-card">
+                    <div class="contact-card-icon">✉</div>
+
+                    <div>
+                        <h3>E-Mail</h3>
+                        <p>
+                            <a href="mailto:pflegedienstgratia@gmail.com">
+                                pflegedienstgratia@gmail.com
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="contact-card">
+                    <div class="contact-card-icon">◷</div>
+
+                    <div>
+                        <h3>Bürozeiten</h3>
+                        <p>
+                            Montag – Freitag<br>
+                            09:00 – 12:00 Uhr
+                        </p>
+
+                        <small>
+                            Außerhalb der Bürozeiten sind wir telefonisch erreichbar.
+                        </small>
+                    </div>
                 </div>
 
             </div>
 
-        </section>
+        </div>
 
+    </div>
+</section>
     </main>
 
 
-    <!-- =========================
-         FOOTER
-    ========================== -->
-    <footer class="footer">
 
-        <div class="container footer-grid">
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
-            <div class="footer-brand">
+<footer class="footer">
 
-                <img
-                    src="images/gratia-logo.png"
-                    alt="GRATIA GmbH"
-                >
+    <div class="container footer-mobile-style">
 
-                <p>
-                    Außerklinische Intensivpflege
-                    mit Herz, Kompetenz und Verantwortung.
-                </p>
+        <!-- NAVIGATION -->
+        <div class="footer-section">
 
-            </div>
+            <h3>Navigation</h3>
 
-
-            <div class="footer-links">
-
-                <h3>
-                    Navigation
-                </h3>
+            <div class="footer-navigation">
 
                 <a href="#home">
                     Startseite
@@ -987,6 +1110,10 @@
                     Haus Sonnenblume
                 </a>
 
+                <a href="#intensivpflege">
+                    Intensivpflege
+                </a>
+
                 <a href="#team">
                     Unser Team
                 </a>
@@ -997,52 +1124,158 @@
 
             </div>
 
+        </div>
 
-            <div class="footer-contact">
 
-                <h3>
-                    Kontakt
-                </h3>
+        <!-- KONTAKT -->
+        <div class="footer-section">
 
-                <p>
-                    Pfaffenpfad 1<br>
-                    97440 Werneck
+            <h3>Kontakt</h3>
+
+            <div class="footer-contact-new">
+
+                <p class="footer-address">
+
+                    <span class="footer-icon">
+                        ●
+                    </span>
+
+                    <span>
+                        Pfaffenpfad 1<br>
+                        97440 Werneck
+                    </span>
+
                 </p>
 
-                <a href="tel:+4915787757403">
-                    01578 7757403
+
+                <a
+                    href="tel:+4915787757403"
+                    class="footer-contact-link"
+                >
+
+                    <span class="footer-icon">
+                        ☎
+                    </span>
+
+                    <span>
+                        01578 7757403
+                    </span>
+
                 </a>
 
-                <a href="mailto:info@pflegedienst-gratia.com">
-                    info@pflegedienst-gratia.com
+
+                <a
+                    href="mailto:pflegedienstgratia@gmail.com"
+                    class="footer-contact-link"
+                >
+
+                    <span class="footer-icon">
+                        ✉
+                    </span>
+
+                    <span>
+                        pflegedienstgratia@gmail.com
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- SOCIAL MEDIA -->
+
+            <div class="footer-social">
+
+                <a
+                    href="#"
+                    aria-label="Facebook"
+                    title="Facebook"
+                >
+                    f
+                </a>
+
+                <a
+                    href="#"
+                    aria-label="Instagram"
+                    title="Instagram"
+                >
+                    ◎
+                </a>
+
+                <a
+                    href="#"
+                    aria-label="TikTok"
+                    title="TikTok"
+                >
+                    ♪
                 </a>
 
             </div>
 
         </div>
 
+    </div>
 
-        <div class="footer-bottom">
 
-            <div class="container">
+    <!-- FOOTER BOTTOM -->
 
-                <p>
-                    © <span id="currentYear"></span>
-                    Pflegedienst GRATIA GmbH.
-                    Alle Rechte vorbehalten.
-                </p>
+    <div class="footer-bottom">
+
+        <div class="container footer-bottom-content">
+
+            <p class="footer-copyright">
+
+                © <span id="currentYear"></span>
+                Pflegedienst GRATIA GmbH.
+                Alle Rechte vorbehalten.
+
+            </p>
+
+
+            <div class="footer-legal">
+
+                <a href="Datenschutz.html">
+                    Datenschutz
+                </a>
+
+                <span>|</span>
+
+                <a href="Impressum.html">
+                    Impressum
+                </a>
+
+                <span>|</span>
+
+                <span>
+                    Website entwickelt von:
+                    <strong>Frau Nikmal</strong>
+                </span>
 
             </div>
 
         </div>
 
-    </footer>
+    </div>
 
+</footer>
 
-    <!-- =========================
+    <!-- =========================================
          JAVASCRIPT
-    ========================== -->
+    ========================================== -->
+    
+    <!-- Back to Top Button -->
+<button
+    id="backToTop"
+    class="back-to-top"
+    type="button"
+    aria-label="Nach oben"
+    title="Nach oben"
+>
+    ↑
+</button>
+    
     <script src="main.js"></script>
+
 
 </body>
 </html>
