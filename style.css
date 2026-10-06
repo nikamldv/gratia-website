@@ -1785,6 +1785,7 @@ button {
 
     .team-image img {
         height: 330px;
+        object-fit:contain
     }
 
 
@@ -3669,6 +3670,5 @@ button {
     }
 
 }
-
 
 
