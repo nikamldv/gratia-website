@@ -402,69 +402,165 @@ backToTop.addEventListener("click", () => {
 });
 
 /* =========================================================
-   CONTACT IMAGE SLIDER
+   TEAM MOBILE SLIDER
    ========================================================= */
 
-const contactSlides = document.querySelectorAll(".contact-slide");
-const contactDots = document.querySelectorAll(".contact-dot");
-const contactPrev = document.querySelector(".contact-prev");
-const contactNext = document.querySelector(".contact-next");
+document.addEventListener("DOMContentLoaded", function () {
 
-let contactCurrentSlide = 0;
-let contactSliderTimer;
+    const teamSlider = document.querySelector(".team-images");
 
-function showContactSlide(index) {
+    if (!teamSlider) return;
 
-    if (!contactSlides.length) return;
+    const slides = teamSlider.querySelectorAll(".team-image");
+    const dots = teamSlider.querySelectorAll(".team-slider-dot");
 
-    contactCurrentSlide =
-        (index + contactSlides.length) % contactSlides.length;
+    const prevButton =
+        teamSlider.querySelector(".team-slider-prev");
 
-    contactSlides.forEach((slide, i) => {
-        slide.classList.toggle(
-            "active",
-            i === contactCurrentSlide
-        );
-    });
+    const nextButton =
+        teamSlider.querySelector(".team-slider-next");
 
-    contactDots.forEach((dot, i) => {
-        dot.classList.toggle(
-            "active",
-            i === contactCurrentSlide
-        );
-    });
-}
+    if (slides.length < 2) return;
 
-function startContactSlider() {
+    let currentSlide = 0;
+    let sliderTimer = null;
 
-    clearInterval(contactSliderTimer);
 
-    contactSliderTimer = setInterval(() => {
-        showContactSlide(contactCurrentSlide + 1);
-    }, 4500);
-}
+    function showSlide(index) {
 
-if (contactSlides.length > 1) {
+        currentSlide =
+            (index + slides.length) % slides.length;
 
-    contactPrev.addEventListener("click", () => {
-        showContactSlide(contactCurrentSlide - 1);
-        startContactSlider();
-    });
+        slides.forEach(function (slide, i) {
 
-    contactNext.addEventListener("click", () => {
-        showContactSlide(contactCurrentSlide + 1);
-        startContactSlider();
-    });
+            slide.classList.toggle(
+                "active",
+                i === currentSlide
+            );
 
-    contactDots.forEach((dot, index) => {
-
-        dot.addEventListener("click", () => {
-            showContactSlide(index);
-            startContactSlider();
         });
 
+        dots.forEach(function (dot, i) {
+
+            dot.classList.toggle(
+                "active",
+                i === currentSlide
+            );
+
+        });
+
+    }
+
+
+    function startSlider() {
+
+        clearInterval(sliderTimer);
+
+        if (window.innerWidth <= 760) {
+
+            sliderTimer = setInterval(function () {
+
+                showSlide(currentSlide + 1);
+
+            }, 4500);
+
+        }
+
+    }
+
+
+    /* شروع Slider */
+
+    if (window.innerWidth <= 760) {
+
+        showSlide(0);
+        startSlider();
+
+    }
+
+
+    /* دکمه قبلی */
+
+    if (prevButton) {
+
+        prevButton.addEventListener(
+            "click",
+            function () {
+
+                if (window.innerWidth <= 760) {
+
+                    showSlide(currentSlide - 1);
+                    startSlider();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* دکمه بعدی */
+
+    if (nextButton) {
+
+        nextButton.addEventListener(
+            "click",
+            function () {
+
+                if (window.innerWidth <= 760) {
+
+                    showSlide(currentSlide + 1);
+                    startSlider();
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* نقطه‌ها */
+
+    dots.forEach(function (dot, index) {
+
+        dot.addEventListener(
+            "click",
+            function () {
+
+                if (window.innerWidth <= 760) {
+
+                    showSlide(index);
+                    startSlider();
+
+                }
+
+            }
+        );
+
     });
 
-    showContactSlide(0);
-    startContactSlider();
-}
+
+    /* اگر اندازه صفحه تغییر کرد */
+
+    window.addEventListener("resize", function () {
+
+        if (window.innerWidth > 760) {
+
+            clearInterval(sliderTimer);
+
+            slides.forEach(function (slide) {
+                slide.classList.remove("active");
+            });
+
+        } else {
+
+            showSlide(currentSlide);
+            startSlider();
+
+        }
+
+    });
+
+});
