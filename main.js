@@ -891,83 +891,242 @@ updateSlider();
 
 
 /* =========================================================
-   END OF MAIN.JS
+   23. KI-ASSISTENT + FLOATING CONTROLS
+   One unified DOMContentLoaded block.
 ========================================================= */
- 
-/* =========================
-   KI ASSISTENT
-========================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    const aiChatButton = document.getElementById("aiChatButton");
-    const aiChat = document.getElementById("aiChat");
-    const aiChatClose = document.getElementById("aiChatClose");
 
-    const aiChatInput = document.getElementById("aiChatInput");
-    const aiChatSend = document.getElementById("aiChatSend");
+    /* =====================================================
+       AI ELEMENTS
+    ===================================================== */
 
-    const aiChatMessages = document.getElementById("aiChatMessages");
+    const aiChatButton =
+        document.getElementById(
+            "aiChatButton"
+        );
+
+
+    const aiChat =
+        document.getElementById(
+            "aiChat"
+        );
+
+
+    const aiChatClose =
+        document.getElementById(
+            "aiChatClose"
+        );
+
+
+    const aiChatInput =
+        document.getElementById(
+            "aiChatInput"
+        );
+
+
+    const aiChatSend =
+        document.getElementById(
+            "aiChatSend"
+        );
+
+
+    const aiChatMessages =
+        document.getElementById(
+            "aiChatMessages"
+        );
+
 
     const quickButtons =
-        document.querySelectorAll(".ai-quick-buttons button");
+        document.querySelectorAll(
+            ".ai-quick-buttons button"
+        );
 
 
-    /* =========================
-       CHECK ELEMENTS
-    ========================= */
+    /* =====================================================
+       BACK TO TOP
+    ===================================================== */
+
+    const backToTopButton =
+        document.querySelector(
+            ".back-to-top"
+        );
+
+
+    if (backToTopButton) {
+
+        function updateBackToTop() {
+
+            backToTopButton.classList.toggle(
+                "is-visible",
+                window.scrollY > 300
+            );
+
+        }
+
+
+        updateBackToTop();
+
+
+        window.addEventListener(
+            "scroll",
+            updateBackToTop,
+            {
+                passive: true
+            }
+        );
+
+
+        backToTopButton.addEventListener(
+            "click",
+            function (event) {
+
+                event.preventDefault();
+
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       AI CHAT
+    ===================================================== */
 
     if (!aiChatButton || !aiChat) {
         return;
     }
 
 
-    /* =========================
-       OPEN CHAT
-    ========================= */
+    function openAIChat() {
 
-    aiChatButton.addEventListener("click", function () {
-
-        aiChat.classList.add("active");
-
-        setTimeout(function () {
-
-            if (aiChatInput) {
-                aiChatInput.focus();
-            }
-
-        }, 100);
-
-    });
+        aiChat.classList.add(
+            "active"
+        );
 
 
-    /* =========================
-       CLOSE CHAT
-    ========================= */
+        aiChatButton.classList.add(
+            "ai-open"
+        );
 
-    if (aiChatClose) {
 
-        aiChatClose.addEventListener("click", function () {
+        window.setTimeout(
+            function () {
 
-            aiChat.classList.remove("active");
+                if (aiChatInput) {
 
-        });
+                    aiChatInput.focus();
+
+                }
+
+            },
+            100
+        );
 
     }
 
 
-    /* =========================
-       ADD MESSAGE
-    ========================= */
+    function closeAIChat() {
 
-    function addMessage(text, type) {
+        aiChat.classList.remove(
+            "active"
+        );
+
+
+        aiChatButton.classList.remove(
+            "ai-open"
+        );
+
+
+        aiChatButton.classList.remove(
+            "ai-revealed"
+        );
+
+
+        aiChatButton.style.right =
+            window.innerWidth <= 600
+                ? "-37px"
+                : "-34px";
+
+    }
+
+
+    /* =====================================================
+       AI SIDE TAB VARIABLES
+    ===================================================== */
+
+    let aiDragging = false;
+    let aiMoved = false;
+    let aiStartX = 0;
+    let aiStartRight = -34;
+
+
+    /* =====================================================
+       AI BUTTON CLICK
+    ===================================================== */
+
+    aiChatButton.addEventListener(
+        "click",
+        function (event) {
+
+            if (aiDragging || aiMoved) {
+
+                event.preventDefault();
+
+                aiMoved = false;
+
+                return;
+
+            }
+
+
+            openAIChat();
+
+        }
+    );
+
+
+    /* =====================================================
+       AI CLOSE BUTTON
+    ===================================================== */
+
+    if (aiChatClose) {
+
+        aiChatClose.addEventListener(
+            "click",
+            closeAIChat
+        );
+
+    }
+
+
+    /* =====================================================
+       ADD MESSAGE
+    ===================================================== */
+
+    function addMessage(
+        text,
+        type
+    ) {
 
         if (!aiChatMessages) {
             return;
         }
 
+
         const message =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
+
 
         message.classList.add(
             "ai-message",
@@ -976,18 +1135,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 : "ai-message-bot"
         );
 
-        message.innerHTML = text;
 
-        aiChatMessages.appendChild(message);
+        message.innerHTML =
+            text;
+
+
+        aiChatMessages.appendChild(
+            message
+        );
+
 
         aiChatMessages.scrollTop =
             aiChatMessages.scrollHeight;
+
     }
 
 
-    /* =========================
+    /* =====================================================
        SHOW TYPING
-    ========================= */
+    ===================================================== */
 
     function showTyping() {
 
@@ -995,42 +1161,60 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const typing =
-            document.createElement("div");
 
-        typing.id = "aiTyping";
+        const typing =
+            document.createElement(
+                "div"
+            );
+
+
+        typing.id =
+            "aiTyping";
+
 
         typing.className =
             "ai-message ai-message-bot";
 
+
         typing.textContent =
             "KI schreibt...";
 
-        aiChatMessages.appendChild(typing);
+
+        aiChatMessages.appendChild(
+            typing
+        );
+
 
         aiChatMessages.scrollTop =
             aiChatMessages.scrollHeight;
+
     }
 
 
-    /* =========================
+    /* =====================================================
        REMOVE TYPING
-    ========================= */
+    ===================================================== */
 
     function removeTyping() {
 
         const typing =
-            document.getElementById("aiTyping");
+            document.getElementById(
+                "aiTyping"
+            );
+
 
         if (typing) {
+
             typing.remove();
+
         }
+
     }
 
 
-    /* =========================
-       SEND MESSAGE TO BACKEND
-    ========================= */
+    /* =====================================================
+       SEND MESSAGE
+    ===================================================== */
 
     async function sendMessage() {
 
@@ -1038,8 +1222,10 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+
         const question =
             aiChatInput.value.trim();
+
 
         if (!question) {
             return;
@@ -1053,7 +1239,9 @@ document.addEventListener("DOMContentLoaded", function () {
             "user"
         );
 
-        aiChatInput.value = "";
+
+        aiChatInput.value =
+            "";
 
 
         /* AI typing */
@@ -1074,9 +1262,11 @@ document.addEventListener("DOMContentLoaded", function () {
                                 "application/json"
                         },
 
-                        body: JSON.stringify({
-                            message: question
-                        })
+                        body:
+                            JSON.stringify({
+                                message:
+                                    question
+                            })
                     }
                 );
 
@@ -1098,6 +1288,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
 
                 return;
+
             }
 
 
@@ -1127,17 +1318,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 error
             );
 
+
             removeTyping();
 
+
             addMessage(
-                `
-                Entschuldigung. Die Verbindung
-                zur KI konnte momentan nicht
-                hergestellt werden.
-                <br><br>
-                Sie können direkt mit unserem
-                Team über WhatsApp sprechen.
-                `,
+                "Entschuldigung. Die Verbindung zur KI konnte momentan nicht hergestellt werden.<br><br>Sie können direkt mit unserem Team über WhatsApp sprechen.",
                 "bot"
             );
 
@@ -1146,9 +1332,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
+    /* =====================================================
        SEND BUTTON
-    ========================= */
+    ===================================================== */
 
     if (aiChatSend) {
 
@@ -1160,9 +1346,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
+    /* =====================================================
        ENTER KEY
-    ========================= */
+    ===================================================== */
 
     if (aiChatInput) {
 
@@ -1170,7 +1356,9 @@ document.addEventListener("DOMContentLoaded", function () {
             "keydown",
             function (event) {
 
-                if (event.key === "Enter") {
+                if (
+                    event.key === "Enter"
+                ) {
 
                     event.preventDefault();
 
@@ -1184,9 +1372,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* =========================
+    /* =====================================================
        QUICK QUESTIONS
-    ========================= */
+    ===================================================== */
 
     quickButtons.forEach(
         function (button) {
@@ -1198,9 +1386,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     const question =
                         button.dataset.question;
 
+
                     if (!question) {
                         return;
                     }
+
 
                     if (aiChatInput) {
 
@@ -1208,6 +1398,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             question;
 
                     }
+
 
                     sendMessage();
 
@@ -1218,159 +1409,253 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
 
-    /* =========================
-       ESC CLOSE
-    ========================= */
+    /* =====================================================
+       AI SIDE TAB RESET
+    ===================================================== */
+
+    function resetAISideTab() {
+
+        aiChatButton.classList.remove(
+            "ai-revealed",
+            "ai-open"
+        );
+
+
+        aiChatButton.style.right =
+            window.innerWidth <= 600
+                ? "-37px"
+                : "-34px";
+
+    }
+
+
+    /* =====================================================
+       AI DRAG START
+    ===================================================== */
+
+    aiChatButton.addEventListener(
+        "pointerdown",
+        function (event) {
+
+            aiStartX =
+                event.clientX;
+
+
+            const computedRight =
+                parseFloat(
+                    window.getComputedStyle(
+                        aiChatButton
+                    ).right
+                );
+
+
+            aiStartRight =
+                Number.isFinite(
+                    computedRight
+                )
+                    ? computedRight
+                    : -34;
+
+
+            aiDragging =
+                true;
+
+
+            aiMoved =
+                false;
+
+
+            aiChatButton.classList.add(
+                "ai-dragging"
+            );
+
+
+            try {
+
+                aiChatButton.setPointerCapture(
+                    event.pointerId
+                );
+
+            } catch (error) {}
+
+        }
+    );
+
+
+    /* =====================================================
+       AI DRAG MOVE
+    ===================================================== */
+
+    aiChatButton.addEventListener(
+        "pointermove",
+        function (event) {
+
+            if (!aiDragging) {
+                return;
+            }
+
+
+            const deltaX =
+                event.clientX -
+                aiStartX;
+
+
+            if (
+                Math.abs(deltaX) > 5
+            ) {
+
+                aiMoved =
+                    true;
+
+            }
+
+
+            const maxRight =
+                -34;
+
+
+            const minRight =
+                window.innerWidth <= 600
+                    ? 12
+                    : 18;
+
+
+            let newRight =
+                aiStartRight -
+                deltaX;
+
+
+            newRight =
+                Math.max(
+                    maxRight,
+                    Math.min(
+                        minRight,
+                        newRight
+                    )
+                );
+
+
+            aiChatButton.style.right =
+                `${newRight}px`;
+
+        }
+    );
+
+
+    /* =====================================================
+       AI DRAG END
+    ===================================================== */
+
+    aiChatButton.addEventListener(
+        "pointerup",
+        function (event) {
+
+            if (!aiDragging) {
+                return;
+            }
+
+
+            aiDragging =
+                false;
+
+
+            aiChatButton.classList.remove(
+                "ai-dragging"
+            );
+
+
+            try {
+
+                aiChatButton.releasePointerCapture(
+                    event.pointerId
+                );
+
+            } catch (error) {}
+
+
+            if (aiMoved) {
+
+                aiChatButton.classList.add(
+                    "ai-revealed"
+                );
+
+
+                aiChatButton.style.right =
+                    window.innerWidth <= 600
+                        ? "12px"
+                        : "18px";
+
+
+                window.setTimeout(
+                    function () {
+
+                        aiMoved =
+                            false;
+
+                    },
+                    0
+                );
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       AI DRAG CANCEL
+    ===================================================== */
+
+    aiChatButton.addEventListener(
+        "pointercancel",
+        function () {
+
+            aiDragging =
+                false;
+
+
+            aiMoved =
+                false;
+
+
+            aiChatButton.classList.remove(
+                "ai-dragging"
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
 
     document.addEventListener(
         "keydown",
         function (event) {
 
             if (
-                event.key === "Escape" &&
-                aiChat.classList.contains("active")
+                event.key === "Escape"
             ) {
 
-                aiChat.classList.remove(
-                    "active"
-                );
+                if (
+                    aiChat.classList.contains(
+                        "active"
+                    )
+                ) {
+
+                    closeAIChat();
+
+                } else {
+
+                    resetAISideTab();
+
+                }
 
             }
 
         }
     );
 
-});
-
-
-
-/* =========================================================
-   FLOATING CONTROLS
-   BACK TO TOP + AI SIDE TAB
-========================================================= */
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    /* =====================================================
-       1. BACK TO TOP
-    ===================================================== */
-
-    const backToTopButton =
-        document.querySelector(".back-to-top");
-
-    if (backToTopButton) {
-
-        function updateBackToTop() {
-
-            if (window.scrollY > 300) {
-
-                backToTopButton.classList.add("visible");
-
-            } else {
-
-                backToTopButton.classList.remove("visible");
-
-            }
-        }
-
-        // بررسی هنگام اسکرول
-        window.addEventListener(
-            "scroll",
-            updateBackToTop,
-            { passive: true }
-        );
-
-        // بررسی اولیه
-        updateBackToTop();
-
-        // برگشت به بالای صفحه
-        backToTopButton.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                window.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                });
-
-            }
-        );
-    }
-
-
-    /* =====================================================
-       2. AI SIDE TAB
-    ===================================================== */
-
-    const aiChatButton =
-        document.getElementById("aiChatButton");
-
-    const aiChat =
-        document.getElementById("aiChat");
-
-    const aiChatClose =
-        document.getElementById("aiChatClose");
-
-
-    if (!aiChatButton || !aiChat) {
-        return;
-    }
-
-
-    /*
-       وقتی روی دکمه AI کلیک شود،
-       تب AI حالت باز می‌گیرد.
-    */
-
-    aiChatButton.addEventListener(
-        "click",
-        function () {
-
-            aiChatButton.classList.add("ai-open");
-
-        }
-    );
-
-
-    /*
-       وقتی پنجره AI بسته شود،
-       دکمه دوباره به کنار صفحه برمی‌گردد.
-    */
-
-    if (aiChatClose) {
-
-        aiChatClose.addEventListener(
-            "click",
-            function () {
-
-                aiChatButton.classList.remove(
-                    "ai-open"
-                );
-
-            }
-        );
-    }
-
-
-    /*
-       با Escape نیز حالت AI بسته می‌شود.
-    */
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (event.key === "Escape") {
-
-                aiChatButton.classList.remove(
-                    "ai-open"
-                );
-
-            }
-
-        }
-    );
 
 });
