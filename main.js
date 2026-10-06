@@ -401,4 +401,70 @@ backToTop.addEventListener("click", () => {
 
 });
 
+/* =========================================================
+   CONTACT IMAGE SLIDER
+   ========================================================= */
 
+const contactSlides = document.querySelectorAll(".contact-slide");
+const contactDots = document.querySelectorAll(".contact-dot");
+const contactPrev = document.querySelector(".contact-prev");
+const contactNext = document.querySelector(".contact-next");
+
+let contactCurrentSlide = 0;
+let contactSliderTimer;
+
+function showContactSlide(index) {
+
+    if (!contactSlides.length) return;
+
+    contactCurrentSlide =
+        (index + contactSlides.length) % contactSlides.length;
+
+    contactSlides.forEach((slide, i) => {
+        slide.classList.toggle(
+            "active",
+            i === contactCurrentSlide
+        );
+    });
+
+    contactDots.forEach((dot, i) => {
+        dot.classList.toggle(
+            "active",
+            i === contactCurrentSlide
+        );
+    });
+}
+
+function startContactSlider() {
+
+    clearInterval(contactSliderTimer);
+
+    contactSliderTimer = setInterval(() => {
+        showContactSlide(contactCurrentSlide + 1);
+    }, 4500);
+}
+
+if (contactSlides.length > 1) {
+
+    contactPrev.addEventListener("click", () => {
+        showContactSlide(contactCurrentSlide - 1);
+        startContactSlider();
+    });
+
+    contactNext.addEventListener("click", () => {
+        showContactSlide(contactCurrentSlide + 1);
+        startContactSlider();
+    });
+
+    contactDots.forEach((dot, index) => {
+
+        dot.addEventListener("click", () => {
+            showContactSlide(index);
+            startContactSlider();
+        });
+
+    });
+
+    showContactSlide(0);
+    startContactSlider();
+}
