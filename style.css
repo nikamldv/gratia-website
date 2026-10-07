@@ -3985,3 +3985,35 @@ iframe {
         font-size: 13.5px !important;
     }
 }
+
+/* =========================================================
+   FINAL FIX - SOCIAL MEDIA LINKS
+   ========================================================= */
+
+.social-bar {
+    position: fixed !important;
+    z-index: 99999 !important;
+}
+
+.social-bar-inner {
+    position: relative !important;
+    z-index: 100000 !important;
+}
+
+.social-links {
+    position: relative !important;
+    z-index: 100001 !important;
+    pointer-events: auto !important;
+}
+
+.social-link {
+    position: relative !important;
+    z-index: 100002 !important;
+
+    pointer-events: auto !important;
+
+    cursor: pointer !important;
+
+    display: flex !important;
+}
+
