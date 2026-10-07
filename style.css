@@ -4171,3 +4171,21 @@ iframe {
 #kontakt .contact-layout {
     margin-top: 0 !important;
 }
+
+/* =========================================================
+   KONTAKT BUTTON - GRATIA HOVER COLOR
+   ========================================================= */
+
+.contact-submit-btn {
+    background: var(--primary) !important;
+    color: #fff !important;
+}
+
+.contact-submit-btn:hover {
+    background: var(--primary-dark) !important;
+    color: #fff !important;
+}
+
+.contact-submit-btn:active {
+    background: var(--primary-dark) !important;
+}
