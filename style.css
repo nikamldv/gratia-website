@@ -2258,11 +2258,11 @@ iframe {
 
     .contact-layout {
         grid-template-columns: 1fr 1fr;
-
         gap: 30px;
     }
 
 }
+
 
 
 /* =========================================================
@@ -3385,6 +3385,313 @@ iframe {
     .back-to-top .icon-svg {
         width: 16px !important;
         height: 16px !important;
+    }
+
+}
+
+/* =========================================================
+   GRATIA — FINAL TOP BAR + HEADER
+   ========================================================= */
+
+.social-bar {
+    position: fixed !important;
+
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+
+    height: 36px !important;
+    min-height: 36px !important;
+
+    background: var(--primary-dark) !important;
+
+    z-index: 1100 !important;
+}
+
+
+.social-bar-inner {
+    width: min(
+        calc(100% - 40px),
+        var(--container)
+    ) !important;
+
+    height: 36px !important;
+
+    margin: 0 auto !important;
+
+    display: flex !important;
+    align-items: center !important;
+
+    justify-content: space-between !important;
+}
+
+
+/* Text */
+
+.social-bar-left {
+    display: block !important;
+
+    font-size: 11px !important;
+
+    line-height: 1 !important;
+
+    letter-spacing: .4px !important;
+
+    opacity: .9 !important;
+}
+
+
+/* Social icons */
+
+.social-links {
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: flex-end !important;
+
+    gap: 6px !important;
+
+    margin-left: auto !important;
+}
+
+
+.social-link {
+    width: 24px !important;
+    height: 24px !important;
+
+    min-width: 24px !important;
+    min-height: 24px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+    justify-content: center !important;
+
+    padding: 0 !important;
+
+    border-radius: 50% !important;
+}
+
+
+.social-link svg {
+    width: 13px !important;
+    height: 13px !important;
+}
+
+
+/* =========================================================
+   MAIN HEADER
+   ========================================================= */
+
+.site-header {
+    position: fixed !important;
+
+    top: 36px !important;
+    left: 0 !important;
+    right: 0 !important;
+
+    width: 100% !important;
+
+    height: 80px !important;
+
+    background: rgba(255,255,255,.98) !important;
+
+    z-index: 1000 !important;
+
+    border-bottom: 1px solid rgba(0,0,0,.06) !important;
+
+    transition:
+        top .35s ease,
+        box-shadow .25s ease !important;
+}
+
+
+/* When social bar disappears */
+
+.site-header.social-hidden {
+    top: 0 !important;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.08) !important;
+}
+
+
+/* Header content */
+
+.header-inner {
+    height: 80px !important;
+
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: space-between !important;
+}
+
+
+/* Logo */
+
+.site-logo {
+    width: 175px !important;
+    height: 62px !important;
+
+    object-fit: contain !important;
+
+    object-position: left center !important;
+}
+
+
+/* Navigation */
+
+.main-nav {
+    display: flex !important;
+
+    align-items: center !important;
+
+    justify-content: flex-end !important;
+
+    gap: 20px !important;
+
+    margin-left: auto !important;
+}
+
+
+.nav-link {
+    white-space: nowrap !important;
+
+    font-size: 13px !important;
+
+    padding: 8px 0 !important;
+}
+
+
+/* =========================================================
+   HERO POSITION
+   ========================================================= */
+
+.hero {
+    margin-top: 116px !important;
+}
+
+
+/* =========================================================
+   DESKTOP
+   ========================================================= */
+
+@media (min-width: 851px) {
+
+    .menu-toggle {
+        display: none !important;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .social-bar {
+        height: 36px !important;
+        min-height: 36px !important;
+    }
+
+
+    .social-bar-inner {
+        width: calc(100% - 24px) !important;
+
+        height: 36px !important;
+    }
+
+
+    .social-bar-left {
+        display: none !important;
+    }
+
+
+    .social-link {
+        width: 25px !important;
+        height: 25px !important;
+    }
+
+
+    .site-header {
+        top: 36px !important;
+
+        height: 75px !important;
+    }
+
+
+    .site-header.social-hidden {
+        top: 0 !important;
+    }
+
+
+    .header-inner {
+        height: 75px !important;
+    }
+
+
+    .site-logo {
+        width: 150px !important;
+        height: 58px !important;
+    }
+
+
+    .main-nav {
+        top: 75px !important;
+
+        left: 12px !important;
+        right: 12px !important;
+
+        display: none !important;
+
+        flex-direction: column !important;
+
+        align-items: stretch !important;
+
+        gap: 0 !important;
+
+        margin: 0 !important;
+
+        padding: 10px !important;
+
+        background: var(--white) !important;
+
+        border-radius: 0 0 12px 12px !important;
+
+        box-shadow: var(--shadow-lg) !important;
+    }
+
+
+    .main-nav.open {
+        display: flex !important;
+    }
+
+
+    .nav-link {
+        width: 100% !important;
+
+        padding: 13px 15px !important;
+
+        font-size: 14px !important;
+
+        border-bottom: 1px solid var(--border) !important;
+    }
+
+
+    .nav-link:last-child {
+        border-bottom: none !important;
+    }
+
+
+    .hero {
+        margin-top: 111px !important;
     }
 
 }
