@@ -377,31 +377,6 @@ if (gratiaContactForm) {
 
 
 /* =========================================================
-   BACK TO TOP
-========================================================= */
-
-const backToTop = document.getElementById("backToTop");
-
-window.addEventListener("scroll", () => {
-
-    if (window.scrollY > 500) {
-        backToTop.classList.add("show");
-    } else {
-        backToTop.classList.remove("show");
-    }
-
-});
-
-backToTop.addEventListener("click", () => {
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-});
-
-/* =========================================================
    TEAM MOBILE SLIDER
    ========================================================= */
 
@@ -565,3 +540,66 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+/* =========================================================
+   BACK TO TOP
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const backToTopButton =
+        document.getElementById("backToTop");
+
+    if (!backToTopButton) {
+        return;
+    }
+
+
+    function updateBackToTop() {
+
+        if (window.scrollY > 300) {
+
+            backToTopButton.classList.add(
+                "is-visible"
+            );
+
+        } else {
+
+            backToTopButton.classList.remove(
+                "is-visible"
+            );
+
+        }
+
+    }
+
+
+    /* بررسی هنگام باز شدن صفحه */
+    updateBackToTop();
+
+
+    /* بررسی هنگام اسکرول */
+    window.addEventListener(
+        "scroll",
+        updateBackToTop,
+        {
+            passive: true
+        }
+    );
+
+
+    /* رفتن به بالای صفحه */
+    backToTopButton.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+});
