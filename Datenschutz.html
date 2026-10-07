@@ -6,16 +6,21 @@
 
     <title>Datenschutz | Pflegedienst GRATIA GmbH</title>
 
+    <meta
+        name="description"
+        content="Datenschutzerklärung der Pflegedienst GRATIA GmbH."
+    >
+
     <style>
         :root {
             --primary: #74100c;
             --primary-dark: #520b09;
             --gold: #c59a45;
             --text: #333333;
-            --text-light: #666666;
+            --muted: #666666;
             --light: #f7f5f3;
             --white: #ffffff;
-            --border: #eeeeee;
+            --border: #e8e4e1;
         }
 
         * {
@@ -31,7 +36,7 @@
             font-family: Arial, Helvetica, sans-serif;
             color: var(--text);
             background: var(--light);
-            line-height: 1.7;
+            line-height: 1.75;
         }
 
         a {
@@ -43,9 +48,10 @@
             color: var(--primary-dark);
         }
 
-        /* =========================
+
+        /* =====================================================
            HEADER
-        ========================= */
+        ===================================================== */
 
         .legal-header {
             width: 100%;
@@ -78,6 +84,8 @@
         .back-link {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
+
             gap: 8px;
 
             padding: 10px 18px;
@@ -86,25 +94,29 @@
             border-radius: 7px;
 
             color: var(--primary);
+            background: transparent;
+
             font-weight: 600;
 
             transition:
-                background 0.25s ease,
-                color 0.25s ease;
+                background .25s ease,
+                color .25s ease,
+                transform .25s ease;
         }
 
         .back-link:hover {
             background: var(--primary);
             color: var(--white);
+            transform: translateY(-1px);
         }
 
 
-        /* =========================
+        /* =====================================================
            MAIN
-        ========================= */
+        ===================================================== */
 
         .legal-main {
-            width: min(92%, 900px);
+            width: min(92%, 950px);
             margin: 0 auto;
 
             padding: 70px 0 90px;
@@ -118,8 +130,13 @@
             padding: 55px 65px;
 
             box-shadow:
-                0 10px 35px rgba(0, 0, 0, 0.06);
+                0 10px 35px rgba(0, 0, 0, .06);
         }
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
 
         .legal-title {
             margin: 0 0 12px;
@@ -133,13 +150,18 @@
         .legal-intro {
             margin: 0 0 45px;
 
-            color: var(--text-light);
+            color: var(--muted);
 
             font-size: 1rem;
         }
 
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
         .legal-section {
-            margin-bottom: 38px;
+            margin-bottom: 40px;
         }
 
         .legal-section:last-child {
@@ -152,19 +174,19 @@
             color: var(--primary);
 
             font-size: 1.35rem;
-            line-height: 1.3;
+            line-height: 1.35;
         }
 
         .legal-section h3 {
-            margin: 22px 0 10px;
+            margin: 22px 0 8px;
 
-            color: #444444;
+            color: #333;
 
             font-size: 1.05rem;
         }
 
         .legal-section p {
-            margin: 0 0 10px;
+            margin: 0 0 12px;
         }
 
         .legal-section ul {
@@ -173,45 +195,43 @@
         }
 
         .legal-section li {
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
 
         .legal-section strong {
-            color: #222222;
+            color: #222;
         }
 
-        .placeholder {
-            color: #777777;
-            font-style: italic;
-        }
 
-        .info-box {
-            margin-top: 18px;
+        /* =====================================================
+           NOTICE BOX
+        ===================================================== */
+
+        .legal-notice {
+            margin: 20px 0 0;
 
             padding: 18px 20px;
 
-            background: #faf8f6;
+            border-left: 4px solid var(--gold);
 
-            border-left: 4px solid var(--primary);
+            background: #faf8f5;
 
-            border-radius: 5px;
+            color: #555;
+
+            border-radius: 4px;
         }
 
-        .info-box p {
-            margin: 0;
-        }
 
-
-        /* =========================
+        /* =====================================================
            FOOTER
-        ========================= */
+        ===================================================== */
 
         .legal-footer {
             width: 100%;
 
             background: var(--primary-dark);
 
-            color: rgba(255, 255, 255, 0.75);
+            color: rgba(255, 255, 255, .75);
 
             text-align: center;
 
@@ -222,10 +242,11 @@
             margin: 0;
 
             font-size: 13px;
+            line-height: 1.7;
         }
 
         .legal-footer a {
-            color: rgba(255, 255, 255, 0.85);
+            color: rgba(255, 255, 255, .85);
         }
 
         .legal-footer a:hover {
@@ -233,9 +254,9 @@
         }
 
 
-        /* =========================
+        /* =====================================================
            TABLET / MOBILE
-        ========================= */
+        ===================================================== */
 
         @media (max-width: 760px) {
 
@@ -275,7 +296,7 @@
             }
 
             .legal-section {
-                margin-bottom: 30px;
+                margin-bottom: 32px;
             }
 
             .legal-section h2 {
@@ -294,7 +315,7 @@
             .legal-header-inner {
                 width: calc(100% - 20px);
 
-                gap: 10px;
+                gap: 12px;
             }
 
             .legal-logo {
@@ -314,10 +335,6 @@
                 font-size: 1.75rem;
             }
 
-            .legal-section h2 {
-                font-size: 1.15rem;
-            }
-
             .legal-section p,
             .legal-section li {
                 font-size: 14px;
@@ -330,9 +347,9 @@
 <body>
 
 
-    <!-- =========================
+    <!-- =====================================================
          HEADER
-    ========================= -->
+    ====================================================== -->
 
     <header class="legal-header">
 
@@ -363,9 +380,9 @@
 
 
 
-    <!-- =========================
-         MAIN CONTENT
-    ========================= -->
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
 
     <main class="legal-main">
 
@@ -382,7 +399,9 @@
 
 
 
-            <!-- Verantwortlicher -->
+            <!-- =================================================
+                 1. VERANTWORTLICHER
+            ================================================== -->
 
             <section class="legal-section">
 
@@ -391,19 +410,19 @@
                 </h2>
 
                 <p>
-                    Verantwortlicher für die Verarbeitung
-                    personenbezogener Daten auf dieser Website ist:
+                    Verantwortlich für die Verarbeitung personenbezogener
+                    Daten auf dieser Website ist:
                 </p>
 
                 <p>
                     <strong>
                         Pflegedienst GRATIA GmbH
-                    </strong>
-                    <br>
-                    Pfaffenpfad 1
-                    <br>
-                    97440 Werneck
-                    <br>
+                    </strong><br>
+
+                    Pfaffenpfad 1<br>
+
+                    97440 Werneck<br>
+
                     Deutschland
                 </p>
 
@@ -434,7 +453,9 @@
 
 
 
-            <!-- Allgemeine Informationen -->
+            <!-- =================================================
+                 2. ALLGEMEINE INFORMATION
+            ================================================== -->
 
             <section class="legal-section">
 
@@ -443,74 +464,55 @@
                 </h2>
 
                 <p>
-                    Der Schutz Ihrer personenbezogenen Daten ist uns
-                    wichtig. Wir behandeln Ihre personenbezogenen Daten
-                    vertraulich und entsprechend den gesetzlichen
-                    Datenschutzvorschriften sowie dieser
-                    Datenschutzerklärung.
+                    Der Schutz Ihrer personenbezogenen Daten ist uns wichtig.
+                    Wir behandeln Ihre personenbezogenen Daten vertraulich
+                    und verarbeiten diese ausschließlich im Rahmen der
+                    geltenden datenschutzrechtlichen Vorschriften,
+                    insbesondere der Datenschutz-Grundverordnung (DSGVO).
                 </p>
 
                 <p>
-                    Personenbezogene Daten sind Informationen, mit denen
-                    eine Person direkt oder indirekt identifiziert werden
-                    kann.
+                    Personenbezogene Daten sind alle Informationen, die sich
+                    auf eine identifizierte oder identifizierbare Person
+                    beziehen.
                 </p>
 
             </section>
 
 
 
-            <!-- Website-Aufruf -->
+            <!-- =================================================
+                 3. BESUCH DER WEBSITE
+            ================================================== -->
 
             <section class="legal-section">
 
                 <h2>
-                    3. Datenverarbeitung beim Besuch unserer Website
+                    3. Besuch unserer Website
                 </h2>
 
                 <p>
-                    Beim Aufrufen unserer Website können durch den
-                    technischen Betrieb der Website bzw. durch den
-                    eingesetzten Hosting-Anbieter technische
-                    Informationen verarbeitet werden.
+                    Beim Aufrufen unserer Website können technisch
+                    erforderliche Informationen durch den verwendeten
+                    Webserver verarbeitet werden. Dazu können insbesondere
+                    IP-Adresse, Datum und Uhrzeit des Zugriffs,
+                    aufgerufene Seiten, Browsertyp und Betriebssystem
+                    gehören.
                 </p>
 
                 <p>
-                    Hierzu können insbesondere gehören:
+                    Die Verarbeitung erfolgt, soweit erforderlich, um eine
+                    sichere und technisch funktionierende Bereitstellung
+                    unserer Website zu ermöglichen.
                 </p>
-
-                <ul>
-                    <li>IP-Adresse</li>
-                    <li>Datum und Uhrzeit des Zugriffs</li>
-                    <li>Browsertyp und Browserversion</li>
-                    <li>Betriebssystem</li>
-                    <li>aufgerufene Seiten</li>
-                    <li>Referrer-URL</li>
-                    <li>technische Informationen zur Nutzung der Website</li>
-                </ul>
-
-                <p>
-                    Diese Daten können insbesondere zur Sicherstellung
-                    eines sicheren und technisch ordnungsgemäßen Betriebs
-                    der Website verarbeitet werden.
-                </p>
-
-                <div class="info-box">
-
-                    <p class="placeholder">
-                        Hinweis: Angaben zum konkreten Hosting-Anbieter,
-                        zu Serverstandorten und zu eventuell eingesetzten
-                        Server-Logfiles werden nach Festlegung des
-                        Hosting-Anbieters ergänzt.
-                    </p>
-
-                </div>
 
             </section>
 
 
 
-            <!-- Kontaktformular -->
+            <!-- =================================================
+                 4. KONTAKTFORMULAR
+            ================================================== -->
 
             <section class="legal-section">
 
@@ -519,102 +521,108 @@
                 </h2>
 
                 <p>
-                    Auf unserer Website besteht die Möglichkeit, uns über
-                    ein Kontaktformular zu kontaktieren.
-                </p>
-
-                <p>
-                    Wenn Sie das Kontaktformular verwenden, können
-                    insbesondere folgende Angaben verarbeitet werden:
+                    Auf unserer Website bieten wir ein Kontaktformular an.
+                    Wenn Sie uns über dieses Formular kontaktieren,
+                    verarbeiten wir die von Ihnen eingegebenen Daten,
+                    insbesondere:
                 </p>
 
                 <ul>
                     <li>Name</li>
                     <li>E-Mail-Adresse</li>
                     <li>Telefonnummer, sofern angegeben</li>
-                    <li>Inhalt Ihrer Nachricht</li>
-                    <li>weitere Angaben, die Sie freiwillig übermitteln</li>
+                    <li>Anliegen</li>
+                    <li>Nachricht</li>
                 </ul>
 
                 <p>
-                    Die Verarbeitung erfolgt ausschließlich zu dem Zweck,
-                    Ihre Anfrage zu bearbeiten und mit Ihnen Kontakt
-                    aufzunehmen.
+                    Die Angaben werden verarbeitet, um Ihre Anfrage
+                    entgegenzunehmen, zu bearbeiten und Ihnen antworten
+                    zu können.
                 </p>
 
                 <p>
-                    Die von Ihnen über das Formular übermittelten Daten
-                    werden über den Dienst
-                    <strong>Web3Forms</strong>
-                    verarbeitet und an die von uns hinterlegte
-                    E-Mail-Adresse übermittelt.
+                    Die Angabe einer Telefonnummer ist freiwillig,
+                    soweit sie für die Bearbeitung Ihrer Anfrage nicht
+                    erforderlich ist.
                 </p>
 
                 <p>
-                    Web3Forms beschreibt sich für Formulare, die von
-                    Website-Betreibern eingerichtet werden, als
-                    Auftragsverarbeiter bzw. Data Processor. Die
-                    Übermittlung der Formulardaten erfolgt über eine
-                    verschlüsselte HTTPS-Verbindung. :chatgpt-content-reference{index="1"}
+                    Die Verarbeitung erfolgt auf Grundlage von
+                    Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage
+                    der Anbahnung oder Durchführung eines Vertrags
+                    dient, beziehungsweise auf Grundlage von
+                    Art. 6 Abs. 1 lit. f DSGVO aufgrund unseres
+                    berechtigten Interesses an der Bearbeitung von
+                    Kontaktanfragen.
                 </p>
 
-                <p>
-                    Nach den aktuellen Angaben von Web3Forms können
-                    Formulareinsendungen standardmäßig bis zu drei Jahre
-                    gespeichert werden. Eine kürzere Aufbewahrungsdauer
-                    kann je nach Konfiguration möglich sein. :chatgpt-content-reference{index="2"}
-                </p>
+                <div class="legal-notice">
 
-                <p>
-                    Weitere Informationen finden Sie in der
-                    Datenschutzerklärung von Web3Forms:
-                    <br>
-                    <a
-                        href="https://web3forms.com/privacy"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Web3Forms Datenschutzerklärung
-                    </a>
-                </p>
+                    <strong>
+                        Hinweis:
+                    </strong>
+
+                    Bitte übermitteln Sie über das allgemeine
+                    Kontaktformular keine besonders sensiblen
+                    Gesundheitsdaten, sofern dies für Ihre Anfrage
+                    nicht erforderlich ist.
+
+                </div>
 
             </section>
 
 
 
-            <!-- Zweck und Rechtsgrundlage -->
+            <!-- =================================================
+                 5. WEB3FORMS
+            ================================================== -->
 
             <section class="legal-section">
 
                 <h2>
-                    5. Zweck und Rechtsgrundlage der Verarbeitung
+                    5. Versand des Kontaktformulars über Web3Forms
                 </h2>
 
                 <p>
-                    Die Verarbeitung personenbezogener Daten erfolgt
-                    abhängig vom jeweiligen Zweck auf Grundlage der
-                    geltenden Datenschutzbestimmungen, insbesondere der
-                    Datenschutz-Grundverordnung (DSGVO).
+                    Für die technische Übermittlung der über das
+                    Kontaktformular eingegebenen Daten nutzen wir
+                    den Dienst Web3Forms.
                 </p>
 
                 <p>
-                    Bei Kontaktanfragen kann die Verarbeitung insbesondere
-                    zur Bearbeitung Ihrer Anfrage und zur Durchführung
-                    vorvertraglicher Maßnahmen erforderlich sein.
+                    Die eingegebenen Formulardaten werden dabei an
+                    Web3Forms übermittelt und zur technischen
+                    Verarbeitung der Kontaktanfrage verwendet.
                 </p>
 
                 <p>
-                    Soweit eine Verarbeitung auf einer Einwilligung
-                    beruht, erfolgt sie auf Grundlage Ihrer Einwilligung.
-                    Eine erteilte Einwilligung kann jederzeit mit Wirkung
-                    für die Zukunft widerrufen werden.
+                    Weitere Informationen zur Datenverarbeitung durch
+                    Web3Forms finden Sie in der jeweils aktuellen
+                    Datenschutzerklärung des Anbieters.
+                </p>
+
+                <p>
+                    <strong>
+                        Anbieter:
+                    </strong>
+                    Web3Forms
+                </p>
+
+                <p>
+                    Die konkrete technische Ausgestaltung und die
+                    jeweils aktuellen Datenschutzinformationen des
+                    Dienstleisters sollten vor der Veröffentlichung
+                    dieser Datenschutzerklärung geprüft werden.
                 </p>
 
             </section>
 
 
 
-            <!-- WhatsApp -->
+            <!-- =================================================
+                 6. WHATSAPP
+            ================================================== -->
 
             <section class="legal-section">
 
@@ -623,132 +631,119 @@
                 </h2>
 
                 <p>
-                    Auf unserer Website ist unsere Telefonnummer mit einem
-                    Link zu WhatsApp verbunden. Wenn Sie diesen Link
-                    verwenden, verlassen Sie unsere Website und werden
-                    zum Dienst WhatsApp weitergeleitet.
+                    Auf unserer Website ist unsere Telefonnummer mit
+                    einem direkten Link zu WhatsApp hinterlegt.
+                    Wenn Sie diesen Link auswählen, wird eine Verbindung
+                    zu WhatsApp beziehungsweise zu den entsprechenden
+                    Diensten des Anbieters hergestellt.
                 </p>
 
                 <p>
-                    Bei der Nutzung von WhatsApp gelten die
-                    Datenschutzbestimmungen des jeweiligen Anbieters.
+                    Dabei können personenbezogene Daten entsprechend
+                    den Datenschutzbestimmungen des jeweiligen
+                    Anbieters verarbeitet werden.
                 </p>
 
                 <p>
-                    Wir haben keinen Einfluss auf die Datenverarbeitung
-                    durch WhatsApp außerhalb unseres eigenen
-                    Verantwortungsbereichs.
+                    Bitte beachten Sie die aktuelle
+                    Datenschutzerklärung von WhatsApp, bevor Sie den
+                    Dienst zur Kontaktaufnahme nutzen.
                 </p>
-
-                <div class="info-box">
-
-                    <p class="placeholder">
-                        Hinweis: Angaben zum konkret verwendeten
-                        WhatsApp-Business-Konto und zu einer eventuell
-                        verwendeten WhatsApp-Business-Lösung werden bei
-                        Bedarf ergänzt.
-                    </p>
-
-                </div>
 
             </section>
 
 
 
-            <!-- Social Media -->
+            <!-- =================================================
+                 7. E-MAIL
+            ================================================== -->
 
             <section class="legal-section">
 
                 <h2>
-                    7. Social Media
+                    7. Kontaktaufnahme per E-Mail
+                </h2>
+
+                <p>
+                    Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir
+                    die von Ihnen übermittelten personenbezogenen Daten,
+                    soweit dies zur Bearbeitung Ihrer Anfrage erforderlich
+                    ist.
+                </p>
+
+                <p>
+                    Die Verarbeitung erfolgt ausschließlich zur
+                    Bearbeitung und Beantwortung Ihrer Anfrage sowie,
+                    soweit erforderlich, zur weiteren Kommunikation
+                    mit Ihnen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 8. SOCIAL MEDIA
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    8. Social Media
                 </h2>
 
                 <p>
                     Auf unserer Website befinden sich Verlinkungen zu
-                    unseren Social-Media-Auftritten, insbesondere
+                    unseren Social-Media-Auftritten, insbesondere zu
                     Facebook, Instagram und TikTok.
                 </p>
 
                 <p>
                     Beim Anklicken dieser Links verlassen Sie unsere
-                    Website und gelangen zu den jeweiligen Plattformen.
-                    Für die Verarbeitung personenbezogener Daten auf
-                    diesen Plattformen gelten die jeweiligen
-                    Datenschutzbestimmungen der Anbieter.
+                    Website und werden auf die jeweiligen Angebote
+                    der entsprechenden Anbieter weitergeleitet.
                 </p>
 
                 <p>
-                    Auf unserer Website werden derzeit keine Social-Media-
-                    Inhalte automatisch eingebettet, sofern dies nicht
-                    ausdrücklich anders angegeben ist.
+                    Für die Datenverarbeitung auf den jeweiligen
+                    Social-Media-Plattformen gelten die
+                    Datenschutzbestimmungen der jeweiligen Anbieter.
                 </p>
 
             </section>
 
 
 
-            <!-- Cookies -->
+            <!-- =================================================
+                 9. COOKIES
+            ================================================== -->
 
             <section class="legal-section">
 
                 <h2>
-                    8. Cookies und ähnliche Technologien
+                    9. Cookies und ähnliche Technologien
                 </h2>
 
                 <p>
-                    Unsere Website kann technisch erforderliche
-                    Technologien verwenden, die für den Betrieb und die
-                    sichere Darstellung der Website notwendig sind.
+                    Unsere Website verwendet nach dem derzeitigen
+                    technischen Stand keine nicht notwendigen
+                    Tracking- oder Analyse-Cookies.
                 </p>
 
                 <p>
-                    Soweit auf unserer Website darüber hinaus Cookies
-                    oder vergleichbare Technologien zu Analyse-,
-                    Marketing- oder Trackingzwecken eingesetzt werden,
-                    werden die entsprechenden Informationen in dieser
-                    Datenschutzerklärung ergänzt.
-                </p>
-
-                <div class="info-box">
-
-                    <p class="placeholder">
-                        Hinweis: Nach endgültiger Festlegung aller
-                        Website-Dienste wird dieser Abschnitt überprüft
-                        und gegebenenfalls ergänzt.
-                    </p>
-
-                </div>
-
-            </section>
-
-
-
-            <!-- Speicherdauer -->
-
-            <section class="legal-section">
-
-                <h2>
-                    9. Speicherdauer
-                </h2>
-
-                <p>
-                    Personenbezogene Daten werden nur so lange
-                    gespeichert, wie dies für den jeweiligen Zweck
-                    erforderlich ist oder gesetzliche
-                    Aufbewahrungspflichten bestehen.
-                </p>
-
-                <p>
-                    Nach Wegfall des jeweiligen Zwecks werden die Daten
-                    gelöscht, sofern keine gesetzlichen Gründe einer
-                    Löschung entgegenstehen.
+                    Technisch notwendige Speicherungen oder
+                    vergleichbare Technologien können eingesetzt werden,
+                    soweit diese für die technische Bereitstellung und
+                    Sicherheit der Website erforderlich sind.
                 </p>
 
             </section>
 
 
 
-            <!-- Rechte -->
+            <!-- =================================================
+                 10. IHRE RECHTE
+            ================================================== -->
 
             <section class="legal-section">
 
@@ -757,57 +752,56 @@
                 </h2>
 
                 <p>
-                    Sie haben im Rahmen der gesetzlichen Voraussetzungen
-                    insbesondere folgende Rechte:
+                    Sie haben nach Maßgabe der gesetzlichen
+                    Voraussetzungen insbesondere folgende Rechte:
                 </p>
 
                 <ul>
+
                     <li>
                         Recht auf Auskunft über Ihre personenbezogenen
-                        Daten
+                        Daten gemäß Art. 15 DSGVO
                     </li>
 
                     <li>
-                        Recht auf Berichtigung unrichtiger oder
-                        unvollständiger Daten
+                        Recht auf Berichtigung unrichtiger Daten
+                        gemäß Art. 16 DSGVO
                     </li>
 
                     <li>
-                        Recht auf Löschung Ihrer personenbezogenen Daten
+                        Recht auf Löschung gemäß Art. 17 DSGVO
                     </li>
 
                     <li>
                         Recht auf Einschränkung der Verarbeitung
+                        gemäß Art. 18 DSGVO
+                    </li>
+
+                    <li>
+                        Recht auf Datenübertragbarkeit gemäß
+                        Art. 20 DSGVO
                     </li>
 
                     <li>
                         Recht auf Widerspruch gegen bestimmte
-                        Verarbeitungen
+                        Verarbeitungen gemäß Art. 21 DSGVO
                     </li>
 
-                    <li>
-                        Recht auf Datenübertragbarkeit
-                    </li>
-
-                    <li>
-                        Recht auf Widerruf einer erteilten Einwilligung
-                        mit Wirkung für die Zukunft
-                    </li>
                 </ul>
 
                 <p>
-                    Die genannten Rechte ergeben sich insbesondere aus
-                    den Artikeln 15 bis 22 DSGVO. Welche Rechte im
-                    Einzelfall bestehen und in welchem Umfang sie
-                    ausgeübt werden können, richtet sich nach den
-                    gesetzlichen Voraussetzungen. :chatgpt-content-reference{index="3"}
+                    Wenn eine Verarbeitung auf Ihrer Einwilligung beruht,
+                    können Sie Ihre Einwilligung jederzeit mit Wirkung
+                    für die Zukunft widerrufen.
                 </p>
 
             </section>
 
 
 
-            <!-- Beschwerderecht -->
+            <!-- =================================================
+                 11. BESCHWERDERECHT
+            ================================================== -->
 
             <section class="legal-section">
 
@@ -817,71 +811,110 @@
 
                 <p>
                     Sie haben das Recht, sich bei einer
-                    Datenschutz-Aufsichtsbehörde über die Verarbeitung
-                    Ihrer personenbezogenen Daten zu beschweren.
+                    Datenschutzaufsichtsbehörde über die Verarbeitung
+                    Ihrer personenbezogenen Daten zu beschweren,
+                    wenn Sie der Ansicht sind, dass die Verarbeitung
+                    gegen datenschutzrechtliche Vorschriften verstößt.
                 </p>
 
-                <div class="info-box">
-
-                    <p class="placeholder">
-                        Die für Pflegedienst GRATIA GmbH zuständige
-                        Datenschutz-Aufsichtsbehörde wird nach
-                        Bestätigung der zuständigen Stelle ergänzt.
-                    </p>
-
-                </div>
+                <p>
+                    Die für unser Unternehmen konkret zuständige
+                    Datenschutzaufsichtsbehörde sollte vor
+                    Veröffentlichung dieser Datenschutzerklärung
+                    noch geprüft und ergänzt werden.
+                </p>
 
             </section>
 
 
 
-            <!-- Datenschutzbeauftragter -->
+            <!-- =================================================
+                 12. SPEICHERDAUER
+            ================================================== -->
 
             <section class="legal-section">
 
                 <h2>
-                    12. Datenschutzbeauftragter
+                    12. Speicherdauer
                 </h2>
 
-                <p class="placeholder">
-                    Angaben zu einem Datenschutzbeauftragten werden
-                    ergänzt, sofern für Pflegedienst GRATIA GmbH eine
-                    gesetzliche Verpflichtung zur Benennung besteht bzw.
-                    ein Datenschutzbeauftragter benannt wurde.
+                <p>
+                    Wir speichern personenbezogene Daten nur so lange,
+                    wie dies für den jeweiligen Zweck erforderlich ist
+                    oder gesetzliche Aufbewahrungspflichten bestehen.
+                </p>
+
+                <p>
+                    Nach Wegfall des jeweiligen Zwecks beziehungsweise
+                    nach Ablauf gesetzlicher Aufbewahrungsfristen werden
+                    die betreffenden Daten gelöscht, sofern keine
+                    gesetzlichen Gründe einer Löschung entgegenstehen.
                 </p>
 
             </section>
 
 
 
-            <!-- Änderungen -->
+            <!-- =================================================
+                 13. DATENSICHERHEIT
+            ================================================== -->
 
             <section class="legal-section">
 
                 <h2>
-                    13. Änderungen dieser Datenschutzerklärung
+                    13. Datensicherheit
+                </h2>
+
+                <p>
+                    Wir setzen angemessene technische und organisatorische
+                    Maßnahmen ein, um Ihre personenbezogenen Daten vor
+                    Verlust, Missbrauch, unbefugtem Zugriff und
+                    sonstigen unzulässigen Verarbeitungen zu schützen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 14. ÄNDERUNGEN
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    14. Änderungen dieser Datenschutzerklärung
                 </h2>
 
                 <p>
                     Wir behalten uns vor, diese Datenschutzerklärung
-                    anzupassen, wenn sich rechtliche Anforderungen,
-                    technische Gegebenheiten oder die von uns
-                    eingesetzten Dienste ändern.
+                    anzupassen, wenn dies aufgrund technischer,
+                    organisatorischer oder rechtlicher Änderungen
+                    erforderlich wird.
                 </p>
 
                 <p>
-                    Die jeweils aktuelle Fassung wird auf dieser Website
-                    veröffentlicht.
+                    Es gilt jeweils die auf dieser Website
+                    veröffentlichte aktuelle Fassung.
                 </p>
 
-                <div class="info-box">
+            </section>
 
-                    <p>
-                        <strong>Stand:</strong>
-                        Oktober 2026
-                    </p>
 
-                </div>
+
+            <!-- =================================================
+                 STAND
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    15. Stand
+                </h2>
+
+                <p>
+                    Stand: Oktober 2026
+                </p>
 
             </section>
 
@@ -892,9 +925,9 @@
 
 
 
-    <!-- =========================
+    <!-- =====================================================
          FOOTER
-    ========================= -->
+    ====================================================== -->
 
     <footer class="legal-footer">
 
@@ -910,12 +943,9 @@
 
 
     <script>
-
         document.getElementById("currentYear").textContent =
             new Date().getFullYear();
-
     </script>
-
 
 </body>
 </html>
