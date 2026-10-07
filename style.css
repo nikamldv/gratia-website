@@ -3532,7 +3532,8 @@ button {
         overflow: hidden !important;
     }
 
-    /* هر عکس یک اسلاید است */
+    /* Each photo is a slide.*/
+
     .team-images .team-image {
         position: absolute !important;
 
@@ -3559,14 +3560,16 @@ button {
             visibility 0.6s ease;
     }
 
-    /* فقط اسلاید فعال دیده شود */
+    /* Only the active slide should be visible */
+
     .team-images .team-image.active {
         opacity: 1 !important;
         visibility: visible !important;
         z-index: 2 !important;
     }
 
-    /* عکس داخل اسلاید */
+    /* Photo inside the slide*/
+
     .team-images .team-image img {
         display: block !important;
 
@@ -3577,7 +3580,8 @@ button {
         object-position: center center !important;
     }
 
-    /* دکمه قبلی و بعدی */
+    /*Previous and next buttons*/
+    
     .team-slider-btn {
         position: absolute !important;
 
