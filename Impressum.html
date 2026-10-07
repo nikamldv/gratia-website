@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Impressum | Pflegedienst GRATIA GmbH</title>
+
+    <style>
+        :root {
+            --primary: #74100c;
+            --primary-dark: #520b09;
+            --gold: #c59a45;
+            --text: #333333;
+            --light: #f7f5f3;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* =========================
+           HEADER
+           ========================= */
+
+        .legal-header {
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .legal-header-inner {
+            width: min(92%, 1200px);
+            min-height: 95px;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .legal-logo {
+            width: 190px;
+            height: 70px;
+            object-fit: contain;
+            object-position: left center;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border: 1px solid var(--primary);
+            border-radius: 7px;
+
+            color: var(--primary);
+            font-weight: 600;
+
+            transition: all 0.25s ease;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* =========================
+           MAIN
+           ========================= */
+
+        .legal-main {
+            width: min(92%, 900px);
+            margin: 0 auto;
+            padding: 70px 0 90px;
+        }
+
+        .legal-card {
+            background: var(--white);
+            border-radius: 14px;
+            padding: 55px 65px;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.06);
+        }
+
+        .legal-title {
+            margin: 0 0 12px;
+
+            color: var(--primary);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .legal-intro {
+            margin: 0 0 45px;
+            color: #666666;
+            font-size: 1rem;
+        }
+
+        .legal-section {
+            margin-bottom: 38px;
+        }
+
+        .legal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .legal-section h2 {
+            margin: 0 0 15px;
+
+            color: var(--primary);
+            font-size: 1.35rem;
+            line-height: 1.3;
+        }
+
+        .legal-section p {
+            margin: 0 0 10px;
+        }
+
+        .legal-section strong {
+            color: #222222;
+        }
+
+        .placeholder {
+            color: #777777;
+            font-style: italic;
+        }
+
+        /* =========================
+           FOOTER
+           ========================= */
+
+        .legal-footer {
+            width: 100%;
+            background: var(--primary-dark);
+            color: rgba(255, 255, 255, 0.75);
+            text-align: center;
+            padding: 25px 15px;
+        }
+
+        .legal-footer p {
+            margin: 0;
+            font-size: 13px;
+        }
+
+        .legal-footer a {
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .legal-footer a:hover {
+            color: var(--gold);
+        }
+
+        /* =========================
+           RESPONSIVE
+           ========================= */
+
+        @media (max-width: 760px) {
+
+            .legal-header-inner {
+                width: calc(100% - 30px);
+                min-height: 80px;
+            }
+
+            .legal-logo {
+                width: 155px;
+                height: 58px;
+            }
+
+            .back-link {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .legal-main {
+                width: calc(100% - 24px);
+                padding: 35px 0 55px;
+            }
+
+            .legal-card {
+                padding: 32px 22px;
+                border-radius: 12px;
+            }
+
+            .legal-title {
+                font-size: 2rem;
+            }
+
+            .legal-intro {
+                margin-bottom: 32px;
+            }
+
+            .legal-section {
+                margin-bottom: 30px;
+            }
+
+            .legal-section h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 430px) {
+
+            .legal-header-inner {
+                width: calc(100% - 20px);
+            }
+
+            .legal-logo {
+                width: 140px;
+            }
+
+            .back-link {
+                font-size: 13px;
+                padding: 7px 10px;
+            }
+
+            .legal-card {
+                padding: 28px 18px;
+            }
+
+            .legal-title {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="legal-header">
+        <div class="legal-header-inner">
+
+            <a href="index.html" aria-label="Pflegedienst GRATIA GmbH">
+                <img
+                    src="images/gratia-logo.png"
+                    alt="Pflegedienst GRATIA GmbH"
+                    class="legal-logo"
+                >
+            </a>
+
+            <a href="index.html" class="back-link">
+                ← Zurück zur Website
+            </a>
+
+        </div>
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="legal-main">
+
+        <article class="legal-card">
+
+            <h1 class="legal-title">Impressum</h1>
+
+            <p class="legal-intro">
+                Angaben gemäß § 5 DDG
+            </p>
+
+
+            <!-- Anbieter -->
+            <section class="legal-section">
+
+                <h2>Anbieter</h2>
+
+                <p>
+                    <strong>Pflegedienst GRATIA GmbH</strong><br>
+                    Pfaffenpfad 1<br>
+                    97440 Werneck<br>
+                    Deutschland
+                </p>
+
+            </section>
+
+
+            <!-- Vertretungsberechtigte -->
+            <section class="legal-section">
+
+                <h2>Vertretungsberechtigte Geschäftsführung</h2>
+
+                <p>
+                    <strong>Petra Hepperle</strong>
+                </p>
+
+            </section>
+
+
+            <!-- Kontakt -->
+            <section class="legal-section">
+
+                <h2>Kontakt</h2>
+
+                <p>
+                    <strong>Telefon:</strong>
+                    <a href="https://wa.me/4915787757403"
+                       target="_blank"
+                       rel="noopener noreferrer">
+                        01578 7757403
+                    </a>
+                </p>
+
+                <p>
+                    <strong>E-Mail:</strong>
+                    <a href="mailto:pflegedienstgratia@gmail.com">
+                        pflegedienstgratia@gmail.com
+                    </a>
+                </p>
+
+            </section>
+
+
+            <!-- Register -->
+            <section class="legal-section">
+
+                <h2>Registereintrag</h2>
+
+                <p>
+                    <strong>Handelsregister:</strong>
+                    HRB 6820
+                </p>
+
+                <p>
+                    <strong>Registergericht:</strong>
+                    <span class="placeholder">
+                        Bitte vor Veröffentlichung bestätigen.
+                    </span>
+                </p>
+
+            </section>
+
+
+            <!-- Aufsichtsbehörde -->
+            <section class="legal-section">
+
+                <h2>Aufsichtsbehörde</h2>
+
+                <p class="placeholder">
+                    Die zuständige Aufsichtsbehörde bitte vor
+                    Veröffentlichung ergänzen und bestätigen.
+                </p>
+
+            </section>
+
+
+            <!-- Umsatzsteuer -->
+            <section class="legal-section">
+
+                <h2>Umsatzsteuer-ID</h2>
+
+                <p class="placeholder">
+                    Sofern vorhanden, bitte die Umsatzsteuer-
+                    Identifikationsnummer ergänzen.
+                </p>
+
+            </section>
+
+
+            <!-- Verantwortlich -->
+            <section class="legal-section">
+
+                <h2>Verantwortlich für den Inhalt</h2>
+
+                <p>
+                    <strong>Pflegedienst GRATIA GmbH</strong><br>
+                    Pfaffenpfad 1<br>
+                    97440 Werneck<br>
+                    Deutschland
+                </p>
+
+                <p>
+                    Vertretungsberechtigt durch:
+                    <strong>Petra Hepperle</strong>
+                </p>
+
+            </section>
+
+        </article>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="legal-footer">
+
+        <p>
+            © <span id="currentYear"></span>
+            Pflegedienst GRATIA GmbH.
+            Alle Rechte vorbehalten.
+        </p>
+
+    </footer>
+
+
+    <script>
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>
