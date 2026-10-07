@@ -4190,3 +4190,193 @@ iframe {
     background: var(--primary-dark) !important;
 }
 
+/* =========================================================
+   GRATIA FOOTER - FINAL RESPONSIVE ALIGNMENT
+   ========================================================= */
+
+/* DESKTOP / LARGE SCREEN */
+
+@media (min-width: 761px) {
+
+    .footer {
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+
+    .footer-mobile-style {
+        width: min(92%, 1200px) !important;
+        max-width: 1200px !important;
+
+        margin-left: auto !important;
+        margin-right: auto !important;
+
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+
+        column-gap: 100px !important;
+        row-gap: 0 !important;
+
+        align-items: start !important;
+
+        padding: 60px 0 !important;
+    }
+
+    .footer-section {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+
+        text-align: left !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .footer-section h3 {
+        margin: 0 0 24px 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer-navigation {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+
+        gap: 13px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .footer-navigation a {
+        display: block !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer-contact-new {
+        width: 100% !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: flex-start !important;
+
+        gap: 15px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .footer-address,
+    .footer-contact-link {
+        display: flex !important;
+
+        align-items: flex-start !important;
+
+        justify-content: flex-start !important;
+
+        gap: 12px !important;
+
+        margin: 0 !important;
+        padding: 0 !important;
+
+        text-align: left !important;
+    }
+
+    .footer-social {
+        display: flex !important;
+
+        flex-direction: row !important;
+
+        align-items: center !important;
+        justify-content: flex-start !important;
+
+        gap: 12px !important;
+
+        margin-top: 25px !important;
+    }
+
+    .footer-bottom-content {
+        width: min(92%, 1200px) !important;
+        max-width: 1200px !important;
+
+        margin-left: auto !important;
+        margin-right: auto !important;
+
+        display: flex !important;
+        flex-direction: column !important;
+
+        align-items: center !important;
+        justify-content: center !important;
+
+        text-align: center !important;
+
+        padding: 20px 0 !important;
+    }
+}
+
+
+/* TABLET */
+
+@media (min-width: 761px) and (max-width: 1000px) {
+
+    .footer-mobile-style {
+        width: calc(100% - 50px) !important;
+
+        grid-template-columns: 1fr 1fr !important;
+
+        column-gap: 50px !important;
+    }
+
+}
+
+
+/* MOBILE */
+
+@media (max-width: 760px) {
+
+    .footer-mobile-style {
+        width: calc(100% - 30px) !important;
+
+        display: grid !important;
+
+        grid-template-columns: 1fr !important;
+
+        gap: 40px !important;
+
+        padding: 50px 0 !important;
+    }
+
+    .footer-section {
+        width: 100% !important;
+
+        align-items: flex-start !important;
+
+        text-align: left !important;
+    }
+
+    .footer-section h3 {
+        text-align: left !important;
+    }
+
+    .footer-navigation {
+        align-items: flex-start !important;
+    }
+
+    .footer-social {
+        justify-content: flex-start !important;
+    }
+
+}
