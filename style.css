@@ -4017,3 +4017,368 @@ iframe {
     display: flex !important;
 }
 
+
+
+/* =========================================================
+   GRATIA - AKTUELLES / NEWS PAGE
+   ========================================================= */
+
+.news-page-hero {
+    padding: 115px 0 95px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(111, 32, 57, 0.07),
+            rgba(255, 255, 255, 0.95)
+        );
+    text-align: center;
+}
+
+.news-page-hero-content {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.news-eyebrow {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.news-page-hero h1 {
+    margin: 0 0 22px;
+    color: #222;
+    font-size: clamp(42px, 5vw, 68px);
+    line-height: 1.08;
+    font-weight: 700;
+}
+
+.news-page-hero h1 span {
+    color: var(--primary);
+}
+
+.news-page-hero p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #666;
+    font-size: 18px;
+    line-height: 1.8;
+}
+
+
+/* NEWS OVERVIEW */
+
+.news-overview {
+    padding: 100px 0 110px;
+    background: #fff;
+}
+
+.news-section-heading {
+    max-width: 760px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.news-section-heading > span {
+    display: block;
+    margin-bottom: 12px;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.news-section-heading h2 {
+    margin: 0 0 18px;
+    color: #222;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.2;
+}
+
+.news-section-heading p {
+    margin: 0;
+    color: #666;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* NEWS GRID */
+
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.news-card {
+    min-height: 300px;
+    padding: 35px;
+    background: #fff;
+    border: 1px solid rgba(111, 32, 57, 0.10);
+    border-radius: 20px;
+    box-shadow: 0 12px 35px rgba(80, 25, 45, 0.07);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 42px rgba(80, 25, 45, 0.12);
+}
+
+.news-card-icon {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    background: rgba(111, 32, 57, 0.08);
+    color: var(--primary);
+    font-size: 25px;
+}
+
+.news-card-category {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.news-card h3 {
+    margin: 0 0 15px;
+    color: #222;
+    font-size: 22px;
+    line-height: 1.35;
+}
+
+.news-card p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.75;
+}
+
+
+/* CTA */
+
+.news-contact-section {
+    padding: 0 0 110px;
+    background: #fff;
+}
+
+.news-contact-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 45px 50px;
+    background: var(--primary);
+    border-radius: 22px;
+    box-shadow: 0 15px 40px rgba(80, 25, 45, 0.15);
+}
+
+.news-contact-box > div {
+    max-width: 700px;
+}
+
+.news-contact-box span {
+    display: block;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.8px;
+}
+
+.news-contact-box h2 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: 32px;
+    line-height: 1.25;
+}
+
+.news-contact-box p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.news-contact-button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 28px;
+    background: #fff;
+    color: var(--primary);
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.news-contact-button:hover {
+    transform: translateY(-2px);
+    background: #f7f2f4;
+}
+
+
+/* =========================================================
+   AKTUELLES - RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .news-page-hero {
+        padding: 90px 0 75px;
+    }
+
+    .news-grid {
+        grid-template-columns: 1fr;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    .news-card {
+        min-height: auto;
+    }
+
+    .news-contact-box {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 38px 30px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .news-page-hero {
+        padding: 75px 0 65px;
+    }
+
+    .news-page-hero h1 {
+        font-size: 40px;
+    }
+
+    .news-page-hero p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    .news-overview {
+        padding: 75px 0 80px;
+    }
+
+    .news-section-heading {
+        margin-bottom: 40px;
+    }
+
+    .news-section-heading h2 {
+        font-size: 31px;
+    }
+
+    .news-section-heading p {
+        font-size: 15px;
+    }
+
+    .news-card {
+        padding: 28px;
+        border-radius: 17px;
+    }
+
+    .news-card h3 {
+        font-size: 20px;
+    }
+
+    .news-card p {
+        font-size: 14px;
+    }
+
+    .news-contact-section {
+        padding-bottom: 75px;
+    }
+
+    .news-contact-box {
+        padding: 30px 24px;
+        border-radius: 18px;
+    }
+
+    .news-contact-box h2 {
+        font-size: 27px;
+    }
+
+    .news-contact-button {
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width: 430px) {
+
+    .news-page-hero h1 {
+        font-size: 35px;
+    }
+
+    .news-card {
+        padding: 24px;
+    }
+
+    .news-card-icon {
+        width: 52px;
+        height: 52px;
+        margin-bottom: 22px;
+    }
+
+}
+
+
+
+/* =========================================================
+   FOOTER NAVIGATION - TWO COLUMNS
+   ========================================================= */
+
+@media (min-width: 761px) {
+
+    .footer-navigation {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
+        column-gap: 55px !important;
+        row-gap: 14px !important;
+        align-items: start !important;
+    }
+
+    .footer-navigation a {
+        margin: 0 !important;
+        white-space: nowrap;
+    }
+
+}
+
+
+/* MOBILE - ONE COLUMN */
+
+@media (max-width: 760px) {
+
+    .footer-navigation {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+    }
+
+}
+
