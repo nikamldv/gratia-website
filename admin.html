@@ -1,0 +1,1053 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Adminbereich</title>
+
+    <style>
+        :root {
+            --burgundy: #872020;
+            --background: #f5f5f5;
+            --text: #292929;
+            --muted: #777;
+            --border: #e6e6e6;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        header {
+            background: var(--burgundy);
+            color: white;
+            padding: 24px 5%;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 25px;
+        }
+
+        header p {
+            margin: 0;
+        }
+
+        main {
+            width: min(1200px, 94%);
+            margin: 30px auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .login-wrap {
+            width: min(430px, 100%);
+            margin: 55px auto;
+        }
+
+        .login-card,
+        .panel,
+        .count-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .login-card {
+            padding: 28px;
+            box-shadow: 0 8px 25px #00000008;
+        }
+
+        h2,
+        .login-card h2 {
+            color: var(--burgundy);
+        }
+
+        .field {
+            margin: 18px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input {
+            max-width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 7px;
+            padding: 11px;
+            font: inherit;
+        }
+#username {
+    width: 100%;
+}
+
+#password {
+    width: 100%;
+}
+        
+
+        button {
+            border: none;
+            border-radius: 7px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:disabled {
+            opacity: .6;
+            cursor: wait;
+        }
+
+        .primary-button,
+        .refresh-button,
+        .logout-button,
+        .save-button {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        .primary-button {
+            width: 100%;
+        }
+
+        button:hover {
+            filter: brightness(.92);
+        }
+
+        .error {
+            color: #a51d1d;
+        }
+
+        .dashboard-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .dashboard-top h2 {
+            margin-bottom: 8px;
+        }
+
+        .dashboard-top p {
+            color: var(--muted);
+        }
+
+        .count-card {
+            padding: 18px 24px;
+            min-width: 160px;
+        }
+
+        .count-card span {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+
+        .count-card strong {
+            font-size: 30px;
+            color: var(--burgundy);
+        }
+
+        .panel {
+            overflow: hidden;
+            margin-bottom: 28px;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .panel-header h3 {
+            margin: 0;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            min-width: 750px;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 13px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #fafafa;
+            color: #555;
+            font-size: 13px;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .message {
+            padding: 24px;
+            text-align: center;
+            color: var(--muted);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #fff0d6;
+            color: #815500;
+            font-size: 12px;
+        }
+
+        .details-button,
+        .small-button {
+            background: #f0e5e5;
+            color: var(--burgundy);
+        }
+
+        .user-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .permission-check {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            margin: 8px 0;
+            font-weight: normal;
+        }
+
+        .permission-check input {
+            width: auto;
+        }
+
+        .active-status {
+            color: #176534;
+            background: #e2f5e8;
+        }
+
+        .inactive-status {
+            color: #9b2020;
+            background: #fbe4e4;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: #0009;
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-content {
+            width: min(600px, 100%);
+            max-height: 85vh;
+            overflow-y: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 14px;
+        }
+
+        .detail-row {
+            margin: 16px 0;
+            overflow-wrap: anywhere;
+        }
+
+        .detail-row strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .detail-message {
+            white-space: pre-wrap;
+        }
+
+        .close-button {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 21px;
+            }
+
+            main {
+                margin: 20px auto;
+            }
+
+            .login-card {
+                padding: 22px;
+            }
+
+            .count-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>GRATIA – Adminbereich</h1>
+    <p>Verwaltung der Kontaktanfragen und Benutzerkonten</p>
+</header>
+
+<main>
+
+    <!-- Anmeldung -->
+    <section id="login-section" class="login-wrap">
+        <div class="login-card">
+            <h2>Admin-Anmeldung</h2>
+
+            <p>Bitte melden Sie sich mit Ihrem GRATIA-Benutzerkonto an.</p>
+
+            <form id="login-form">
+                <div class="field">
+                    <label for="username">Benutzername</label>
+                    <input
+                        id="username"
+                        name="username"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="password">Passwort</label>
+                    <input
+                        id="password"
+                        name="password"
+                        type="password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button class="primary-button" id="login-button" type="submit">
+                    Anmelden
+                </button>
+
+                <p id="login-message" aria-live="polite"></p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
+    <section id="dashboard-section" class="hidden">
+
+        <div class="dashboard-top">
+            <div>
+                <h2>Willkommen</h2>
+                <p id="welcome-message">GRATIA-Verwaltung</p>
+            </div>
+
+            <div class="count-card">
+                <span>Gespeicherte Nachrichten</span>
+                <strong id="message-count">–</strong>
+            </div>
+        </div>
+
+        <!-- Kontaktanfragen -->
+        <section class="panel">
+            <div class="panel-header">
+                <h3>Alle Kontaktanfragen</h3>
+
+                <div class="user-actions">
+                    <button id="refresh-button" class="refresh-button">
+                        Aktualisieren ↻
+                    </button>
+
+                    <button id="logout-button" class="logout-button">
+                        Abmelden
+                    </button>
+                </div>
+            </div>
+
+            <div id="message-container" class="message">
+                Nachrichten werden geladen …
+            </div>
+        </section>
+
+        <!-- Benutzerverwaltung -->
+        <section id="users-panel" class="panel hidden">
+            <div class="panel-header">
+                <div>
+                    <h3>Benutzerverwaltung</h3>
+                    <p>Benutzer und Berechtigungen verwalten</p>
+                </div>
+
+                <button id="refresh-users-button" class="refresh-button">
+                    Benutzer aktualisieren ↻
+                </button>
+            </div>
+
+            <div id="users-message" class="message">
+                Benutzer werden geladen …
+            </div>
+        </section>
+
+    </section>
+</main>
+
+<!-- Details eines Kontakts -->
+<div class="modal" id="message-modal" role="dialog" aria-modal="true">
+    <div class="modal-content">
+        <h2>Nachrichtendetails</h2>
+        <div id="message-details"></div>
+
+        <button id="close-modal" class="close-button">
+            Schließen
+        </button>
+    </div>
+</div>
+
+<footer>
+    Pflegedienst GRATIA GmbH · Interner Verwaltungsbereich
+</footer>
+
+<script>
+    const API_BASE = "http://localhost:3000/api";
+    const TOKEN_KEY = "gratia_admin_token";
+    const USER_KEY = "gratia_admin_user";
+
+    const $ = id => document.getElementById(id);
+
+    const loginSection = $("login-section");
+    const dashboardSection = $("dashboard-section");
+    const loginForm = $("login-form");
+    const loginButton = $("login-button");
+    const loginMessage = $("login-message");
+    const usernameInput = $("username");
+    const passwordInput = $("password");
+
+    const container = $("message-container");
+    const countElement = $("message-count");
+    const refreshButton = $("refresh-button");
+
+    const usersPanel = $("users-panel");
+    const usersMessage = $("users-message");
+    const refreshUsersButton = $("refresh-users-button");
+
+    const modal = $("message-modal");
+    const detailsContainer = $("message-details");
+
+    function getToken() {
+        return sessionStorage.getItem(TOKEN_KEY);
+    }
+
+    function showLogin(message = "") {
+        dashboardSection.classList.add("hidden");
+        loginSection.classList.remove("hidden");
+        loginMessage.className = "error";
+        loginMessage.textContent = message;
+        passwordInput.value = "";
+    }
+
+    function showDashboard(user) {
+        loginSection.classList.add("hidden");
+        dashboardSection.classList.remove("hidden");
+
+        const name = user.full_name || user.username || "Benutzer";
+
+        $("welcome-message").textContent = "Angemeldet als " + name;
+    }
+
+    async function apiRequest(path, options = {}) {
+        const response = await fetch(`${API_BASE}${path}`, {
+            ...options,
+            headers: {
+                ...(options.headers || {}),
+                Authorization: `Bearer ${getToken()}`
+            }
+        });
+
+        const data = await response.json();
+
+        if (response.status === 401) {
+            logout();
+            throw new Error("Sitzung abgelaufen. Bitte erneut anmelden.");
+        }
+
+        if (!response.ok) {
+            throw new Error(data.message || "Die Anfrage ist fehlgeschlagen.");
+        }
+
+        return data;
+    }
+
+    // Anmeldung
+    async function login(event) {
+        event.preventDefault();
+
+        loginButton.disabled = true;
+        loginButton.textContent = "Anmeldung läuft …";
+        loginMessage.textContent = "";
+
+        try {
+            const response = await fetch(`${API_BASE}/auth/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    username: usernameInput.value.trim(),
+                    password: passwordInput.value
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || data.status !== "OK" || !data.token) {
+                throw new Error(data.message || "Anmeldung fehlgeschlagen.");
+            }
+
+            if (data.user.must_change_password) {
+                throw new Error(
+                    "Für dieses Konto muss zuerst ein Passwortwechsel eingerichtet werden."
+                );
+            }
+
+            sessionStorage.setItem(TOKEN_KEY, data.token);
+            sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
+
+            showDashboard(data.user);
+
+            await loadMessages();
+            await loadUsers();
+
+        } catch (error) {
+            loginMessage.textContent =
+                error.message || "Backend nicht erreichbar.";
+        } finally {
+            loginButton.disabled = false;
+            loginButton.textContent = "Anmelden";
+        }
+    }
+
+    function createCell(value) {
+        const cell = document.createElement("td");
+        cell.textContent = value ?? "";
+        return cell;
+    }
+
+    function formatDate(value) {
+        if (!value) return "–";
+
+        const date = new Date(value);
+
+        if (Number.isNaN(date.getTime())) {
+            return String(value);
+        }
+
+        return date.toLocaleString("de-DE");
+    }
+
+    // Kontaktdetails
+    function showDetails(message) {
+        detailsContainer.replaceChildren();
+
+        const fields = [
+            ["Name", message.name],
+            ["E-Mail", message.email],
+            ["Telefon", message.phone],
+            ["Anliegen", message.subject],
+            ["Nachricht", message.message],
+            ["Status", message.status],
+            ["Eingegangen am", formatDate(message.created_at)]
+        ];
+
+        fields.forEach(([label, value]) => {
+            const row = document.createElement("div");
+            row.className = "detail-row";
+
+            const heading = document.createElement("strong");
+            heading.textContent = label;
+
+            const content = document.createElement("div");
+            content.textContent = value || "–";
+
+            if (label === "Nachricht") {
+                content.className = "detail-message";
+            }
+
+            row.append(heading, content);
+            detailsContainer.appendChild(row);
+        });
+
+        modal.classList.add("open");
+    }
+
+    // Kontaktanfragen laden
+    async function loadMessages() {
+        if (!getToken()) {
+            showLogin("Bitte melden Sie sich an.");
+            return;
+        }
+
+        refreshButton.disabled = true;
+        container.className = "message";
+        container.textContent = "Nachrichten werden geladen …";
+
+        try {
+            const data = await apiRequest("/contact-messages");
+
+            if (data.status !== "OK" || !Array.isArray(data.messages)) {
+                throw new Error("Nachrichten konnten nicht geladen werden.");
+            }
+
+            countElement.textContent = data.count;
+
+            if (data.messages.length === 0) {
+                container.textContent = "Es liegen noch keine Nachrichten vor.";
+                return;
+            }
+
+            const table = document.createElement("table");
+            const thead = document.createElement("thead");
+            const headRow = document.createElement("tr");
+
+            [
+                "Nr.",
+                "Name",
+                "E-Mail",
+                "Anliegen",
+                "Datum",
+                "Status",
+                "Details"
+            ].forEach(label => {
+                const th = document.createElement("th");
+                th.textContent = label;
+                headRow.appendChild(th);
+            });
+
+            thead.appendChild(headRow);
+
+            const tbody = document.createElement("tbody");
+
+            data.messages.forEach(message => {
+                const row = document.createElement("tr");
+
+                row.appendChild(createCell(message.id));
+                row.appendChild(createCell(message.name));
+                row.appendChild(createCell(message.email));
+                row.appendChild(createCell(message.subject || "–"));
+                row.appendChild(createCell(formatDate(message.created_at)));
+
+                const statusCell = document.createElement("td");
+                const status = document.createElement("span");
+
+                status.className = "status";
+                status.textContent = message.status || "neu";
+
+                statusCell.appendChild(status);
+                row.appendChild(statusCell);
+
+                const actionCell = document.createElement("td");
+                const button = document.createElement("button");
+
+                button.className = "details-button";
+                button.textContent = "Öffnen";
+                button.type = "button";
+                button.addEventListener("click", () => showDetails(message));
+
+                actionCell.appendChild(button);
+                row.appendChild(actionCell);
+                tbody.appendChild(row);
+            });
+
+            table.append(thead, tbody);
+
+            const wrapper = document.createElement("div");
+            wrapper.className = "table-wrapper";
+            wrapper.appendChild(table);
+
+            container.replaceChildren(wrapper);
+            container.className = "";
+
+        } catch (error) {
+            container.className = "message error";
+            container.textContent = error.message;
+        } finally {
+            refreshButton.disabled = false;
+        }
+    }
+
+    // Benutzerverwaltung: Berechtigungen prüfen
+    function canManageUsers(user) {
+        const p = user?.permissions || {};
+
+        return (
+            user?.role === "super_admin" ||
+            p.all === true ||
+            p["users.manage"] === true ||
+            p.users?.manage === true
+        );
+    }
+
+    function hasPermission(user, key, section, action) {
+        const p = user?.permissions || {};
+
+        return p[key] === true || p[section]?.[action] === true;
+    }
+
+    // Benutzer laden
+    async function loadUsers() {
+        const currentUser = JSON.parse(
+            sessionStorage.getItem(USER_KEY) || "null"
+        );
+
+        if (!canManageUsers(currentUser)) {
+            usersPanel.classList.add("hidden");
+            return;
+        }
+
+        usersPanel.classList.remove("hidden");
+        refreshUsersButton.disabled = true;
+        usersMessage.className = "message";
+        usersMessage.textContent = "Benutzer werden geladen …";
+
+        try {
+            const data = await apiRequest("/users");
+
+            if (data.status !== "OK" || !Array.isArray(data.users)) {
+                throw new Error("Benutzer konnten nicht geladen werden.");
+            }
+
+            renderUsers(data.users, currentUser);
+
+        } catch (error) {
+            usersMessage.className = "message error";
+            usersMessage.textContent = error.message;
+        } finally {
+            refreshUsersButton.disabled = false;
+        }
+    }
+
+    // Benutzertabelle anzeigen
+    function renderUsers(users, currentUser) {
+        if (users.length === 0) {
+            usersMessage.textContent = "Keine Benutzer gefunden.";
+            return;
+        }
+
+        const table = document.createElement("table");
+        const thead = document.createElement("thead");
+        const headRow = document.createElement("tr");
+
+        [
+            "ID",
+            "Benutzer",
+            "E-Mail",
+            "Rolle",
+            "Status",
+            "Berechtigungen",
+            "Aktionen"
+        ].forEach(label => {
+            const th = document.createElement("th");
+            th.textContent = label;
+            headRow.appendChild(th);
+        });
+
+        thead.appendChild(headRow);
+
+        const tbody = document.createElement("tbody");
+
+        users.forEach(user => {
+            const row = document.createElement("tr");
+
+            row.appendChild(createCell(user.id));
+            row.appendChild(createCell(user.full_name || user.username));
+            row.appendChild(createCell(user.email || "–"));
+            row.appendChild(createCell(user.role));
+
+            const statusCell = document.createElement("td");
+            const status = document.createElement("span");
+
+            status.className = user.is_active
+                ? "status active-status"
+                : "status inactive-status";
+
+            status.textContent = user.is_active ? "Aktiv" : "Deaktiviert";
+
+            statusCell.appendChild(status);
+            row.appendChild(statusCell);
+
+            const permissionCell = document.createElement("td");
+
+            const contactLabel = document.createElement("label");
+            contactLabel.className = "permission-check";
+
+            const contactBox = document.createElement("input");
+            contactBox.type = "checkbox";
+            contactBox.checked = hasPermission(
+                user,
+                "contact_messages.read",
+                "contact_messages",
+                "read"
+            );
+            contactBox.disabled = user.role === "super_admin";
+
+            contactLabel.append(
+                contactBox,
+                document.createTextNode("Kontaktanfragen")
+            );
+
+            const applicationLabel = document.createElement("label");
+            applicationLabel.className = "permission-check";
+
+            const applicationBox = document.createElement("input");
+            applicationBox.type = "checkbox";
+            applicationBox.checked = hasPermission(
+                user,
+                "applications.read",
+                "applications",
+                "read"
+            );
+            applicationBox.disabled = user.role === "super_admin";
+
+            applicationLabel.append(
+                applicationBox,
+                document.createTextNode("Bewerbungen")
+            );
+
+            permissionCell.append(contactLabel, applicationLabel);
+            row.appendChild(permissionCell);
+
+            const actionCell = document.createElement("td");
+            const actions = document.createElement("div");
+            actions.className = "user-actions";
+
+            if (user.role !== "super_admin") {
+                // Berechtigungen speichern
+                const saveButton = document.createElement("button");
+                saveButton.type = "button";
+                saveButton.className = "save-button";
+                saveButton.textContent = "Rechte speichern";
+
+                saveButton.addEventListener("click", async () => {
+                    saveButton.disabled = true;
+
+                    try {
+                        const data = await apiRequest(
+                            `/users/${encodeURIComponent(user.id)}/permissions`,
+                            {
+                                method: "PATCH",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({
+                                    permissions: {
+                                        "contact_messages.read": contactBox.checked,
+                                        "applications.read": applicationBox.checked
+                                    }
+                                })
+                            }
+                        );
+
+                        usersMessage.className = "message";
+                        usersMessage.textContent =
+                            data.message || "Berechtigungen gespeichert.";
+
+                    } catch (error) {
+                        usersMessage.className = "message error";
+                        usersMessage.textContent = error.message;
+                    } finally {
+                        saveButton.disabled = false;
+                    }
+                });
+
+                actions.appendChild(saveButton);
+
+                // Eigenes Konto nicht deaktivieren
+                if (Number(user.id) !== Number(currentUser?.id)) {
+                    const toggleButton = document.createElement("button");
+
+                    toggleButton.type = "button";
+                    toggleButton.className = "small-button";
+                    toggleButton.textContent = user.is_active
+                        ? "Deaktivieren"
+                        : "Aktivieren";
+
+                    toggleButton.addEventListener("click", async () => {
+                        const nextStatus = !user.is_active;
+
+                        const confirmed = window.confirm(
+                            nextStatus
+                                ? "Diesen Benutzer aktivieren?"
+                                : "Diesen Benutzer deaktivieren?"
+                        );
+
+                        if (!confirmed) return;
+
+                        toggleButton.disabled = true;
+
+                        try {
+                            const data = await apiRequest(
+                                `/users/${encodeURIComponent(user.id)}/status`,
+                                {
+                                    method: "PATCH",
+                                    headers: {
+                                        "Content-Type": "application/json"
+                                    },
+                                    body: JSON.stringify({
+                                        is_active: nextStatus
+                                    })
+                                }
+                            );
+
+                            usersMessage.textContent =
+                                data.message || "Status geändert.";
+
+                            await loadUsers();
+
+                        } catch (error) {
+                            usersMessage.className = "message error";
+                            usersMessage.textContent = error.message;
+                        } finally {
+                            toggleButton.disabled = false;
+                        }
+                    });
+
+                    actions.appendChild(toggleButton);
+                }
+            } else {
+                actions.textContent = "Geschütztes Super-Admin-Konto";
+            }
+
+            actionCell.appendChild(actions);
+            row.appendChild(actionCell);
+            tbody.appendChild(row);
+        });
+
+        table.append(thead, tbody);
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "table-wrapper";
+        wrapper.appendChild(table);
+
+        usersMessage.replaceChildren(wrapper);
+        usersMessage.className = "";
+    }
+
+    // Abmelden
+    function logout() {
+        sessionStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(USER_KEY);
+
+        countElement.textContent = "–";
+        container.replaceChildren();
+        usersMessage.replaceChildren();
+        modal.classList.remove("open");
+        usersPanel.classList.add("hidden");
+
+        showLogin("Sie wurden abgemeldet.");
+    }
+
+    // Bestehende Sitzung überprüfen
+    async function restoreSession() {
+        const token = getToken();
+
+        if (!token) {
+            showLogin();
+            return;
+        }
+
+        try {
+            const data = await apiRequest("/auth/me");
+
+            if (
+                data.status !== "OK" ||
+                !data.user ||
+                data.user.must_change_password
+            ) {
+                logout();
+                return;
+            }
+
+            sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
+
+            showDashboard(data.user);
+            await loadMessages();
+            await loadUsers();
+
+        } catch (error) {
+            if (getToken()) {
+                showLogin(error.message || "Bitte erneut anmelden.");
+            }
+        }
+    }
+
+    // Ereignisse
+    loginForm.addEventListener("submit", login);
+    refreshButton.addEventListener("click", loadMessages);
+    refreshUsersButton.addEventListener("click", loadUsers);
+    $("logout-button").addEventListener("click", logout);
+
+    $("close-modal").addEventListener("click", () => {
+        modal.classList.remove("open");
+    });
+
+    modal.addEventListener("click", event => {
+        if (event.target === modal) {
+            modal.classList.remove("open");
+        }
+    });
+
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") {
+            modal.classList.remove("open");
+        }
+    });
+
+    restoreSession();
+</script>
+
+</body>
+</html>

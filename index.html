@@ -887,9 +887,9 @@
     <div class="container">
 
         <div class="section-heading">
-        <br>
+        
             <h2>Wir sind für Sie da</h2>
-        </br>
+        
             <p>
                 Haben Sie Fragen zu unseren Leistungen oder zur außerklinischen
                 Intensivpflege? Schreiben Sie uns gerne. Wir melden uns schnellstmöglich bei Ihnen.
@@ -907,147 +907,164 @@
                     Füllen Sie bitte das Formular aus. Wir freuen uns auf Ihre Nachricht.
                 </p>
 
-                <form
-                    action="https://api.web3forms.com/submit"
-                    method="POST"
-                    id="gratia-contact-form"
-                >
+               
+<form id="gratia-contact-form">
 
-                    <!-- Web3Forms Access Key -->
-                    <input
-                        type="hidden"
-                        name="access_key"
-                        value="f29bd21a-5500-40f0-b146-686cf8bf9bd3"
-                    >
+    <div class="form-row">
+        <div class="form-group">
+            <label for="contact-name">Name *</label>
+            <input
+                type="text"
+                id="contact-name"
+                name="name"
+                placeholder="Ihr vollständiger Name"
+                maxlength="150"
+                required
+            >
+        </div>
 
-                    <!-- E-Mail Betreff -->
-                    <input
-                        type="hidden"
-                        name="subject"
-                        value="Neue Kontaktanfrage über die GRATIA Website"
-                    >
+        <div class="form-group">
+            <label for="contact-email">E-Mail *</label>
+            <input
+                type="email"
+                id="contact-email"
+                name="email"
+                placeholder="Ihre E-Mail-Adresse"
+                maxlength="255"
+                required
+            >
+        </div>
+    </div>
 
-                    <!-- Absendername -->
-                    <input
-                        type="hidden"
-                        name="from_name"
-                        value="Pflegedienst GRATIA GmbH Website"
-                    >
+    <div class="form-row">
+        <div class="form-group">
+            <label for="contact-phone">Telefon</label>
+            <input
+                type="tel"
+                id="contact-phone"
+                name="phone"
+                placeholder="Ihre Telefonnummer"
+                maxlength="50"
+            >
+        </div>
 
-                    <!-- Spam-Schutz -->
-                    <input
-                        type="checkbox"
-                        name="botcheck"
-                        style="display:none;"
-                    >
+        <div class="form-group">
+            <label for="contact-subject">Anliegen</label>
+            <input
+                type="text"
+                id="contact-subject"
+                name="subject"
+                placeholder="Worum geht es?"
+                maxlength="255"
+            >
+        </div>
+    </div>
 
-                    <div class="form-row">
+    <div class="form-group">
+        <label for="contact-message">Nachricht *</label>
+        <textarea
+            id="contact-message"
+            name="message"
+            rows="6"
+            placeholder="Ihre Nachricht an uns..."
+            required
+        ></textarea>
+    </div>
 
-                        <div class="form-group">
-                            <label for="contact-name">
-                                Name *
-                            </label>
+    <div class="form-consent">
+        <label>
+            <input
+                type="checkbox"
+                name="Datenschutz"
+                value="Zustimmung"
+                required
+            >
+            <span>
+                Ich stimme zu, dass meine Angaben zur Bearbeitung
+                meiner Anfrage verwendet werden. *
+            </span>
+        </label>
+    </div>
 
-                            <input
-                                type="text"
-                                id="contact-name"
-                                name="name"
-                                placeholder="Ihr vollständiger Name"
-                                required
-                            >
-                        </div>
+    <button type="submit" class="contact-submit-btn">
+        Nachricht senden
+        <span>→</span>
+    </button>
 
-                        <div class="form-group">
-                            <label for="contact-email">
-                                E-Mail *
-                            </label>
+    <div
+        id="form-result"
+        class="form-result"
+        aria-live="polite"
+        role="status"
+    ></div>
+</form>
 
-                            <input
-                                type="email"
-                                id="contact-email"
-                                name="email"
-                                placeholder="Ihre E-Mail-Adresse"
-                                required
-                            >
-                        </div>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("gratia-contact-form");
+    const result = document.getElementById("form-result");
 
-                    </div>
+    if (!form || !result) return;
 
-                    <div class="form-row">
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-                        <div class="form-group">
-                            <label for="contact-phone">
-                                Telefon
-                            </label>
+        if (!form.reportValidity()) return;
 
-                            <input
-                                type="tel"
-                                id="contact-phone"
-                                name="phone"
-                                placeholder="Ihre Telefonnummer"
-                            >
-                        </div>
+        const button = form.querySelector('button[type="submit"]');
+        const originalText = button.innerHTML;
 
-                        <div class="form-group">
-                            <label for="contact-subject">
-                                Anliegen
-                            </label>
+        button.disabled = true;
+        button.textContent = "Wird gesendet ...";
+        result.textContent = "";
 
-                            <input
-                                type="text"
-                                id="contact-subject"
-                                name="Anliegen"
-                                placeholder="Worum geht es?"
-                            >
-                        </div>
+        const formData = new FormData(form);
 
-                    </div>
+        const payload = {
+            name: formData.get("name"),
+            email: formData.get("email"),
+            phone: formData.get("phone"),
+            subject: formData.get("subject"),
+            message: formData.get("message")
+        };
 
-                    <div class="form-group">
-                        <label for="contact-message">
-                            Nachricht *
-                        </label>
+        try {
+            const response = await fetch(
+                "http://localhost:3000/api/contact-messages",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(payload)
+                }
+            );
 
-                        <textarea
-                            id="contact-message"
-                            name="message"
-                            rows="6"
-                            placeholder="Ihre Nachricht an uns..."
-                            required
-                        ></textarea>
-                    </div>
+            const data = await response.json();
 
-                    <div class="form-consent">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="Datenschutz"
-                                value="Zustimmung"
-                                required
-                            >
+            if (!response.ok || data.status !== "OK") {
+                throw new Error(
+                    data.message || "Die Nachricht konnte nicht gesendet werden."
+                );
+            }
 
-                            <span>
-                                Ich stimme zu, dass meine Angaben zur Bearbeitung
-                                meiner Anfrage verwendet werden. *
-                            </span>
-                        </label>
-                    </div>
+            result.textContent =
+                "Vielen Dank! Ihre Nachricht wurde erfolgreich gespeichert.";
 
-                    <button
-                        type="submit"
-                        class="contact-submit-btn"
-                    >
-                        Nachricht senden
-                        <span>→</span>
-                    </button>
+            form.reset();
+        } catch (error) {
+            console.error("Kontaktformular:", error);
 
-                    <div
-                        id="form-result"
-                        class="form-result"
-                        aria-live="polite"
-                    ></div>
+            result.textContent =
+                "Leider konnte Ihre Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut.";
+        } finally {
+            button.disabled = false;
+            button.innerHTML = originalText;
+        }
+    });
+});
+</script>
 
-                </form>
 
             </div>
 

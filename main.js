@@ -1,13 +1,16 @@
+
 /* =========================================================
    GRATIA WEBSITE
    Main JavaScript
+   Navigation, Contact Form, Team Slider, Back to Top
+   ========================================================= */
+
+
+/* =========================================================
+   1. INITIALIZE WEBSITE
    ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-
-    /* =====================================================
-       ELEMENTS
-    ===================================================== */
 
     const socialBar = document.getElementById("socialBar");
     const siteHeader = document.getElementById("siteHeader");
@@ -16,13 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const mainNav = document.getElementById("mainNav");
 
     const navLinks = document.querySelectorAll(".nav-link");
-
     const currentYear = document.getElementById("currentYear");
 
 
     /* =====================================================
-       CURRENT YEAR
-    ===================================================== */
+       2. CURRENT YEAR
+       ===================================================== */
 
     if (currentYear) {
         currentYear.textContent = new Date().getFullYear();
@@ -30,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       MOBILE MENU
-    ===================================================== */
+       3. MOBILE NAVIGATION
+       ===================================================== */
 
     if (menuToggle && mainNav) {
 
@@ -52,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
 
-        /* Close menu after clicking a navigation link */
+        // Close the mobile menu after clicking a navigation link.
 
         navLinks.forEach((link) => {
 
@@ -60,15 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 mainNav.classList.remove("open");
 
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    "false"
-                );
-
-                menuToggle.setAttribute(
-                    "aria-label",
-                    "Menü öffnen"
-                );
+                menuToggle.setAttribute("aria-expanded", "false");
+                menuToggle.setAttribute("aria-label", "Menü öffnen");
 
             });
 
@@ -78,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       SOCIAL BAR / HEADER ON SCROLL
+       4. SOCIAL BAR AND HEADER ON SCROLL
        ===================================================== */
 
     let lastScrollY = window.scrollY;
@@ -87,10 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const currentScrollY = window.scrollY;
 
-        /*
-         * At the top of the page:
-         * Social bar + header are visible.
-         */
+        // Show the social bar at the top of the page.
 
         if (currentScrollY <= 20) {
 
@@ -103,16 +95,11 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             lastScrollY = currentScrollY;
-
             return;
         }
 
 
-        /*
-         * Scrolling down:
-         * Hide social bar.
-         * Move main header to the top.
-         */
+        // Scrolling down: hide the social bar.
 
         if (currentScrollY > lastScrollY) {
 
@@ -126,11 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
-        /*
-         * Scrolling up:
-         * Show social bar again.
-         */
+        // Scrolling up: show the social bar again.
 
         else if (currentScrollY < lastScrollY) {
 
@@ -144,108 +127,82 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
-
         lastScrollY = currentScrollY;
 
     }
 
-
-    window.addEventListener(
-        "scroll",
-        handleScroll,
-        { passive: true }
-    );
+    window.addEventListener("scroll", handleScroll, {
+        passive: true
+    });
 
 
     /* =====================================================
-       ACTIVE NAVIGATION
+       5. ACTIVE NAVIGATION
        ===================================================== */
 
-    const sections = document.querySelectorAll(
-        "main section[id]"
-    );
-
+    const sections = document.querySelectorAll("main section[id]");
 
     function updateActiveNavigation() {
 
-        const scrollPosition =
-            window.scrollY +
-            180;
+        const scrollPosition = window.scrollY + 180;
 
+        let activeSectionId = null;
 
         sections.forEach((section) => {
 
             const sectionTop = section.offsetTop;
-
             const sectionHeight = section.offsetHeight;
-
-            const sectionId = section.getAttribute("id");
-
 
             if (
                 scrollPosition >= sectionTop &&
                 scrollPosition < sectionTop + sectionHeight
             ) {
+                activeSectionId = section.getAttribute("id");
+            }
 
-                navLinks.forEach((link) => {
+        });
 
-                    link.classList.remove("active");
+        navLinks.forEach((link) => {
 
-                    const href =
-                        link.getAttribute("href");
+            link.classList.remove("active");
 
-                    if (href === `#${sectionId}`) {
-                        link.classList.add("active");
-                    }
+            const href = link.getAttribute("href");
 
-                });
-
+            if (
+                activeSectionId &&
+                href === `#${activeSectionId}`
+            ) {
+                link.classList.add("active");
             }
 
         });
 
     }
 
-
-    window.addEventListener(
-        "scroll",
-        updateActiveNavigation,
-        { passive: true }
-    );
-
+    window.addEventListener("scroll", updateActiveNavigation, {
+        passive: true
+    });
 
     updateActiveNavigation();
 
 
     /* =====================================================
-       SMOOTH SCROLL
+       6. SMOOTH SCROLL
        ===================================================== */
 
-    document.querySelectorAll(
-        'a[href^="#"]'
-    ).forEach((link) => {
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
 
         link.addEventListener("click", (event) => {
 
-            const targetId =
-                link.getAttribute("href");
+            const targetId = link.getAttribute("href");
 
-            /*
-             * Ignore empty placeholder links such as "#"
-             * used for future social media URLs.
-             */
+            // Ignore empty links and social media placeholders.
 
-            if (
-                !targetId ||
-                targetId === "#"
-            ) {
+            if (!targetId || targetId === "#") {
                 return;
             }
 
-
-            const target =
-                document.querySelector(targetId);
-
+            const target = document.querySelector(targetId);
 
             if (target) {
 
@@ -264,8 +221,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CLOSE MOBILE MENU WHEN RESIZING
-    ===================================================== */
+       7. CLOSE MOBILE MENU WHEN RESIZING
+       ===================================================== */
 
     window.addEventListener("resize", () => {
 
@@ -277,92 +234,154 @@ document.addEventListener("DOMContentLoaded", () => {
 
             mainNav.classList.remove("open");
 
-            menuToggle.setAttribute(
-                "aria-expanded",
-                "false"
-            );
-
-            menuToggle.setAttribute(
-                "aria-label",
-                "Menü öffnen"
-            );
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Menü öffnen");
 
         }
 
     });
 
-
 });
 
 
 /* =========================================================
-   GRATIA CONTACT FORM - WEB3FORMS
+   8. CONTACT FORM - GRATIA BACKEND + MYSQL
    ========================================================= */
 
-const gratiaContactForm = document.getElementById("gratia-contact-form");
-const formResult = document.getElementById("form-result");
+document.addEventListener("DOMContentLoaded", () => {
 
-if (gratiaContactForm) {
+    const contactForm = document.getElementById(
+        "gratia-contact-form"
+    );
 
-    gratiaContactForm.addEventListener("submit", async function (event) {
+    const formResult = document.getElementById("form-result");
+
+    if (!contactForm || !formResult) {
+        return;
+    }
+
+
+    contactForm.addEventListener("submit", async (event) => {
 
         event.preventDefault();
 
-        const submitButton = gratiaContactForm.querySelector(
+        const submitButton = contactForm.querySelector(
             ".contact-submit-btn"
         );
 
+        if (!submitButton) {
+            return;
+        }
+
         const originalButtonText = submitButton.innerHTML;
 
+        // Disable the button while sending.
+
         submitButton.disabled = true;
-        submitButton.innerHTML = "Wird gesendet ...";
+        submitButton.textContent = "Wird gesendet ...";
 
         formResult.className = "form-result";
         formResult.style.display = "none";
         formResult.textContent = "";
 
+
         try {
 
-            const formData = new FormData(gratiaContactForm);
+            const formData = new FormData(contactForm);
+
+            // Read the contact form fields.
+
+            const payload = {
+                name: String(
+                    formData.get("name") || ""
+                ).trim(),
+
+                email: String(
+                    formData.get("email") || ""
+                ).trim(),
+
+                phone: String(
+                    formData.get("phone") || ""
+                ).trim(),
+
+                subject: String(
+                    formData.get("Anliegen") ||
+                    formData.get("subject") ||
+                    ""
+                ).trim(),
+
+                message: String(
+                    formData.get("message") || ""
+                ).trim()
+            };
+
+
+            // Send the message to the local GRATIA backend.
 
             const response = await fetch(
-                "https://api.web3forms.com/submit",
+                "http://localhost:3000/api/contact-messages",
                 {
                     method: "POST",
+
                     headers: {
-                        "Accept": "application/json"
+                        "Content-Type": "application/json"
                     },
-                    body: formData
+
+                    body: JSON.stringify(payload)
                 }
             );
 
+
+            // Read the server response.
+
             const data = await response.json();
 
-            if (response.ok && data.success) {
 
-                formResult.className = "form-result success";
-                formResult.textContent =
-                    "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.";
+            if (!response.ok || data.status !== "OK") {
 
-                gratiaContactForm.reset();
-
-            } else {
-
-                formResult.className = "form-result error";
-                formResult.textContent =
-                    "Leider konnte die Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut.";
+                throw new Error(
+                    data.message ||
+                    "Die Nachricht konnte nicht gespeichert werden."
+                );
 
             }
 
+
+            // Success message.
+
+            formResult.className = "form-result success";
+
+            formResult.textContent =
+                "Vielen Dank! Ihre Nachricht wurde erfolgreich übermittelt.";
+
+            contactForm.reset();
+
+
         } catch (error) {
 
-            console.error("Web3Forms error:", error);
+            console.error(
+                "GRATIA Kontaktformular:",
+                error
+            );
 
             formResult.className = "form-result error";
-            formResult.textContent =
-                "Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.";
+
+            if (error instanceof TypeError) {
+
+                formResult.textContent =
+                    "Der Server ist momentan nicht erreichbar. Bitte versuchen Sie es später erneut.";
+
+            } else {
+
+                formResult.textContent =
+                    error.message ||
+                    "Leider konnte die Nachricht nicht gespeichert werden.";
+
+            }
 
         } finally {
+
+            // Restore the submit button.
 
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
@@ -373,40 +392,42 @@ if (gratiaContactForm) {
 
     });
 
-}
+});
 
 
 /* =========================================================
-   TEAM MOBILE SLIDER
+   9. TEAM MOBILE SLIDER
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     const teamSlider = document.querySelector(".team-images");
 
-    if (!teamSlider) return;
+    if (!teamSlider) {
+        return;
+    }
 
     const slides = teamSlider.querySelectorAll(".team-image");
     const dots = teamSlider.querySelectorAll(".team-slider-dot");
 
-    const prevButton =
-        teamSlider.querySelector(".team-slider-prev");
+    const prevButton = teamSlider.querySelector(".team-slider-prev");
+    const nextButton = teamSlider.querySelector(".team-slider-next");
 
-    const nextButton =
-        teamSlider.querySelector(".team-slider-next");
-
-    if (slides.length < 2) return;
+    if (slides.length < 2) {
+        return;
+    }
 
     let currentSlide = 0;
     let sliderTimer = null;
 
 
+    // Display the selected slide.
+
     function showSlide(index) {
 
-        currentSlide =
-            (index + slides.length) % slides.length;
+        currentSlide = (index + slides.length) % slides.length;
 
-        slides.forEach(function (slide, i) {
+        slides.forEach((slide, i) => {
 
             slide.classList.toggle(
                 "active",
@@ -415,7 +436,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         });
 
-        dots.forEach(function (dot, i) {
+        dots.forEach((dot, i) => {
 
             dot.classList.toggle(
                 "active",
@@ -427,13 +448,15 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    // Automatically change slides on mobile.
+
     function startSlider() {
 
         clearInterval(sliderTimer);
 
         if (window.innerWidth <= 760) {
 
-            sliderTimer = setInterval(function () {
+            sliderTimer = setInterval(() => {
 
                 showSlide(currentSlide + 1);
 
@@ -444,7 +467,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* شروع Slider */
+    // Initialize the mobile slider.
 
     if (window.innerWidth <= 760) {
 
@@ -454,78 +477,69 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    /* دکمه قبلی */
+    // Previous slide.
 
     if (prevButton) {
 
-        prevButton.addEventListener(
-            "click",
-            function () {
+        prevButton.addEventListener("click", () => {
 
-                if (window.innerWidth <= 760) {
+            if (window.innerWidth <= 760) {
 
-                    showSlide(currentSlide - 1);
-                    startSlider();
-
-                }
+                showSlide(currentSlide - 1);
+                startSlider();
 
             }
-        );
+
+        });
 
     }
 
 
-    /* دکمه بعدی */
+    // Next slide.
 
     if (nextButton) {
 
-        nextButton.addEventListener(
-            "click",
-            function () {
+        nextButton.addEventListener("click", () => {
 
-                if (window.innerWidth <= 760) {
+            if (window.innerWidth <= 760) {
 
-                    showSlide(currentSlide + 1);
-                    startSlider();
-
-                }
+                showSlide(currentSlide + 1);
+                startSlider();
 
             }
-        );
+
+        });
 
     }
 
 
-    /* نقطه‌ها */
+    // Slide navigation using dots.
 
-    dots.forEach(function (dot, index) {
+    dots.forEach((dot, index) => {
 
-        dot.addEventListener(
-            "click",
-            function () {
+        dot.addEventListener("click", () => {
 
-                if (window.innerWidth <= 760) {
+            if (window.innerWidth <= 760) {
 
-                    showSlide(index);
-                    startSlider();
-
-                }
+                showSlide(index);
+                startSlider();
 
             }
-        );
+
+        });
 
     });
 
 
-    /* اگر اندازه صفحه تغییر کرد */
+    // Adjust the slider when the screen size changes.
 
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", () => {
 
         if (window.innerWidth > 760) {
 
             clearInterval(sliderTimer);
 
-            slides.forEach(function (slide) {
+            slides.forEach((slide) => {
                 slide.classList.remove("active");
             });
 
@@ -540,66 +554,60 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
 /* =========================================================
-   BACK TO TOP
+   10. BACK TO TOP BUTTON
    ========================================================= */
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
-    const backToTopButton =
-        document.getElementById("backToTop");
+    const backToTopButton = document.getElementById("backToTop");
 
     if (!backToTopButton) {
         return;
     }
 
 
+    // Show the button after scrolling down.
+
     function updateBackToTop() {
 
         if (window.scrollY > 300) {
 
-            backToTopButton.classList.add(
-                "is-visible"
-            );
+            backToTopButton.classList.add("is-visible");
 
         } else {
 
-            backToTopButton.classList.remove(
-                "is-visible"
-            );
+            backToTopButton.classList.remove("is-visible");
 
         }
 
     }
 
 
-    /* بررسی هنگام باز شدن صفحه */
+    // Check the initial page position.
+
     updateBackToTop();
 
 
-    /* بررسی هنگام اسکرول */
-    window.addEventListener(
-        "scroll",
-        updateBackToTop,
-        {
-            passive: true
-        }
-    );
+    // Update visibility while scrolling.
+
+    window.addEventListener("scroll", updateBackToTop, {
+        passive: true
+    });
 
 
-    /* رفتن به بالای صفحه */
-    backToTopButton.addEventListener(
-        "click",
-        function (event) {
+    // Scroll to the top.
 
-            event.preventDefault();
+    backToTopButton.addEventListener("click", (event) => {
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+        event.preventDefault();
 
-        }
-    );
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
 
 });
