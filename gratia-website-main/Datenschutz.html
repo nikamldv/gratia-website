@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Datenschutz | Pflegedienst GRATIA GmbH</title>
+
+    <meta
+        name="description"
+        content="Datenschutzerklärung der Pflegedienst GRATIA GmbH."
+    >
+
+    <style>
+        :root {
+            --primary: #74100c;
+            --primary-dark: #520b09;
+            --gold: #c59a45;
+            --text: #333333;
+            --muted: #666666;
+            --light: #f7f5f3;
+            --white: #ffffff;
+            --border: #e8e4e1;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--light);
+            line-height: 1.75;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: var(--primary-dark);
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+
+        .legal-header {
+            width: 100%;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .legal-header-inner {
+            width: min(92%, 1200px);
+            min-height: 95px;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .legal-logo {
+            width: 190px;
+            height: 70px;
+
+            object-fit: contain;
+            object-position: left center;
+
+            display: block;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 10px 18px;
+
+            border: 1px solid var(--primary);
+            border-radius: 7px;
+
+            color: var(--primary);
+            background: transparent;
+
+            font-weight: 600;
+
+            transition:
+                background .25s ease,
+                color .25s ease,
+                transform .25s ease;
+        }
+
+        .back-link:hover {
+            background: var(--primary);
+            color: var(--white);
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           MAIN
+        ===================================================== */
+
+        .legal-main {
+            width: min(92%, 950px);
+            margin: 0 auto;
+
+            padding: 70px 0 90px;
+        }
+
+        .legal-card {
+            background: var(--white);
+
+            border-radius: 14px;
+
+            padding: 55px 65px;
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, .06);
+        }
+
+
+        /* =====================================================
+           TITLE
+        ===================================================== */
+
+        .legal-title {
+            margin: 0 0 12px;
+
+            color: var(--primary);
+
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.2;
+        }
+
+        .legal-intro {
+            margin: 0 0 45px;
+
+            color: var(--muted);
+
+            font-size: 1rem;
+        }
+
+
+        /* =====================================================
+           SECTIONS
+        ===================================================== */
+
+        .legal-section {
+            margin-bottom: 40px;
+        }
+
+        .legal-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .legal-section h2 {
+            margin: 0 0 15px;
+
+            color: var(--primary);
+
+            font-size: 1.35rem;
+            line-height: 1.35;
+        }
+
+        .legal-section h3 {
+            margin: 22px 0 8px;
+
+            color: #333;
+
+            font-size: 1.05rem;
+        }
+
+        .legal-section p {
+            margin: 0 0 12px;
+        }
+
+        .legal-section ul {
+            margin: 10px 0 15px;
+            padding-left: 22px;
+        }
+
+        .legal-section li {
+            margin-bottom: 7px;
+        }
+
+        .legal-section strong {
+            color: #222;
+        }
+
+
+        /* =====================================================
+           NOTICE BOX
+        ===================================================== */
+
+        .legal-notice {
+            margin: 20px 0 0;
+
+            padding: 18px 20px;
+
+            border-left: 4px solid var(--gold);
+
+            background: #faf8f5;
+
+            color: #555;
+
+            border-radius: 4px;
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .legal-footer {
+            width: 100%;
+
+            background: var(--primary-dark);
+
+            color: rgba(255, 255, 255, .75);
+
+            text-align: center;
+
+            padding: 25px 15px;
+        }
+
+        .legal-footer p {
+            margin: 0;
+
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .legal-footer a {
+            color: rgba(255, 255, 255, .85);
+        }
+
+        .legal-footer a:hover {
+            color: var(--gold);
+        }
+
+
+        /* =====================================================
+           TABLET / MOBILE
+        ===================================================== */
+
+        @media (max-width: 760px) {
+
+            .legal-header-inner {
+                width: calc(100% - 30px);
+                min-height: 80px;
+            }
+
+            .legal-logo {
+                width: 155px;
+                height: 58px;
+            }
+
+            .back-link {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+
+            .legal-main {
+                width: calc(100% - 24px);
+
+                padding: 35px 0 55px;
+            }
+
+            .legal-card {
+                padding: 32px 22px;
+
+                border-radius: 12px;
+            }
+
+            .legal-title {
+                font-size: 2rem;
+            }
+
+            .legal-intro {
+                margin-bottom: 32px;
+            }
+
+            .legal-section {
+                margin-bottom: 32px;
+            }
+
+            .legal-section h2 {
+                font-size: 1.2rem;
+            }
+
+            .legal-section p,
+            .legal-section li {
+                font-size: 15px;
+            }
+        }
+
+
+        @media (max-width: 430px) {
+
+            .legal-header-inner {
+                width: calc(100% - 20px);
+
+                gap: 12px;
+            }
+
+            .legal-logo {
+                width: 140px;
+            }
+
+            .back-link {
+                font-size: 13px;
+                padding: 7px 10px;
+            }
+
+            .legal-card {
+                padding: 28px 18px;
+            }
+
+            .legal-title {
+                font-size: 1.75rem;
+            }
+
+            .legal-section p,
+            .legal-section li {
+                font-size: 14px;
+            }
+        }
+
+        /* =========================================================
+   DATENSCHUTZ - FINAL MOBILE FIX
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .legal-header-inner {
+        width: calc(100% - 24px) !important;
+
+        min-height: auto !important;
+
+        padding: 14px 0 !important;
+
+        display: flex !important;
+
+        flex-direction: column !important;
+
+        align-items: center !important;
+
+        justify-content: center !important;
+
+        gap: 14px !important;
+    }
+
+    .legal-logo {
+        width: 145px !important;
+        height: 55px !important;
+
+        object-position: center !important;
+    }
+
+    .back-link {
+        width: 100% !important;
+
+        max-width: 280px !important;
+
+        min-height: 48px !important;
+
+        padding: 12px 16px !important;
+
+        font-size: 14px !important;
+
+        line-height: 1.4 !important;
+
+        text-align: center !important;
+
+        white-space: normal !important;
+
+        box-sizing: border-box !important;
+    }
+
+    .legal-main {
+        width: calc(100% - 24px) !important;
+
+        padding: 30px 0 50px !important;
+    }
+
+    .legal-card {
+        width: 100% !important;
+
+        padding: 28px 20px !important;
+
+        border-radius: 12px !important;
+
+        overflow: hidden !important;
+    }
+
+    .legal-title {
+        font-size: 30px !important;
+
+        line-height: 1.15 !important;
+
+        overflow-wrap: normal !important;
+
+        word-break: normal !important;
+
+        margin-bottom: 14px !important;
+    }
+
+    .legal-intro {
+        font-size: 15px !important;
+
+        line-height: 1.6 !important;
+
+        margin-bottom: 30px !important;
+    }
+
+    .legal-section h2 {
+        font-size: 21px !important;
+
+        line-height: 1.3 !important;
+
+        overflow-wrap: break-word !important;
+    }
+
+    .legal-section p,
+    .legal-section li {
+        font-size: 15px !important;
+
+        line-height: 1.7 !important;
+
+        overflow-wrap: break-word !important;
+    }
+
+    .legal-notice {
+        padding: 16px !important;
+
+        overflow-wrap: break-word !important;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .legal-header-inner {
+        width: calc(100% - 20px) !important;
+
+        gap: 12px !important;
+    }
+
+    .legal-logo {
+        width: 135px !important;
+        height: 52px !important;
+    }
+
+    .back-link {
+        max-width: 260px !important;
+
+        font-size: 13px !important;
+    }
+
+    .legal-main {
+        width: calc(100% - 20px) !important;
+    }
+
+    .legal-card {
+        padding: 25px 17px !important;
+    }
+
+    .legal-title {
+        font-size: 28px !important;
+    }
+
+    .legal-section h2 {
+        font-size: 20px !important;
+    }
+
+    .legal-section p,
+    .legal-section li {
+        font-size: 14px !important;
+    }
+}
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="legal-header">
+
+        <div class="legal-header-inner">
+
+            <a
+                href="index.html"
+                aria-label="Pflegedienst GRATIA GmbH"
+            >
+                <img
+                    src="images/gratia-logo.png"
+                    alt="Pflegedienst GRATIA GmbH"
+                    class="legal-logo"
+                >
+            </a>
+
+
+            <a
+                href="index.html"
+                class="back-link"
+            >
+                ← Zurück zur Website
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         MAIN
+    ====================================================== -->
+
+    <main class="legal-main">
+
+        <article class="legal-card">
+
+
+            <h1 class="legal-title">
+                Datenschutzerklärung
+            </h1>
+
+            <p class="legal-intro">
+                Informationen zum Schutz Ihrer personenbezogenen Daten
+            </p>
+
+
+
+            <!-- =================================================
+                 1. VERANTWORTLICHER
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    1. Verantwortlicher
+                </h2>
+
+                <p>
+                    Verantwortlich für die Verarbeitung personenbezogener
+                    Daten auf dieser Website ist:
+                </p>
+
+                <p>
+                    <strong>
+                        Pflegedienst GRATIA GmbH
+                    </strong><br>
+
+                    Pfaffenpfad 1<br>
+
+                    97440 Werneck<br>
+
+                    Deutschland
+                </p>
+
+                <p>
+                    <strong>Geschäftsführung:</strong>
+                    Petra Hepperle
+                </p>
+
+                <p>
+                    <strong>Telefon:</strong>
+                    <a
+                        href="https://wa.me/4915787757403"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        01578 7757403
+                    </a>
+                </p>
+
+                <p>
+                    <strong>E-Mail:</strong>
+                    <a href="mailto:pflegedienstgratia@gmail.com">
+                        pflegedienstgratia@gmail.com
+                    </a>
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 2. ALLGEMEINE INFORMATION
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    2. Allgemeine Hinweise zur Datenverarbeitung
+                </h2>
+
+                <p>
+                    Der Schutz Ihrer personenbezogenen Daten ist uns wichtig.
+                    Wir behandeln Ihre personenbezogenen Daten vertraulich
+                    und verarbeiten diese ausschließlich im Rahmen der
+                    geltenden datenschutzrechtlichen Vorschriften,
+                    insbesondere der Datenschutz-Grundverordnung (DSGVO).
+                </p>
+
+                <p>
+                    Personenbezogene Daten sind alle Informationen, die sich
+                    auf eine identifizierte oder identifizierbare Person
+                    beziehen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 3. BESUCH DER WEBSITE
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    3. Besuch unserer Website
+                </h2>
+
+                <p>
+                    Beim Aufrufen unserer Website können technisch
+                    erforderliche Informationen durch den verwendeten
+                    Webserver verarbeitet werden. Dazu können insbesondere
+                    IP-Adresse, Datum und Uhrzeit des Zugriffs,
+                    aufgerufene Seiten, Browsertyp und Betriebssystem
+                    gehören.
+                </p>
+
+                <p>
+                    Die Verarbeitung erfolgt, soweit erforderlich, um eine
+                    sichere und technisch funktionierende Bereitstellung
+                    unserer Website zu ermöglichen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 4. KONTAKTFORMULAR
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    4. Kontaktformular
+                </h2>
+
+                <p>
+                    Auf unserer Website bieten wir ein Kontaktformular an.
+                    Wenn Sie uns über dieses Formular kontaktieren,
+                    verarbeiten wir die von Ihnen eingegebenen Daten,
+                    insbesondere:
+                </p>
+
+                <ul>
+                    <li>Name</li>
+                    <li>E-Mail-Adresse</li>
+                    <li>Telefonnummer, sofern angegeben</li>
+                    <li>Anliegen</li>
+                    <li>Nachricht</li>
+                </ul>
+
+                <p>
+                    Die Angaben werden verarbeitet, um Ihre Anfrage
+                    entgegenzunehmen, zu bearbeiten und Ihnen antworten
+                    zu können.
+                </p>
+
+                <p>
+                    Die Angabe einer Telefonnummer ist freiwillig,
+                    soweit sie für die Bearbeitung Ihrer Anfrage nicht
+                    erforderlich ist.
+                </p>
+
+                <p>
+                    Die Verarbeitung erfolgt auf Grundlage von
+                    Art. 6 Abs. 1 lit. b DSGVO, soweit Ihre Anfrage
+                    der Anbahnung oder Durchführung eines Vertrags
+                    dient, beziehungsweise auf Grundlage von
+                    Art. 6 Abs. 1 lit. f DSGVO aufgrund unseres
+                    berechtigten Interesses an der Bearbeitung von
+                    Kontaktanfragen.
+                </p>
+
+                <div class="legal-notice">
+
+                    <strong>
+                        Hinweis:
+                    </strong>
+
+                    Bitte übermitteln Sie über das allgemeine
+                    Kontaktformular keine besonders sensiblen
+                    Gesundheitsdaten, sofern dies für Ihre Anfrage
+                    nicht erforderlich ist.
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 5. WEB3FORMS
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    5. Versand des Kontaktformulars über Web3Forms
+                </h2>
+
+                <p>
+                    Für die technische Übermittlung der über das
+                    Kontaktformular eingegebenen Daten nutzen wir
+                    den Dienst Web3Forms.
+                </p>
+
+                <p>
+                    Die eingegebenen Formulardaten werden dabei an
+                    Web3Forms übermittelt und zur technischen
+                    Verarbeitung der Kontaktanfrage verwendet.
+                </p>
+
+                <p>
+                    Weitere Informationen zur Datenverarbeitung durch
+                    Web3Forms finden Sie in der jeweils aktuellen
+                    Datenschutzerklärung des Anbieters.
+                </p>
+
+                <p>
+                    <strong>
+                        Anbieter:
+                    </strong>
+                    Web3Forms
+                </p>
+
+                <p>
+                    Die konkrete technische Ausgestaltung und die
+                    jeweils aktuellen Datenschutzinformationen des
+                    Dienstleisters sollten vor der Veröffentlichung
+                    dieser Datenschutzerklärung geprüft werden.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 6. WHATSAPP
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    6. Kontaktaufnahme über WhatsApp
+                </h2>
+
+                <p>
+                    Auf unserer Website ist unsere Telefonnummer mit
+                    einem direkten Link zu WhatsApp hinterlegt.
+                    Wenn Sie diesen Link auswählen, wird eine Verbindung
+                    zu WhatsApp beziehungsweise zu den entsprechenden
+                    Diensten des Anbieters hergestellt.
+                </p>
+
+                <p>
+                    Dabei können personenbezogene Daten entsprechend
+                    den Datenschutzbestimmungen des jeweiligen
+                    Anbieters verarbeitet werden.
+                </p>
+
+                <p>
+                    Bitte beachten Sie die aktuelle
+                    Datenschutzerklärung von WhatsApp, bevor Sie den
+                    Dienst zur Kontaktaufnahme nutzen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 7. E-MAIL
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    7. Kontaktaufnahme per E-Mail
+                </h2>
+
+                <p>
+                    Wenn Sie uns per E-Mail kontaktieren, verarbeiten wir
+                    die von Ihnen übermittelten personenbezogenen Daten,
+                    soweit dies zur Bearbeitung Ihrer Anfrage erforderlich
+                    ist.
+                </p>
+
+                <p>
+                    Die Verarbeitung erfolgt ausschließlich zur
+                    Bearbeitung und Beantwortung Ihrer Anfrage sowie,
+                    soweit erforderlich, zur weiteren Kommunikation
+                    mit Ihnen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 8. SOCIAL MEDIA
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    8. Social Media
+                </h2>
+
+                <p>
+                    Auf unserer Website befinden sich Verlinkungen zu
+                    unseren Social-Media-Auftritten, insbesondere zu
+                    Facebook, Instagram und TikTok.
+                </p>
+
+                <p>
+                    Beim Anklicken dieser Links verlassen Sie unsere
+                    Website und werden auf die jeweiligen Angebote
+                    der entsprechenden Anbieter weitergeleitet.
+                </p>
+
+                <p>
+                    Für die Datenverarbeitung auf den jeweiligen
+                    Social-Media-Plattformen gelten die
+                    Datenschutzbestimmungen der jeweiligen Anbieter.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 9. COOKIES
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    9. Cookies und ähnliche Technologien
+                </h2>
+
+                <p>
+                    Unsere Website verwendet nach dem derzeitigen
+                    technischen Stand keine nicht notwendigen
+                    Tracking- oder Analyse-Cookies.
+                </p>
+
+                <p>
+                    Technisch notwendige Speicherungen oder
+                    vergleichbare Technologien können eingesetzt werden,
+                    soweit diese für die technische Bereitstellung und
+                    Sicherheit der Website erforderlich sind.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 10. IHRE RECHTE
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    10. Ihre Rechte
+                </h2>
+
+                <p>
+                    Sie haben nach Maßgabe der gesetzlichen
+                    Voraussetzungen insbesondere folgende Rechte:
+                </p>
+
+                <ul>
+
+                    <li>
+                        Recht auf Auskunft über Ihre personenbezogenen
+                        Daten gemäß Art. 15 DSGVO
+                    </li>
+
+                    <li>
+                        Recht auf Berichtigung unrichtiger Daten
+                        gemäß Art. 16 DSGVO
+                    </li>
+
+                    <li>
+                        Recht auf Löschung gemäß Art. 17 DSGVO
+                    </li>
+
+                    <li>
+                        Recht auf Einschränkung der Verarbeitung
+                        gemäß Art. 18 DSGVO
+                    </li>
+
+                    <li>
+                        Recht auf Datenübertragbarkeit gemäß
+                        Art. 20 DSGVO
+                    </li>
+
+                    <li>
+                        Recht auf Widerspruch gegen bestimmte
+                        Verarbeitungen gemäß Art. 21 DSGVO
+                    </li>
+
+                </ul>
+
+                <p>
+                    Wenn eine Verarbeitung auf Ihrer Einwilligung beruht,
+                    können Sie Ihre Einwilligung jederzeit mit Wirkung
+                    für die Zukunft widerrufen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 11. BESCHWERDERECHT
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    11. Beschwerderecht bei einer Aufsichtsbehörde
+                </h2>
+
+                <p>
+                    Sie haben das Recht, sich bei einer
+                    Datenschutzaufsichtsbehörde über die Verarbeitung
+                    Ihrer personenbezogenen Daten zu beschweren,
+                    wenn Sie der Ansicht sind, dass die Verarbeitung
+                    gegen datenschutzrechtliche Vorschriften verstößt.
+                </p>
+
+                <p>
+                    Die für unser Unternehmen konkret zuständige
+                    Datenschutzaufsichtsbehörde sollte vor
+                    Veröffentlichung dieser Datenschutzerklärung
+                    noch geprüft und ergänzt werden.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 12. SPEICHERDAUER
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    12. Speicherdauer
+                </h2>
+
+                <p>
+                    Wir speichern personenbezogene Daten nur so lange,
+                    wie dies für den jeweiligen Zweck erforderlich ist
+                    oder gesetzliche Aufbewahrungspflichten bestehen.
+                </p>
+
+                <p>
+                    Nach Wegfall des jeweiligen Zwecks beziehungsweise
+                    nach Ablauf gesetzlicher Aufbewahrungsfristen werden
+                    die betreffenden Daten gelöscht, sofern keine
+                    gesetzlichen Gründe einer Löschung entgegenstehen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 13. DATENSICHERHEIT
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    13. Datensicherheit
+                </h2>
+
+                <p>
+                    Wir setzen angemessene technische und organisatorische
+                    Maßnahmen ein, um Ihre personenbezogenen Daten vor
+                    Verlust, Missbrauch, unbefugtem Zugriff und
+                    sonstigen unzulässigen Verarbeitungen zu schützen.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 14. ÄNDERUNGEN
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    14. Änderungen dieser Datenschutzerklärung
+                </h2>
+
+                <p>
+                    Wir behalten uns vor, diese Datenschutzerklärung
+                    anzupassen, wenn dies aufgrund technischer,
+                    organisatorischer oder rechtlicher Änderungen
+                    erforderlich wird.
+                </p>
+
+                <p>
+                    Es gilt jeweils die auf dieser Website
+                    veröffentlichte aktuelle Fassung.
+                </p>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 STAND
+            ================================================== -->
+
+            <section class="legal-section">
+
+                <h2>
+                    15. Stand
+                </h2>
+
+                <p>
+                    Stand: Oktober 2026
+                </p>
+
+            </section>
+
+
+        </article>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="legal-footer">
+
+        <p>
+            ©
+            <span id="currentYear"></span>
+            Pflegedienst GRATIA GmbH.
+            Alle Rechte vorbehalten.
+        </p>
+
+    </footer>
+
+
+
+    <script>
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>
