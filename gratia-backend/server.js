@@ -585,38 +585,279 @@ app.post("/api/contact-messages", async (req, res) => {
         });
     }
 });
-
-// Kontaktanfragen: nur für berechtigte Benutzer
-app.get(
-    "/api/contact-messages",
-    authenticateToken,
-    requirePermission("contact_messages.read"),
-    async (req, res) => {
-        try {
-            const [rows] = await db.query(`
-                SELECT *
-                FROM contact_messages
-                ORDER BY id DESC
-            `);
-
-            res.json({
-                status: "OK",
-                count: rows.length,
-                messages: rows
-            });
-        } catch (error) {
-            console.error(
-                "Fehler beim Laden der Nachrichten:",
-                error.message
-            );
-
-            res.status(500).json({
-                status: "ERROR",
-                message: "Kontaktanfragen konnten nicht geladen werden."
-            });
-        }
+async function initializeEmployeePage() {
+    if (!token) {
+        logout();
+        return;
     }
-);
+
+    try {
+        const response = await fetch(`${API_BASE}/auth/me`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+                Accept: "application/json"
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
+            logout();
+            return;
+        }
+
+        if (!response.ok) {
+            throw new Error("Mitarbeiterdaten konnten nicht geladen werden.");
+        }
+
+        const data = await response.json();
+
+        if (data.status !== "OK" || !data.user) {
+            throw new Error("Ungültige Serverantwort.");
+        }
+
+        const user = data.user;
+
+        if (user.must_change_password) {
+            window.location.replace("setup-password.html");
+            return;
+        }
+
+        sessionStorage.setItem(
+            "gratiaEmployeeUser",
+            JSON.stringify(user)
+        );
+
+        showProfile(user);
+
+        const modules = document.getElementById("modules");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        modules.replaceChildren();
+        emptyMessage.hidden = true;
+
+        const permissions = user.permissions || {};
+        const isAdmin = user.role === "super_admin";
+        let visibleModules = 0;
+
+        function createCard(title) {
+            const card = document.createElement("article");
+            card.className = "module";
+
+            const heading = document.createElement("h3");
+            heading.textContent = title;
+
+            card.appendChild(heading);
+            modules.appendChild(card);
+            visibleModules++;
+
+            return card;
+        }
+
+        function addText(parent, text, className = "") {
+            const element = document.createElement("p");
+            element.textContent = text;
+            if (className) element.className = className;
+            parent.appendChild(element);
+            return element;
+        }
+
+        async function fetchAuthorizedData(endpoint) {
+            const result = await fetch(`${API_BASE}${endpoint}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: "application/json"
+                }
+            });
+
+            if (result.status === 401) {
+                logout();
+                throw new Error("Ihre Sitzung ist abgelaufen.");
+            }
+
+            if (!result.ok) {
+                throw new Error(
+                    `Daten konnten nicht geladen werden (${result.status}).`
+                );
+            }
+
+            return result.json();
+        }
+
+        // Kontaktanfragen
+        const canReadMessages =
+            isAdmin ||
+            hasPermission(permissions, "contact_messages.read");
+
+        if (canReadMessages) {
+            const card = createCard("Kontaktanfragen");
+
+            try {
+                const result = await fetchAuthorizedData(
+                    "/contact-messages"
+                );
+
+                if (result.status !== "OK") {
+                    throw new Error("Ungültige Serverantwort.");
+                }
+
+                const messages = result.messages || [];
+
+                addText(card, `Gesamt: ${messages.length}`, "muted");
+
+                if (messages.length === 0) {
+                    addText(card, "Noch keine Kontaktanfragen vorhanden.", "muted");
+                }
+
+                messages.forEach(message => {
+                    const item = document.createElement("div");
+                    item.style.borderTop = "1px solid #eee";
+                    item.style.padding = "12px 0";
+
+                    const name = document.createElement("strong");
+                    name.textContent = message.name || "Unbekannt";
+
+                    item.appendChild(name);
+
+                    addText(item, `E-Mail: ${message.email || "Keine E-Mail"}`);
+                    addText(item, `Telefon: ${message.phone || "Keine Angabe"}`);
+                    addText(item, `Betreff: ${message.subject || "Kein Betreff"}`);
+                    addText(item, `Nachricht: ${message.message || ""}`);
+
+                    if (message.created_at) {
+                        addText(
+                            item,
+                            `Datum: ${new Date(message.created_at).toLocaleString("de-DE")}`,
+                            "muted"
+                        );
+                    }
+
+                    card.appendChild(item);
+                });
+            } catch (error) {
+                addText(card, error.message, "muted");
+            }
+        }
+
+        // Bewerbungen
+        const canReadApplications =
+            isAdmin ||
+            hasPermission(permissions, "applications.read");
+
+        if (canReadApplications) {
+            const card = createCard("Bewerbungen");
+
+            try {
+                const result = await fetchAuthorizedData("/applications");
+
+                if (result.status !== "OK") {
+                    throw new Error("Ungültige Serverantwort.");
+                }
+
+                const applications = result.applications || [];
+
+                addText(card, `Gesamt: ${applications.length}`, "muted");
+
+                if (applications.length === 0) {
+                    addText(card, "Noch keine Bewerbungen vorhanden.", "muted");
+                }
+
+                applications.forEach(application => {
+                    const item = document.createElement("div");
+                    item.style.borderTop = "1px solid #eee";
+                    item.style.padding = "12px 0";
+
+                    const name = document.createElement("strong");
+                    name.textContent =
+                        `${application.first_name || ""} ${application.last_name || ""}`.trim()
+                        || "Unbekannter Bewerber";
+
+                    item.appendChild(name);
+
+                    addText(item, `Stelle: ${application.position || "Keine Angabe"}`);
+                    addText(item, `E-Mail: ${application.email || "Keine E-Mail"}`);
+                    addText(item, `Telefon: ${application.phone || "Keine Angabe"}`);
+                    addText(item, `Ort: ${application.city || "Keine Angabe"}`);
+                    addText(item, `Status: ${application.status || "neu"}`);
+
+                    if (application.message) {
+                        addText(item, `Nachricht: ${application.message}`);
+                    }
+
+                    if (application.cv_file_path) {
+                        const cvButton = document.createElement("button");
+                        cvButton.type = "button";
+                        cvButton.textContent = "Lebenslauf herunterladen";
+
+                        cvButton.addEventListener("click", async () => {
+                            cvButton.disabled = true;
+
+                            try {
+                                const cvResponse = await fetch(
+                                    `${API_BASE}/applications/${application.id}/cv`,
+                                    {
+                                        headers: {
+                                            Authorization: `Bearer ${token}`
+                                        }
+                                    }
+                                );
+
+                                if (cvResponse.status === 401) {
+                                    logout();
+                                    return;
+                                }
+
+                                if (!cvResponse.ok) {
+                                    throw new Error(
+                                        "Lebenslauf konnte nicht heruntergeladen werden."
+                                    );
+                                }
+
+                                const blob = await cvResponse.blob();
+                                const url = URL.createObjectURL(blob);
+                                const link = document.createElement("a");
+
+                                link.href = url;
+                                link.download =
+                                    application.cv_file_name || "Lebenslauf";
+
+                                document.body.appendChild(link);
+                                link.click();
+                                link.remove();
+                                URL.revokeObjectURL(url);
+                            } catch (error) {
+                                alert(error.message);
+                            } finally {
+                                cvButton.disabled = false;
+                            }
+                        });
+
+                        item.appendChild(cvButton);
+                    }
+
+                    card.appendChild(item);
+                });
+            } catch (error) {
+                addText(card, error.message, "muted");
+            }
+        }
+
+        if (visibleModules === 0) {
+            emptyMessage.hidden = false;
+            emptyMessage.textContent =
+                "Für Ihr Konto wurden noch keine Module freigegeben.";
+        }
+
+    } catch (error) {
+        console.error("Fehler beim Laden des Mitarbeiterbereichs:", error);
+
+        document.getElementById("welcomeTitle").textContent =
+            "Daten konnten nicht geladen werden";
+
+        const message = document.getElementById("emptyMessage");
+        message.hidden = false;
+        message.textContent =
+            error.message || "Bitte prüfen Sie die Backend-Verbindung.";
+    }
+}
 
 
 

@@ -177,29 +177,23 @@
 
         const isSuperAdmin = role === "super_admin";
 
-        const sections = [
-            {
-                key: "profile",
-                title: "Mein Profil",
-                description: "Persönliche Kontoinformationen ansehen."
-            },
-            {
-                key: "contact_messages.read",
-                title: "Nachrichten",
-                description: "Freigegebene Nachrichten ansehen."
-            },
-            {
-                key: "documents.read",
-                title: "Dokumente",
-                description: "Freigegebene Dokumente ansehen."
-            },
-            {
-                key: "schedule.read",
-                title: "Dienstplan",
-                description: "Den freigegebenen Dienstplan ansehen."
-            }
-        ];
-
+       const sections = [
+    {
+        key: "profile",
+        title: "Mein Profil",
+        description: "Persönliche Kontoinformationen ansehen."
+    },
+    {
+        key: "contact_messages.read",
+        title: "Kontaktanfragen",
+        description: "Freigegebene Kontaktanfragen ansehen."
+    },
+    {
+        key: "applications.read",
+        title: "Bewerbungen",
+        description: "Freigegebene Bewerbungen ansehen."
+    }
+];
         let shown = 0;
 
         for (const section of sections) {
@@ -225,69 +219,136 @@
         emptyMessage.hidden = shown > 0;
     }
 
-    async function initializeEmployeePage() {
-        if (!token) {
+async function initializeEmployeePage() {
+    if (!token) {
+        logout();
+        return;
+    }
+
+    try {
+        const response = await fetch(`${API_BASE}/auth/me`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
+            }
+        });
+
+        if (response.status === 401 || response.status === 403) {
             logout();
             return;
         }
 
-        try {
-            const response = await fetch(`${API_BASE}/auth/me`, {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Accept": "application/json"
-                }
-            });
+        if (!response.ok) {
+            throw new Error("Die Mitarbeiterdaten konnten nicht geladen werden.");
+        }
 
-            if (response.status === 401 || response.status === 403) {
+        const data = await response.json();
+
+        if (data.status !== "OK" || !data.user) {
+            throw new Error("Ungültige Serverantwort.");
+        }
+
+        const user = data.user;
+
+        if (user.must_change_password) {
+            window.location.replace("setup-password.html");
+            return;
+        }
+
+        sessionStorage.setItem(
+            "gratiaEmployeeUser",
+            JSON.stringify(user)
+        );
+
+        showProfile(user);
+        showModules(user.permissions || {}, user.role);
+
+        const canReadApplications =
+            user.role === "super_admin" ||
+            hasPermission(user.permissions || {}, "applications.read");
+
+        if (canReadApplications) {
+            const applicationsResponse = await fetch(
+                `${API_BASE}/applications`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/json"
+                    }
+                }
+            );
+
+            if (applicationsResponse.status === 401) {
                 logout();
                 return;
             }
 
-            if (!response.ok) {
-                throw new Error("Die Mitarbeiterdaten konnten nicht geladen werden.");
+            if (!applicationsResponse.ok) {
+                throw new Error(
+                    "Bewerbungen konnten nicht geladen werden."
+                );
             }
 
-            const data = await response.json();
+            const applicationsData = await applicationsResponse.json();
 
-            if (data.status !== "OK" || !data.user) {
-                throw new Error("Ungültige Serverantwort.");
+            if (applicationsData.status !== "OK") {
+                throw new Error("Ungültige Antwort für Bewerbungen.");
             }
 
-            const user = data.user;
+            const applications = applicationsData.applications || [];
 
-            if (user.must_change_password) {
-                window.location.replace("setup-password.html");
-                return;
+            const container = document.getElementById("modules");
+
+            const card = document.createElement("article");
+            card.className = "module";
+
+            const heading = document.createElement("h3");
+            heading.textContent = `Bewerbungen (${applications.length})`;
+            card.appendChild(heading);
+
+            if (applications.length === 0) {
+                const empty = document.createElement("p");
+                empty.className = "muted";
+                empty.textContent = "Noch keine Bewerbungen vorhanden.";
+                card.appendChild(empty);
+            } else {
+                applications.forEach(application => {
+                    const item = document.createElement("div");
+                    item.style.borderTop = "1px solid #eee";
+                    item.style.padding = "12px 0";
+
+                    const name = document.createElement("strong");
+                    name.textContent =
+                        `${application.first_name || ""} ${application.last_name || ""}`.trim();
+
+                    const details = document.createElement("p");
+                    details.className = "muted";
+                    details.textContent =
+                        `${application.position || "Keine Stelle"} · ${application.email || "Keine E-Mail"} · Status: ${application.status || "neu"}`;
+
+                    item.append(name, details);
+                    card.appendChild(item);
+                });
             }
 
-            sessionStorage.setItem(
-                "gratiaEmployeeUser",
-                JSON.stringify(user)
-            );
-
-            showProfile(user);
-
-            showModules(
-                user.permissions || {},
-                user.role
-            );
-
-        } catch (error) {
-            console.error("Fehler beim Laden des Mitarbeiterbereichs:", error);
-
-            document.getElementById("welcomeTitle").textContent =
-                "Verbindung zum Server fehlgeschlagen";
-
-            document.getElementById("modules").replaceChildren();
-
-            const message = document.getElementById("emptyMessage");
-            message.hidden = false;
-            message.textContent =
-                "Bitte prüfen Sie, ob das Backend läuft, und laden Sie die Seite erneut.";
+            container.appendChild(card);
         }
+
+    } catch (error) {
+        console.error("Fehler beim Laden des Mitarbeiterbereichs:", error);
+
+        document.getElementById("welcomeTitle").textContent =
+            "Daten konnten nicht geladen werden";
+
+        const message = document.getElementById("emptyMessage");
+        message.hidden = false;
+        message.textContent =
+            error.message || "Bitte prüfen Sie die Backend-Verbindung.";
     }
+}
+
 
     document.getElementById("logoutButton").addEventListener("click", logout);
 
