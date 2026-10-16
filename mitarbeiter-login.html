@@ -252,8 +252,27 @@
                 message.className = "success";
                 message.textContent = "Anmeldung erfolgreich. Sie werden weitergeleitet.";
 
-                // Diese Seite erstellen wir im nächsten Schritt.
-                window.location.href = "mitarbeiter.html";
+const permissions = data.user.permissions || {};
+const isAdmin = data.user.role === "super_admin";
+
+const canViewApplications =
+    isAdmin ||
+    permissions.all === true ||
+    permissions["applications.read"] === true ||
+    permissions.applications?.read === true;
+
+const canViewRequests =
+    isAdmin ||
+    permissions.all === true ||
+    permissions["contact_messages.read"] === true ||
+    permissions.contact_messages?.read === true;
+
+if (canViewRequests && !canViewApplications) {
+    window.location.href = "anfragen.html";
+} else {
+    window.location.href = "mitarbeiter.html";
+}
+
 
             } catch (error) {
                 message.className = "error";

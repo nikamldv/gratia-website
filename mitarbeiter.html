@@ -82,6 +82,72 @@
             color: #777;
             font-size: 12px;
         }
+
+
+/* GRATIA – Einheitliches Button-Design */
+button,
+button[type="button"],
+button[type="submit"] {
+    background-color: #872020;
+    color: #ffffff;
+    border: 1px solid #872020;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+button:hover,
+button[type="button"]:hover,
+button[type="submit"]:hover {
+    background-color: #681717;
+    border-color: #681717;
+}
+
+button:focus-visible {
+    outline: 2px solid #872020;
+    outline-offset: 3px;
+}
+
+button:disabled {
+    background-color: #b98a8a;
+    border-color: #b98a8a;
+    cursor: not-allowed;
+    opacity: 0.8;
+}
+
+
+.workspace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.workspace-header h2 {
+    margin: 0;
+}
+
+.workspace-header button {
+    background-color: #872020;
+    color: #fff;
+    border: 1px solid #872020;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.workspace-header button:hover {
+    background-color: #681717;
+    border-color: #681717;
+}
+
+
     </style>
 </head>
 
@@ -102,74 +168,77 @@
             </p>
         </section>
 <section>
+   
+<div class="workspace-header">
     <h2>Mein Arbeitsbereich</h2>
+    <button type="button" id="employee-refresh-applications">
+        Bewerbungen aktualisieren ↻
+    </button>
+</div>
 
-    <div id="employee-applications-panel" class="panel" hidden>
-        <div class="panel-header">
-            <div>
-                <h3>Jobbewerbungen</h3>
-                <p>Bewerbungen und Lebensläufe ansehen</p>
-            </div>
-            <button type="button" id="employee-refresh-applications">
-                Bewerbungen aktualisieren ↻
-            </button>
-        </div>
-
-        <div id="employee-applications-message" class="message"
-             role="status"></div>
-
-        <div class="applications-table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>E-Mail</th>
-                        <th>Eingegangen am</th>
-                        <th>Status</th>
-                        <th>Aktionen</th>
-                    </tr>
-                </thead>
-                <tbody id="employee-applications-body"></tbody>
-            </table>
+<div id="employee-applications-panel" class="panel" hidden>
+    <div class="panel-header">
+        <div>
+            <h3>Jobbewerbungen</h3>
+            <p>Bewerbungen und Lebensläufe ansehen</p>
         </div>
     </div>
 
-    <div id="employee-messages-panel" class="panel" hidden>
-        <div class="panel-header">
-            <div>
-                <h3>Kontaktanfragen</h3>
-                <p>Eingegangene Nachrichten ansehen</p>
-            </div>
-            <button type="button" id="employee-refresh-messages">
-                Nachrichten aktualisieren ↻
-            </button>
-        </div>
+    <div id="employee-applications-message" class="message"
+         role="status"></div>
 
-        <div id="employee-messages-message" class="message"
-             role="status"></div>
+    <div class="applications-table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>E-Mail</th>
+                    <th>Eingegangen am</th>
+                    <th>Status</th>
+                    <th>Aktionen</th>
+                </tr>
+            </thead>
+            <tbody id="employee-applications-body"></tbody>
+        </table>
+    </div>
+</div>
 
-        <div class="applications-table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nr.</th>
-                        <th>Name</th>
-                        <th>E-Mail</th>
-                        <th>Anliegen</th>
-                        <th>Datum</th>
-                        <th>Status</th>
-                        <th>Details</th>
-                    </tr>
-                </thead>
-                <tbody id="employee-messages-body"></tbody>
-            </table>
+<div id="employee-messages-panel" class="panel" hidden>
+    <div class="panel-header">
+        <div>
+            <h3>Kontaktanfragen</h3>
+            <p>Eingegangene Nachrichten ansehen</p>
         </div>
+        <button type="button" id="employee-refresh-messages">
+            Nachrichten aktualisieren ↻
+        </button>
     </div>
 
-    <p class="muted" id="emptyMessage" hidden>
-        Für Ihr Benutzerkonto sind derzeit keine zusätzlichen Bereiche freigegeben.
-    </p>
+    <div id="employee-messages-message" class="message"
+         role="status"></div>
+
+    <div class="applications-table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nr.</th>
+                    <th>Name</th>
+                    <th>E-Mail</th>
+                    <th>Anliegen</th>
+                    <th>Datum</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody id="employee-messages-body"></tbody>
+        </table>
+    </div>
+</div>
+
+<p class="muted" id="emptyMessage" hidden>
+    Für Ihr Benutzerkonto sind derzeit keine zusätzlichen Bereiche freigegeben.
+</p>
 </section>
 
         <section class="panel">
@@ -182,140 +251,101 @@
 
     <footer>Pflegedienst GRATIA GmbH</footer>
 
-   
-<script>
-    const API_BASE = "http://localhost:3000/api";
-    const token = sessionStorage.getItem("gratiaEmployeeToken");
+  <script>
+"use strict";
 
-    const loginPage = "mitarbeiter-login.html";
+const API_BASE = "http://localhost:3000/api";
+const LOGIN_PAGE = "mitarbeiter-login.html";
+const token = sessionStorage.getItem("gratiaEmployeeToken");
 
-    function logout() {
-        sessionStorage.removeItem("gratiaEmployeeToken");
-        sessionStorage.removeItem("gratiaEmployeeUser");
-        window.location.replace(loginPage);
+/* -----------------------------
+   Abmelden
+----------------------------- */
+function logout() {
+    sessionStorage.removeItem("gratiaEmployeeToken");
+    sessionStorage.removeItem("gratiaEmployeeUser");
+    window.location.replace(LOGIN_PAGE);
+}
+
+/* -----------------------------
+   Berechtigungen prüfen
+----------------------------- */
+function hasPermission(permissions, key) {
+    if (!permissions || typeof permissions !== "object") {
+        return false;
     }
 
-    function hasPermission(permissions, key) {
-        if (!permissions || typeof permissions !== "object") {
-            return false;
-        }
-
-        if (permissions.all === true || permissions[key] === true) {
-            return true;
-        }
-
-        const parts = key.split(".");
-        let current = permissions;
-
-        for (const part of parts) {
-            if (!current || typeof current !== "object") {
-                return false;
-            }
-            current = current[part];
-        }
-
-        return current === true;
+    if (permissions.all === true || permissions[key] === true) {
+        return true;
     }
-
-    function showProfile(user) {
-        document.getElementById("welcomeTitle").textContent =
-            "Willkommen, " + (user.full_name || user.username || "Mitarbeiter");
-
-        document.getElementById("profileUsername").textContent =
-            user.username || "–";
-
-        document.getElementById("profileEmail").textContent =
-            user.email || "–";
-
-        document.getElementById("profileRole").textContent =
-            user.role || "Mitarbeiter";
-    }
-
-    function showModules(permissions, role) {
-        const modules = document.getElementById("modules");
-        const emptyMessage = document.getElementById("emptyMessage");
-
-        modules.replaceChildren();
-
-        const isSuperAdmin = role === "super_admin";
-
-       const sections = [
-    {
-        key: "profile",
-        title: "Mein Profil",
-        description: "Persönliche Kontoinformationen ansehen."
-    },
-    {
-        key: "contact_messages.read",
-        title: "Kontaktanfragen",
-        description: "Freigegebene Kontaktanfragen ansehen."
-    },
-    {
-        key: "applications.read",
-        title: "Bewerbungen",
-        description: "Freigegebene Bewerbungen ansehen."
-    }
-];
-        let shown = 0;
-
-        for (const section of sections) {
-            if (!isSuperAdmin && !hasPermission(permissions, section.key)) {
-                continue;
-            }
-
-            const card = document.createElement("article");
-            card.className = "module";
-
-            const title = document.createElement("h3");
-            title.textContent = section.title;
-
-            const description = document.createElement("p");
-            description.className = "muted";
-            description.textContent = section.description;
-
-            card.append(title, description);
-            modules.appendChild(card);
-            shown++;
-        }
-
-        emptyMessage.hidden = shown > 0;
-    }
-
-
-function employeeHasPermission(permissions, key) {
-    if (!permissions || typeof permissions !== "object") return false;
-    if (permissions.all === true || permissions[key] === true) return true;
 
     let current = permissions;
 
     for (const part of key.split(".")) {
-        if (!current || typeof current !== "object") return false;
+        if (!current || typeof current !== "object") {
+            return false;
+        }
+
         current = current[part];
     }
 
     return current === true;
 }
 
-function employeeCell(value) {
-    const td = document.createElement("td");
-    td.textContent = value == null || value === "" ? "–" : String(value);
-    return td;
+/* -----------------------------
+   Profil anzeigen
+----------------------------- */
+function showProfile(user) {
+    document.getElementById("welcomeTitle").textContent =
+        "Willkommen, " + (user.full_name || user.username || "Mitarbeiter");
+
+    document.getElementById("profileUsername").textContent =
+        user.username || "–";
+
+    document.getElementById("profileEmail").textContent =
+        user.email || "–";
+
+    document.getElementById("profileRole").textContent =
+        user.role || "Mitarbeiter";
 }
 
-function employeeFormatDate(value) {
+/* -----------------------------
+   Datum formatieren
+----------------------------- */
+function formatDate(value) {
     if (!value) return "–";
 
     const date = new Date(value);
-    if (Number.isNaN(date.getTime())) return "–";
+
+    if (Number.isNaN(date.getTime())) {
+        return "–";
+    }
 
     return date.toLocaleString("de-DE");
 }
 
-async function employeeApiRequest(endpoint) {
+/* -----------------------------
+   Sichere Tabellenzelle
+----------------------------- */
+function createCell(value) {
+    const cell = document.createElement("td");
+    cell.textContent =
+        value === null || value === undefined || value === ""
+            ? "–"
+            : String(value);
+
+    return cell;
+}
+
+/* -----------------------------
+   API-Aufruf mit Login-Token
+----------------------------- */
+async function apiRequest(endpoint) {
     const response = await fetch(`${API_BASE}${endpoint}`, {
+        method: "GET",
         headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: "application/json"
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/json"
         }
     });
 
@@ -324,77 +354,119 @@ async function employeeApiRequest(endpoint) {
         throw new Error("Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.");
     }
 
+    let data;
+
+    const contentType = response.headers.get("content-type") || "";
+
+    if (contentType.includes("application/json")) {
+        data = await response.json();
+    }
+
     if (!response.ok) {
         throw new Error(
-            response.status === 403
+            data?.message ||
+            (response.status === 403
                 ? "Sie haben keine Berechtigung für diesen Bereich."
-                : `Daten konnten nicht geladen werden (${response.status}).`
+                : `Fehler beim Laden der Daten (${response.status}).`)
         );
     }
 
-    return response.json();
+    if (!data) {
+        throw new Error("Der Server hat keine gültigen JSON-Daten zurückgegeben.");
+    }
+
+    return data;
 }
 
-async function loadEmployeeApplications() {
-    const panel = document.getElementById("employee-applications-panel");
-    const message = document.getElementById("employee-applications-message");
-    const tbody = document.getElementById("employee-applications-body");
-    const refresh = document.getElementById("employee-refresh-applications");
+/* -----------------------------
+   Statusmeldung anzeigen
+----------------------------- */
+function setMessage(elementId, text, isError = false) {
+    const element = document.getElementById(elementId);
+    element.textContent = text;
+    element.style.color = isError ? "#b42318" : "#555";
+}
 
-    refresh.disabled = true;
-    message.textContent = "Bewerbungen werden geladen …";
+/* -----------------------------
+   Bewerbungen laden
+----------------------------- */
+async function loadEmployeeApplications() {
+    const button = document.getElementById(
+        "employee-refresh-applications"
+    );
+
+    const tbody = document.getElementById(
+        "employee-applications-body"
+    );
+
     tbody.replaceChildren();
+    button.disabled = true;
+
+    setMessage(
+        "employee-applications-message",
+        "Bewerbungen werden geladen …"
+    );
 
     try {
-        const data = await employeeApiRequest("/applications");
+        const data = await apiRequest("/applications");
 
         if (data.status !== "OK" || !Array.isArray(data.applications)) {
-            throw new Error("Ungültige Antwort für Bewerbungen.");
+            throw new Error("Die Antwort für Bewerbungen ist ungültig.");
         }
 
-        message.textContent = `${data.applications.length} Bewerbung(en) gefunden.`;
+        const applications = data.applications;
 
-        if (data.applications.length === 0) {
+        setMessage(
+            "employee-applications-message",
+            `${applications.length} Bewerbung(en) gefunden.`
+        );
+
+        if (applications.length === 0) {
             const row = document.createElement("tr");
-            const cell = employeeCell("Keine Bewerbungen vorhanden.");
+            const cell = createCell("Noch keine Bewerbungen vorhanden.");
             cell.colSpan = 6;
             row.appendChild(cell);
             tbody.appendChild(row);
             return;
         }
 
-        data.applications.forEach(application => {
+        for (const application of applications) {
             const row = document.createElement("tr");
+
             const fullName = [
                 application.first_name,
                 application.last_name
-            ].filter(Boolean).join(" ") || "–";
+            ].filter(Boolean).join(" ");
 
             row.append(
-                employeeCell(fullName),
-                employeeCell(application.position),
-                employeeCell(application.email),
-                employeeCell(employeeFormatDate(application.created_at)),
-                employeeCell(application.status || "Neu")
+                createCell(fullName || "Unbekannter Bewerber"),
+                createCell(application.position),
+                createCell(application.email),
+                createCell(formatDate(application.created_at)),
+                createCell(application.status || "Neu")
             );
 
             const actions = document.createElement("td");
 
             if (application.id && application.cv_file_name) {
-                const button = document.createElement("button");
-                button.type = "button";
-                button.textContent = "Lebenslauf herunterladen";
+                const downloadButton = document.createElement("button");
 
-                button.addEventListener("click", async () => {
-                    button.disabled = true;
-                    button.textContent = "Wird geladen …";
+                downloadButton.type = "button";
+                downloadButton.textContent = "CV herunterladen";
+
+                downloadButton.addEventListener("click", async () => {
+                    downloadButton.disabled = true;
+                    downloadButton.textContent = "Download läuft …";
+
+                    let objectUrl;
 
                     try {
                         const response = await fetch(
                             `${API_BASE}/applications/${application.id}/cv`,
                             {
+                                method: "GET",
                                 headers: {
-                                    Authorization: `Bearer ${token}`
+                                    "Authorization": `Bearer ${token}`
                                 }
                             }
                         );
@@ -405,94 +477,131 @@ async function loadEmployeeApplications() {
                         }
 
                         if (!response.ok) {
-                            throw new Error("Lebenslauf konnte nicht heruntergeladen werden.");
+                            let errorMessage =
+                                "Der Lebenslauf konnte nicht heruntergeladen werden.";
+
+                            try {
+                                const errorData = await response.json();
+                                if (errorData.message) {
+                                    errorMessage = errorData.message;
+                                }
+                            } catch (_) {}
+
+                            throw new Error(errorMessage);
                         }
 
                         const blob = await response.blob();
-                        const url = URL.createObjectURL(blob);
-                        const link = document.createElement("a");
+                        objectUrl = URL.createObjectURL(blob);
 
-                        link.href = url;
-                        link.download = application.cv_file_name;
+                        const link = document.createElement("a");
+                        link.href = objectUrl;
+                        link.download =
+                            application.cv_file_name || "Lebenslauf";
+
                         document.body.appendChild(link);
                         link.click();
                         link.remove();
 
-                        setTimeout(() => URL.revokeObjectURL(url), 1000);
                     } catch (error) {
                         alert(error.message);
                     } finally {
-                        button.disabled = false;
-                        button.textContent = "Lebenslauf herunterladen";
+                        if (objectUrl) {
+                            URL.revokeObjectURL(objectUrl);
+                        }
+
+                        downloadButton.disabled = false;
+                        downloadButton.textContent = "CV herunterladen";
                     }
                 });
 
-                actions.appendChild(button);
+                actions.appendChild(downloadButton);
             } else {
-                actions.textContent = "Kein Lebenslauf vorhanden";
+                actions.textContent = "Kein CV vorhanden";
             }
 
             row.appendChild(actions);
             tbody.appendChild(row);
-        });
+        }
     } catch (error) {
-        message.textContent = error.message;
+        setMessage(
+            "employee-applications-message",
+            error.message,
+            true
+        );
     } finally {
-        refresh.disabled = false;
+        button.disabled = false;
     }
 }
 
+/* -----------------------------
+   Kontaktanfragen laden
+----------------------------- */
 async function loadEmployeeMessages() {
-    const message = document.getElementById("employee-messages-message");
-    const tbody = document.getElementById("employee-messages-body");
-    const refresh = document.getElementById("employee-refresh-messages");
+    const button = document.getElementById(
+        "employee-refresh-messages"
+    );
 
-    refresh.disabled = true;
-    message.textContent = "Nachrichten werden geladen …";
+    const tbody = document.getElementById(
+        "employee-messages-body"
+    );
+
     tbody.replaceChildren();
+    button.disabled = true;
+
+    setMessage(
+        "employee-messages-message",
+        "Kontaktanfragen werden geladen …"
+    );
 
     try {
-        const data = await employeeApiRequest("/contact-messages");
+        const data = await apiRequest("/contact-messages");
 
         if (data.status !== "OK" || !Array.isArray(data.messages)) {
-            throw new Error("Ungültige Antwort für Kontaktanfragen.");
+            throw new Error("Die Antwort für Kontaktanfragen ist ungültig.");
         }
 
-        message.textContent = `${data.messages.length} Kontaktanfrage(n) gefunden.`;
+        const messages = data.messages;
 
-        if (data.messages.length === 0) {
+        setMessage(
+            "employee-messages-message",
+            `${messages.length} Kontaktanfrage(n) gefunden.`
+        );
+
+        if (messages.length === 0) {
             const row = document.createElement("tr");
-            const cell = employeeCell("Keine Kontaktanfragen vorhanden.");
+            const cell = createCell("Noch keine Kontaktanfragen vorhanden.");
             cell.colSpan = 7;
             row.appendChild(cell);
             tbody.appendChild(row);
             return;
         }
 
-        data.messages.forEach(item => {
+        for (const item of messages) {
             const row = document.createElement("tr");
 
             row.append(
-                employeeCell(item.id),
-                employeeCell(item.name),
-                employeeCell(item.email),
-                employeeCell(item.subject),
-                employeeCell(employeeFormatDate(item.created_at)),
-                employeeCell(item.status || "neu")
+                createCell(item.id),
+                createCell(item.name),
+                createCell(item.email),
+                createCell(item.subject),
+                createCell(formatDate(item.created_at)),
+                createCell(item.status || "Neu")
             );
 
             const actions = document.createElement("td");
-            const button = document.createElement("button");
-            button.type = "button";
-            button.textContent = "Öffnen";
+            const detailButton = document.createElement("button");
 
-            button.addEventListener("click", () => {
+            detailButton.type = "button";
+            detailButton.textContent = "Öffnen";
+
+            detailButton.addEventListener("click", () => {
                 const existing = tbody.querySelector(
                     `[data-details-for="${item.id}"]`
                 );
 
                 if (existing) {
                     existing.remove();
+                    detailButton.textContent = "Öffnen";
                     return;
                 }
 
@@ -504,9 +613,11 @@ async function loadEmployeeMessages() {
 
                 const details = document.createElement("div");
                 details.style.whiteSpace = "pre-wrap";
+                details.style.padding = "12px";
 
                 const heading = document.createElement("strong");
-                heading.textContent = `${item.name || "Kontakt"} – Details`;
+                heading.textContent =
+                    `${item.name || "Kontaktanfrage"} – Details`;
 
                 const content = document.createElement("p");
                 content.textContent =
@@ -519,56 +630,78 @@ async function loadEmployeeMessages() {
                 detailCell.appendChild(details);
                 detailRow.appendChild(detailCell);
                 row.after(detailRow);
+
+                detailButton.textContent = "Schließen";
             });
 
-            actions.appendChild(button);
+            actions.appendChild(detailButton);
             row.appendChild(actions);
             tbody.appendChild(row);
-        });
+        }
     } catch (error) {
-        message.textContent = error.message;
+        setMessage(
+            "employee-messages-message",
+            error.message,
+            true
+        );
     } finally {
-        refresh.disabled = false;
+        button.disabled = false;
     }
 }
 
+/* -----------------------------
+   Bereiche anhand der Rechte laden
+----------------------------- */
 async function loadEmployeeModules(user) {
-    const applicationsPanel = document.getElementById("employee-applications-panel");
-    const messagesPanel = document.getElementById("employee-messages-panel");
+    const applicationsPanel = document.getElementById(
+        "employee-applications-panel"
+    );
+
+    const messagesPanel = document.getElementById(
+        "employee-messages-panel"
+    );
+
     const emptyMessage = document.getElementById("emptyMessage");
 
     const permissions = user.permissions || {};
-    const isAdmin = user.role === "super_admin";
+    const isSuperAdmin = user.role === "super_admin";
 
     const canReadApplications =
-        isAdmin || employeeHasPermission(permissions, "applications.read");
+        isSuperAdmin ||
+        hasPermission(permissions, "applications.read");
 
     const canReadMessages =
-        isAdmin || employeeHasPermission(permissions, "contact_messages.read");
+        isSuperAdmin ||
+        hasPermission(permissions, "contact_messages.read");
 
     applicationsPanel.hidden = !canReadApplications;
     messagesPanel.hidden = !canReadMessages;
+
     emptyMessage.hidden = canReadApplications || canReadMessages;
 
-    if (!canReadApplications && !canReadMessages) return;
+    if (!canReadApplications && !canReadMessages) {
+        emptyMessage.textContent =
+            "Für Ihr Benutzerkonto wurden noch keine zusätzlichen Bereiche freigegeben.";
+        return;
+    }
+
+    // Beide Bereiche laden, ohne dass ein Fehler den anderen blockiert.
+    const tasks = [];
 
     if (canReadApplications) {
-        await loadEmployeeApplications();
+        tasks.push(loadEmployeeApplications());
     }
 
     if (canReadMessages) {
-        await loadEmployeeMessages();
+        tasks.push(loadEmployeeMessages());
     }
+
+    await Promise.allSettled(tasks);
 }
 
-document.getElementById("employee-refresh-applications")
-    .addEventListener("click", loadEmployeeApplications);
-
-document.getElementById("employee-refresh-messages")
-    .addEventListener("click", loadEmployeeMessages);
-
-
-
+/* -----------------------------
+   Seite initialisieren
+----------------------------- */
 async function initializeEmployeePage() {
     if (!token) {
         logout();
@@ -589,14 +722,12 @@ async function initializeEmployeePage() {
             return;
         }
 
-        if (!response.ok) {
-            throw new Error("Die Mitarbeiterdaten konnten nicht geladen werden.");
-        }
-
         const data = await response.json();
 
-        if (data.status !== "OK" || !data.user) {
-            throw new Error("Ungültige Serverantwort.");
+        if (!response.ok || data.status !== "OK" || !data.user) {
+            throw new Error(
+                data.message || "Die Mitarbeiterdaten konnten nicht geladen werden."
+            );
         }
 
         const user = data.user;
@@ -612,13 +743,36 @@ async function initializeEmployeePage() {
         );
 
         showProfile(user);
+        await loadEmployeeModules(user);
 
-await loadEmployeeModules(user)
-    } catch (error){
-        alert(error.message);
-        logout();
+    } catch (error) {
+        console.error("Fehler im Mitarbeiterbereich:", error);
 
-    }  }
+        document.getElementById("welcomeTitle").textContent =
+            "Daten konnten nicht geladen werden";
+
+        const emptyMessage = document.getElementById("emptyMessage");
+        emptyMessage.hidden = false;
+        emptyMessage.textContent =
+            error.message ||
+            "Bitte prüfen Sie, ob das Backend gestartet ist.";
+    }
+}
+
+/* -----------------------------
+   Ereignisse registrieren
+----------------------------- */
+document.getElementById("logoutButton")
+    .addEventListener("click", logout);
+
+document.getElementById("employee-refresh-applications")
+    .addEventListener("click", loadEmployeeApplications);
+
+document.getElementById("employee-refresh-messages")
+    .addEventListener("click", loadEmployeeMessages);
+
+/* Seite starten */
+initializeEmployeePage();
 </script>
 
 </body>

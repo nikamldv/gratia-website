@@ -1,0 +1,543 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Kontaktanfragen</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #872020;
+            color: white;
+            padding: 24px 5%;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 26px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .toolbar h2 {
+            margin: 0;
+        }
+
+        .toolbar-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        button {
+            background: #872020;
+            color: white;
+            border: 1px solid #872020;
+            border-radius: 6px;
+            padding: 11px 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #681717;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 22px;
+        }
+
+        .stat-card,
+        .panel {
+            background: white;
+            border-radius: 10px;
+            padding: 22px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card p {
+            margin: 0 0 10px;
+            color: #666;
+        }
+
+        .stat-card strong {
+            font-size: 28px;
+            color: #872020;
+        }
+
+        .search {
+            width: 100%;
+            max-width: 420px;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+            margin-bottom: 18px;
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 760px;
+        }
+
+        th,
+        td {
+            padding: 13px 12px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #f8f3f3;
+            color: #672020;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: #f5e5e5;
+            color: #872020;
+            font-size: 12px;
+        }
+
+        .message {
+            padding: 14px 0;
+            color: #555;
+        }
+
+        .error {
+            color: #b42318;
+        }
+
+        dialog {
+            width: min(600px, calc(100% - 30px));
+            border: none;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        dialog::backdrop {
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        .detail-row {
+            margin: 16px 0;
+        }
+
+        .detail-row strong {
+            display: block;
+            color: #872020;
+            margin-bottom: 5px;
+        }
+
+        .detail-content {
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+        }
+
+        .dialog-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 22px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 21px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .toolbar {
+                align-items: flex-start;
+            }
+
+            .toolbar-actions {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GRATIA – Kontaktanfragen</h1>
+        <p>Übersicht und Verwaltung eingehender Anfragen</p>
+    </header>
+
+    <main>
+        <div class="toolbar">
+            <h2>Anfragenübersicht</h2>
+
+            <div class="toolbar-actions">
+                <button type="button" id="refreshButton">
+                    Anfragen aktualisieren ↻
+                </button>
+                <button type="button" id="backButton">
+                    Zurück zum Mitarbeiterbereich
+                </button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <p>Alle Anfragen</p>
+                <strong id="totalCount">–</strong>
+            </div>
+
+            <div class="stat-card">
+                <p>Neue Anfragen</p>
+                <strong id="newCount">–</strong>
+            </div>
+        </div>
+
+        <section class="panel">
+            <input
+                class="search"
+                type="search"
+                id="searchInput"
+                placeholder="Nach Name, E-Mail oder Anliegen suchen …"
+                aria-label="Anfragen durchsuchen"
+            >
+
+            <div id="message" class="message" role="status">
+                Diese Seite ist vorbereitet. Die Verbindung zum Backend
+                wird im nächsten Schritt eingerichtet.
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nr.</th>
+                            <th>Name</th>
+                            <th>E-Mail</th>
+                            <th>Anliegen</th>
+                            <th>Eingegangen am</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody id="requestsTableBody">
+                        <tr>
+                            <td colspan="7">
+                                Noch keine Daten geladen.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <dialog id="detailsDialog">
+        <h2>Details der Anfrage</h2>
+        <div id="detailsContent"></div>
+
+        <div class="dialog-actions">
+            <button type="button" id="closeDialogButton">
+                Schließen
+            </button>
+        </div>
+    </dialog>
+
+    <footer>
+        Pflegedienst GRATIA GmbH
+    </footer>
+
+   
+<script>
+"use strict";
+
+const API_BASE = "http://localhost:3000/api";
+const LOGIN_PAGE = "mitarbeiter-login.html";
+const token = sessionStorage.getItem("gratiaEmployeeToken");
+
+const searchInput = document.getElementById("searchInput");
+const tableBody = document.getElementById("requestsTableBody");
+const messageElement = document.getElementById("message");
+const dialog = document.getElementById("detailsDialog");
+
+let requests = [];
+
+function logout() {
+    sessionStorage.removeItem("gratiaEmployeeToken");
+    sessionStorage.removeItem("gratiaEmployeeUser");
+    window.location.replace(LOGIN_PAGE);
+}
+
+function hasPermission(permissions, key) {
+    if (!permissions || typeof permissions !== "object") return false;
+    if (permissions.all === true || permissions[key] === true) return true;
+
+    let current = permissions;
+    for (const part of key.split(".")) {
+        if (!current || typeof current !== "object") return false;
+        current = current[part];
+    }
+    return current === true;
+}
+
+async function apiRequest(endpoint) {
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json"
+        }
+    });
+
+    let data = {};
+    try {
+        data = await response.json();
+    } catch (_) {}
+
+    if (response.status === 401) {
+        logout();
+        throw new Error("Bitte melden Sie sich erneut an.");
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            data.message ||
+            `Fehler beim Laden der Daten (${response.status}).`
+        );
+    }
+
+    return data;
+}
+
+function formatDate(value) {
+    if (!value) return "–";
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+        ? "–"
+        : date.toLocaleString("de-DE");
+}
+
+function createCell(value) {
+    const cell = document.createElement("td");
+    cell.textContent = value == null || value === "" ? "–" : String(value);
+    return cell;
+}
+
+function showDetails(request) {
+    const container = document.getElementById("detailsContent");
+    container.replaceChildren();
+
+    const fields = [
+        ["Name", request.name],
+        ["E-Mail", request.email],
+        ["Telefon", request.phone],
+        ["Anliegen", request.subject],
+        ["Nachricht", request.message],
+        ["Status", request.status || "Neu"],
+        ["Eingegangen am", formatDate(request.created_at)]
+    ];
+
+    for (const [label, value] of fields) {
+        const row = document.createElement("div");
+        row.className = "detail-row";
+
+        const title = document.createElement("strong");
+        title.textContent = label;
+
+        const content = document.createElement("div");
+        content.className = "detail-content";
+        content.textContent = value || "–";
+
+        row.append(title, content);
+        container.appendChild(row);
+    }
+
+    dialog.showModal();
+}
+
+function renderRequests() {
+    const term = searchInput.value.trim().toLowerCase();
+
+    const filtered = requests.filter(request =>
+        [
+            request.name,
+            request.email,
+            request.subject,
+            request.message
+        ].join(" ").toLowerCase().includes(term)
+    );
+
+    tableBody.replaceChildren();
+    document.getElementById("totalCount").textContent = requests.length;
+    document.getElementById("newCount").textContent =
+        requests.filter(item => !item.status || item.status === "Neu").length;
+
+    if (!filtered.length) {
+        const row = document.createElement("tr");
+        const cell = createCell(
+            requests.length
+                ? "Keine passenden Anfragen gefunden."
+                : "Noch keine Anfragen vorhanden."
+        );
+        cell.colSpan = 7;
+        row.appendChild(cell);
+        tableBody.appendChild(row);
+        return;
+    }
+
+    for (const request of filtered) {
+        const row = document.createElement("tr");
+
+        row.append(
+            createCell(request.id),
+            createCell(request.name),
+            createCell(request.email),
+            createCell(request.subject),
+            createCell(formatDate(request.created_at))
+        );
+
+        const statusCell = document.createElement("td");
+        const badge = document.createElement("span");
+        badge.className = "status";
+        badge.textContent = request.status || "Neu";
+        statusCell.appendChild(badge);
+        row.appendChild(statusCell);
+
+        const actionCell = document.createElement("td");
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = "Öffnen";
+        button.addEventListener("click", () => showDetails(request));
+        actionCell.appendChild(button);
+        row.appendChild(actionCell);
+
+        tableBody.appendChild(row);
+    }
+}
+
+async function loadRequests() {
+    const button = document.getElementById("refreshButton");
+    button.disabled = true;
+    messageElement.className = "message";
+    messageElement.textContent = "Kontaktanfragen werden geladen …";
+
+    try {
+        const data = await apiRequest("/contact-messages");
+
+        if (data.status !== "OK" || !Array.isArray(data.messages)) {
+            throw new Error("Ungültige Antwort vom Server.");
+        }
+
+        requests = data.messages;
+        renderRequests();
+        messageElement.textContent =
+            `${requests.length} Kontaktanfrage(n) geladen.`;
+    } catch (error) {
+        messageElement.className = "message error";
+        messageElement.textContent = error.message;
+    } finally {
+        button.disabled = false;
+    }
+}
+
+async function initializePage() {
+    if (!token) {
+        logout();
+        return;
+    }
+
+    try {
+        const data = await apiRequest("/auth/me");
+
+        if (data.status !== "OK" || !data.user) {
+            throw new Error("Mitarbeiterdaten konnten nicht geladen werden.");
+        }
+
+        const user = data.user;
+        const allowed =
+            user.role === "super_admin" ||
+            hasPermission(user.permissions, "contact_messages.read");
+
+        if (!allowed) {
+            messageElement.className = "message error";
+            messageElement.textContent =
+                "Sie haben keine Berechtigung für Kontaktanfragen.";
+            document.getElementById("refreshButton").disabled = true;
+            return;
+        }
+
+        await loadRequests();
+    } catch (error) {
+        messageElement.className = "message error";
+        messageElement.textContent = error.message;
+    }
+}
+
+searchInput.addEventListener("input", renderRequests);
+document.getElementById("refreshButton")
+    .addEventListener("click", loadRequests);
+document.getElementById("closeDialogButton")
+    .addEventListener("click", () => dialog.close());
+document.getElementById("backButton")
+    .addEventListener("click", () => {
+        window.location.href = "mitarbeiter.html";
+    });
+
+initializePage();
+</script>
+
+</body>
+</html>

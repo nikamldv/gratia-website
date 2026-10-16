@@ -583,7 +583,41 @@ app.post("/api/contact-messages", async (req, res) => {
             status: "ERROR",
             message: "Ihre Nachricht konnte nicht gespeichert werden."
         });
+
+
     }
+
+
+/* Kontaktanfragen abrufen – geschützter Zugriff */
+app.get(
+    "/api/contact-messages",
+    authenticateToken,
+    requirePermission("contact_messages.read"),
+    async (req, res) => {
+        try {
+            const [messages] = await db.execute(`
+                SELECT id, name, email, phone, subject, message, created_at
+                FROM contact_messages
+                ORDER BY id DESC
+            `);
+
+            res.json({
+                status: "OK",
+                count: messages.length,
+                messages
+            });
+        } catch (error) {
+            console.error("Fehler beim Laden der Kontaktanfragen:", error.message);
+            res.status(500).json({
+                status: "ERROR",
+                message: "Kontaktanfragen konnten nicht geladen werden."
+            });
+        }
+    }
+);
+
+
+
 });
 async function initializeEmployeePage() {
     if (!token) {
@@ -1624,6 +1658,8 @@ app.patch(
 const server = app.listen(PORT, () => {
     console.log(`GRATIA Backend läuft auf http://localhost:${PORT}`);
 });
+
+
 
 server.on("error", (error) => {
     console.error("Backend-Fehler:", error);
