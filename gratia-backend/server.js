@@ -859,10 +859,6 @@ async function initializeEmployeePage() {
     }
 }
 
-
-
-
-
 /* Lebenslauf sicher herunterladen */
 app.get(
     "/api/applications/:id/cv",

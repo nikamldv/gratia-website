@@ -101,14 +101,76 @@
                 Hier finden Sie die für Ihr Benutzerkonto freigegebenen Bereiche.
             </p>
         </section>
+<section>
+    <h2>Mein Arbeitsbereich</h2>
 
-        <section>
-            <h2>Mein Arbeitsbereich</h2>
-            <div class="modules" id="modules"></div>
-            <p class="muted" id="emptyMessage" hidden>
-                Für Ihr Benutzerkonto sind derzeit keine zusätzlichen Bereiche freigegeben.
-            </p>
-        </section>
+    <div id="employee-applications-panel" class="panel" hidden>
+        <div class="panel-header">
+            <div>
+                <h3>Jobbewerbungen</h3>
+                <p>Bewerbungen und Lebensläufe ansehen</p>
+            </div>
+            <button type="button" id="employee-refresh-applications">
+                Bewerbungen aktualisieren ↻
+            </button>
+        </div>
+
+        <div id="employee-applications-message" class="message"
+             role="status"></div>
+
+        <div class="applications-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>E-Mail</th>
+                        <th>Eingegangen am</th>
+                        <th>Status</th>
+                        <th>Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-applications-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="employee-messages-panel" class="panel" hidden>
+        <div class="panel-header">
+            <div>
+                <h3>Kontaktanfragen</h3>
+                <p>Eingegangene Nachrichten ansehen</p>
+            </div>
+            <button type="button" id="employee-refresh-messages">
+                Nachrichten aktualisieren ↻
+            </button>
+        </div>
+
+        <div id="employee-messages-message" class="message"
+             role="status"></div>
+
+        <div class="applications-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nr.</th>
+                        <th>Name</th>
+                        <th>E-Mail</th>
+                        <th>Anliegen</th>
+                        <th>Datum</th>
+                        <th>Status</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody id="employee-messages-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <p class="muted" id="emptyMessage" hidden>
+        Für Ihr Benutzerkonto sind derzeit keine zusätzlichen Bereiche freigegeben.
+    </p>
+</section>
 
         <section class="panel">
             <h2>Mein Profil</h2>
@@ -219,6 +281,294 @@
         emptyMessage.hidden = shown > 0;
     }
 
+
+function employeeHasPermission(permissions, key) {
+    if (!permissions || typeof permissions !== "object") return false;
+    if (permissions.all === true || permissions[key] === true) return true;
+
+    let current = permissions;
+
+    for (const part of key.split(".")) {
+        if (!current || typeof current !== "object") return false;
+        current = current[part];
+    }
+
+    return current === true;
+}
+
+function employeeCell(value) {
+    const td = document.createElement("td");
+    td.textContent = value == null || value === "" ? "–" : String(value);
+    return td;
+}
+
+function employeeFormatDate(value) {
+    if (!value) return "–";
+
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "–";
+
+    return date.toLocaleString("de-DE");
+}
+
+async function employeeApiRequest(endpoint) {
+    const response = await fetch(`${API_BASE}${endpoint}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json"
+        }
+    });
+
+    if (response.status === 401) {
+        logout();
+        throw new Error("Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.");
+    }
+
+    if (!response.ok) {
+        throw new Error(
+            response.status === 403
+                ? "Sie haben keine Berechtigung für diesen Bereich."
+                : `Daten konnten nicht geladen werden (${response.status}).`
+        );
+    }
+
+    return response.json();
+}
+
+async function loadEmployeeApplications() {
+    const panel = document.getElementById("employee-applications-panel");
+    const message = document.getElementById("employee-applications-message");
+    const tbody = document.getElementById("employee-applications-body");
+    const refresh = document.getElementById("employee-refresh-applications");
+
+    refresh.disabled = true;
+    message.textContent = "Bewerbungen werden geladen …";
+    tbody.replaceChildren();
+
+    try {
+        const data = await employeeApiRequest("/applications");
+
+        if (data.status !== "OK" || !Array.isArray(data.applications)) {
+            throw new Error("Ungültige Antwort für Bewerbungen.");
+        }
+
+        message.textContent = `${data.applications.length} Bewerbung(en) gefunden.`;
+
+        if (data.applications.length === 0) {
+            const row = document.createElement("tr");
+            const cell = employeeCell("Keine Bewerbungen vorhanden.");
+            cell.colSpan = 6;
+            row.appendChild(cell);
+            tbody.appendChild(row);
+            return;
+        }
+
+        data.applications.forEach(application => {
+            const row = document.createElement("tr");
+            const fullName = [
+                application.first_name,
+                application.last_name
+            ].filter(Boolean).join(" ") || "–";
+
+            row.append(
+                employeeCell(fullName),
+                employeeCell(application.position),
+                employeeCell(application.email),
+                employeeCell(employeeFormatDate(application.created_at)),
+                employeeCell(application.status || "Neu")
+            );
+
+            const actions = document.createElement("td");
+
+            if (application.id && application.cv_file_name) {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.textContent = "Lebenslauf herunterladen";
+
+                button.addEventListener("click", async () => {
+                    button.disabled = true;
+                    button.textContent = "Wird geladen …";
+
+                    try {
+                        const response = await fetch(
+                            `${API_BASE}/applications/${application.id}/cv`,
+                            {
+                                headers: {
+                                    Authorization: `Bearer ${token}`
+                                }
+                            }
+                        );
+
+                        if (response.status === 401) {
+                            logout();
+                            return;
+                        }
+
+                        if (!response.ok) {
+                            throw new Error("Lebenslauf konnte nicht heruntergeladen werden.");
+                        }
+
+                        const blob = await response.blob();
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+
+                        link.href = url;
+                        link.download = application.cv_file_name;
+                        document.body.appendChild(link);
+                        link.click();
+                        link.remove();
+
+                        setTimeout(() => URL.revokeObjectURL(url), 1000);
+                    } catch (error) {
+                        alert(error.message);
+                    } finally {
+                        button.disabled = false;
+                        button.textContent = "Lebenslauf herunterladen";
+                    }
+                });
+
+                actions.appendChild(button);
+            } else {
+                actions.textContent = "Kein Lebenslauf vorhanden";
+            }
+
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        message.textContent = error.message;
+    } finally {
+        refresh.disabled = false;
+    }
+}
+
+async function loadEmployeeMessages() {
+    const message = document.getElementById("employee-messages-message");
+    const tbody = document.getElementById("employee-messages-body");
+    const refresh = document.getElementById("employee-refresh-messages");
+
+    refresh.disabled = true;
+    message.textContent = "Nachrichten werden geladen …";
+    tbody.replaceChildren();
+
+    try {
+        const data = await employeeApiRequest("/contact-messages");
+
+        if (data.status !== "OK" || !Array.isArray(data.messages)) {
+            throw new Error("Ungültige Antwort für Kontaktanfragen.");
+        }
+
+        message.textContent = `${data.messages.length} Kontaktanfrage(n) gefunden.`;
+
+        if (data.messages.length === 0) {
+            const row = document.createElement("tr");
+            const cell = employeeCell("Keine Kontaktanfragen vorhanden.");
+            cell.colSpan = 7;
+            row.appendChild(cell);
+            tbody.appendChild(row);
+            return;
+        }
+
+        data.messages.forEach(item => {
+            const row = document.createElement("tr");
+
+            row.append(
+                employeeCell(item.id),
+                employeeCell(item.name),
+                employeeCell(item.email),
+                employeeCell(item.subject),
+                employeeCell(employeeFormatDate(item.created_at)),
+                employeeCell(item.status || "neu")
+            );
+
+            const actions = document.createElement("td");
+            const button = document.createElement("button");
+            button.type = "button";
+            button.textContent = "Öffnen";
+
+            button.addEventListener("click", () => {
+                const existing = tbody.querySelector(
+                    `[data-details-for="${item.id}"]`
+                );
+
+                if (existing) {
+                    existing.remove();
+                    return;
+                }
+
+                const detailRow = document.createElement("tr");
+                detailRow.dataset.detailsFor = item.id;
+
+                const detailCell = document.createElement("td");
+                detailCell.colSpan = 7;
+
+                const details = document.createElement("div");
+                details.style.whiteSpace = "pre-wrap";
+
+                const heading = document.createElement("strong");
+                heading.textContent = `${item.name || "Kontakt"} – Details`;
+
+                const content = document.createElement("p");
+                content.textContent =
+                    `E-Mail: ${item.email || "–"}\n` +
+                    `Telefon: ${item.phone || "–"}\n` +
+                    `Betreff: ${item.subject || "–"}\n\n` +
+                    `Nachricht:\n${item.message || "–"}`;
+
+                details.append(heading, content);
+                detailCell.appendChild(details);
+                detailRow.appendChild(detailCell);
+                row.after(detailRow);
+            });
+
+            actions.appendChild(button);
+            row.appendChild(actions);
+            tbody.appendChild(row);
+        });
+    } catch (error) {
+        message.textContent = error.message;
+    } finally {
+        refresh.disabled = false;
+    }
+}
+
+async function loadEmployeeModules(user) {
+    const applicationsPanel = document.getElementById("employee-applications-panel");
+    const messagesPanel = document.getElementById("employee-messages-panel");
+    const emptyMessage = document.getElementById("emptyMessage");
+
+    const permissions = user.permissions || {};
+    const isAdmin = user.role === "super_admin";
+
+    const canReadApplications =
+        isAdmin || employeeHasPermission(permissions, "applications.read");
+
+    const canReadMessages =
+        isAdmin || employeeHasPermission(permissions, "contact_messages.read");
+
+    applicationsPanel.hidden = !canReadApplications;
+    messagesPanel.hidden = !canReadMessages;
+    emptyMessage.hidden = canReadApplications || canReadMessages;
+
+    if (!canReadApplications && !canReadMessages) return;
+
+    if (canReadApplications) {
+        await loadEmployeeApplications();
+    }
+
+    if (canReadMessages) {
+        await loadEmployeeMessages();
+    }
+}
+
+document.getElementById("employee-refresh-applications")
+    .addEventListener("click", loadEmployeeApplications);
+
+document.getElementById("employee-refresh-messages")
+    .addEventListener("click", loadEmployeeMessages);
+
+
+
 async function initializeEmployeePage() {
     if (!token) {
         logout();
@@ -262,97 +612,13 @@ async function initializeEmployeePage() {
         );
 
         showProfile(user);
-        showModules(user.permissions || {}, user.role);
 
-        const canReadApplications =
-            user.role === "super_admin" ||
-            hasPermission(user.permissions || {}, "applications.read");
+await loadEmployeeModules(user)
+    } catch (error){
+        alert(error.message);
+        logout();
 
-        if (canReadApplications) {
-            const applicationsResponse = await fetch(
-                `${API_BASE}/applications`,
-                {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${token}`,
-                        "Accept": "application/json"
-                    }
-                }
-            );
-
-            if (applicationsResponse.status === 401) {
-                logout();
-                return;
-            }
-
-            if (!applicationsResponse.ok) {
-                throw new Error(
-                    "Bewerbungen konnten nicht geladen werden."
-                );
-            }
-
-            const applicationsData = await applicationsResponse.json();
-
-            if (applicationsData.status !== "OK") {
-                throw new Error("Ungültige Antwort für Bewerbungen.");
-            }
-
-            const applications = applicationsData.applications || [];
-
-            const container = document.getElementById("modules");
-
-            const card = document.createElement("article");
-            card.className = "module";
-
-            const heading = document.createElement("h3");
-            heading.textContent = `Bewerbungen (${applications.length})`;
-            card.appendChild(heading);
-
-            if (applications.length === 0) {
-                const empty = document.createElement("p");
-                empty.className = "muted";
-                empty.textContent = "Noch keine Bewerbungen vorhanden.";
-                card.appendChild(empty);
-            } else {
-                applications.forEach(application => {
-                    const item = document.createElement("div");
-                    item.style.borderTop = "1px solid #eee";
-                    item.style.padding = "12px 0";
-
-                    const name = document.createElement("strong");
-                    name.textContent =
-                        `${application.first_name || ""} ${application.last_name || ""}`.trim();
-
-                    const details = document.createElement("p");
-                    details.className = "muted";
-                    details.textContent =
-                        `${application.position || "Keine Stelle"} · ${application.email || "Keine E-Mail"} · Status: ${application.status || "neu"}`;
-
-                    item.append(name, details);
-                    card.appendChild(item);
-                });
-            }
-
-            container.appendChild(card);
-        }
-
-    } catch (error) {
-        console.error("Fehler beim Laden des Mitarbeiterbereichs:", error);
-
-        document.getElementById("welcomeTitle").textContent =
-            "Daten konnten nicht geladen werden";
-
-        const message = document.getElementById("emptyMessage");
-        message.hidden = false;
-        message.textContent =
-            error.message || "Bitte prüfen Sie die Backend-Verbindung.";
-    }
-}
-
-
-    document.getElementById("logoutButton").addEventListener("click", logout);
-
-    initializeEmployeePage();
+    }  }
 </script>
 
 </body>
