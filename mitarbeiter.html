@@ -1,0 +1,298 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Mitarbeiterbereich</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background: #872020;
+            color: white;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        header h1 { margin: 0 0 6px; font-size: 24px; }
+        header p { margin: 0; font-size: 14px; }
+
+        button {
+            border: 0;
+            border-radius: 6px;
+            padding: 11px 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout {
+            background: white;
+            color: #872020;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 35px auto;
+            padding: 0 20px;
+        }
+
+        .welcome, .panel {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 3px 14px rgba(0,0,0,.05);
+        }
+
+        h2 { color: #872020; margin-top: 0; }
+
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+        }
+
+        .module {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-top: 4px solid #872020;
+            border-radius: 9px;
+            padding: 22px;
+        }
+
+        .module h3 { margin-top: 0; }
+        .muted { color: #666; line-height: 1.6; }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #777;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>GRATIA – Mitarbeiterportal</h1>
+            <p>Ihr persönlicher Arbeitsbereich</p>
+        </div>
+        <button class="logout" id="logoutButton">Abmelden</button>
+    </header>
+
+    <main>
+        <section class="welcome">
+            <h2 id="welcomeTitle">Willkommen</h2>
+            <p class="muted">
+                Hier finden Sie die für Ihr Benutzerkonto freigegebenen Bereiche.
+            </p>
+        </section>
+
+        <section>
+            <h2>Mein Arbeitsbereich</h2>
+            <div class="modules" id="modules"></div>
+            <p class="muted" id="emptyMessage" hidden>
+                Für Ihr Benutzerkonto sind derzeit keine zusätzlichen Bereiche freigegeben.
+            </p>
+        </section>
+
+        <section class="panel">
+            <h2>Mein Profil</h2>
+            <p><strong>Benutzername:</strong> <span id="profileUsername">–</span></p>
+            <p><strong>E-Mail:</strong> <span id="profileEmail">–</span></p>
+            <p><strong>Rolle:</strong> <span id="profileRole">–</span></p>
+        </section>
+    </main>
+
+    <footer>Pflegedienst GRATIA GmbH</footer>
+
+   
+<script>
+    const API_BASE = "http://localhost:3000/api";
+    const token = sessionStorage.getItem("gratiaEmployeeToken");
+
+    const loginPage = "mitarbeiter-login.html";
+
+    function logout() {
+        sessionStorage.removeItem("gratiaEmployeeToken");
+        sessionStorage.removeItem("gratiaEmployeeUser");
+        window.location.replace(loginPage);
+    }
+
+    function hasPermission(permissions, key) {
+        if (!permissions || typeof permissions !== "object") {
+            return false;
+        }
+
+        if (permissions.all === true || permissions[key] === true) {
+            return true;
+        }
+
+        const parts = key.split(".");
+        let current = permissions;
+
+        for (const part of parts) {
+            if (!current || typeof current !== "object") {
+                return false;
+            }
+            current = current[part];
+        }
+
+        return current === true;
+    }
+
+    function showProfile(user) {
+        document.getElementById("welcomeTitle").textContent =
+            "Willkommen, " + (user.full_name || user.username || "Mitarbeiter");
+
+        document.getElementById("profileUsername").textContent =
+            user.username || "–";
+
+        document.getElementById("profileEmail").textContent =
+            user.email || "–";
+
+        document.getElementById("profileRole").textContent =
+            user.role || "Mitarbeiter";
+    }
+
+    function showModules(permissions, role) {
+        const modules = document.getElementById("modules");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        modules.replaceChildren();
+
+        const isSuperAdmin = role === "super_admin";
+
+        const sections = [
+            {
+                key: "profile",
+                title: "Mein Profil",
+                description: "Persönliche Kontoinformationen ansehen."
+            },
+            {
+                key: "contact_messages.read",
+                title: "Nachrichten",
+                description: "Freigegebene Nachrichten ansehen."
+            },
+            {
+                key: "documents.read",
+                title: "Dokumente",
+                description: "Freigegebene Dokumente ansehen."
+            },
+            {
+                key: "schedule.read",
+                title: "Dienstplan",
+                description: "Den freigegebenen Dienstplan ansehen."
+            }
+        ];
+
+        let shown = 0;
+
+        for (const section of sections) {
+            if (!isSuperAdmin && !hasPermission(permissions, section.key)) {
+                continue;
+            }
+
+            const card = document.createElement("article");
+            card.className = "module";
+
+            const title = document.createElement("h3");
+            title.textContent = section.title;
+
+            const description = document.createElement("p");
+            description.className = "muted";
+            description.textContent = section.description;
+
+            card.append(title, description);
+            modules.appendChild(card);
+            shown++;
+        }
+
+        emptyMessage.hidden = shown > 0;
+    }
+
+    async function initializeEmployeePage() {
+        if (!token) {
+            logout();
+            return;
+        }
+
+        try {
+            const response = await fetch(`${API_BASE}/auth/me`, {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/json"
+                }
+            });
+
+            if (response.status === 401 || response.status === 403) {
+                logout();
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error("Die Mitarbeiterdaten konnten nicht geladen werden.");
+            }
+
+            const data = await response.json();
+
+            if (data.status !== "OK" || !data.user) {
+                throw new Error("Ungültige Serverantwort.");
+            }
+
+            const user = data.user;
+
+            if (user.must_change_password) {
+                window.location.replace("setup-password.html");
+                return;
+            }
+
+            sessionStorage.setItem(
+                "gratiaEmployeeUser",
+                JSON.stringify(user)
+            );
+
+            showProfile(user);
+
+            showModules(
+                user.permissions || {},
+                user.role
+            );
+
+        } catch (error) {
+            console.error("Fehler beim Laden des Mitarbeiterbereichs:", error);
+
+            document.getElementById("welcomeTitle").textContent =
+                "Verbindung zum Server fehlgeschlagen";
+
+            document.getElementById("modules").replaceChildren();
+
+            const message = document.getElementById("emptyMessage");
+            message.hidden = false;
+            message.textContent =
+                "Bitte prüfen Sie, ob das Backend läuft, und laden Sie die Seite erneut.";
+        }
+    }
+
+    document.getElementById("logoutButton").addEventListener("click", logout);
+
+    initializeEmployeePage();
+</script>
+
+</body>
+</html>

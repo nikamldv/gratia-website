@@ -1,0 +1,274 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Mitarbeiter Login</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f4f4;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #872020;
+            color: white;
+            padding: 30px 6%;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 27px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 35px 16px;
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 410px;
+            padding: 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .login-card h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: #872020;
+        }
+
+        .description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin: 17px 0 7px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus {
+            outline: 2px solid #872020;
+            outline-offset: 1px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 24px;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            background: #872020;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #681717;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+            cursor: wait;
+        }
+
+        #message {
+            display: none;
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        #message.error {
+            display: block;
+            color: #842029;
+            background: #f8d7da;
+        }
+
+        #message.success {
+            display: block;
+            color: #0f5132;
+            background: #d1e7dd;
+        }
+
+        footer {
+            padding: 20px;
+            text-align: center;
+            color: #777;
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 24px 6%;
+            }
+
+            header h1 {
+                font-size: 22px;
+            }
+
+            .login-card {
+                padding: 23px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>GRATIA – Mitarbeiterportal</h1>
+        <p>Ihr persönlicher Zugang zum Mitarbeiterbereich</p>
+    </header>
+
+    <main>
+        <section class="login-card">
+            <h2>Anmelden</h2>
+
+            <p class="description">
+                Willkommen bei GRATIA. Bitte melden Sie sich mit
+                Ihrem Benutzernamen und Passwort an.
+            </p>
+
+            <form id="loginForm">
+                <label for="username">Benutzername</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    autocomplete="username"
+                    required
+                >
+
+                <label for="password">Passwort</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    autocomplete="current-password"
+                    required
+                >
+
+                <button type="submit" id="loginButton">
+                    Anmelden
+                </button>
+
+                <div id="message" role="alert" aria-live="polite"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        Pflegedienst GRATIA GmbH · Sicherer Mitarbeiterzugang
+    </footer>
+
+    <script>
+        // Für den lokalen Test. Für den Onlinebetrieb später ersetzen.
+        const API_BASE = "http://localhost:3000/api";
+
+        const form = document.getElementById("loginForm");
+        const button = document.getElementById("loginButton");
+        const message = document.getElementById("message");
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            message.className = "";
+            message.textContent = "";
+            message.style.display = "none";
+
+            button.disabled = true;
+            button.textContent = "Bitte warten ...";
+
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: document.getElementById("username").value.trim(),
+                        password: document.getElementById("password").value
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || data.status !== "OK") {
+                    throw new Error(
+                        data.message || "Anmeldung fehlgeschlagen."
+                    );
+                }
+
+                if (!data.token || !data.user) {
+                    throw new Error("Ungültige Serverantwort.");
+                }
+
+                // Sitzung für die nächste Seite speichern.
+                sessionStorage.setItem("gratiaEmployeeToken", data.token);
+                sessionStorage.setItem(
+                    "gratiaEmployeeUser",
+                    JSON.stringify(data.user)
+                );
+
+                message.className = "success";
+                message.textContent = "Anmeldung erfolgreich. Sie werden weitergeleitet.";
+
+                // Diese Seite erstellen wir im nächsten Schritt.
+                window.location.href = "mitarbeiter.html";
+
+            } catch (error) {
+                message.className = "error";
+
+                if (error instanceof TypeError) {
+                    message.textContent =
+                        "Der Server ist nicht erreichbar. Bitte prüfen Sie die Backend-Verbindung.";
+                } else {
+                    message.textContent = error.message;
+                }
+            } finally {
+                button.disabled = false;
+                button.textContent = "Anmelden";
+            }
+        });
+    </script>
+</body>
+</html>
