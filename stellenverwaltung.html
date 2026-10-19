@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Stellenverwaltung</title>
+
+    <style>
+        :root {
+            --primary: #872020;
+            --background: #f5f5f5;
+            --white: #ffffff;
+            --text: #252525;
+            --muted: #777777;
+            --border: #e5e5e5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 24px 32px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 25px;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1150px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .top-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 22px;
+        }
+
+        .top-actions h2 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        button {
+            border: none;
+            border-radius: 6px;
+            padding: 11px 17px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .primary-button {
+            background: var(--primary);
+            color: white;
+        }
+
+        .secondary-button {
+            background: #eeeeee;
+            color: #333333;
+        }
+
+        .delete-button {
+            background: #fbeaea;
+            color: #9b2020;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 24px;
+            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.04);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 22px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d7d7d7;
+            border-radius: 6px;
+            font: inherit;
+            background: white;
+        }
+
+        textarea {
+            min-height: 105px;
+            resize: vertical;
+        }
+
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-field input {
+            width: auto;
+        }
+
+        .form-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .notice {
+            background: #fff6df;
+            border: 1px solid #f1dfab;
+            color: #6e5518;
+            padding: 13px 15px;
+            border-radius: 7px;
+            margin-bottom: 22px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .job-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .job-item {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .job-item h4 {
+            margin: 0 0 10px;
+            font-size: 17px;
+        }
+
+        .job-meta {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        .status {
+            display: inline-block;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 12px;
+            background: #e6f5e9;
+            color: #26743b;
+            margin-top: 8px;
+        }
+
+        .status.inactive {
+            background: #eeeeee;
+            color: #666666;
+        }
+
+        .job-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .empty-state {
+            padding: 30px;
+            text-align: center;
+            color: var(--muted);
+            border: 1px dashed #cccccc;
+            border-radius: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                padding: 22px 18px;
+            }
+
+            main {
+                margin-top: 20px;
+                padding: 0 12px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .card {
+                padding: 18px;
+            }
+
+            .job-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <a class="back-link" href="admin.html">
+        ← Zurück zum Adminbereich
+    </a>
+
+    <h1>GRATIA – Stellenverwaltung</h1>
+    <p>Stellenangebote erstellen, bearbeiten und veröffentlichen</p>
+</header>
+
+<main>
+
+    <div class="top-actions">
+        <h2>Stellenangebote verwalten</h2>
+
+        <button
+            type="button"
+            class="primary-button"
+            onclick="newJob()">
+            + Neue Stelle hinzufügen
+        </button>
+    </div>
+
+    <div class="notice">
+        <strong>Hinweis:</strong>
+        Diese Seite ist zunächst eine Design- und Formularvorlage.
+        Die Einträge werden aktuell nur im Browser angezeigt und nicht
+        in der Datenbank gespeichert. Für den produktiven Einsatz muss
+        die Seite mit dem GRATIA-Backend verbunden werden.
+    </div>
+
+    <section class="card" id="jobFormSection">
+        <h3 id="formTitle">Neue Stelle erstellen</h3>
+
+        <form id="jobForm">
+            <input type="hidden" id="jobId">
+
+            <div class="form-grid">
+
+                <div class="field full-width">
+                    <label for="title">Stellenbezeichnung *</label>
+                    <input
+                        id="title"
+                        name="title"
+                        required
+                        maxlength="150"
+                        placeholder="z. B. Pflegefachkraft (m/w/d)">
+                </div>
+
+                <div class="field">
+                    <label for="employmentType">Beschäftigungsart</label>
+                    <select id="employmentType" name="employmentType">
+                        <option value="Vollzeit">Vollzeit</option>
+                        <option value="Teilzeit">Teilzeit</option>
+                        <option value="Minijob">Minijob</option>
+                        <option value="Ausbildung">Ausbildung</option>
+                        <option value="Praktikum">Praktikum</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="location">Arbeitsort</label>
+                    <input
+                        id="location"
+                        name="location"
+                        maxlength="150"
+                        placeholder="z. B. Schweinfurt">
+                </div>
+
+                <div class="field">
+                    <label for="deadline">Bewerbungsfrist</label>
+                    <input
+                        type="date"
+                        id="deadline"
+                        name="deadline">
+                </div>
+
+                <div class="field">
+                    <label for="status">Veröffentlichung</label>
+                    <select id="status" name="status">
+                        <option value="1">Veröffentlicht</option>
+                        <option value="0">Entwurf / Inaktiv</option>
+                    </select>
+                </div>
+
+                <div class="field full-width">
+                    <label for="description">Stellenbeschreibung *</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        required
+                        placeholder="Beschreiben Sie die Stelle ..."></textarea>
+                </div>
+
+                <div class="field full-width">
+                    <label for="tasks">Ihre Aufgaben</label>
+                    <textarea
+                        id="tasks"
+                        name="tasks"
+                        placeholder="Welche Aufgaben hat die Person?"></textarea>
+                </div>
+
+                <div class="field full-width">
+                    <label for="profile">Ihr Profil / Anforderungen</label>
+                    <textarea
+                        id="profile"
+                        name="profile"
+                        placeholder="Welche Qualifikationen werden benötigt?"></textarea>
+                </div>
+
+                <div class="field full-width">
+                    <label for="benefits">Wir bieten</label>
+                    <textarea
+                        id="benefits"
+                        name="benefits"
+                        placeholder="Welche Vorteile bietet GRATIA?"></textarea>
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="primary-button">
+                    Stelle speichern
+                </button>
+
+                <button
+                    type="button"
+                    class="secondary-button"
+                    onclick="resetForm()">
+                    Abbrechen
+                </button>
+            </div>
+        </form>
+    </section>
+
+    <section class="card">
+        <h3>Vorhandene Stellenangebote</h3>
+
+        <div id="jobList" class="job-list">
+            <div class="empty-state">
+                Noch keine Stellenangebote in dieser Demo.
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<script>
+"use strict";
+
+const API_BASE = "http://localhost:3000/api";
+const TOKEN_KEY = "gratia_admin_token";
+
+let jobs = [];
+
+const form = document.getElementById("jobForm");
+const jobList = document.getElementById("jobList");
+
+function getToken() {
+    return sessionStorage.getItem(TOKEN_KEY);
+}
+
+async function apiRequest(path, options = {}) {
+    const token = getToken();
+
+    if (!token) {
+        alert("Bitte melden Sie sich zuerst im Admin-Bereich an.");
+        window.location.replace("admin.html");
+        throw new Error("Kein Login-Token vorhanden.");
+    }
+
+    const response = await fetch(`${API_BASE}${path}`, {
+        ...options,
+        headers: {
+            ...(options.headers || {}),
+            Authorization: `Bearer ${token}`,
+            ...(options.body ? { "Content-Type": "application/json" } : {})
+        }
+    });
+
+    const contentType = response.headers.get("content-type") || "";
+    const data = contentType.includes("application/json")
+        ? await response.json()
+        : {};
+
+    if (response.status === 401) {
+        sessionStorage.removeItem(TOKEN_KEY);
+        alert("Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.");
+        window.location.replace("admin.html");
+        throw new Error("Sitzung abgelaufen.");
+    }
+
+    if (!response.ok || data.status === "ERROR") {
+        throw new Error(
+            data.message || `Anfrage fehlgeschlagen (${response.status}).`
+        );
+    }
+
+    return data;
+}
+
+function showError(error) {
+    console.error("Stellenverwaltung:", error);
+    alert(error.message || "Ein unerwarteter Fehler ist aufgetreten.");
+}
+
+function dateForInput(value) {
+    if (!value) return "";
+
+    if (value instanceof Date) {
+        return value.toISOString().slice(0, 10);
+    }
+
+    return String(value).slice(0, 10);
+}
+
+async function loadJobs() {
+    try {
+        jobList.textContent = "Stellenangebote werden geladen ...";
+
+        const data = await apiRequest("/admin/jobs");
+        jobs = Array.isArray(data.jobs) ? data.jobs : [];
+
+        renderJobs();
+    } catch (error) {
+        jobList.textContent = "Stellenangebote konnten nicht geladen werden.";
+        showError(error);
+    }
+}
+
+form.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const saveButton = form.querySelector('button[type="submit"]');
+    const originalText = saveButton.textContent;
+    saveButton.disabled = true;
+    saveButton.textContent = "Wird gespeichert ...";
+
+    const id = document.getElementById("jobId").value;
+
+    const job = {
+        title: document.getElementById("title").value.trim(),
+        employment_type: document.getElementById("employmentType").value,
+        location: document.getElementById("location").value.trim(),
+        application_deadline:
+            document.getElementById("deadline").value || null,
+        is_active: Number(document.getElementById("status").value),
+        description: document.getElementById("description").value.trim(),
+        tasks: document.getElementById("tasks").value.trim(),
+        profile: document.getElementById("profile").value.trim(),
+        benefits: document.getElementById("benefits").value.trim()
+    };
+
+    if (!job.title || !job.description) {
+        alert("Bitte füllen Sie Stellenbezeichnung und Beschreibung aus.");
+        saveButton.disabled = false;
+        saveButton.textContent = originalText;
+        return;
+    }
+
+    try {
+        if (id) {
+            await apiRequest(`/admin/jobs/${encodeURIComponent(id)}`, {
+                method: "PUT",
+                body: JSON.stringify(job)
+            });
+        } else {
+            await apiRequest("/admin/jobs", {
+                method: "POST",
+                body: JSON.stringify(job)
+            });
+        }
+
+        alert(id
+            ? "Das Stellenangebot wurde aktualisiert."
+            : "Das Stellenangebot wurde gespeichert.");
+
+        resetForm();
+        await loadJobs();
+    } catch (error) {
+        showError(error);
+    } finally {
+        saveButton.disabled = false;
+        saveButton.textContent = originalText;
+    }
+});
+
+function renderJobs() {
+    jobList.replaceChildren();
+
+    if (jobs.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "Noch keine Stellenangebote vorhanden.";
+        jobList.appendChild(empty);
+        return;
+    }
+
+    jobs.forEach(function (job) {
+        const item = document.createElement("article");
+        item.className = "job-item";
+
+        const details = document.createElement("div");
+
+        const title = document.createElement("h4");
+        title.textContent = job.title || "Ohne Titel";
+        details.appendChild(title);
+
+        const meta = document.createElement("div");
+        meta.className = "job-meta";
+        meta.textContent =
+            (job.employment_type || "Keine Beschäftigungsart") +
+            " · " + (job.location || "Kein Arbeitsort angegeben");
+        details.appendChild(meta);
+
+        const status = document.createElement("span");
+        status.className = Number(job.is_active)
+            ? "status"
+            : "status inactive";
+        status.textContent = Number(job.is_active)
+            ? "Veröffentlicht"
+            : "Inaktiv";
+        details.appendChild(status);
+
+        if (job.application_deadline) {
+            const deadline = document.createElement("div");
+            deadline.className = "job-meta";
+            deadline.textContent =
+                "Bewerbungsfrist: " + dateForInput(job.application_deadline);
+            details.appendChild(deadline);
+        }
+
+        const actions = document.createElement("div");
+        actions.className = "job-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.className = "secondary-button";
+        editButton.textContent = "Bearbeiten";
+        editButton.addEventListener("click", function () {
+            editJob(job.id);
+        });
+
+        const toggleButton = document.createElement("button");
+        toggleButton.type = "button";
+        toggleButton.className = "secondary-button";
+        toggleButton.textContent = Number(job.is_active)
+            ? "Deaktivieren"
+            : "Veröffentlichen";
+        toggleButton.addEventListener("click", function () {
+            toggleJob(job.id, Number(job.is_active) ? 0 : 1, toggleButton);
+        });
+
+        actions.append(editButton, toggleButton);
+        item.append(details, actions);
+        jobList.appendChild(item);
+    });
+}
+
+function editJob(id) {
+    const job = jobs.find(function (item) {
+        return String(item.id) === String(id);
+    });
+
+    if (!job) {
+        alert("Das Stellenangebot wurde nicht gefunden.");
+        return;
+    }
+
+    document.getElementById("jobId").value = job.id;
+    document.getElementById("title").value = job.title || "";
+    document.getElementById("employmentType").value =
+        job.employment_type || "Vollzeit";
+    document.getElementById("location").value = job.location || "";
+    document.getElementById("deadline").value =
+        dateForInput(job.application_deadline);
+    document.getElementById("status").value = String(job.is_active ?? 0);
+    document.getElementById("description").value = job.description || "";
+    document.getElementById("tasks").value = job.tasks || "";
+    document.getElementById("profile").value = job.profile || "";
+    document.getElementById("benefits").value = job.benefits || "";
+
+    document.getElementById("formTitle").textContent =
+        "Stellenangebot bearbeiten";
+
+    document.getElementById("jobFormSection").scrollIntoView({
+        behavior: "smooth"
+    });
+}
+
+async function toggleJob(id, active, button) {
+    const originalText = button.textContent;
+    button.disabled = true;
+    button.textContent = "Wird aktualisiert ...";
+
+    try {
+        await apiRequest(
+            `/admin/jobs/${encodeURIComponent(id)}/status`,
+            {
+                method: "PATCH",
+                body: JSON.stringify({ is_active: active })
+            }
+        );
+
+        await loadJobs();
+    } catch (error) {
+        showError(error);
+    } finally {
+        button.disabled = false;
+        button.textContent = originalText;
+    }
+}
+
+function newJob() {
+    resetForm();
+
+    document.getElementById("jobFormSection").scrollIntoView({
+        behavior: "smooth"
+    });
+
+    document.getElementById("title").focus();
+}
+
+function resetForm() {
+    form.reset();
+    document.getElementById("jobId").value = "";
+    document.getElementById("formTitle").textContent =
+        "Neue Stelle erstellen";
+    document.getElementById("status").value = "1";
+}
+
+loadJobs();
+</script>
+
+
+</body>
+</html>

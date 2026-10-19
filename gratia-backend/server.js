@@ -1659,6 +1659,497 @@ app.patch(
 );
 
 
+
+/* ==========================================
+   GRATIA – STELLENVERWALTUNG API
+   ========================================== */
+
+// Öffentliche Stellenangebote:
+// Nur aktive Stellen anzeigen, deren Frist
+// noch nicht abgelaufen ist.
+app.get("/api/jobs", async (req, res) => {
+    try {
+        const [rows] = await db.execute(`
+            SELECT
+                id,
+                title,
+                description,
+                tasks,
+                profile,
+                benefits,
+                employment_type,
+                location,
+                application_deadline,
+                created_at
+            FROM jobs
+            WHERE is_active = 1
+              AND (
+                  application_deadline IS NULL
+                  OR application_deadline >= CURDATE()
+              )
+            ORDER BY created_at DESC
+        `);
+
+        res.json({
+            status: "OK",
+            jobs: rows
+        });
+    } catch (error) {
+        console.error("Fehler beim Laden der Stellen:", error.message);
+
+        res.status(500).json({
+            status: "ERROR",
+            message: "Stellenangebote konnten nicht geladen werden."
+        });
+    }
+});
+
+
+// Alle Stellen im geschützten Adminbereich anzeigen
+app.get(
+    "/api/admin/jobs",
+    authenticateToken,
+    requirePermission("jobs.manage"),
+    async (req, res) => {
+        try {
+            const [rows] = await db.execute(`
+                SELECT *
+                FROM jobs
+                ORDER BY created_at DESC
+            `);
+
+            res.json({
+                status: "OK",
+                jobs: rows
+            });
+        } catch (error) {
+            console.error("Admin-Stellen konnten nicht geladen werden:", error.message);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "Stellenangebote konnten nicht geladen werden."
+            });
+        }
+    }
+);
+
+
+// Neue Stelle erstellen
+app.post(
+    "/api/admin/jobs",
+    authenticateToken,
+    requirePermission("jobs.manage"),
+    async (req, res) => {
+        try {
+            const {
+                title,
+                description,
+                tasks = "",
+                profile = "",
+                benefits = "",
+                employment_type = "",
+                location = "",
+                application_deadline = null,
+                is_active = 0
+            } = req.body || {};
+
+            if (
+                typeof title !== "string" ||
+                !title.trim() ||
+                typeof description !== "string" ||
+                !description.trim()
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Stellentitel und Beschreibung sind Pflichtfelder."
+                });
+            }
+
+            const active = Number(is_active);
+
+            if (![0, 1].includes(active)) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültiger Veröffentlichungsstatus."
+                });
+            }
+
+            const deadline = application_deadline || null;
+
+            if (
+                deadline !== null &&
+                (
+                    typeof deadline !== "string" ||
+                    !/^\d{4}-\d{2}-\d{2}$/.test(deadline) ||
+                    !Number.isFinite(Date.parse(deadline))
+                )
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige Bewerbungsfrist."
+                });
+            }
+
+            const [result] = await db.execute(
+                `INSERT INTO jobs (
+                    title,
+                    description,
+                    tasks,
+                    profile,
+                    benefits,
+                    employment_type,
+                    location,
+                    application_deadline,
+                    is_active
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    title.trim(),
+                    description.trim(),
+                    tasks,
+                    profile,
+                    benefits,
+                    employment_type,
+                    location,
+                    deadline,
+                    active
+                ]
+            );
+
+            res.status(201).json({
+                status: "OK",
+                message: "Stellenangebot wurde erstellt.",
+                id: result.insertId
+            });
+        } catch (error) {
+            console.error("Fehler beim Erstellen der Stelle:", error.message);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "Stellenangebot konnte nicht erstellt werden."
+            });
+        }
+    }
+);
+
+
+// Vorhandene Stelle bearbeiten
+app.put(
+    "/api/admin/jobs/:id",
+    authenticateToken,
+    requirePermission("jobs.manage"),
+    async (req, res) => {
+        try {
+            const id = Number(req.params.id);
+
+            if (!Number.isInteger(id) || id < 1) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige Stellen-ID."
+                });
+            }
+
+            const {
+                title,
+                description,
+                tasks = "",
+                profile = "",
+                benefits = "",
+                employment_type = "",
+                location = "",
+                application_deadline = null,
+                is_active = 0
+            } = req.body || {};
+
+            if (
+                typeof title !== "string" ||
+                !title.trim() ||
+                typeof description !== "string" ||
+                !description.trim()
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Stellentitel und Beschreibung sind Pflichtfelder."
+                });
+            }
+
+            const active = Number(is_active);
+
+            if (![0, 1].includes(active)) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültiger Veröffentlichungsstatus."
+                });
+            }
+
+            const deadline = application_deadline || null;
+
+            if (
+                deadline !== null &&
+                (
+                    typeof deadline !== "string" ||
+                    !/^\d{4}-\d{2}-\d{2}$/.test(deadline) ||
+                    !Number.isFinite(Date.parse(deadline))
+                )
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige Bewerbungsfrist."
+                });
+            }
+
+            const [result] = await db.execute(
+                `UPDATE jobs SET
+                    title = ?,
+                    description = ?,
+                    tasks = ?,
+                    profile = ?,
+                    benefits = ?,
+                    employment_type = ?,
+                    location = ?,
+                    application_deadline = ?,
+                    is_active = ?
+                WHERE id = ?`,
+                [
+                    title.trim(),
+                    description.trim(),
+                    tasks,
+                    profile,
+                    benefits,
+                    employment_type,
+                    location,
+                    deadline,
+                    active,
+                    id
+                ]
+            );
+
+            if (result.affectedRows === 0) {
+                const [existing] = await db.execute(
+                    "SELECT id FROM jobs WHERE id = ?",
+                    [id]
+                );
+
+                if (existing.length === 0) {
+                    return res.status(404).json({
+                        status: "ERROR",
+                        message: "Stellenangebot wurde nicht gefunden."
+                    });
+                }
+            }
+
+            res.json({
+                status: "OK",
+                message: "Stellenangebot wurde aktualisiert."
+            });
+        } catch (error) {
+            console.error("Fehler beim Bearbeiten der Stelle:", error.message);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "Stellenangebot konnte nicht aktualisiert werden."
+            });
+        }
+    }
+);
+
+
+// Stelle veröffentlichen oder deaktivieren
+app.patch(
+    "/api/admin/jobs/:id/status",
+    authenticateToken,
+    requirePermission("jobs.manage"),
+    async (req, res) => {
+        try {
+            const id = Number(req.params.id);
+            const active = Number(req.body?.is_active);
+
+            if (
+                !Number.isInteger(id) ||
+                id < 1 ||
+                ![0, 1].includes(active)
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige Stellen-ID oder Status."
+                });
+            }
+
+            const [result] = await db.execute(
+                "UPDATE jobs SET is_active = ? WHERE id = ?",
+                [active, id]
+            );
+
+            if (result.affectedRows === 0) {
+                const [existing] = await db.execute(
+                    "SELECT id FROM jobs WHERE id = ?",
+                    [id]
+                );
+
+                if (existing.length === 0) {
+                    return res.status(404).json({
+                        status: "ERROR",
+                        message: "Stellenangebot wurde nicht gefunden."
+                    });
+                }
+            }
+
+            res.json({
+                status: "OK",
+                message: active
+                    ? "Stelle wurde veröffentlicht."
+                    : "Stelle wurde deaktiviert."
+            });
+        } catch (error) {
+            console.error("Fehler beim Ändern des Status:", error.message);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "Status konnte nicht geändert werden."
+            });
+        }
+    }
+);
+
+// Stellenangebote für die Admin-Verwaltung laden
+app.get(
+    "/api/admin/jobs",
+    authenticateToken,
+    requirePermission("jobs.manage"),
+    async (req, res) => {
+        try {
+            const [rows] = await db.execute(`
+                SELECT
+                    id,
+                    title,
+                    description,
+                    tasks,
+                    profile,
+                    benefits,
+                    employment_type,
+                    location,
+                    application_deadline,
+                    is_active,
+                    created_at,
+                    updated_at
+                FROM jobs
+                ORDER BY created_at DESC
+            `);
+
+            return res.json({
+                status: "SUCCESS",
+                jobs: rows
+            });
+        } catch (error) {
+            console.error("Fehler beim Laden der Stellenangebote:", error);
+
+            return res.status(500).json({
+                status: "ERROR",
+                message: "Stellenangebote konnten nicht geladen werden."
+            });
+        }
+    }
+);
+
+
+
+ // Neue Stelle erstellen
+app.post(
+    "/api/admin/jobs",
+    authenticateToken,
+    requirePermission("jobs.manage"),
+    async (req, res) => {
+        try {
+            const {
+                title,
+                description,
+                tasks = "",
+                profile = "",
+                benefits = "",
+                employment_type = "",
+                location = "",
+                application_deadline = null,
+                is_active = 0
+            } = req.body || {};
+
+            if (
+                typeof title !== "string" ||
+                !title.trim() ||
+                typeof description !== "string" ||
+                !description.trim()
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Stellentitel und Beschreibung sind Pflichtfelder."
+                });
+            }
+
+            const active = Number(is_active);
+            if (![0, 1].includes(active)) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültiger Stellenstatus."
+                });
+            }
+
+            const deadline = application_deadline || null;
+            if (
+                deadline !== null &&
+                (
+                    typeof deadline !== "string" ||
+                    !/^\d{4}-\d{2}-\d{2}$/.test(deadline) ||
+                    Number.isNaN(Date.parse(deadline))
+                )
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige Bewerbungsfrist."
+                });
+            }
+
+            const [result] = await db.execute(
+                `INSERT INTO jobs
+                (
+                    title,
+                    description,
+                    tasks,
+                    profile,
+                    benefits,
+                    employment_type,
+                    location,
+                    application_deadline,
+                    is_active
+                )
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+                [
+                    title.trim(),
+                    description.trim(),
+                    tasks,
+                    profile,
+                    benefits,
+                    employment_type,
+                    location,
+                    deadline,
+                    active
+                ]
+            );
+
+            return res.status(201).json({
+                status: "SUCCESS",
+                message: "Stellenangebot wurde gespeichert.",
+                id: result.insertId
+            });
+        } catch (error) {
+            console.error("Fehler beim Erstellen der Stelle:", error);
+
+            return res.status(500).json({
+                status: "ERROR",
+                message: "Stellenangebot konnte nicht gespeichert werden."
+            });
+        }
+    }
+);
+
+
 // Server starten
 const server = app.listen(PORT, () => {
     console.log(`GRATIA Backend läuft auf http://localhost:${PORT}`);

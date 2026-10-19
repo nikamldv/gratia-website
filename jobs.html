@@ -197,26 +197,6 @@
 
                 <div class="jobs-intro-content">
 
-                    <span class="jobs-section-label">
-                        IHRE KARRIERE BEI GRATIA
-                    </span>
-
-                    <h2>
-                        Gemeinsam für eine Pflege mit Herz
-                    </h2>
-
-                    <p>
-                        Bei Pflegedienst GRATIA GmbH stehen der Mensch,
-                        fachliche Kompetenz und verantwortungsvolle Pflege
-                        im Mittelpunkt.
-                    </p>
-
-                    <p>
-                        Wir suchen engagierte Mitarbeiterinnen und Mitarbeiter,
-                        die unser Team mit Fachwissen, Verantwortungsbewusstsein
-                        und Menschlichkeit unterstützen möchten.
-                    </p>
-
                 </div>
 
             </div>
@@ -250,169 +230,39 @@
                 </div>
 
 
-                <div class="jobs-grid">
+<div class="jobs-toolbar">
+    <div class="jobs-filters">
+        <label>
+            <span>Standort</span>
+            <select id="jobLocationFilter" onchange="filterJobs()">
+                <option value="">Alle Standorte</option>
+            </select>
+        </label>
 
+        <label>
+            <span>Arbeitszeit</span>
+            <select id="jobEmploymentFilter" onchange="filterJobs()">
+                <option value="">Alle Arbeitszeiten</option>
+                <option value="Vollzeit">Vollzeit</option>
+                <option value="Teilzeit">Teilzeit</option>
+                <option value="Minijob">Minijob</option>
+            </select>
+        </label>
+    </div>
 
-                    <!-- JOB 1 -->
+    <label class="jobs-sort">
+        <span>Sortieren</span>
+        <select id="jobSort" onchange="filterJobs()">
+            <option value="newest">Neueste zuerst</option>
+            <option value="title">Nach Titel</option>
+        </select>
+    </label>
+</div>
 
-                    <article class="job-card">
+<div class="jobs-grid" id="jobsGrid">
+    <p>Stellenangebote werden geladen ...</p>
+</div>
 
-                        <div class="job-card-top">
-
-                            <div class="job-icon">
-                                ♥
-                            </div>
-
-                            <span class="job-category">
-                                PFLEGE
-                            </span>
-
-                        </div>
-
-                        <h3>
-                            Pflegefachkraft (m/w/d)
-                        </h3>
-
-                        <p class="job-short-text">
-                            Verstärken Sie unser qualifiziertes Team
-                            in der außerklinischen Intensivpflege.
-                        </p>
-
-
-                        <div class="job-details">
-
-                            <div class="job-detail">
-
-                                <strong>Aufgaben</strong>
-
-                                <p>
-                                    Professionelle und individuelle Pflege
-                                    unserer Patientinnen und Patienten,
-                                    insbesondere im Bereich der
-                                    außerklinischen Intensivpflege.
-                                </p>
-
-                            </div>
-
-
-                            <div class="job-detail">
-
-                                <strong>Ihr Profil</strong>
-
-                                <p>
-                                    Abgeschlossene Ausbildung als Pflegefachkraft,
-                                    Verantwortungsbewusstsein, Teamfähigkeit
-                                    und Freude an einer menschlichen Pflege.
-                                </p>
-
-                            </div>
-
-
-                            <div class="job-detail">
-
-                                <strong>Wir bieten</strong>
-
-                                <ul>
-                                    <li>Ein wertschätzendes Arbeitsumfeld</li>
-                                    <li>Ein engagiertes und kollegiales Team</li>
-                                    <li>Regelmäßige Fort- und Weiterbildungen</li>
-                                    <li>Verantwortungsvolle und abwechslungsreiche Aufgaben</li>
-                                    <li>Möglichkeiten zur persönlichen und fachlichen Weiterentwicklung</li>
-                                </ul>
-
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="#bewerbung"
-                            class="job-button"
-                        >
-                            Jetzt bewerben
-                        </a>
-
-                    </article>
-
-
-                    <!-- JOB 2 -->
-
-                    <article class="job-card">
-
-                        <div class="job-card-top">
-
-                            <div class="job-icon">
-                                ♥
-                            </div>
-
-                            <span class="job-category">
-                                PFLEGE
-                            </span>
-
-                        </div>
-
-                        <h3>
-                            Pflegehilfskraft (m/w/d)
-                        </h3>
-
-                        <p class="job-short-text">
-                            Unterstützen Sie unser Team bei der
-                            individuellen Betreuung und Pflege.
-                        </p>
-
-
-                        <div class="job-details">
-
-                            <div class="job-detail">
-
-                                <strong>Aufgaben</strong>
-
-                                <p>
-                                    Unterstützung bei der täglichen Betreuung
-                                    und Versorgung unserer Patientinnen und
-                                    Patienten sowie Unterstützung des
-                                    Pflegeteams.
-                                </p>
-
-                            </div>
-
-
-                            <div class="job-detail">
-
-                                <strong>Ihr Profil</strong>
-
-                                <p>
-                                    Freude am Umgang mit Menschen,
-                                    Verantwortungsbewusstsein, Zuverlässigkeit
-                                    und Teamfähigkeit.
-                                </p>
-
-                            </div>
-
-
-                            <div class="job-detail">
-
-                                <strong>Wir bieten</strong>
-
-                                <ul>
-                                    <li>Ein wertschätzendes Arbeitsumfeld</li>
-                                    <li>Ein engagiertes und kollegiales Team</li>
-                                    <li>Regelmäßige Fort- und Weiterbildungen</li>
-                                    <li>Verantwortungsvolle und abwechslungsreiche Aufgaben</li>
-                                    <li>Möglichkeiten zur persönlichen und fachlichen Weiterentwicklung</li>
-                                </ul>
-
-                            </div>
-
-                        </div>
-
-
-                        <a
-                            href="#bewerbung"
-                            class="job-button"
-                        >
-                            Jetzt bewerben
-                        </a>
 
                     </article>
 
@@ -904,8 +754,170 @@
     </button>
 
 
-    <script src="main.js"></script>
 
+ 
+<script>
+document.addEventListener("DOMContentLoaded", loadJobs);
+
+let allJobs = [];
+
+async function loadJobs() {
+    const jobsGrid = document.getElementById("jobsGrid");
+    if (!jobsGrid) return;
+
+    jobsGrid.innerHTML = "<p>Stellenangebote werden geladen ...</p>";
+
+    try {
+        const response = await fetch("http://localhost:3000/api/jobs");
+
+        if (!response.ok) {
+            throw new Error("Stellenangebote konnten nicht geladen werden.");
+        }
+
+        const data = await response.json();
+        allJobs = Array.isArray(data.jobs) ? data.jobs : [];
+
+        populateLocationFilter();
+        renderJobs(allJobs);
+
+    } catch (error) {
+        console.error("Fehler beim Laden der Stellen:", error);
+        jobsGrid.innerHTML =
+            "<p>Stellenangebote konnten nicht geladen werden. Bitte versuchen Sie es später erneut.</p>";
+    }
+}
+
+function escapeHTML(value) {
+    return String(value ?? "").replace(/[&<>"']/g, character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+function populateLocationFilter() {
+    const locationFilter = document.getElementById("jobLocationFilter");
+    if (!locationFilter) return;
+
+    const locations = [...new Set(
+        allJobs.map(job => job.location).filter(Boolean)
+    )];
+
+    locationFilter.innerHTML =
+        '<option value="">Alle Standorte</option>' +
+        locations.map(location =>
+            `<option value="${escapeHTML(location)}">${escapeHTML(location)}</option>`
+        ).join("");
+}
+
+function renderJobs(jobs) {
+    const jobsGrid = document.getElementById("jobsGrid");
+    if (!jobsGrid) return;
+
+    if (jobs.length === 0) {
+        jobsGrid.innerHTML =
+            '<div class="jobs-empty">Für diese Auswahl wurden keine Stellen gefunden.</div>';
+        return;
+    }
+
+    jobsGrid.innerHTML = jobs.map(job => `
+        <article class="job-card">
+            <div class="job-card-image">
+                <div class="job-image-placeholder" aria-hidden="true">
+                    <span>♥</span>
+                </div>
+            </div>
+
+            <div class="job-card-content">
+                <div class="job-card-top">
+                    <span class="job-category">PFLEGE</span>
+                    <span class="job-status">Offene Stelle</span>
+                </div>
+
+                <h3>${escapeHTML(job.title)}</h3>
+
+                <p class="job-short-text">
+                    ${escapeHTML(job.description || "Weitere Informationen zur Stelle erhalten Sie auf Anfrage.")}
+                </p>
+
+                <div class="job-meta">
+                    <span>⌖ ${escapeHTML(job.location || "Standort auf Anfrage")}</span>
+                    <span>◷ ${escapeHTML(job.employment_type || "Arbeitszeit auf Anfrage")}</span>
+                </div>
+
+                ${job.application_deadline ? `
+                    <p class="job-deadline">
+                        Bewerbung bis: ${escapeHTML(
+                            String(job.application_deadline).slice(0, 10)
+                        )}
+                    </p>` : ""}
+
+                <div class="job-card-actions">
+                    <a href="#bewerbung"
+                       class="job-button job-button-outline"
+                       data-job-title="${escapeHTML(job.title)}">
+                        Mehr erfahren
+                    </a>
+
+                    <a href="#bewerbung"
+                       class="job-button"
+                       data-job-title="${escapeHTML(job.title)}">
+                        Jetzt bewerben
+                    </a>
+                </div>
+            </div>
+        </article>
+    `).join("");
+
+    jobsGrid.querySelectorAll("[data-job-title]").forEach(link => {
+        link.addEventListener("click", () => {
+            const select = document.getElementById("stelle");
+            if (select) {
+                const title = link.dataset.jobTitle;
+                const existingOption = [...select.options].find(
+                    option => option.value === title || option.textContent.trim() === title
+                );
+
+                if (existingOption) {
+                    select.value = existingOption.value;
+                }
+            }
+        });
+    });
+}
+
+function filterJobs() {
+    const location = document.getElementById("jobLocationFilter")?.value || "";
+    const employment = document.getElementById("jobEmploymentFilter")?.value || "";
+    const sort = document.getElementById("jobSort")?.value || "newest";
+
+    let filteredJobs = allJobs.filter(job => {
+        const locationMatches = !location || job.location === location;
+        const employmentMatches =
+            !employment || job.employment_type === employment;
+
+        return locationMatches && employmentMatches;
+    });
+
+    if (sort === "title") {
+        filteredJobs.sort((a, b) =>
+            (a.title || "").localeCompare(b.title || "", "de")
+        );
+    } else if (sort === "newest") {
+        filteredJobs.sort((a, b) =>
+            new Date(b.created_at || 0) - new Date(a.created_at || 0)
+        );
+    }
+
+    renderJobs(filteredJobs);
+}
+</script>
+
+
+
+    <script src="main.js"></script>
 </body>
 
 </html>
