@@ -9,7 +9,7 @@
 /* =========================================================
    1. INITIALIZE WEBSITE
    ========================================================= */
-
+   
 document.addEventListener("DOMContentLoaded", () => {
 
     const socialBar = document.getElementById("socialBar");
@@ -265,13 +265,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         event.preventDefault();
 
+        if (contactForm.dataset.submitting === "true") {
+    return;
+}
+
+contactForm.dataset.submitting = "true";
+
         const submitButton = contactForm.querySelector(
             ".contact-submit-btn"
         );
-
-        if (!submitButton) {
-            return;
-        }
+if (!submitButton) {
+    contactForm.dataset.submitting = "false";
+    return;
+}
 
         const originalButtonText = submitButton.innerHTML;
 
@@ -387,6 +393,8 @@ document.addEventListener("DOMContentLoaded", () => {
             submitButton.innerHTML = originalButtonText;
 
             formResult.style.display = "block";
+
+            contactForm.dataset.submitting = "false";
 
         }
 

@@ -534,8 +534,8 @@ app.get(
     }
 );
 
-// Öffentliches Kontaktformular: Nachricht speichern
-// Diese Route bleibt öffentlich, damit Besucher Kontakt aufnehmen können.
+ // Öffentliches Kontaktformular: Nachricht speichern
+ // Diese Route bleibt öffentlich.
 app.post("/api/contact-messages", async (req, res) => {
     try {
         const { name, email, phone, subject, message } = req.body || {};
@@ -554,13 +554,20 @@ app.post("/api/contact-messages", async (req, res) => {
             });
         }
 
+
+        console.log("CONTACT FORM INSERT:", new Date().toISOString());
         const sql = `
             INSERT INTO contact_messages
                 (name, email, phone, subject, message)
             VALUES (?, ?, ?, ?, ?)
         `;
 
+        console.log("REQUEST RECEIVED:", Date.now());
+console.log("BODY:", req.body);
+console.log("REQUEST ID:", req.headers["x-request-id"]);
+
         const [result] = await db.execute(sql, [
+            
             name.trim(),
             email.trim(),
             typeof phone === "string" ? phone.trim() || null : null,
@@ -568,7 +575,7 @@ app.post("/api/contact-messages", async (req, res) => {
             message.trim()
         ]);
 
-        res.status(201).json({
+        return res.status(201).json({
             status: "OK",
             message: "Ihre Nachricht wurde erfolgreich gespeichert.",
             id: result.insertId
@@ -579,13 +586,14 @@ app.post("/api/contact-messages", async (req, res) => {
             error.message
         );
 
-        res.status(500).json({
+        return res.status(500).json({
             status: "ERROR",
             message: "Ihre Nachricht konnte nicht gespeichert werden."
         });
-
-
     }
+});
+
+
 
 
 /* Kontaktanfragen abrufen – geschützter Zugriff */
@@ -616,9 +624,6 @@ app.get(
     }
 );
 
-
-
-});
 async function initializeEmployeePage() {
     if (!token) {
         logout();
