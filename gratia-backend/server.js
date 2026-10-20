@@ -1609,18 +1609,29 @@ app.patch(
                 });
             }
 
-            const contactRead =
-                permissions["contact_messages.read"] === true ||
-                permissions.contact_messages?.read === true;
+           
+const contactRead =
+    permissions["contact_messages.read"] === true ||
+    permissions.contact_messages?.read === true;
 
-            const applicationsRead =
-                permissions["applications.read"] === true ||
-                permissions.applications?.read === true;
+const applicationsRead =
+    permissions["applications.read"] === true ||
+    permissions.applications?.read === true;
 
-            const cleanPermissions = {
-                "contact_messages.read": contactRead,
-                "applications.read": applicationsRead
-            };
+const jobsManage =
+    permissions["jobs.manage"] === true ||
+    permissions.jobs?.manage === true;
+
+const newsManage =
+    permissions["news.manage"] === true ||
+    permissions.news?.manage === true;
+
+const cleanPermissions = {
+    "contact_messages.read": contactRead,
+    "applications.read": applicationsRead,
+    "jobs.manage": jobsManage,
+    "news.manage": newsManage
+};
 
             const newRole = role || users[0].role;
 
@@ -1703,6 +1714,54 @@ app.get("/api/jobs", async (req, res) => {
         });
     }
 });
+
+
+
+app.get("/api/jobs/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!/^\d+$/.test(id)) {
+            return res.status(400).json({
+                status: "ERROR",
+                message: "Ungültige Stellen-ID."
+            });
+        }
+
+        const [rows] = await db.execute(
+            `SELECT id, title, description, tasks, profile, benefits,
+                    employment_type, location, application_deadline, created_at
+             FROM jobs
+             WHERE id = ?
+               AND is_active = 1
+               AND (application_deadline IS NULL
+                    OR application_deadline >= CURDATE())
+             LIMIT 1`,
+            [id]
+        );
+
+        if (rows.length === 0) {
+            return res.status(404).json({
+                status: "ERROR",
+                message: "Stelle nicht gefunden."
+            });
+        }
+
+        res.json({
+            status: "OK",
+            job: rows[0]
+        });
+
+    } catch (error) {
+        console.error("Fehler beim Laden der Stellendetails:", error);
+
+        res.status(500).json({
+            status: "ERROR",
+            message: "Stellendetails konnten nicht geladen werden."
+        });
+    }
+});
+
 
 
 // Alle Stellen im geschützten Adminbereich anzeigen
@@ -2148,6 +2207,284 @@ app.post(
         }
     }
 );
+
+
+
+/* ================================
+   GRATIA NEWS API
+================================ */
+
+// اخبار منتشرشده برای وب‌سایت عمومی
+app.get("/api/news", async (req, res) => {
+    try {
+        const [rows] = await db.execute(`
+            SELECT id, title, category, content, image_url,
+                   is_published, published_at, created_at, updated_at
+            FROM news
+            WHERE is_published = 1
+            ORDER BY published_at DESC, id DESC
+        `);
+
+        res.json({
+            status: "OK",
+            news: rows
+        });
+    } catch (error) {
+        console.error("Fehler beim Laden der News:", error);
+
+        res.status(500).json({
+            status: "ERROR",
+            message: "Nachrichten konnten nicht geladen werden."
+        });
+    }
+});
+
+// Alle News im geschützten Adminbereich laden
+app.get(
+    "/api/admin/news",
+    authenticateToken,
+    requirePermission("news.manage"),
+    async (req, res) => {
+        try {
+            const [rows] = await db.execute(`
+                SELECT *
+                FROM news
+                ORDER BY created_at DESC, id DESC
+            `);
+
+            res.json({
+                status: "OK",
+                news: rows
+            });
+        } catch (error) {
+            console.error("Fehler beim Laden der Admin-News:", error);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "News konnten nicht geladen werden."
+            });
+        }
+    }
+);
+
+// Neue News erstellen
+app.post(
+    "/api/admin/news",
+    authenticateToken,
+    requirePermission("news.manage"),
+    async (req, res) => {
+        try {
+            const {
+                title,
+                category = "",
+                content,
+                image_url = "",
+                is_published = 0
+            } = req.body || {};
+
+            if (
+                typeof title !== "string" ||
+                !title.trim() ||
+                typeof content !== "string" ||
+                !content.trim()
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Titel und Inhalt sind Pflichtfelder."
+                });
+            }
+
+            const published = Number(is_published);
+
+            if (![0, 1].includes(published)) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültiger Veröffentlichungsstatus."
+                });
+            }
+
+            const [result] = await db.execute(
+                `INSERT INTO news
+                    (title, category, content, image_url,
+                     is_published, published_at)
+                 VALUES (?, ?, ?, ?, ?, ?)`,
+                [
+                    title.trim(),
+                    typeof category === "string" ? category.trim() : "",
+                    content.trim(),
+                    typeof image_url === "string" ? image_url.trim() : "",
+                    published,
+                    published ? new Date() : null
+                ]
+            );
+
+            res.status(201).json({
+                status: "OK",
+                message: "News wurden gespeichert.",
+                id: result.insertId
+            });
+        } catch (error) {
+            console.error("Fehler beim Erstellen der News:", error);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "News konnten nicht gespeichert werden."
+            });
+        }
+    }
+);
+
+// News bearbeiten
+app.put(
+    "/api/admin/news/:id",
+    authenticateToken,
+    requirePermission("news.manage"),
+    async (req, res) => {
+        try {
+            const id = Number(req.params.id);
+            const {
+                title,
+                category = "",
+                content,
+                image_url = "",
+                is_published = 0
+            } = req.body || {};
+
+            if (
+                !Number.isInteger(id) ||
+                id <= 0 ||
+                typeof title !== "string" ||
+                !title.trim() ||
+                typeof content !== "string" ||
+                !content.trim()
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige ID, Titel oder Inhalt."
+                });
+            }
+
+            const published = Number(is_published);
+
+            if (![0, 1].includes(published)) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültiger Veröffentlichungsstatus."
+                });
+            }
+
+            const [existing] = await db.execute(
+                "SELECT id, is_published, published_at FROM news WHERE id = ?",
+                [id]
+            );
+
+            if (existing.length === 0) {
+                return res.status(404).json({
+                    status: "ERROR",
+                    message: "News wurden nicht gefunden."
+                });
+            }
+
+            let publishedAt = existing[0].published_at;
+
+            if (published === 0) {
+                publishedAt = null;
+            } else if (!existing[0].is_published || !publishedAt) {
+                publishedAt = new Date();
+            }
+
+            const [result] = await db.execute(
+                `UPDATE news
+                 SET title = ?, category = ?, content = ?, image_url = ?,
+                     is_published = ?, published_at = ?
+                 WHERE id = ?`,
+                [
+                    title.trim(),
+                    typeof category === "string" ? category.trim() : "",
+                    content.trim(),
+                    typeof image_url === "string" ? image_url.trim() : "",
+                    published,
+                    publishedAt,
+                    id
+                ]
+            );
+
+            res.json({
+                status: "OK",
+                message: "News wurden aktualisiert."
+            });
+        } catch (error) {
+            console.error("Fehler beim Bearbeiten der News:", error);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "News konnten nicht aktualisiert werden."
+            });
+        }
+    }
+);
+
+// News veröffentlichen oder als Entwurf speichern
+app.patch(
+    "/api/admin/news/:id/status",
+    authenticateToken,
+    requirePermission("news.manage"),
+    async (req, res) => {
+        try {
+            const id = Number(req.params.id);
+            const published = Number(req.body?.is_published);
+
+            if (
+                !Number.isInteger(id) ||
+                id <= 0 ||
+                ![0, 1].includes(published)
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige ID oder Status."
+                });
+            }
+
+            const [existing] = await db.execute(
+                "SELECT id, published_at FROM news WHERE id = ?",
+                [id]
+            );
+
+            if (existing.length === 0) {
+                return res.status(404).json({
+                    status: "ERROR",
+                    message: "News wurden nicht gefunden."
+                });
+            }
+
+            const publishedAt = published
+                ? (existing[0].published_at || new Date())
+                : null;
+
+            await db.execute(
+                `UPDATE news
+                 SET is_published = ?, published_at = ?
+                 WHERE id = ?`,
+                [published, publishedAt, id]
+            );
+
+            res.json({
+                status: "OK",
+                message: published
+                    ? "News wurden veröffentlicht."
+                    : "News wurden als Entwurf gespeichert."
+            });
+        } catch (error) {
+            console.error("Fehler beim Ändern des News-Status:", error);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "Der News-Status konnte nicht geändert werden."
+            });
+        }
+    }
+);
+
 
 
 // Server starten

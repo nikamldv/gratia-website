@@ -4494,7 +4494,7 @@ iframe {
 ========================================================= */
 
 .jobs-section {
-    padding: 75px 0 90px;
+    padding: 50px 0 90px;
     background: #f7f7f7;
 }
 
@@ -5296,5 +5296,314 @@ iframe {
 
     .job-card-actions .job-button {
         width: 100%;
+    }
+}
+
+
+
+/* ===== GRATIA Stellendetails ===== */
+
+.stellen-details-container {
+    width: min(1100px, 92%);
+    margin: 50px auto;
+    color: #333;
+}
+
+.back-to-jobs {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #872020;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-to-jobs:hover {
+    text-decoration: underline;
+}
+
+.job-details-card {
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.job-details-card .job-category {
+    display: inline-block;
+    background: #f6eaea;
+    color: #872020;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.job-details-card h1 {
+    color: #872020;
+    font-size: clamp(28px, 4vw, 40px);
+    margin: 20px 0 16px;
+}
+
+.job-details-card .job-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin: 22px 0 32px;
+}
+
+.job-details-card .job-meta span {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+}
+
+.job-details-card section {
+    border-top: 1px solid #e7e7e7;
+    padding: 24px 0;
+}
+
+.job-details-card section h2 {
+    color: #872020;
+    font-size: 21px;
+    margin: 0 0 12px;
+}
+
+.job-details-card section p {
+    color: #555;
+    font-size: 16px;
+    line-height: 1.9;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.job-details-card > p {
+    margin: 10px 0 24px;
+}
+
+.job-details-card .job-button {
+    display: inline-block;
+    background: #872020;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    padding: 15px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background 0.2s ease;
+}
+
+.job-details-card .job-button:hover {
+    background: #651717;
+}
+
+@media (max-width: 600px) {
+    .stellen-details-container {
+        width: 94%;
+        margin: 25px auto;
+    }
+
+    .job-details-card {
+        padding: 22px 18px;
+    }
+
+    .job-details-card .job-meta {
+        flex-direction: column;
+    }
+
+    .job-details-card .job-meta span {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .job-details-card .job-button {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+
+/* =====================================
+   GRATIA – Compact, Elegant Footer
+===================================== */
+
+.footer {
+    background: #971414;
+    color: #ffffff;
+    padding: 28px 0 0;
+    margin-top: 0;
+}
+
+.footer .container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.footer-mobile-style {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 35px;
+    padding: 0 24px 22px;
+}
+
+/* Überschriften */
+.footer .footer-section h3 {
+    color: #ffffff;
+    font-size: 16px;
+    margin: 0 0 12px;
+    font-weight: 700;
+}
+
+/* Navigation */
+.footer-navigation {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 18px;
+}
+
+.footer .footer-navigation a,
+.footer .footer-contact-link,
+.footer .footer-address {
+    color: #ffffff;
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer .footer-navigation a:hover,
+.footer .footer-contact-link:hover {
+    color: #f2d6cc;
+}
+
+/* Kontakt */
+.footer-contact-new {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.footer .footer-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.6;
+    margin: 0 0 2px;
+}
+
+.footer .footer-contact-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer .footer-icon {
+    color: #ffffff;
+    min-width: 15px;
+}
+
+/* Social Media */
+.footer-social {
+    display: flex;
+    gap: 9px;
+    margin-top: 14px;
+}
+
+.footer .footer-social a {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    transition: all 0.2s ease;
+}
+
+.footer .footer-social a:hover {
+    background: #ffffff;
+    color: #882424;
+}
+
+/* Unterer Footer-Bereich */
+.footer .footer-bottom {
+    background: #e3d8d3;
+    border-top: 1px solid #e3c3b6;
+    padding: 6px 20px;
+}
+
+.footer .footer-bottom-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 15px;
+}
+
+.footer .footer-copyright {
+    color: #872020;
+    font-size: 10px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.footer .footer-legal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: #872020;
+    font-size: 10px;
+    line-height: 1.4;
+}
+
+.footer .footer-legal a {
+    color: #872020;
+    text-decoration: none;
+}
+
+.footer .footer-legal a:hover {
+    color: #4a1010;
+    text-decoration: underline;
+}
+
+.footer .footer-legal strong {
+    color: #872020;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+    .footer {
+        padding-top: 24px;
+    }
+
+    .footer-mobile-style {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 0 22px 20px;
+    }
+
+    .footer-navigation {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .footer .footer-bottom {
+        padding: 7px 15px;
+    }
+
+    .footer .footer-bottom-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 4px;
+    }
+
+    .footer .footer-legal {
+        line-height: 1.5;
     }
 }

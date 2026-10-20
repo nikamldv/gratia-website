@@ -1,0 +1,615 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Newsverwaltung</title>
+
+    <style>
+        :root {
+            --primary: #872020;
+            --primary-light: #f5eaea;
+            --background: #f5f6f8;
+            --border: #e7e7e7;
+            --text: #333333;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: var(--text);
+            background: var(--background);
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 24px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+            font-size: 25px;
+        }
+
+        header p {
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.04);
+        }
+
+        label {
+            display: block;
+            margin: 16px 0 7px;
+            font-weight: 600;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d5d5d5;
+            border-radius: 7px;
+            font: inherit;
+            background: white;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: 2px solid #e8caca;
+            border-color: var(--primary);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 18px;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button, .back-link {
+            display: inline-block;
+            padding: 11px 16px;
+            border: none;
+            border-radius: 7px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .secondary {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .back-link {
+            background: white;
+            color: var(--primary);
+            border: 1px solid var(--border);
+        }
+
+        .preview {
+            display: none;
+            margin-top: 14px;
+            max-width: 100%;
+            max-height: 280px;
+            border-radius: 8px;
+        }
+
+        .notice {
+            padding: 12px;
+            margin-top: 16px;
+            border-radius: 7px;
+            background: #fff4dc;
+            color: #725319;
+            line-height: 1.5;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 28px 12px;
+            color: #777;
+        }
+
+        .news-item {
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+            overflow-wrap: anywhere;
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item h3 {
+            margin: 0 0 8px;
+            color: var(--primary);
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            background: var(--primary-light);
+            color: var(--primary);
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            header {
+                padding: 20px;
+            }
+
+            .container {
+                margin-top: 20px;
+                padding: 0 12px;
+            }
+
+            .card {
+                padding: 17px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>GRATIA – Newsverwaltung</h1>
+    <p>Nachrichten und Unternehmensneuigkeiten verwalten</p>
+</header>
+
+<main class="container">
+
+    <div class="topbar">
+        <div>
+            <h2>Newsverwaltung</h2>
+            <p>Erstelle und verwalte Neuigkeiten für die GRATIA-Website.</p>
+        </div>
+
+        <a class="back-link" href="admin.html">
+            ← Zurück zum Adminbereich
+        </a>
+    </div>
+
+    <section class="card">
+        <h2 id="form-title">Neue Nachricht erstellen</h2>
+
+        <form id="news-form">
+            <label for="news-title">Titel *</label>
+            <input
+                type="text"
+                id="news-title"
+                maxlength="200"
+                placeholder="Titel der Nachricht"
+                required
+            >
+
+            <div class="form-grid">
+                <div>
+                    <label for="news-date">Veröffentlichungsdatum</label>
+                    <input type="date" id="news-date">
+                </div>
+
+                <div>
+                    <label for="news-status">Status</label>
+                    <select id="news-status">
+                        <option value="draft">Entwurf</option>
+                        <option value="published">Veröffentlicht</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="news-image">Titelbild auswählen</label>
+            <input
+                type="file"
+                id="news-image"
+                accept="image/jpeg,image/png,image/webp"
+            >
+
+            <img id="image-preview" class="preview" alt="Bildvorschau">
+
+            <label for="news-content">Nachrichtentext *</label>
+            <textarea
+                id="news-content"
+                placeholder="Schreibe hier den Nachrichtentext ..."
+                required
+            ></textarea>
+
+            <div class="buttons">
+                <button class="primary" type="submit">
+                    Nachricht speichern
+                </button>
+
+                <button class="secondary" type="button" id="reset-button">
+                    Formular leeren
+                </button>
+            </div>
+
+            <div class="notice">
+                Hinweis: Dies ist zunächst eine Vorschau-Version.
+                Nachrichten werden noch nicht in der Datenbank gespeichert
+                und erscheinen noch nicht auf der öffentlichen News-Seite.
+            </div>
+        </form>
+    </section>
+
+    <section class="card">
+        <h2>Vorschau der Nachrichten</h2>
+
+        <div id="news-list">
+            <div class="empty-state">
+                Noch keine Nachrichten in dieser Vorschau.
+            </div>
+        </div>
+    </section>
+
+</main>
+
+
+
+<style>
+    .gratia-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(25, 15, 15, 0.48);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+        padding: 20px;
+        backdrop-filter: blur(3px);
+        animation: gratiaFadeIn 0.2s ease;
+    }
+
+    .gratia-modal {
+        background: #ffffff;
+        width: 100%;
+        max-width: 390px;
+        padding: 32px 26px 26px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+        animation: gratiaSlideIn 0.25s ease;
+    }
+
+    .gratia-modal-icon {
+        width: 68px;
+        height: 68px;
+        margin: 0 auto 18px;
+        border-radius: 50%;
+        background: #f5e7e7;
+        color: #872020;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+    }
+
+    .gratia-modal h2 {
+        color: #872020;
+        font-size: 23px;
+        margin: 0 0 12px;
+    }
+
+    .gratia-modal p {
+        color: #666666;
+        line-height: 1.7;
+        margin: 0 0 24px;
+        overflow-wrap: anywhere;
+    }
+
+    .gratia-modal button {
+        width: 100%;
+        padding: 13px 20px;
+        border: none;
+        border-radius: 10px;
+        background: #872020;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .gratia-modal button:hover {
+        background: #681717;
+    }
+
+    .gratia-modal-footer {
+        margin-top: 20px;
+        color: #999999;
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    @keyframes gratiaFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes gratiaSlideIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+</style>
+
+<script>
+function showGratiaModal(title, message, type = "success") {
+    const oldModal = document.querySelector(".gratia-modal-overlay");
+    if (oldModal) oldModal.remove();
+
+    const overlay = document.createElement("div");
+    overlay.className = "gratia-modal-overlay";
+
+    const modal = document.createElement("div");
+    modal.className = "gratia-modal";
+    modal.setAttribute("role", "dialog");
+    modal.setAttribute("aria-modal", "true");
+    modal.setAttribute("aria-labelledby", "gratia-modal-title");
+
+    const icon = document.createElement("div");
+    icon.className = "gratia-modal-icon";
+    icon.textContent = type === "success" ? "✓" : "!";
+    icon.setAttribute("aria-hidden", "true");
+
+    const heading = document.createElement("h2");
+    heading.id = "gratia-modal-title";
+    heading.textContent = title;
+
+    const text = document.createElement("p");
+    text.textContent = message;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Weiter";
+
+    const footer = document.createElement("div");
+    footer.className = "gratia-modal-footer";
+    footer.textContent = "GRATIA · NEWSVERWALTUNG";
+
+    modal.append(icon, heading, text, button, footer);
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+
+    button.addEventListener("click", () => overlay.remove());
+
+    overlay.addEventListener("click", (event) => {
+        if (event.target === overlay) overlay.remove();
+    });
+
+    button.focus();
+}
+</script>
+
+
+<script>
+    
+    const newsForm = document.getElementById("news-form");
+    const newsList = document.getElementById("news-list");
+    const imageInput = document.getElementById("news-image");
+    const imagePreview = document.getElementById("image-preview");
+
+    let previewImageUrl = null;
+
+    imageInput.addEventListener("change", function () {
+        if (previewImageUrl) {
+            URL.revokeObjectURL(previewImageUrl);
+            previewImageUrl = null;
+        }
+
+        const file = imageInput.files[0];
+
+        if (!file) {
+            imagePreview.removeAttribute("src");
+            imagePreview.style.display = "none";
+            return;
+        }
+
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (!allowedTypes.includes(file.type)) {
+            alert("Bitte wähle eine JPG-, PNG- oder WEBP-Bilddatei.");
+            imageInput.value = "";
+            imagePreview.style.display = "none";
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            alert("Das Bild darf maximal 5 MB groß sein.");
+            imageInput.value = "";
+            imagePreview.style.display = "none";
+            return;
+        }
+
+        previewImageUrl = URL.createObjectURL(file);
+        imagePreview.src = previewImageUrl;
+        imagePreview.style.display = "block";
+    });
+
+
+    
+
+newsForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const title = document.getElementById("news-title").value.trim();
+    const content = document.getElementById("news-content").value.trim();
+    const date = document.getElementById("news-date").value;
+    const status = document.getElementById("news-status").value;
+    const category = document.getElementById("news-category")?.value.trim() || "";
+
+    if (!title || !content) {
+        alert("Bitte fülle Titel und Nachrichtentext aus.");
+        return;
+    }
+
+    const isPublished = status === "published" ? 1 : 0;
+
+    const newsData = {
+        title: title,
+        category: category,
+        content: content,
+        image_url: "",
+        is_published: isPublished
+    };
+
+    try {
+       const token = sessionStorage.getItem("gratia_admin_token");
+
+if (!token) {
+    console.log("Token nicht gefunden.");
+    console.log("Aktuelle Seite:", window.location.href);
+    console.log("SessionStorage:", Object.keys(sessionStorage));
+    alert("Kein Login-Token gefunden. Bitte prüfe die Browser-Konsole mit F12.");
+    return;
+}
+
+        const response = await fetch("http://localhost:3000/api/admin/news", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(newsData)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || "Die Nachricht konnte nicht gespeichert werden.");
+        }
+
+        const article = document.createElement("article");
+        article.className = "news-item";
+
+        const heading = document.createElement("h3");
+        heading.textContent = title;
+
+        const statusLabel = document.createElement("span");
+        statusLabel.className = "status";
+        statusLabel.textContent =
+            isPublished ? "Veröffentlicht" : "Entwurf";
+
+        const dateText = document.createElement("p");
+        dateText.textContent = date
+            ? "Datum: " + date
+            : "Veröffentlichungsdatum wird automatisch gesetzt";
+
+        const contentText = document.createElement("p");
+        contentText.textContent = content;
+
+        article.append(heading, statusLabel, dateText, contentText);
+
+        if (imagePreview.src && imagePreview.style.display === "block") {
+            const image = document.createElement("img");
+            image.src = imagePreview.src;
+            image.alt = title;
+            image.style.maxWidth = "100%";
+            image.style.maxHeight = "220px";
+            image.style.display = "block";
+            image.style.marginTop = "12px";
+            article.appendChild(image);
+        }
+
+        const emptyState = newsList.querySelector(".empty-state");
+        if (emptyState) {
+            newsList.replaceChildren();
+        }
+
+        newsList.prepend(article);
+        newsForm.reset();
+        imagePreview.removeAttribute("src");
+        imagePreview.style.display = "none";
+
+        if (previewImageUrl) {
+            URL.revokeObjectURL(previewImageUrl);
+            previewImageUrl = null;
+        }
+
+       showGratiaModal(
+    "Erfolgreich gespeichert!",
+    "Die Nachricht wurde erfolgreich in der Datenbank gespeichert.",
+    "success"
+);
+
+    } catch (error) {
+        console.error("Fehler beim Speichern der Nachricht:", error);
+        alert("Fehler beim Speichern: " + error.message);
+    }
+});
+
+
+    document.getElementById("reset-button").addEventListener("click", function () {
+        newsForm.reset();
+        imagePreview.removeAttribute("src");
+        imagePreview.style.display = "none";
+
+        if (previewImageUrl) {
+            URL.revokeObjectURL(previewImageUrl);
+            previewImageUrl = null;
+        }
+    });
+</script>
+
+</body>
+</html>

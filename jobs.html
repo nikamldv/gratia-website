@@ -137,7 +137,7 @@
                 </a>
 
                 <a href="jobs.html" class="nav-link active">
-                    Jobs
+                    Karriere
                 </a>
 
                 <a href="news.html" class="nav-link">
@@ -202,8 +202,7 @@
             </div>
 
         </section>
-
-
+        
         <!-- =========================================
              OPEN POSITIONS
         ========================================== -->
@@ -232,27 +231,37 @@
 
 <div class="jobs-toolbar">
     <div class="jobs-filters">
+
         <label>
             <span>Standort</span>
-            <select id="jobLocationFilter" onchange="filterJobs()">
+            <select id="jobLocationFilter">
                 <option value="">Alle Standorte</option>
             </select>
         </label>
 
         <label>
             <span>Arbeitszeit</span>
-            <select id="jobEmploymentFilter" onchange="filterJobs()">
+            <select id="jobEmploymentFilter">
                 <option value="">Alle Arbeitszeiten</option>
                 <option value="Vollzeit">Vollzeit</option>
                 <option value="Teilzeit">Teilzeit</option>
                 <option value="Minijob">Minijob</option>
             </select>
         </label>
+
+        <label>
+            <span>Stellenart</span>
+            <select id="jobTypeFilter">
+                <option value="">Alle Stellen</option>
+                <option value="Pflege">Pflege</option>
+            </select>
+        </label>
+
     </div>
 
     <label class="jobs-sort">
         <span>Sortieren</span>
-        <select id="jobSort" onchange="filterJobs()">
+        <select id="jobSort">
             <option value="newest">Neueste zuerst</option>
             <option value="title">Nach Titel</option>
         </select>
@@ -263,288 +272,6 @@
     <p>Stellenangebote werden geladen ...</p>
 </div>
 
-
-                    </article>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================
-             APPLICATION
-        ========================================== -->
-
-        <section class="application-section" id="bewerbung">
-
-            <div class="container">
-
-                <div class="application-box">
-
-                    <div class="application-heading">
-
-                        <span class="jobs-section-label">
-                            IHRE BEWERBUNG
-                        </span>
-
-                        <h2>
-                            Jetzt bei GRATIA bewerben
-                        </h2>
-
-                        <p>
-                            Wir freuen uns über Ihre Bewerbung.
-                            Füllen Sie das Formular aus und senden Sie
-                            uns Ihre Unterlagen.
-                        </p>
-
-                    </div>
-
-
-                    <form
-                        class="application-form"
-                        id="gratia-application-form"
-                    >
-
-                        <div class="application-grid">
-
-
-                            <div class="form-group">
-
-                                <label for="vorname">
-                                    Vorname *
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="vorname"
-                                    name="vorname"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="nachname">
-                                    Nachname *
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="nachname"
-                                    name="nachname"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="email">
-                                    E-Mail-Adresse *
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="telefon">
-                                    Telefonnummer *
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    id="telefon"
-                                    name="telefon"
-                                    required
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="wohnort">
-                                    Wohnort
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="wohnort"
-                                    name="wohnort"
-                                >
-
-                            </div>
-
-
-                            <div class="form-group">
-
-                                <label for="stelle">
-                                    Gewünschte Stelle *
-                                </label>
-
-                                <select
-                                    id="stelle"
-                                    name="stelle"
-                                    required
-                                >
-
-                                    <option value="">
-                                        Bitte auswählen
-                                    </option>
-
-                                    <option value="Pflegefachkraft (m/w/d)">
-                                        Pflegefachkraft (m/w/d)
-                                    </option>
-
-                                    <option value="Pflegehilfskraft (m/w/d)">
-                                        Pflegehilfskraft (m/w/d)
-                                    </option>
-
-                                </select>
-
-                            </div>
-
-
-                            <div class="form-group form-group-full">
-
-                                <label for="nachricht">
-                                    Anschreiben / Nachricht
-                                </label>
-
-                                <textarea
-                                    id="nachricht"
-                                    name="nachricht"
-                                    rows="6"
-                                    placeholder="Erzählen Sie uns gerne etwas über sich..."
-                                ></textarea>
-
-                            </div>
-
-
-                            <div class="form-group form-group-full">
-
-                                <label for="lebenslauf">
-                                    Lebenslauf
-                                </label>
-
-                                <div class="upload-box">
-
-                                    <input
-                                        type="file"
-                                        id="lebenslauf"
-                                        name="lebenslauf"
-                                        accept=".pdf,.doc,.docx"
-                                    >
-
-                                    <p>
-                                        PDF, DOC oder DOCX
-                                    </p>
-
-                                </div>
-
-                            </div>
-
-
-                            <div class="form-group form-group-full">
-
-                                <label class="privacy-checkbox">
-
-                                    <input
-                                        type="checkbox"
-                                        name="datenschutz"
-                                        required
-                                    >
-
-                                    <span>
-                                        Ich habe die
-                                        <a
-                                            href="Datenschutz.html"
-                                            target="_blank"
-                                        >
-                                            Datenschutzerklärung
-                                        </a>
-                                        gelesen und akzeptiere diese. *
-                                    </span>
-
-                                </label>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="application-submit">
-
-                            <button
-                                type="submit"
-                                class="job-button application-submit-button"
-                            >
-                                Bewerbung absenden
-                            </button>
-
-                            <p class="application-note">
-                                * Pflichtfelder
-                            </p>
-
-                        </div>
-
-                    </form>
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <!-- =========================================
-             DIRECT CONTACT
-        ========================================== -->
-
-        <section class="jobs-contact-section">
-
-            <div class="container">
-
-                <div class="jobs-contact-box">
-
-                    <span class="jobs-section-label">
-                        FRAGEN ZUR BEWERBUNG?
-                    </span>
-
-                    <h2>
-                        Wir sind gerne für Sie da.
-                    </h2>
-
-                    <p>
-                        Wenn Sie Fragen zu unseren Stellenangeboten haben,
-                        können Sie uns gerne direkt kontaktieren.
-                    </p>
-
-                    <a
-                        href="mailto:pflegedienstgratia@gmail.com"
-                        class="job-button"
-                    >
-                        pflegedienstgratia@gmail.com
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
 
     </main>
 
@@ -591,7 +318,7 @@
                     </a>
 
                     <a href="jobs.html">
-                        Jobs
+                       Karriere
                     </a>
 
                     <a href="news.html">
@@ -778,7 +505,7 @@ async function loadJobs() {
         allJobs = Array.isArray(data.jobs) ? data.jobs : [];
 
         populateLocationFilter();
-        renderJobs(allJobs);
+        filterJobs();
 
     } catch (error) {
         console.error("Fehler beim Laden der Stellen:", error);
@@ -855,13 +582,11 @@ function renderJobs(jobs) {
                     </p>` : ""}
 
                 <div class="job-card-actions">
-                    <a href="#bewerbung"
-                       class="job-button job-button-outline"
-                       data-job-title="${escapeHTML(job.title)}">
-                        Mehr erfahren
-                    </a>
-
-                    <a href="#bewerbung"
+                   <a href="stellen-details.html?id=${encodeURIComponent(job.id)}"
+   class="job-button job-button-outline">
+    Mehr erfahren
+</a>
+                    <a href="bewerbung.html"
                        class="job-button"
                        data-job-title="${escapeHTML(job.title)}">
                         Jetzt bewerben
@@ -889,16 +614,35 @@ function renderJobs(jobs) {
 }
 
 function filterJobs() {
-    const location = document.getElementById("jobLocationFilter")?.value || "";
-    const employment = document.getElementById("jobEmploymentFilter")?.value || "";
-    const sort = document.getElementById("jobSort")?.value || "newest";
+    const location =
+        document.getElementById("jobLocationFilter")?.value || "";
+
+    const employment =
+        document.getElementById("jobEmploymentFilter")?.value || "";
+
+    const jobType =
+        document.getElementById("jobTypeFilter")?.value || "";
+
+    const sort =
+        document.getElementById("jobSort")?.value || "newest";
 
     let filteredJobs = allJobs.filter(job => {
-        const locationMatches = !location || job.location === location;
+        const locationMatches =
+            !location || job.location === location;
+
         const employmentMatches =
             !employment || job.employment_type === employment;
 
-        return locationMatches && employmentMatches;
+        // Stellenart: derzeit anhand des Titels filtern
+        const title = (job.title || "").toLowerCase();
+
+        const jobTypeMatches =
+            !jobType ||
+            (jobType === "Pflege" && title.includes("pflege"));
+
+        return locationMatches &&
+               employmentMatches &&
+               jobTypeMatches;
     });
 
     if (sort === "title") {
@@ -907,12 +651,14 @@ function filterJobs() {
         );
     } else if (sort === "newest") {
         filteredJobs.sort((a, b) =>
-            new Date(b.created_at || 0) - new Date(a.created_at || 0)
+            new Date(b.created_at || 0) -
+            new Date(a.created_at || 0)
         );
     }
 
     renderJobs(filteredJobs);
 }
+
 </script>
 
 

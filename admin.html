@@ -2038,6 +2038,9 @@ tbody tr:hover {
     <a href="stellenverwaltung.html">
     <span>▤</span> Stellenverwaltung
 </a>
+     <a href="newsverwaltung.html">
+    <span>▤</span> Newsverwaltung
+</a>
     <a href="#messages-panel">
         <span>✉</span> Kontaktanfragen
     </a>
@@ -3068,7 +3071,50 @@ function hasPermission(user, key, section, action) {
                 document.createTextNode("Bewerbungen")
             );
 
-            permissionCell.append(contactLabel, applicationLabel);
+            
+const jobsLabel = document.createElement("label");
+jobsLabel.className = "permission-check";
+
+const jobsBox = document.createElement("input");
+jobsBox.type = "checkbox";
+jobsBox.checked = hasPermission(
+    user,
+    "jobs.manage",
+    "jobs",
+    "manage"
+);
+jobsBox.disabled = user.role === "super_admin";
+
+jobsLabel.append(
+    jobsBox,
+    document.createTextNode("Stellenverwaltung")
+);
+
+const newsLabel = document.createElement("label");
+newsLabel.className = "permission-check";
+
+const newsBox = document.createElement("input");
+newsBox.type = "checkbox";
+newsBox.checked = hasPermission(
+    user,
+    "news.manage",
+    "news",
+    "manage"
+);
+newsBox.disabled = user.role === "super_admin";
+
+newsLabel.append(
+    newsBox,
+    document.createTextNode("Newsverwaltung")
+);
+
+permissionCell.append(
+    contactLabel,
+    applicationLabel,
+    jobsLabel,
+    newsLabel
+);
+
             row.appendChild(permissionCell);
 
             const actionCell = document.createElement("td");
@@ -3097,9 +3143,12 @@ function hasPermission(user, key, section, action) {
                                 },
                                 body: JSON.stringify({
                                     permissions: {
-                                        "contact_messages.read": contactBox.checked,
-                                        "applications.read": applicationBox.checked
-                                    }
+                              "contact_messages.read": contactBox.checked,
+                              "applications.read": applicationBox.checked,
+                               "jobs.manage": jobsBox.checked,
+                                  "news.manage": newsBox.checked
+                                 }
+                                 
                                 })
                             }
                         );
