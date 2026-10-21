@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRATIA – Dashboard</title>
+    <meta name="theme-color" content="#872020">
+    <title>GRATIA – Admin Dashboard</title>
 
     <style>
         :root {
-            --burgundy: #872020;
-            --burgundy-dark: #681717;
-            --background: #f5f5f5;
-            --text: #292929;
-            --muted: #777777;
-            --border: #e7e7e7;
-            --white: #ffffff;
+            --red: #872020;
+            --red-dark: #651717;
+            --bg: #f6f3f2;
+            --text: #292323;
+            --muted: #786e6e;
+            --border: #e8dddd;
+            --white: #fff;
         }
 
         * {
@@ -23,26 +24,15 @@
 
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: var(--background);
+            background: var(--bg);
             color: var(--text);
+            font-family: Arial, sans-serif;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* Kopfbereich */
-
-        .main-header {
-            background: var(--burgundy);
-            color: var(--white);
-            padding: 25px 5%;
-        }
-
-        .header-inner {
-            width: min(1250px, 100%);
-            margin: 0 auto;
+        header {
+            background: var(--red);
+            color: white;
+            padding: 24px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -50,266 +40,186 @@
             flex-wrap: wrap;
         }
 
-        .brand h1 {
+        header h1 {
             margin: 0 0 7px;
-            font-size: 27px;
+            font-size: 25px;
         }
 
-        .brand p {
+        header p {
             margin: 0;
-            color: #f1dddd;
+            color: #f2dddd;
             font-size: 14px;
         }
 
-        .logout-button {
-            border: 1px solid #ffffff80;
-            border-radius: 7px;
-            padding: 11px 17px;
-            background: transparent;
-            color: white;
-            font-size: 14px;
+        button {
+            font: inherit;
             cursor: pointer;
+            border: 0;
+            border-radius: 8px;
+            padding: 11px 15px;
         }
 
-        .logout-button:hover {
-            background: #ffffff18;
+        .logout {
+            background: white;
+            color: var(--red);
+            font-weight: bold;
         }
 
-        /* Hauptbereich */
+        .logout:hover {
+            background: #f5e9e9;
+        }
 
         main {
-            width: min(1250px, 92%);
-            margin: 35px auto;
+            width: min(1180px, 92%);
+            margin: 34px auto 60px;
         }
 
-        /* Login */
-
-        .login-wrap {
-            width: min(430px, 100%);
-            margin: 55px auto;
-        }
-
-        .login-card {
-            padding: 30px;
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            box-shadow: 0 8px 25px #00000008;
-        }
-
-        .login-card h2 {
-            margin-top: 0;
-            color: var(--burgundy);
-        }
-
-        .login-card > p {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .field {
-            margin: 20px 0;
-        }
-
-        .field label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .field input {
-            display: block;
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #cccccc;
-            border-radius: 7px;
-            font: inherit;
-        }
-
-        .field input:focus {
-            outline: none;
-            border-color: var(--burgundy);
-            box-shadow: 0 0 0 3px #87202018;
-        }
-
-        .primary-button {
-            width: 100%;
-            padding: 13px;
-            border: none;
-            border-radius: 7px;
-            background: var(--burgundy);
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .primary-button:hover {
-            background: var(--burgundy-dark);
-        }
-
-        button:disabled {
-            opacity: 0.6;
-            cursor: wait;
-        }
-
-        .login-error {
-            color: #a51d1d;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        /* Dashboard */
-
-        .welcome-section {
+        .welcome {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             flex-wrap: wrap;
-            margin-bottom: 30px;
+            margin-bottom: 26px;
         }
 
-        .welcome-section h2 {
-            margin: 0 0 9px;
-            color: var(--burgundy);
-            font-size: 27px;
+        .welcome h2 {
+            color: var(--red);
+            margin: 0 0 8px;
         }
 
-        .welcome-section p {
+        .welcome p {
             margin: 0;
             color: var(--muted);
-            line-height: 1.6;
         }
 
-        .dashboard-label {
-            margin: 0 0 18px;
-            color: #555555;
-            font-size: 17px;
+        .status {
+            font-size: 13px;
+            color: #176534;
+            background: #e2f5e8;
+            padding: 8px 12px;
+            border-radius: 30px;
         }
 
-        .dashboard-grid {
+        .grid {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 22px;
+            gap: 20px;
         }
 
-        .dashboard-card {
+        .card {
             display: flex;
             flex-direction: column;
             min-height: 205px;
             padding: 24px;
             background: var(--white);
             border: 1px solid var(--border);
-            border-radius: 13px;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px #00000008;
             text-decoration: none;
-            color: var(--text);
-            box-shadow: 0 4px 16px #00000004;
-            transition: transform 0.2s, box-shadow 0.2s,
-                        border-color 0.2s;
+            color: inherit;
+            transition: transform .18s, box-shadow .18s;
         }
 
-        .dashboard-card:hover {
+        .card:hover {
             transform: translateY(-3px);
-            border-color: #d7baba;
-            box-shadow: 0 8px 24px #0000000c;
+            box-shadow: 0 14px 30px #0000000c;
         }
 
         .card-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 49px;
-            height: 49px;
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            background: #f7eaea;
+            color: var(--red);
+            border-radius: 12px;
+            font-size: 24px;
             margin-bottom: 18px;
-            border-radius: 10px;
-            background: #f7eeee;
-            color: var(--burgundy);
-            font-size: 25px;
         }
 
-        .dashboard-card h3 {
-            margin: 0 0 10px;
-            color: var(--burgundy);
+        .card h3 {
+            margin: 0 0 9px;
             font-size: 18px;
+            color: var(--red);
         }
 
-        .dashboard-card p {
+        .card p {
             margin: 0;
             color: var(--muted);
             font-size: 14px;
             line-height: 1.6;
         }
 
-        .card-link {
+        .card .open {
             margin-top: auto;
             padding-top: 20px;
-            color: var(--burgundy);
+            color: var(--red);
+            font-weight: bold;
             font-size: 13px;
-            font-weight: 700;
         }
 
-        .access-message {
-            margin-top: 22px;
-            padding: 15px 18px;
-            border: 1px solid var(--border);
+        .card[hidden] {
+            display: none;
+        }
+
+        .notice {
+            display: none;
+            margin-bottom: 22px;
+            padding: 14px 16px;
             border-radius: 9px;
-            background: white;
-            color: var(--muted);
             font-size: 14px;
             line-height: 1.6;
         }
 
-        footer {
-            margin-top: 50px;
-            padding: 25px 15px;
-            border-top: 1px solid var(--border);
+        .notice.error {
+            display: block;
+            background: #fff0f0;
+            color: #a32121;
+            border: 1px solid #f1cccc;
+        }
+
+        .empty {
+            display: none;
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
             color: var(--muted);
+        }
+
+        footer {
             text-align: center;
-            font-size: 13px;
+            padding: 24px;
+            color: var(--muted);
+            font-size: 12px;
         }
 
         @media (max-width: 900px) {
-            .dashboard-grid {
+            .grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
         }
 
-        @media (max-width: 600px) {
-            .main-header {
+        @media (max-width: 580px) {
+            header {
                 padding: 22px 5%;
             }
 
-            .brand h1 {
-                font-size: 23px;
-            }
-
-            .header-inner {
-                align-items: flex-start;
+            header h1 {
+                font-size: 21px;
             }
 
             main {
-                width: 92%;
-                margin: 25px auto;
+                margin-top: 24px;
             }
 
-            .dashboard-grid {
+            .grid {
                 grid-template-columns: 1fr;
-                gap: 15px;
             }
 
-            .dashboard-card {
+            .card {
                 min-height: 180px;
-                padding: 21px;
-            }
-
-            .welcome-section h2 {
-                font-size: 23px;
-            }
-
-            .login-card {
-                padding: 23px;
             }
         }
     </style>
@@ -317,496 +227,279 @@
 
 <body>
 
-<header class="main-header">
-    <div class="header-inner">
-        <div class="brand">
-            <h1>GRATIA – Dashboard</h1>
-            <p>Interner Verwaltungsbereich</p>
+    <header>
+        <div>
+            <h1>GRATIA – Adminbereich</h1>
+            <p>Zentrale Übersicht für die internen Systeme</p>
         </div>
 
         <button
-            type="button"
+            class="logout"
             id="logout-button"
-            class="logout-button hidden">
+            type="button">
             Abmelden
         </button>
-    </div>
-</header>
+    </header>
 
-<main>
-
-    <!-- Admin-Anmeldung -->
-    <section id="login-section" class="login-wrap">
-        <div class="login-card">
-            <h2>Admin-Anmeldung</h2>
-            <p>
-                Bitte melden Sie sich mit Ihrem
-                GRATIA-Benutzerkonto an.
-            </p>
-
-            <form id="login-form">
-                <div class="field">
-                    <label for="username">Benutzername</label>
-                    <input
-                        id="username"
-                        name="username"
-                        autocomplete="username"
-                        required>
-                </div>
-
-                <div class="field">
-                    <label for="password">Passwort</label>
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        autocomplete="current-password"
-                        required>
-                </div>
-
-                <button
-                    class="primary-button"
-                    id="login-button"
-                    type="submit">
-                    Anmelden
-                </button>
-
-                <p
-                    id="login-message"
-                    class="login-error"
-                    role="status"
-                    aria-live="polite"></p>
-            </form>
-        </div>
-    </section>
-
-    <!-- Zentrales Dashboard -->
-    <section id="dashboard-section" class="hidden">
-
-        <div class="welcome-section">
+    <main>
+        <div class="welcome">
             <div>
-                <h2>Willkommen</h2>
-                <p id="welcome-message">
-                    GRATIA-Verwaltung
-                </p>
+                <h2 id="welcome-title">Willkommen</h2>
+                <p>Wählen Sie den gewünschten Verwaltungsbereich.</p>
             </div>
-        </div>
 
-        <h3 class="dashboard-label">
-            Verwaltungsbereiche
-        </h3>
-
-        <div class="dashboard-grid">
-
-            <!-- Kontaktanfragen -->
-            <a
-                href="kontaktanfragen.html"
-                class="dashboard-card"
-                data-permission="contact_messages.read">
-
-                <div class="card-icon" aria-hidden="true">✉</div>
-
-                <h3>Kontaktanfragen</h3>
-
-                <p>
-                    Eingegangene Nachrichten ansehen
-                    und Kontaktdetails verwalten.
-                </p>
-
-                <span class="card-link">
-                    Bereich öffnen →
-                </span>
-            </a>
-
-            <!-- Jobbewerbungen -->
-            <a
-                href="Jobbewerbungen.html"
-                class="dashboard-card"
-                data-permission="applications.read">
-
-                <div class="card-icon" aria-hidden="true">▣</div>
-
-                <h3>Jobbewerbungen</h3>
-
-                <p>
-                    Bewerbungen prüfen und
-                    Lebensläufe herunterladen.
-                </p>
-
-                <span class="card-link">
-                    Bereich öffnen →
-                </span>
-            </a>
-
-            <!-- Benutzerverwaltung -->
-            <a
-                href="benutzerverwaltung.html"
-                class="dashboard-card"
-                data-permission="users.manage">
-
-                <div class="card-icon" aria-hidden="true">♙</div>
-
-                <h3>Benutzerverwaltung</h3>
-
-                <p>
-                    Benutzerkonten und
-                    Zugriffsberechtigungen verwalten.
-                </p>
-
-                <span class="card-link">
-                    Bereich öffnen →
-                </span>
-            </a>
-
-            <!-- Stellenverwaltung -->
-            <a
-                href="stellenverwaltung.html"
-                class="dashboard-card"
-                data-permission="jobs.manage">
-
-                <div class="card-icon" aria-hidden="true">▤</div>
-
-                <h3>Stellenverwaltung</h3>
-
-                <p>
-                    Stellenangebote erstellen,
-                    bearbeiten und verwalten.
-                </p>
-
-                <span class="card-link">
-                    Bereich öffnen →
-                </span>
-            </a>
-
-            <!-- Newsverwaltung -->
-            <a
-                href="newsverwaltung.html"
-                class="dashboard-card"
-                data-permission="news.manage">
-
-                <div class="card-icon" aria-hidden="true">▧</div>
-
-                <h3>Newsverwaltung</h3>
-
-                <p>
-                    Unternehmensnachrichten und
-                    Beiträge verwalten.
-                </p>
-
-                <span class="card-link">
-                    Bereich öffnen →
-                </span>
-            </a>
-
-            <!-- Mitarbeiterbereich -->
-            <a
-                href="mitarbeiter.html"
-                class="dashboard-card"
-                data-permission="employee.portal">
-
-                <div class="card-icon" aria-hidden="true">♧</div>
-
-                <h3>Mitarbeiterbereich</h3>
-
-                <p>
-                    Das GRATIA-Mitarbeiterportal öffnen.
-                </p>
-
-                <span class="card-link">
-                    Bereich öffnen →
-                </span>
-            </a>
-
+            <span class="status">● Geschützter Bereich</span>
         </div>
 
         <div
-            id="dashboard-message"
-            class="access-message hidden"
-            role="status">
+            id="notice"
+            class="notice"
+            role="alert">
         </div>
 
-    </section>
+        <section
+            class="grid"
+            id="dashboard-cards"
+            aria-label="Verwaltungsbereiche">
 
-</main>
+            <a
+                class="card"
+                href="anfragen.html"
+                data-permission="contact_messages.read">
+                <div class="card-icon" aria-hidden="true">✉</div>
+                <h3>Kontaktanfragen</h3>
+                <p>Nachrichten aus dem Kontaktformular prüfen und bearbeiten.</p>
+                <span class="open">Bereich öffnen →</span>
+            </a>
 
-<footer>
-    Pflegedienst GRATIA GmbH · Interner Verwaltungsbereich
-</footer>
+            <a
+                class="card"
+                href="Jobbewerbungen.html"
+                data-permission="applications.read">
+                <div class="card-icon" aria-hidden="true">▤</div>
+                <h3>Jobbewerbungen</h3>
+                <p>Bewerbungen und eingereichte Unterlagen verwalten.</p>
+                <span class="open">Bereich öffnen →</span>
+            </a>
 
-<script>
-"use strict";
+            <a
+                class="card"
+                href="benutzerverwaltung.html"
+                data-permission="users.manage">
+                <div class="card-icon" aria-hidden="true">♙</div>
+                <h3>Benutzerverwaltung</h3>
+                <p>Benutzerkonten, Status und Zugriffsrechte verwalten.</p>
+                <span class="open">Bereich öffnen →</span>
+            </a>
 
-const API_BASE = "http://localhost:3000/api";
-const TOKEN_KEY = "gratia_admin_token";
-const USER_KEY = "gratia_admin_user";
+            <a
+                class="card"
+                href="stellenverwaltung.html"
+                data-permission="jobs.manage">
+                <div class="card-icon" aria-hidden="true">▣</div>
+                <h3>Stellenverwaltung</h3>
+                <p>Stellenangebote erstellen und verwalten.</p>
+                <span class="open">Bereich öffnen →</span>
+            </a>
 
-const $ = id => document.getElementById(id);
+            <a
+                class="card"
+                href="newsverwaltung.html"
+                data-permission="news.manage">
+                <div class="card-icon" aria-hidden="true">▧</div>
+                <h3>Newsverwaltung</h3>
+                <p>Neuigkeiten und Inhalte für die Website pflegen.</p>
+                <span class="open">Bereich öffnen →</span>
+            </a>
 
-const loginSection = $("login-section");
-const dashboardSection = $("dashboard-section");
-const loginForm = $("login-form");
-const loginButton = $("login-button");
-const loginMessage = $("login-message");
-const usernameInput = $("username");
-const passwordInput = $("password");
-const logoutButton = $("logout-button");
-const dashboardMessage = $("dashboard-message");
+            <a
+                class="card"
+                href="mitarbeiter.html"
+                data-permission="employee.portal">
+                <div class="card-icon" aria-hidden="true">♧</div>
+                <h3>Mitarbeiterportal</h3>
+                <p>Zum internen Bereich für Mitarbeitende wechseln.</p>
+                <span class="open">Bereich öffnen →</span>
+            </a>
 
-function getToken() {
-    return sessionStorage.getItem(TOKEN_KEY);
-}
+        </section>
 
-function getCurrentUser() {
-    try {
-        return JSON.parse(
-            sessionStorage.getItem(USER_KEY) || "null"
-        );
-    } catch {
-        return null;
-    }
-}
+        <p class="empty" id="empty-message">
+            Für dieses Konto sind keine Verwaltungsbereiche freigeschaltet.
+            Bitte wenden Sie sich an die Administration.
+        </p>
+    </main>
 
-function hasPermission(user, key, section, action) {
-    const permissions = user?.permissions || {};
+    <footer>
+        Pflegedienst GRATIA GmbH · Interner Verwaltungsbereich
+    </footer>
 
-    return (
-        user?.role === "super_admin" ||
-        permissions.all === true ||
-        permissions[key] === true ||
-        permissions[section]?.[action] === true
-    );
-}
+    <script>
+        "use strict";
 
-function canManageUsers(user) {
-    const permissions = user?.permissions || {};
+        const API_BASE = "http://localhost:3000/api";
 
-    return (
-        user?.role === "super_admin" ||
-        permissions.all === true ||
-        permissions["users.manage"] === true ||
-        permissions.users?.manage === true
-    );
-}
+        const ADMIN_TOKEN_KEY = "gratia_admin_token";
+        const ADMIN_USER_KEY = "gratia_admin_user";
+        const EMPLOYEE_TOKEN_KEY = "gratiaEmployeeToken";
+        const EMPLOYEE_USER_KEY = "gratiaEmployeeUser";
 
-function canOpenCard(user, permission) {
-    if (permission === "users.manage") {
-        return canManageUsers(user);
-    }
-
-    if (permission === "employee.portal") {
-        return Boolean(user);
-    }
-
-    const permissionMap = {
-        "contact_messages.read": [
-            "contact_messages.read",
-            "contact_messages",
-            "read"
-        ],
-        "applications.read": [
-            "applications.read",
-            "applications",
-            "read"
-        ],
-        "jobs.manage": [
-            "jobs.manage",
-            "jobs",
-            "manage"
-        ],
-        "news.manage": [
-            "news.manage",
-            "news",
-            "manage"
-        ]
-    };
-
-    const values = permissionMap[permission];
-
-    if (!values) {
-        return false;
-    }
-
-    return hasPermission(
-        user,
-        values[0],
-        values[1],
-        values[2]
-    );
-}
-
-function showLogin(message = "") {
-    dashboardSection.classList.add("hidden");
-    loginSection.classList.remove("hidden");
-    logoutButton.classList.add("hidden");
-
-    loginMessage.textContent = message;
-    passwordInput.value = "";
-}
-
-function showDashboard(user) {
-    loginSection.classList.add("hidden");
-    dashboardSection.classList.remove("hidden");
-    logoutButton.classList.remove("hidden");
-
-    const name = user.full_name || user.username || "Benutzer";
-
-    $("welcome-message").textContent =
-        "Angemeldet als " + name;
-
-    const cards = document.querySelectorAll(
-        ".dashboard-card[data-permission]"
-    );
-
-    let visibleCards = 0;
-
-    cards.forEach(card => {
-        const permission = card.dataset.permission;
-        const allowed = canOpenCard(user, permission);
-
-        card.classList.toggle("hidden", !allowed);
-
-        if (allowed) {
-            visibleCards++;
-        }
-    });
-
-    if (visibleCards === 0) {
-        dashboardMessage.textContent =
-            "Für dieses Konto sind derzeit keine Verwaltungsbereiche freigeschaltet.";
-
-        dashboardMessage.classList.remove("hidden");
-    } else {
-        dashboardMessage.classList.add("hidden");
-        dashboardMessage.textContent = "";
-    }
-}
-
-async function apiRequest(path, options = {}) {
-    const response = await fetch(`${API_BASE}${path}`, {
-        ...options,
-        headers: {
-            ...(options.headers || {}),
-            Authorization: `Bearer ${getToken()}`
-        }
-    });
-
-    const contentType = response.headers.get("content-type") || "";
-
-    const data = contentType.includes("application/json")
-        ? await response.json()
-        : {};
-
-    if (response.status === 401) {
-        sessionStorage.removeItem(TOKEN_KEY);
-        sessionStorage.removeItem(USER_KEY);
-
-        showLogin(
-            "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
-        );
-
-        throw new Error("Sitzung abgelaufen.");
-    }
-
-    if (!response.ok || data.status === "ERROR") {
-        throw new Error(
-            data.message || "Die Anfrage ist fehlgeschlagen."
-        );
-    }
-
-    return data;
-}
-
-async function login(event) {
-    event.preventDefault();
-
-    loginButton.disabled = true;
-    loginButton.textContent = "Anmeldung läuft …";
-    loginMessage.textContent = "";
-
-    try {
-        const response = await fetch(`${API_BASE}/auth/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username: usernameInput.value.trim(),
-                password: passwordInput.value
-            })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok || data.status !== "OK" || !data.token) {
-            throw new Error(
-                data.message || "Anmeldung fehlgeschlagen."
-            );
+        function showError(message) {
+            const box = document.getElementById("notice");
+            box.textContent = message;
+            box.className = "notice error";
         }
 
-        if (data.user.must_change_password) {
-            throw new Error(
-                "Für dieses Konto muss zuerst ein Passwortwechsel eingerichtet werden."
-            );
+        function getToken() {
+            return sessionStorage.getItem(ADMIN_TOKEN_KEY) ||
+                   sessionStorage.getItem(EMPLOYEE_TOKEN_KEY);
         }
 
-        sessionStorage.setItem(TOKEN_KEY, data.token);
-        sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
-
-        showDashboard(data.user);
-    } catch (error) {
-        loginMessage.textContent =
-            error.message || "Backend nicht erreichbar.";
-    } finally {
-        loginButton.disabled = false;
-        loginButton.textContent = "Anmelden";
-    }
-}
-
-function logout() {
-    sessionStorage.removeItem(TOKEN_KEY);
-    sessionStorage.removeItem(USER_KEY);
-
-    showLogin("Sie wurden abgemeldet.");
-}
-
-async function restoreSession() {
-    if (!getToken()) {
-        showLogin();
-        return;
-    }
-
-    try {
-        const data = await apiRequest("/auth/me");
-
-        if (
-            data.status !== "OK" ||
-            !data.user ||
-            data.user.must_change_password
-        ) {
-            logout();
-            return;
+        function clearSession() {
+            sessionStorage.removeItem(ADMIN_TOKEN_KEY);
+            sessionStorage.removeItem(ADMIN_USER_KEY);
+            sessionStorage.removeItem(EMPLOYEE_TOKEN_KEY);
+            sessionStorage.removeItem(EMPLOYEE_USER_KEY);
         }
 
-        sessionStorage.setItem(
-            USER_KEY,
-            JSON.stringify(data.user)
-        );
-
-        showDashboard(data.user);
-    } catch (error) {
-        if (getToken()) {
-            showLogin(
-                error.message || "Bitte melden Sie sich erneut an."
-            );
+        function logout() {
+            clearSession();
+            window.location.replace("login.html");
         }
-    }
-}
 
-loginForm.addEventListener("submit", login);
-logoutButton.addEventListener("click", logout);
+        function isAdmin(user) {
+            const role = String(
+                user?.role || user?.role_name || ""
+            ).toLowerCase();
 
-restoreSession();
-</script>
+            return user?.is_admin === true ||
+                user?.isAdmin === true ||
+                [
+                    "admin",
+                    "administrator",
+                    "superadmin",
+                    "super_admin",
+                    "system_admin"
+                ].includes(role);
+        }
+
+        function hasPermission(user, key) {
+            const permissions = user?.permissions || {};
+
+            if (isAdmin(user) || permissions.all === true) {
+                return true;
+            }
+
+            if (permissions[key] === true) {
+                return true;
+            }
+
+            const parts = key.split(".");
+
+            return parts.length === 2 &&
+                permissions[parts[0]]?.[parts[1]] === true;
+        }
+
+        function showCards(user) {
+            let visible = 0;
+
+            document.querySelectorAll("[data-permission]")
+                .forEach(card => {
+                    const allowed = hasPermission(
+                        user,
+                        card.dataset.permission
+                    );
+
+                    card.hidden = !allowed;
+
+                    if (allowed) {
+                        visible++;
+                    }
+                });
+
+            document.getElementById("empty-message")
+                .style.display = visible ? "none" : "block";
+        }
+
+        async function init() {
+            const token = getToken();
+
+            if (!token) {
+                window.location.replace("login.html");
+                return;
+            }
+
+            try {
+                const response = await fetch(
+                    `${API_BASE}/auth/me`,
+                    {
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Accept": "application/json"
+                        }
+                    }
+                );
+
+                if (
+                    response.status === 401 ||
+                    response.status === 403
+                ) {
+                    clearSession();
+                    window.location.replace("login.html");
+                    return;
+                }
+
+                if (!response.ok) {
+                    throw new Error(
+                        "Die Sitzung konnte nicht überprüft werden."
+                    );
+                }
+
+                const data = await response.json();
+                const user = data.user || data.data?.user || data;
+
+                if (!user || typeof user !== "object") {
+                    throw new Error(
+                        "Benutzerdaten fehlen in der Serverantwort."
+                    );
+                }
+
+                if (!isAdmin(user)) {
+                    window.location.replace("mitarbeiter.html");
+                    return;
+                }
+
+                sessionStorage.setItem(ADMIN_TOKEN_KEY, token);
+                sessionStorage.setItem(
+                    ADMIN_USER_KEY,
+                    JSON.stringify(user)
+                );
+
+                document.getElementById("welcome-title").textContent =
+                    "Willkommen, " +
+                    (
+                        user.full_name ||
+                        user.username ||
+                        "Administrator/in"
+                    );
+
+                showCards(user);
+
+            } catch (error) {
+                showError(
+                    "Backend nicht erreichbar oder Sitzung konnte " +
+                    "nicht geprüft werden. Prüfen Sie API_BASE und " +
+                    "den Server. " +
+                    (error.message || "")
+                );
+            }
+        }
+
+        document.getElementById("logout-button")
+            .addEventListener("click", logout);
+
+        init();
+    </script>
 
 </body>
 </html>
