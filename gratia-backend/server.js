@@ -177,6 +177,8 @@ filename: (req, file, cb) => {
 
 });
 
+
+
 const uploadCV = multer({
     storage: cvStorage,
     limits: {
@@ -194,6 +196,58 @@ const uploadCV = multer({
     }
 });
 
+// =====================================
+// NEWS IMAGE UPLOAD
+// =====================================
+
+const NEWS_UPLOAD_DIR = path.join(__dirname, "news_images");
+
+if (!fs.existsSync(NEWS_UPLOAD_DIR)) {
+    fs.mkdirSync(NEWS_UPLOAD_DIR, { recursive: true });
+}
+
+// تصاویر خبرها از طریق این آدرس قابل نمایش هستند
+app.use(
+    "/news-images",
+    express.static(NEWS_UPLOAD_DIR)
+);
+
+const newsImageStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, NEWS_UPLOAD_DIR);
+    },
+
+    filename: (req, file, cb) => {
+        const extension = path.extname(file.originalname).toLowerCase();
+        const uniqueName = `${Date.now()}-${crypto.randomUUID()}${extension}`;
+
+        cb(null, uniqueName);
+    }
+});
+
+const uploadNewsImage = multer({
+    storage: newsImageStorage,
+
+    limits: {
+        fileSize: 5 * 1024 * 1024
+    },
+
+    fileFilter: (req, file, cb) => {
+        const allowedTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+        ];
+
+        if (!allowedTypes.includes(file.mimetype)) {
+            return cb(
+                new Error("Bitte nur JPG-, PNG- oder WebP-Bilder hochladen.")
+            );
+        }
+
+        cb(null, true);
+    }
+});
 
 // JSON-Berechtigungen aus MySQL vereinheitlichen
 function parsePermissions(value) {

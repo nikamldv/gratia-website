@@ -176,16 +176,6 @@
                         PFLEGEDIENST GRATIA GMBH
                     </span>
 
-                    <h1>
-                        Aktuelles &
-                        <span>Neuigkeiten</span>
-                    </h1>
-
-                    <p>
-                        Hier finden Sie aktuelle Informationen,
-                        Neuigkeiten und Hinweise rund um unseren
-                        Pflegedienst und das Haus Sonnenblume.
-                    </p>
 
                 </div>
 
@@ -219,97 +209,11 @@
                 </div>
 
 
-                <div class="news-grid">
-
-
-                    <!-- CARD 1 -->
-
-                    <article class="news-card">
-
-                        <div class="news-card-icon">
-                            ✦
-                        </div>
-
-                        <div class="news-card-content">
-
-                            <span class="news-card-category">
-                                GRATIA
-                            </span>
-
-                            <h3>
-                                Neuigkeiten aus unserem Pflegedienst
-                            </h3>
-
-                            <p>
-                                Hier informieren wir Sie künftig über
-                                aktuelle Entwicklungen und Neuigkeiten
-                                aus unserem Unternehmen.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- CARD 2 -->
-
-                    <article class="news-card">
-
-                        <div class="news-card-icon">
-                            ♡
-                        </div>
-
-                        <div class="news-card-content">
-
-                            <span class="news-card-category">
-                                HAUS SONNENBLUME
-                            </span>
-
-                            <h3>
-                                Aktuelles aus dem Haus Sonnenblume
-                            </h3>
-
-                            <p>
-                                Erfahren Sie hier künftig mehr über
-                                Neuigkeiten und besondere Themen aus
-                                unserem Haus Sonnenblume.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-                    <!-- CARD 3 -->
-
-                    <article class="news-card">
-
-                        <div class="news-card-icon">
-                            ℹ
-                        </div>
-
-                        <div class="news-card-content">
-
-                            <span class="news-card-category">
-                                INFORMATIONEN
-                            </span>
-
-                            <h3>
-                                Wichtige Informationen & Hinweise
-                            </h3>
-
-                            <p>
-                                Hier finden Sie künftig wichtige
-                                Informationen, Hinweise und aktuelle
-                                Mitteilungen von GRATIA.
-                            </p>
-
-                        </div>
-
-                    </article>
-
-
-                </div>
+              
+<!-- NEWS GRID -->
+<div id="news-list" class="news-grid">
+    <p>Neuigkeiten werden geladen...</p>
+</div>
 
             </div>
 
@@ -561,6 +465,66 @@
     >
         ↑
     </button>
+
+
+
+
+<script>
+async function loadNews() {
+    const newsList = document.getElementById("news-list");
+
+    try {
+        const response = await fetch("http://localhost:3000/api/news");
+
+        if (!response.ok) {
+            throw new Error("News konnten nicht geladen werden.");
+        }
+
+        const data = await response.json();
+        const news = data.news || [];
+
+        if (news.length === 0) {
+            newsList.innerHTML =
+                "<p>Aktuell gibt es keine veröffentlichten Neuigkeiten.</p>";
+            return;
+        }
+
+        newsList.innerHTML = "";
+
+        news.forEach((item) => {
+            const article = document.createElement("article");
+            article.className = "news-card";
+
+            const icon = document.createElement("div");
+            icon.className = "news-card-icon";
+            icon.textContent = "✦";
+
+            const content = document.createElement("div");
+            content.className = "news-card-content";
+
+            const category = document.createElement("span");
+            category.className = "news-card-category";
+            category.textContent = item.category || "GRATIA";
+
+            const title = document.createElement("h3");
+            title.textContent = item.title;
+
+            const description = document.createElement("p");
+            description.textContent = item.content;
+
+            content.append(category, title, description);
+            article.append(icon, content);
+            newsList.appendChild(article);
+        });
+    } catch (error) {
+        console.error("Fehler beim Laden der News:", error);
+        newsList.innerHTML =
+            "<p>Neuigkeiten konnten momentan nicht geladen werden.</p>";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", loadNews);
+</script>
 
 
     <script src="main.js"></script>
