@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRATIA – Jobbewerbungen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="admin-header">
+        <h1>GRATIA – Jobbewerbungen</h1>
+        <a href="admin.html">Zurück zum Adminbereich</a>
+    </header>
+
+    <main class="admin-main">
+        <section id="applications-panel" class="panel">
+            <div class="panel-header">
+                <div>
+                    <h3>Jobbewerbungen</h3>
+                    <p>Bewerbungen und Lebensläufe verwalten</p>
+                </div>
+
+                <button
+                    type="button"
+                    id="refresh-applications-button"
+                    class="refresh-button">
+                    Bewerbungen aktualisieren ↻
+                </button>
+            </div>
+
+            <div
+                id="applications-message"
+                class="message"
+                role="status"
+                aria-live="polite">
+                Bewerbungen werden geladen …
+            </div>
+
+            <div class="applications-table-wrapper">
+                <table id="applications-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Position</th>
+                            <th>E-Mail</th>
+                            <th>Eingegangen am</th>
+                            <th>Status</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="applications-table-body">
+                        <tr>
+                            <td colspan="6">
+                                Bewerbungen werden geladen …
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <script src="Jobbewerbungen.js" defer></script>
+</body>
+</html>

@@ -4,15 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GRATIA – Adminbereich</title>
+    <title>GRATIA – Dashboard</title>
 
     <style>
         :root {
             --burgundy: #872020;
+            --burgundy-dark: #681717;
             --background: #f5f5f5;
             --text: #292929;
-            --muted: #777;
-            --border: #e6e6e6;
+            --muted: #777777;
+            --border: #e7e7e7;
+            --white: #ffffff;
         }
 
         * {
@@ -26,2039 +28,321 @@
             color: var(--text);
         }
 
-        header {
-            background: var(--burgundy);
-            color: white;
-            padding: 24px 5%;
-        }
-
-        header h1 {
-            margin: 0 0 8px;
-            font-size: 25px;
-        }
-
-        header p {
-            margin: 0;
-        }
-
-        main {
-            width: min(1200px, 94%);
-            margin: 30px auto;
-        }
-
         .hidden {
             display: none !important;
         }
+
+        /* Kopfbereich */
+
+        .main-header {
+            background: var(--burgundy);
+            color: var(--white);
+            padding: 25px 5%;
+        }
+
+        .header-inner {
+            width: min(1250px, 100%);
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .brand h1 {
+            margin: 0 0 7px;
+            font-size: 27px;
+        }
+
+        .brand p {
+            margin: 0;
+            color: #f1dddd;
+            font-size: 14px;
+        }
+
+        .logout-button {
+            border: 1px solid #ffffff80;
+            border-radius: 7px;
+            padding: 11px 17px;
+            background: transparent;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .logout-button:hover {
+            background: #ffffff18;
+        }
+
+        /* Hauptbereich */
+
+        main {
+            width: min(1250px, 92%);
+            margin: 35px auto;
+        }
+
+        /* Login */
 
         .login-wrap {
             width: min(430px, 100%);
             margin: 55px auto;
         }
 
-        .login-card,
-        .panel,
-        .count-card {
-            background: white;
+        .login-card {
+            padding: 30px;
+            background: var(--white);
             border: 1px solid var(--border);
             border-radius: 14px;
-        }
-
-        .login-card {
-            padding: 28px;
             box-shadow: 0 8px 25px #00000008;
         }
 
-        h2,
         .login-card h2 {
+            margin-top: 0;
             color: var(--burgundy);
         }
 
-        .field {
-            margin: 18px 0;
+        .login-card > p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
-        label {
+        .field {
+            margin: 20px 0;
+        }
+
+        .field label {
             display: block;
-            margin-bottom: 7px;
+            margin-bottom: 8px;
             font-size: 14px;
             font-weight: 600;
         }
 
-        input {
-            max-width: 100%;
-            border: 1px solid #ccc;
+        .field input {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cccccc;
             border-radius: 7px;
-            padding: 11px;
             font: inherit;
         }
-#username {
-    width: 100%;
-}
 
-#password {
-    width: 100%;
-}
-        
-
-        button {
-            border: none;
-            border-radius: 7px;
-            padding: 10px 14px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        button:disabled {
-            opacity: .6;
-            cursor: wait;
-        }
-
-        .primary-button,
-        .refresh-button,
-        .logout-button,
-        .save-button {
-            background: var(--burgundy);
-            color: white;
+        .field input:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            box-shadow: 0 0 0 3px #87202018;
         }
 
         .primary-button {
             width: 100%;
-        }
-
-        button:hover {
-            filter: brightness(.92);
-        }
-
-        .error {
-            color: #a51d1d;
-        }
-
-        .dashboard-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 24px;
-        }
-
-        .dashboard-top h2 {
-            margin-bottom: 8px;
-        }
-
-        .dashboard-top p {
-            color: var(--muted);
-        }
-
-        .count-card {
-            padding: 18px 24px;
-            min-width: 160px;
-        }
-
-        .count-card span {
-            display: block;
-            color: var(--muted);
-            margin-bottom: 8px;
-        }
-
-        .count-card strong {
-            font-size: 30px;
-            color: var(--burgundy);
-        }
-
-        .panel {
-            overflow: hidden;
-            margin-bottom: 28px;
-        }
-
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-            padding: 18px 20px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .panel-header h3 {
-            margin: 0;
-        }
-
-       
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-radius: 0 0 12px 12px;
-}
-
-table {
-    width: 100%;
-    min-width: 900px;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #ffffff;
-}
-
-th,
-td {
-    padding: 15px 14px;
-    text-align: left;
-    vertical-align: middle;
-    border-bottom: 1px solid #eeeeee;
-}
-
-th {
-    background: #f8f5f5;
-    color: #5c4545;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
-}
-
-td {
-    font-size: 13px;
-    line-height: 1.6;
-}
-
-tbody tr {
-    transition: background-color 0.2s ease;
-}
-
-tbody tr:hover {
-    background: #fcf8f8;
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
-}
-
-td button {
-    white-space: nowrap;
-}
-
-
-        .message {
-            padding: 24px;
-            text-align: center;
-            color: var(--muted);
-        }
-
-        .status {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 20px;
-            background: #fff0d6;
-            color: #815500;
-            font-size: 12px;
-        }
-
-       
-.details-button,
-.small-button {
-    background: #872020;
-    color: #ffffff;
-    border: 1px solid #872020;
-    border-radius: 8px;
-    padding: 9px 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.details-button:hover,
-.small-button:hover {
-    background: #6d1919;
-    border-color: #6d1919;
-}
-
-.details-button:disabled,
-.small-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-      
-
-
-
-
-/* Professionelles Benutzerverwaltung-Design */
-
-.user-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-    min-width: 280px;
-}
-
-.user-actions button,
-.user-actions .small-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 36px;
-    padding: 8px 12px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.4;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background-color 0.2s ease,
-                transform 0.2s ease,
-                box-shadow 0.2s ease;
-}
-
-.user-actions button:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-}
-
-/* Hauptaktion */
-.user-actions button:first-child {
-    background: #872020;
-    color: #ffffff;
-    border-color: #872020;
-}
-
-/* Normale Aktionen */
-.user-actions .small-button {
-    background: #f0e5e5;
-    color: #872020;
-}
-
-/* Löschen */
-.user-actions button:last-child {
-    background: #fff0f0;
-    color: #a32626;
-    border-color: #f0cccc;
-}
-
-/* Tabellenlayout */
-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-thead th {
-    background: #f3f5f7;
-    color: #454545;
-    padding: 14px 12px;
-    text-align: left;
-    font-size: 12px;
-    font-weight: 700;
-    white-space: nowrap;
-    border-bottom: 1px solid #e2e5e9;
-}
-
-tbody td {
-    padding: 14px 12px;
-    vertical-align: middle;
-    border-bottom: 1px solid #eceef1;
-    font-size: 13px;
-}
-
-tbody tr:hover {
-    background: #faf8f8;
-}
-
-/* Kleine Bildschirme */
-@media (max-width: 900px) {
-    .user-actions {
-        min-width: 220px;
-    }
-
-    .user-actions button,
-    .user-actions .small-button {
-        font-size: 11px;
-        padding: 7px 9px;
-    }
-}
-
-.user-actions button {
-    min-height: 34px;
-    padding: 8px 11px;
-    border-radius: 7px;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.4;
-    white-space: normal;
-    overflow-wrap: anywhere;
-    max-width: 180px;
-    transition: background-color 0.2s ease,
-                color 0.2s ease,
-                transform 0.2s ease;
-}
-
-
-
-
-      
-.permission-check {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    margin: 8px 0;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 1.5;
-    cursor: pointer;
-}
-
-.permission-check input {
-    width: 16px;
-    height: 16px;
-    margin: 0;
-    accent-color: var(--burgundy);
-    cursor: pointer;
-    flex-shrink: 0;
-}
-
-.permission-check input:disabled {
-    cursor: not-allowed;
-}
-
-
-        .active-status {
-            color: #176534;
-            background: #e2f5e8;
-        }
-
-        .inactive-status {
-            color: #9b2020;
-            background: #fbe4e4;
-        }
-
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 10;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: #0009;
-        }
-
-        .modal.open {
-            display: flex;
-        }
-
-        .modal-content {
-            width: min(600px, 100%);
-            max-height: 85vh;
-            overflow-y: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 14px;
-        }
-
-        .detail-row {
-            margin: 16px 0;
-            overflow-wrap: anywhere;
-        }
-
-        .detail-row strong {
-            display: block;
-            margin-bottom: 6px;
-        }
-
-        .detail-message {
-            white-space: pre-wrap;
-        }
-
-        .close-button {
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
             background: var(--burgundy);
             color: white;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .primary-button:hover {
+            background: var(--burgundy-dark);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: wait;
+        }
+
+        .login-error {
+            color: #a51d1d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* Dashboard */
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .welcome-section h2 {
+            margin: 0 0 9px;
+            color: var(--burgundy);
+            font-size: 27px;
+        }
+
+        .welcome-section p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .dashboard-label {
+            margin: 0 0 18px;
+            color: #555555;
+            font-size: 17px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .dashboard-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 205px;
+            padding: 24px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            text-decoration: none;
+            color: var(--text);
+            box-shadow: 0 4px 16px #00000004;
+            transition: transform 0.2s, box-shadow 0.2s,
+                        border-color 0.2s;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-3px);
+            border-color: #d7baba;
+            box-shadow: 0 8px 24px #0000000c;
+        }
+
+        .card-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 49px;
+            height: 49px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            background: #f7eeee;
+            color: var(--burgundy);
+            font-size: 25px;
+        }
+
+        .dashboard-card h3 {
+            margin: 0 0 10px;
+            color: var(--burgundy);
+            font-size: 18px;
+        }
+
+        .dashboard-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .card-link {
+            margin-top: auto;
+            padding-top: 20px;
+            color: var(--burgundy);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .access-message {
+            margin-top: 22px;
+            padding: 15px 18px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            background: white;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
         }
 
         footer {
-            text-align: center;
-            padding: 25px;
+            margin-top: 50px;
+            padding: 25px 15px;
+            border-top: 1px solid var(--border);
             color: var(--muted);
+            text-align: center;
             font-size: 13px;
         }
 
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 600px) {
-            header h1 {
-                font-size: 21px;
+            .main-header {
+                padding: 22px 5%;
+            }
+
+            .brand h1 {
+                font-size: 23px;
+            }
+
+            .header-inner {
+                align-items: flex-start;
             }
 
             main {
-                margin: 20px auto;
+                width: 92%;
+                margin: 25px auto;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+
+            .dashboard-card {
+                min-height: 180px;
+                padding: 21px;
+            }
+
+            .welcome-section h2 {
+                font-size: 23px;
             }
 
             .login-card {
-                padding: 22px;
-            }
-
-            .count-card {
-                width: 100%;
+                padding: 23px;
             }
         }
-   
-        
-/* =================================
-   Benutzerformular – GRATIA Design
-================================= */
-
-.user-form {
-    padding: 28px;
-    background: #ffffff;
-}
-
-.user-form-intro {
-    margin: 0 0 28px;
-    color: #777777;
-    font-size: 14px;
-    line-height: 1.7;
-    max-width: 760px;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0 24px;
-}
-
-.form-grid .field {
-    margin: 0 0 24px;
-    min-width: 0;
-}
-
-.form-grid .field-full {
-    grid-column: 1 / -1;
-}
-
-/* Beschriftungen */
-
-.user-form label {
-    display: block;
-    margin-bottom: 9px;
-    color: #333333;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-/* Eingabefelder */
-
-.user-form input,
-.user-form select {
-    display: block;
-    width: 100%;
-    min-height: 48px;
-    padding: 13px 15px;
-    border: 1px solid #dddddd;
-    border-radius: 9px;
-    background: #ffffff;
-    color: #292929;
-    font-family: inherit;
-    font-size: 14px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.user-form input::placeholder {
-    color: #999999;
-}
-
-.user-form input:hover,
-.user-form select:hover {
-    border-color: #b7a0a0;
-}
-
-.user-form input:focus,
-.user-form select:focus {
-    outline: none;
-    border-color: #872020;
-    box-shadow: 0 0 0 3px #87202018;
-}
-
-/* Hinweis zur Sicherheit */
-
-.form-security-note {
-    display: flex;
-    align-items: flex-start;
-    gap: 14px;
-    margin: 4px 0 24px;
-    padding: 17px 18px;
-    border: 1px solid #eadada;
-    border-radius: 10px;
-    background: #fbf6f6;
-    color: #655454;
-    font-size: 13px;
-    line-height: 1.7;
-}
-
-.form-security-note strong {
-    display: block;
-    margin-bottom: 4px;
-    color: #872020;
-    font-size: 14px;
-}
-
-.form-security-icon {
-    flex: 0 0 auto;
-    font-size: 22px;
-}
-
-/* Hauptbutton */
-
-.user-form .primary-button {
-    display: block;
-    width: 100%;
-    min-height: 49px;
-    padding: 14px 20px;
-    border: none;
-    border-radius: 9px;
-    background: #872020;
-    color: #ffffff;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.2s;
-}
-
-.user-form .primary-button:hover {
-    background: #6f1919;
-}
-
-.user-form .primary-button:focus-visible {
-    outline: 3px solid #87202055;
-    outline-offset: 3px;
-}
-
-.user-form .primary-button:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-/* Rückmeldung */
-
-#create-user-message {
-    margin: 16px 0 0;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* Mobile Darstellung */
-
-@media (max-width: 650px) {
-    .user-form {
-        padding: 20px;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-        gap: 0;
-    }
-
-    .form-grid .field-full {
-        grid-column: auto;
-    }
-
-    .form-grid .field {
-        margin-bottom: 20px;
-    }
-
-    .form-security-note {
-        padding: 14px;
-    }
-}
-
-
-
-/* =================================
-   RESPONSIVE DESIGN – GRATIA ADMIN
-================================= */
-
-/* Tablet */
-@media (max-width: 900px) {
-    main {
-        width: 94%;
-        margin: 24px auto;
-    }
-
-    header {
-        padding: 22px 4%;
-    }
-
-    .panel-header {
-        padding: 16px;
-    }
-
-    .user-form {
-        padding: 22px;
-    }
-
-    .modal-content {
-        width: min(600px, 100%);
-    }
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-    header {
-        padding: 20px 5%;
-    }
-
-    header h1 {
-        font-size: 20px;
-        line-height: 1.4;
-    }
-
-    header p {
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    main {
-        width: 92%;
-        margin: 18px auto;
-    }
-
-    .login-wrap {
-        margin: 28px auto;
-    }
-
-    .login-card {
-        padding: 20px;
-    }
-
-    .dashboard-top {
-        align-items: stretch;
-        gap: 12px;
-    }
-
-    .dashboard-top > div {
-        min-width: 0;
-    }
-
-    .dashboard-top h2 {
-        font-size: 21px;
-    }
-
-    .count-card {
-        width: 100%;
-        min-width: 0;
-        padding: 16px;
-    }
-
-    .count-card strong {
-        font-size: 26px;
-    }
-
-    .panel {
-        margin-bottom: 20px;
-        border-radius: 12px;
-    }
-
-    .panel-header {
-        align-items: stretch;
-        padding: 15px;
-        gap: 12px;
-    }
-
-    .panel-header h3 {
-        font-size: 17px;
-        line-height: 1.5;
-    }
-
-    .panel-header p {
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    .panel-header .user-actions {
-        width: 100%;
-    }
-
-    .user-actions button {
-        min-height: 42px;
-    }
-
-    .user-form {
-        padding: 16px;
-    }
-
-    .form-security-note {
-        gap: 10px;
-        font-size: 12px;
-        overflow-wrap: anywhere;
-    }
-
-    .user-form input,
-    .user-form select {
-        min-height: 46px;
-        font-size: 16px;
-    }
-
-    .user-form .primary-button {
-        min-height: 46px;
-    }
-
-    .modal {
-        padding: 12px;
-    }
-
-    .modal-content {
-        width: 100%;
-        max-height: 90dvh;
-        padding: 18px;
-        border-radius: 12px;
-    }
-
-    .close-button {
-        min-height: 42px;
-    }
-
-    footer {
-        padding: 20px 12px;
-        font-size: 12px;
-    }
-
-    /* Tables remain readable and can scroll horizontally */
-    .table-wrapper {
-        max-width: 100%;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    table {
-        min-width: 900px;
-    }
-
-    th,
-    td {
-        padding: 12px;
-    }
-}
-
-/* Very small phones */
-@media (max-width: 380px) {
-    main {
-        width: 94%;
-    }
-
-    .login-card,
-    .user-form {
-        padding: 14px;
-    }
-
-    .panel-header {
-        padding: 12px;
-    }
-
-    .user-actions {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .user-actions button {
-        width: 100%;
-    }
-
-    .modal-content {
-        padding: 14px;
-    }
-}
-
-
-/* Größe der Aktualisieren-Buttons korrigieren */
-#refresh-users-button,
-#refresh-button {
-    width: auto;
-    max-width: 100%;
-    min-height: 38px;
-    padding: 9px 14px;
-    font-size: 13px;
-    line-height: 1.4;
-    flex: 0 0 auto;
-}
-
-@media (max-width: 600px) {
-    #refresh-users-button,
-    #refresh-button {
-        width: fit-content;
-        max-width: 100%;
-        align-self: flex-start;
-    }
-}
- 
-
-
-/* Mobile card layout for user management */
-@media (max-width: 600px) {
-    .users-table-wrapper {
-        overflow-x: visible;
-    }
-
-    .users-table-wrapper table {
-        width: 100%;
-        min-width: 0;
-        border-collapse: separate;
-        border-spacing: 0;
-        background: transparent;
-    }
-
-    .users-table-wrapper thead {
-        display: none;
-    }
-
-    .users-table-wrapper tbody {
-        display: grid;
-        gap: 16px;
-        padding: 14px;
-    }
-
-    .users-table-wrapper tbody tr {
-        display: block;
-        min-width: 0;
-        padding: 12px;
-        border: 1px solid var(--border);
-        border-radius: 12px;
-        background: #ffffff;
-        box-shadow: 0 3px 12px #00000008;
-    }
-
-    .users-table-wrapper tbody tr:hover {
-        background: #ffffff;
-    }
-
-    .users-table-wrapper tbody td {
-        display: grid;
-        grid-template-columns: minmax(90px, 0.8fr) minmax(0, 1.2fr);
-        gap: 10px;
-        align-items: start;
-        padding: 11px 2px;
-        border-bottom: 1px solid #eeeeee;
-        overflow-wrap: anywhere;
-    }
-
-    .users-table-wrapper tbody td::before {
-        content: attr(data-label);
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 700;
-    }
-
-    .users-table-wrapper tbody td:last-child {
-        border-bottom: none;
-    }
-
-    .users-table-wrapper .permission-check {
-        align-items: flex-start;
-        margin: 5px 0 10px;
-        font-size: 12px;
-    }
-
-    .users-table-wrapper .user-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 8px;
-        min-width: 0;
-    }
-
-    .users-table-wrapper .user-actions button {
-        width: 100%;
-        max-width: none;
-        min-height: 42px;
-        padding: 10px;
-        white-space: normal;
-        overflow-wrap: anywhere;
-    }
-}
-
-
-/* Kontaktanfragen – kompaktere Darstellung */
-#refresh-button,
-#logout-button,
-#refresh-users-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: auto;
-    min-height: 36px;
-    padding: 8px 12px;
-    font-size: 13px;
-    line-height: 1.4;
-    flex: 0 0 auto;
-}
-
-#message-container .table-wrapper {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-}
-
-#message-container table {
-    min-width: 850px;
-}
-
-@media (max-width: 600px) {
-    #message-container .table-wrapper {
-        border-radius: 0 0 10px 10px;
-    }
-
-    #message-container th,
-    #message-container td {
-        padding: 11px 10px;
-        font-size: 12px;
-    }
-}
-
-
-
-/* Benutzerformular – kompakter und responsiv */
-.user-form {
-    padding: 22px;
-}
-
-.user-form-intro {
-    margin-bottom: 22px;
-}
-
-.form-grid {
-    column-gap: 20px;
-}
-
-.form-grid .field {
-    margin-bottom: 18px;
-}
-
-.user-form input,
-.user-form select {
-    min-height: 44px;
-    padding: 10px 13px;
-    border-radius: 8px;
-}
-
-.form-security-note {
-    padding: 14px 16px;
-    margin-bottom: 20px;
-}
-
-@media (max-width: 650px) {
-    .user-form {
-        padding: 16px;
-    }
-
-    .form-grid {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .form-grid .field {
-        margin-bottom: 16px;
-    }
-
-    .user-form input,
-    .user-form select {
-        width: 100%;
-        min-width: 0;
-        font-size: 16px;
-    }
-
-    .user-form .primary-button {
-        width: 100%;
-        min-height: 44px;
-    }
-}
-
-
-/* Kontaktanfragen: Karten auf kleinen Bildschirmen */
-
-@media (max-width: 600px) {
-    #message-container .contact-table {
-        width: 100%;
-        min-width: 0;
-        border-collapse: separate;
-        border-spacing: 0;
-        background: transparent;
-    }
-
-    #message-container .contact-table thead {
-        display: none;
-    }
-
-    #message-container .contact-table,
-    #message-container .contact-table tbody {
-        display: block;
-        width: 100%;
-    }
-
-    #message-container .contact-table .contact-row {
-        display: block;
-        margin: 12px;
-        padding: 10px 14px;
-        background: #ffffff;
-        border: 1px solid #e6e6e6;
-        border-radius: 12px;
-        box-shadow: 0 3px 12px #00000008;
-    }
-
-    #message-container .contact-table .contact-row td {
-        display: grid;
-        grid-template-columns: minmax(82px, 0.7fr) minmax(0, 1.5fr);
-        align-items: start;
-        gap: 10px;
-        width: 100%;
-        padding: 10px 0;
-        border-bottom: 1px solid #eeeeee;
-        font-size: 13px;
-        white-space: normal;
-        overflow-wrap: anywhere;
-    }
-
-    #message-container .contact-table .contact-row td:last-child {
-        border-bottom: none;
-    }
-
-    #message-container .contact-table .contact-row td::before {
-        content: attr(data-label);
-        color: #777777;
-        font-weight: 600;
-    }
-
-    #message-container .contact-table .contact-row td button {
-        justify-self: start;
-        min-height: 38px;
-        padding: 9px 15px;
-    }
-
-    #message-container .table-wrapper {
-        overflow: visible;
-    }
-}
-
-
-
-/* Mobile design: Create user form */
-@media (max-width: 600px) {
-    #users-panel .panel-header {
-        padding: 16px;
-    }
-
-    #users-panel .panel-header h3 {
-        font-size: 18px;
-        line-height: 1.4;
-    }
-
-    #users-panel .panel-header p {
-        font-size: 13px;
-        line-height: 1.5;
-    }
-
-    #create-user-form.user-form {
-        padding: 16px;
-    }
-
-    #create-user-form .user-form-intro {
-        margin-bottom: 20px;
-        font-size: 13px;
-        line-height: 1.6;
-    }
-
-    #create-user-form .form-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0;
-    }
-
-    #create-user-form .form-grid .field {
-        margin-bottom: 17px;
-        min-width: 0;
-    }
-
-    #create-user-form label {
-        margin-bottom: 7px;
-        font-size: 13px;
-    }
-
-    #create-user-form input,
-    #create-user-form select {
-        width: 100%;
-        min-width: 0;
-        min-height: 44px;
-        padding: 10px 12px;
-        font-size: 16px;
-        border-radius: 8px;
-    }
-
-    #create-user-form .form-security-note {
-        padding: 12px;
-        gap: 10px;
-        font-size: 12px;
-        line-height: 1.6;
-        overflow-wrap: anywhere;
-    }
-
-    #create-user-form .form-security-icon {
-        font-size: 19px;
-    }
-
-    #create-user-form .primary-button {
-        width: 100%;
-        min-height: 44px;
-        padding: 12px;
-        font-size: 14px;
-    }
-
-    #create-user-message {
-        overflow-wrap: anywhere;
-    }
-}
-
-
-/* Nachrichten-Karte – GRATIA Design */
-.count-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 100px;
-    padding: 18px 22px;
-    border-radius: 14px;
-    background: #ffffff;
-}
-
-.count-card span {
-    margin-bottom: 5px;
-    font-size: 14px;
-    line-height: 1.4;
-}
-
-.count-card strong {
-    font-size: 28px;
-    line-height: 1.2;
-    color: var(--burgundy);
-}
-
-/* Mobile */
-@media (max-width: 600px) {
-    .count-card {
-        min-height: 78px;
-        padding: 14px 16px;
-        gap: 10px;
-        border-radius: 12px;
-    }
-
-    .count-card span {
-        margin-bottom: 4px;
-        font-size: 13px;
-    }
-
-    .count-card strong {
-        font-size: 25px;
-    }
-}
-
-
-
-/* Icon for saved messages */
-.count-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-height: 90px;
-    padding: 16px 20px;
-}
-
-.count-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 46px;
-    width: 46px;
-    height: 46px;
-    border-radius: 12px;
-    background: #872020;
-    color: #ffffff;
-    font-size: 25px;
-}
-
-.count-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    min-width: 0;
-}
-
-.count-info span {
-    margin: 0;
-    font-size: 14px;
-}
-
-.count-info strong {
-    font-size: 26px;
-    line-height: 1.2;
-    color: #872020;
-}
-
-@media (max-width: 600px) {
-    .count-card {
-        min-height: 76px;
-        padding: 12px 14px;
-        gap: 11px;
-    }
-
-    .count-icon {
-        flex-basis: 42px;
-        width: 42px;
-        height: 42px;
-        font-size: 23px;
-    }
-
-    .count-info span {
-        font-size: 13px;
-    }
-
-    .count-info strong {
-        font-size: 24px;
-    }
-}
-
-
-@media (max-width: 600px) {
-    #message-container .contact-table .contact-row {
-        margin: 10px;
-        padding: 8px 13px;
-        border-radius: 12px;
-    }
-
-    #message-container .contact-table .contact-row td {
-        padding: 9px 0;
-        line-height: 1.45;
-    }
-
-    #message-container .contact-table .contact-row td button {
-        min-height: 36px;
-        padding: 8px 14px;
-    }
-}
-
-
-/* Mobile: Benutzerverwaltung kompakter gestalten */
-@media (max-width: 600px) {
-    #users-panel .table-wrapper {
-        width: 100%;
-        max-width: 100%;
-        overflow-x: visible;
-    }
-
-    #users-panel .contact-table {
-        width: 100%;
-    }
-
-    #users-panel .table-wrapper table {
-        width: 100%;
-        min-width: 0;
-    }
-
-    #users-panel .table-wrapper tbody tr {
-        margin: 10px;
-        padding: 8px 12px;
-        border: 1px solid #e6e6e6;
-        border-radius: 12px;
-        background: #ffffff;
-    }
-
-    #users-panel .table-wrapper tbody tr td {
-        padding: 9px 0;
-        line-height: 1.5;
-    }
-
-    #users-panel .permission-check {
-        gap: 8px;
-        margin: 8px 0;
-        font-size: 12px;
-    }
-
-    #users-panel .permission-check input {
-        width: 18px;
-        height: 18px;
-    }
-
-    #users-panel .user-actions {
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    #users-panel .user-actions button {
-        width: auto;
-        max-width: 100%;
-        min-height: 38px;
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-
-    #refresh-users-button {
-        min-height: 38px;
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-}
-
-/* Benutzerverwaltung: Mobile Feinschliff */
-@media (max-width: 600px) {
-    #users-panel .table-wrapper tbody tr {
-        padding: 10px 12px;
-        margin: 10px;
-    }
-
-    #users-panel .table-wrapper tbody tr td {
-        padding: 8px 0;
-        line-height: 1.4;
-    }
-
-    #users-panel .permission-check {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin: 5px 0;
-        line-height: 1.4;
-    }
-
-    #users-panel .permission-check input {
-        width: 18px;
-        height: 18px;
-        margin: 0;
-        flex-shrink: 0;
-    }
-
-    #users-panel .user-actions {
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 8px;
-    }
-
-    #users-panel .user-actions button {
-        width: auto;
-        max-width: 100%;
-        min-height: 36px;
-        padding: 8px 12px;
-        font-size: 12px;
-    }
-
-    #users-panel .user-actions button:hover {
-        transform: none;
-    }
-}
-
-
-/* Mobile: einheitliche Aktionsbuttons */
-@media (max-width: 600px) {
-    #users-panel .user-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-    }
-
-    #users-panel .user-actions button {
-        box-sizing: border-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 180px;
-        max-width: 100%;
-        min-height: 40px;
-        padding: 9px 12px;
-        margin: 0;
-        font-size: 12px;
-        line-height: 1.4;
-        white-space: normal;
-    }
-}
-
-
-/* Berechtigungen: Checkboxen untereinander */
-@media (max-width: 600px) {
-    #users-panel .permission-check {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        width: 100%;
-        gap: 9px;
-        margin: 8px 0;
-    }
-
-    #users-panel .permission-check input {
-        flex: 0 0 18px;
-        width: 18px;
-        height: 18px;
-        margin: 0;
-    }
-}
-
-
-@media (max-width: 600px) {
-    #users-panel .permission-check + .permission-check {
-        margin-top: 8px;
-    }
-}
-
-
-/* Mobile: Berechtigungen untereinander ausrichten */
-@media (max-width: 600px) {
-    #users-panel td:has(.permission-check) {
-        display: block !important;
-        width: 100% !important;
-        padding: 4px 0 !important;
-        border-bottom: 0 !important;
-    }
-
-    #users-panel td:has(.permission-check)::before {
-        display: none !important;
-    }
-
-    #users-panel .permission-check {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        justify-content: flex-start !important;
-        width: 100% !important;
-        margin: 6px 0 !important;
-        padding: 0 !important;
-        gap: 9px !important;
-    }
-
-    #users-panel .permission-check input {
-        flex: 0 0 18px !important;
-        width: 18px !important;
-        height: 18px !important;
-        margin: 0 !important;
-    }
-}
-
-
-@media (max-width: 600px) {
-    #login-section {
-        width: 100%;
-        max-width: 100%;
-        padding: 20px 16px;
-        box-sizing: border-box;
-    }
-
-    #login-section input {
-        width: 100%;
-        max-width: 100%;
-        min-height: 44px;
-        box-sizing: border-box;
-    }
-
-    #login-section button {
-        width: 100%;
-        min-height: 44px;
-    }
-}
-
-
-
-#delete-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(20, 20, 20, 0.55);
-    backdrop-filter: blur(4px);
-}
-
-#delete-modal.is-open {
-    display: flex;
-}
-
-.delete-modal-content {
-    width: 100%;
-    max-width: 430px;
-    padding: 32px;
-    text-align: center;
-    background: #ffffff;
-    border-radius: 18px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
-    animation: deleteModalIn 0.2s ease-out;
-}
-
-.delete-modal-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 54px;
-    height: 54px;
-    margin: 0 auto 18px;
-    border-radius: 50%;
-    background: #f8e8e8;
-    color: #872020;
-    font-size: 30px;
-    font-weight: 700;
-}
-
-.delete-modal-content h2 {
-    margin: 0 0 14px;
-    color: #292929;
-    font-size: 23px;
-}
-
-.delete-modal-content p {
-    line-height: 1.6;
-    color: #555555;
-}
-
-.delete-modal-warning {
-    font-size: 13px;
-    color: #872020 !important;
-}
-
-.delete-modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 25px;
-    flex-wrap: wrap;
-}
-
-.delete-confirm-button {
-    border: none;
-    border-radius: 8px;
-    padding: 11px 18px;
-    background: #872020;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.delete-confirm-button:hover {
-    background: #681717;
-}
-
-.delete-confirm-button:disabled {
-    opacity: 0.6;
-    cursor: wait;
-}
-
-@keyframes deleteModalIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-
-/* پنجره تأیید عملیات */
-.confirm-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    background: rgba(20, 20, 20, 0.55);
-    backdrop-filter: blur(4px);
-}
-
-.confirm-modal-content {
-    width: 100%;
-    max-width: 420px;
-    padding: 28px;
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-    text-align: center;
-    animation: confirmModalIn 0.2s ease-out;
-}
-
-.confirm-modal-content h3 {
-    margin: 0 0 14px;
-    color: #872020;
-    font-size: 22px;
-}
-
-.confirm-modal-content p {
-    margin: 0 0 26px;
-    color: #444444;
-    font-size: 15px;
-    line-height: 1.7;
-    overflow-wrap: anywhere;
-}
-
-.confirm-modal-actions {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.confirm-modal-actions button {
-    min-width: 120px;
-    padding: 11px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.confirm-modal-actions .confirm-cancel {
-    background: #e7e7e7;
-    color: #333333;
-}
-
-.confirm-modal-actions .confirm-ok {
-    background: #872020;
-    color: #ffffff;
-}
-
-.confirm-modal-actions button:hover {
-    filter: brightness(0.94);
-}
-
-@keyframes confirmModalIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px) scale(0.98);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
-}
-
-
-/* ===== GR​ATIA Benutzerverwaltung ===== */
-
-#users-panel {
-    margin-top: 24px;
-}
-
-#users-panel table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-#users-panel thead th {
-    background: #f0f5f8;
-    color: #303846;
-    font-weight: 600;
-    font-size: 13px;
-    text-align: left;
-    padding: 15px 12px;
-    border-bottom: 1px solid #e5e7eb;
-}
-
-#users-panel tbody td {
-    padding: 16px 12px;
-    border-bottom: 1px solid #edf0f2;
-    vertical-align: middle;
-    font-size: 13px;
-}
-
-#users-panel tbody tr:last-child td {
-    border-bottom: none;
-}
-
-#users-panel tbody tr:hover {
-    background: #faf7f7;
-}
-
-#users-panel .small-button,
-#users-panel .details-button {
-    min-height: 36px;
-    padding: 8px 12px;
-    border-radius: 7px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-#users-panel .small-button:hover,
-#users-panel .details-button:hover {
-    transform: translateY(-1px);
-}
-
-#users-panel .user-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-}
-
-#users-panel input[type="checkbox"] {
-    accent-color: #872020;
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    margin-right: 5px;
-}
-
-@media (max-width: 900px) {
-    #users-panel {
-        overflow-x: auto;
-    }
-
-    #users-panel table {
-        min-width: 850px;
-    }
-}
-
-/* Professionelles Layout für die Benutzerverwaltung */
-#users-panel {
-    width: 100%;
-    overflow-x: auto;
-}
-
-#users-panel table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    table-layout: auto;
-}
-
-#users-panel th,
-#users-panel td {
-    padding: 14px 12px;
-    vertical-align: middle;
-    text-align: left;
-}
-
-#users-panel th {
-    white-space: nowrap;
-}
-
-#users-panel td:last-child {
-    min-width: 360px;
-}
-
-#users-panel .user-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 8px;
-}
-
-#users-panel .user-actions button,
-#users-panel .user-actions .small-button {
-    min-height: 38px;
-    padding: 9px 14px;
-    margin: 0;
-    border-radius: 8px;
-    font-size: 13px;
-    line-height: 1.3;
-    white-space: nowrap;
-}
-
-@media (max-width: 900px) {
-    #users-panel td:last-child {
-        min-width: 300px;
-    }
-
-    #users-panel .user-actions {
-        gap: 6px;
-    }
-}
-
-
-.admin-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.admin-header-text {
-    min-width: 0;
-}
-
-.admin-menu-toggle {
-    flex-shrink: 0;
-    background: #872020;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-
-/* Rechtes Seitenmenü im Adminbereich */
-
-.admin-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-}
-
-.admin-header-text {
-    min-width: 0;
-}
-
-.admin-menu-toggle {
-    flex-shrink: 0;
-    background: #872020;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 10px 14px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.admin-menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 290px;
-    max-width: 85vw;
-    height: 100vh;
-    box-sizing: border-box;
-    overflow-y: auto;
-    z-index: 9999;
-    margin: 0;
-    padding: 24px 18px;
-    background: #ffffff;
-    border-left: 1px solid #e7e7e7;
-    box-shadow: -8px 0 28px rgba(0, 0, 0, 0.18);
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.admin-menu[hidden] {
-    display: none !important;
-}
-
-.admin-menu-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 16px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #e7e7e7;
-    color: #872020;
-}
-
-#admin-menu-close {
-    background: #f5eaea;
-    color: #872020;
-    border: none;
-    border-radius: 8px;
-    font-size: 26px;
-    width: 38px;
-    height: 38px;
-    cursor: pointer;
-}
-
-.admin-menu a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 13px 12px;
-    color: #333333;
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.2s ease;
-}
-
-.admin-menu a span {
-    display: inline-block;
-    width: 24px;
-    text-align: center;
-    color: #872020;
-    font-size: 20px;
-}
-
-.admin-menu a:hover {
-    background: #f5eaea;
-    color: #872020;
-}
-
-
-   </style>
-
+    </style>
 </head>
 
 <body>
 
+<header class="main-header">
+    <div class="header-inner">
+        <div class="brand">
+            <h1>GRATIA – Dashboard</h1>
+            <p>Interner Verwaltungsbereich</p>
+        </div>
 
-<header class="admin-header">
-    <div class="admin-header-text">
-        <h1>GRATIA – Adminbereich</h1>
-        <p>Verwaltung der Kontaktanfragen und Benutzerkonten</p>
+        <button
+            type="button"
+            id="logout-button"
+            class="logout-button hidden">
+            Abmelden
+        </button>
     </div>
-
-    <button
-        type="button"
-        id="admin-menu-toggle"
-        class="admin-menu-toggle"
-        aria-label="Menü öffnen"
-        aria-expanded="false"
-    >
-        ☰
-    </button>
 </header>
-
-<nav id="admin-menu" class="admin-menu" hidden>
-    <div class="admin-menu-heading">
-        <strong>Menü</strong>
-        <button type="button" id="admin-menu-close"
-                aria-label="Menü schließen">×</button>
-    </div>
-
-    <a href="#dashboard">
-        <span>▦</span> Dashboard
-    </a>
-    <a href="#users-panel">
-        <span>♙</span> Benutzerverwaltung
-    </a>
-    <a href="#applications-panel">
-        <span>▣</span> Jobbewerbungen
-    </a>
-    <a href="stellenverwaltung.html">
-    <span>▤</span> Stellenverwaltung
-</a>
-     <a href="newsverwaltung.html">
-    <span>▤</span> Newsverwaltung
-</a>
-    <a href="#messages-panel">
-        <span>✉</span> Kontaktanfragen
-    </a>
-    <a href="#settings-panel">
-        <span>⚙</span> Einstellungen
-    </a>
-</nav>
-
-
 
 <main>
 
-    <!-- Anmeldung -->
+    <!-- Admin-Anmeldung -->
     <section id="login-section" class="login-wrap">
         <div class="login-card">
             <h2>Admin-Anmeldung</h2>
-
-            <p>Bitte melden Sie sich mit Ihrem GRATIA-Benutzerkonto an.</p>
+            <p>
+                Bitte melden Sie sich mit Ihrem
+                GRATIA-Benutzerkonto an.
+            </p>
 
             <form id="login-form">
                 <div class="field">
@@ -2067,8 +351,7 @@ tbody tr:hover {
                         id="username"
                         name="username"
                         autocomplete="username"
-                        required
-                    >
+                        required>
                 </div>
 
                 <div class="field">
@@ -2078,439 +361,325 @@ tbody tr:hover {
                         name="password"
                         type="password"
                         autocomplete="current-password"
-                        required
-                    >
+                        required>
                 </div>
 
-                <button class="primary-button" id="login-button" type="submit">
+                <button
+                    class="primary-button"
+                    id="login-button"
+                    type="submit">
                     Anmelden
                 </button>
 
-                <p id="login-message" aria-live="polite"></p>
+                <p
+                    id="login-message"
+                    class="login-error"
+                    role="status"
+                    aria-live="polite"></p>
             </form>
         </div>
     </section>
 
-    <!-- Dashboard -->
+    <!-- Zentrales Dashboard -->
     <section id="dashboard-section" class="hidden">
 
-        <div class="dashboard-top">
+        <div class="welcome-section">
             <div>
                 <h2>Willkommen</h2>
-                <p id="welcome-message">GRATIA-Verwaltung</p>
-            </div>
-
-            <div class="count-card">
-                
-<div class="count-icon" aria-hidden="true">
-    ✉
-</div>
-
-<div class="count-info">
-    <span>Gespeicherte Nachrichten</span>
-    <strong id="message-count">–</strong>
-</div>
-
+                <p id="welcome-message">
+                    GRATIA-Verwaltung
+                </p>
             </div>
         </div>
 
-        <!-- Kontaktanfragen -->
-        <section class="panel">
-            <div class="panel-header">
-                <h3>Alle Kontaktanfragen</h3>
+        <h3 class="dashboard-label">
+            Verwaltungsbereiche
+        </h3>
 
-                <div class="user-actions">
-                    <button id="refresh-button" class="refresh-button">
-                        Aktualisieren ↻
-                    </button>
+        <div class="dashboard-grid">
 
-                    <button id="logout-button" class="logout-button">
-                        Abmelden
-                    </button>
-                </div>
-            </div>
+            <!-- Kontaktanfragen -->
+            <a
+                href="kontaktanfragen.html"
+                class="dashboard-card"
+                data-permission="contact_messages.read">
 
-            <div id="message-container" class="message">
-                Nachrichten werden geladen …
-            </div>
-        </section>
+                <div class="card-icon" aria-hidden="true">✉</div>
 
-        <!-- Benutzerverwaltung -->
-        <section id="users-panel" class="panel hidden">
-            <div class="panel-header">
-                <div>
-                    <h3>Benutzerverwaltung</h3>
-                    <p>Benutzer und Berechtigungen verwalten</p>
-                </div>
+                <h3>Kontaktanfragen</h3>
 
-                <button id="refresh-users-button" class="refresh-button">
-                    Benutzer aktualisieren ↻
-                </button>
-            </div>
+                <p>
+                    Eingegangene Nachrichten ansehen
+                    und Kontaktdetails verwalten.
+                </p>
 
-            <div id="users-message" class="message">
-                Benutzer werden geladen …
-            </div>
+                <span class="card-link">
+                    Bereich öffnen →
+                </span>
+            </a>
 
+            <!-- Jobbewerbungen -->
+            <a
+                href="Jobbewerbungen.html"
+                class="dashboard-card"
+                data-permission="applications.read">
 
-<!-- Neuen Benutzer hinzufügen -->
-<div class="panel-header">
-    <div>
-        <h3>Neuen Benutzer hinzufügen</h3>
-        <p>Neues Benutzerkonto für GRATIA vorbereiten</p>
-    </div>
-</div>
+                <div class="card-icon" aria-hidden="true">▣</div>
 
-<form id="create-user-form" class="user-form">
+                <h3>Jobbewerbungen</h3>
 
-    <p class="user-form-intro">
-        Legen Sie ein neues Benutzerkonto an und wählen Sie
-        die passende Benutzerrolle.
-    </p>
+                <p>
+                    Bewerbungen prüfen und
+                    Lebensläufe herunterladen.
+                </p>
 
-    <div class="form-grid">
+                <span class="card-link">
+                    Bereich öffnen →
+                </span>
+            </a>
 
-        <div class="field field-full">
-            <label for="new-full-name">
-                Vollständiger Name
-            </label>
+            <!-- Benutzerverwaltung -->
+            <a
+                href="benutzerverwaltung.html"
+                class="dashboard-card"
+                data-permission="users.manage">
 
-            <input
-                type="text"
-                id="new-full-name"
-                name="full_name"
-                placeholder="Vorname und Nachname"
-                maxlength="150"
-                autocomplete="name"
-                required
-            >
+                <div class="card-icon" aria-hidden="true">♙</div>
+
+                <h3>Benutzerverwaltung</h3>
+
+                <p>
+                    Benutzerkonten und
+                    Zugriffsberechtigungen verwalten.
+                </p>
+
+                <span class="card-link">
+                    Bereich öffnen →
+                </span>
+            </a>
+
+            <!-- Stellenverwaltung -->
+            <a
+                href="stellenverwaltung.html"
+                class="dashboard-card"
+                data-permission="jobs.manage">
+
+                <div class="card-icon" aria-hidden="true">▤</div>
+
+                <h3>Stellenverwaltung</h3>
+
+                <p>
+                    Stellenangebote erstellen,
+                    bearbeiten und verwalten.
+                </p>
+
+                <span class="card-link">
+                    Bereich öffnen →
+                </span>
+            </a>
+
+            <!-- Newsverwaltung -->
+            <a
+                href="newsverwaltung.html"
+                class="dashboard-card"
+                data-permission="news.manage">
+
+                <div class="card-icon" aria-hidden="true">▧</div>
+
+                <h3>Newsverwaltung</h3>
+
+                <p>
+                    Unternehmensnachrichten und
+                    Beiträge verwalten.
+                </p>
+
+                <span class="card-link">
+                    Bereich öffnen →
+                </span>
+            </a>
+
+            <!-- Mitarbeiterbereich -->
+            <a
+                href="mitarbeiter.html"
+                class="dashboard-card"
+                data-permission="employee.portal">
+
+                <div class="card-icon" aria-hidden="true">♧</div>
+
+                <h3>Mitarbeiterbereich</h3>
+
+                <p>
+                    Das GRATIA-Mitarbeiterportal öffnen.
+                </p>
+
+                <span class="card-link">
+                    Bereich öffnen →
+                </span>
+            </a>
+
         </div>
 
-        <div class="field">
-            <label for="new-username">
-                Benutzername
-            </label>
-
-            <input
-                type="text"
-                id="new-username"
-                name="username"
-                placeholder="z. B. max.mustermann"
-                maxlength="100"
-                autocomplete="off"
-                required
-            >
+        <div
+            id="dashboard-message"
+            class="access-message hidden"
+            role="status">
         </div>
-
-        <div class="field">
-            <label for="new-email">
-                E-Mail-Adresse
-            </label>
-
-            <input
-                type="email"
-                id="new-email"
-                name="email"
-                placeholder="name@firma.de"
-                maxlength="255"
-                autocomplete="email"
-                required
-            >
-        </div>
-
-        <div class="field field-full">
-            <label for="new-role">
-                Benutzerrolle
-            </label>
-
-            <select
-                id="new-role"
-                name="role"
-                required
-            >
-                <option value="employee">
-                    Mitarbeiter/in
-                </option>
-
-                <option value="admin">
-                    Administrator/in
-                </option>
-            </select>
-        </div>
-
-    </div>
-
-    <div class="form-security-note">
-        <span
-            class="form-security-icon"
-            aria-hidden="true"
-        >🔒</span>
-
-        <div>
-            <strong>Sichere Kontoaktivierung</strong>
-
-            Das Benutzerkonto darf erst nach Einrichtung
-            eines sicheren Einladungs- und Passwortverfahrens
-            verwendet werden.
-        </div>
-    </div>
-
-    <button
-        type="submit"
-        class="primary-button"
-        id="create-user-button"
-    >
-        Benutzer vorbereiten
-    </button>
-
-    <p
-        id="create-user-message"
-        role="status"
-        aria-live="polite"
-    ></p>
-
-</form>
-
-        </section>
-
-        
-        </section>
-
-        <!-- Jobbewerbungen -->
-        <section id="applications-panel" class="panel hidden">
-            <div class="panel-header">
-                <div>
-                    <h3>Jobbewerbungen</h3>
-                    <p>Bewerbungen und Lebensläufe verwalten</p>
-                </div>
-
-                <button
-                    type="button"
-                    id="refresh-applications-button"
-                    class="refresh-button"
-                >
-                    Bewerbungen aktualisieren ↻
-                </button>
-            </div>
-
-            <div
-                id="applications-message"
-                class="message"
-                role="status"
-                aria-live="polite"
-            >
-                Bewerbungen werden geladen …
-            </div>
-
-            <div class="applications-table-wrapper">
-                <table id="applications-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Position</th>
-                            <th>E-Mail</th>
-                            <th>Eingegangen am</th>
-                            <th>Status</th>
-                            <th>Aktionen</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="applications-table-body">
-                        <tr>
-                            <td colspan="6">
-                                Bewerbungen werden geladen …
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        
 
     </section>
+
 </main>
-
-
-    </section>
-</main>
-
-<!-- Details eines Kontakts -->
-<div class="modal" id="message-modal" role="dialog" aria-modal="true">
-    <div class="modal-content">
-        <h2>Nachrichtendetails</h2>
-        <div id="message-details"></div>
-
-        <button id="close-modal" class="close-button">
-            Schließen
-        </button>
-    </div>
-</div>
-
-<div class="modal" id="delete-modal" role="dialog"
-     aria-modal="true" aria-labelledby="delete-modal-title">
-    <div class="modal-content delete-modal-content">
-        <div class="delete-modal-icon">!</div>
-
-        <h2 id="delete-modal-title">Benutzer löschen</h2>
-
-        <p id="delete-modal-text">
-            Möchten Sie diesen Benutzer wirklich löschen?
-        </p>
-
-        <p class="delete-modal-warning">
-            Diese Aktion kann nicht rückgängig gemacht werden.
-        </p>
-
-        <div class="delete-modal-actions">
-            <button type="button" id="cancel-delete"
-                    class="small-button">
-                Abbrechen
-            </button>
-
-            <button type="button" id="confirm-delete"
-                    class="delete-confirm-button">
-                Ja, löschen
-            </button>
-        </div>
-    </div>
-</div>
 
 <footer>
     Pflegedienst GRATIA GmbH · Interner Verwaltungsbereich
 </footer>
 
 <script>
-    const API_BASE = "http://localhost:3000/api";
-    const TOKEN_KEY = "gratia_admin_token";
-    const USER_KEY = "gratia_admin_user";
+"use strict";
 
-    const $ = id => document.getElementById(id);
+const API_BASE = "http://localhost:3000/api";
+const TOKEN_KEY = "gratia_admin_token";
+const USER_KEY = "gratia_admin_user";
 
-    const loginSection = $("login-section");
-    const dashboardSection = $("dashboard-section");
-    const loginForm = $("login-form");
-    const loginButton = $("login-button");
-    const loginMessage = $("login-message");
-    const usernameInput = $("username");
-    const passwordInput = $("password");
+const $ = id => document.getElementById(id);
 
-    const container = $("message-container");
-    const countElement = $("message-count");
-    const refreshButton = $("refresh-button");
+const loginSection = $("login-section");
+const dashboardSection = $("dashboard-section");
+const loginForm = $("login-form");
+const loginButton = $("login-button");
+const loginMessage = $("login-message");
+const usernameInput = $("username");
+const passwordInput = $("password");
+const logoutButton = $("logout-button");
+const dashboardMessage = $("dashboard-message");
 
-
-    const usersPanel = $("users-panel");
-    const usersMessage = $("users-message");
-    const refreshUsersButton = $("refresh-users-button");
-
-    const modal = $("message-modal");
-    const detailsContainer = $("message-details");
-
-    function getToken() {
-        return sessionStorage.getItem(TOKEN_KEY);
-    }
-
-    function showLogin(message = "") {
-        dashboardSection.classList.add("hidden");
-        loginSection.classList.remove("hidden");
-        loginMessage.className = "error";
-        loginMessage.textContent = message;
-        passwordInput.value = "";
-    }
-
-
-function showDeleteModal(userName) {
-    return new Promise(resolve => {
-        const modal = document.getElementById("delete-modal");
-        const text = document.getElementById("delete-modal-text");
-        const cancelButton = document.getElementById("cancel-delete");
-        const confirmButton = document.getElementById("confirm-delete");
-
-        text.textContent =
-            `Möchten Sie "${userName}" wirklich dauerhaft löschen?`;
-
-        modal.classList.add("is-open");
-
-        function closeModal(result) {
-            modal.classList.remove("is-open");
-            cancelButton.removeEventListener("click", cancel);
-            confirmButton.removeEventListener("click", confirm);
-            resolve(result);
-        }
-
-        function cancel() {
-            closeModal(false);
-        }
-
-        function confirm() {
-            closeModal(true);
-        }
-
-        cancelButton.addEventListener("click", cancel);
-        confirmButton.addEventListener("click", confirm);
-    });
+function getToken() {
+    return sessionStorage.getItem(TOKEN_KEY);
 }
 
-
-    function showDashboard(user) {
-        loginSection.classList.add("hidden");
-        dashboardSection.classList.remove("hidden");
-
-        const name = user.full_name || user.username || "Benutzer";
-
-        $("welcome-message").textContent = "Angemeldet als " + name;
+function getCurrentUser() {
+    try {
+        return JSON.parse(
+            sessionStorage.getItem(USER_KEY) || "null"
+        );
+    } catch {
+        return null;
     }
-
-    
-function showConfirmModal(message, title = "Bestätigung") {
-    return new Promise((resolve) => {
-        const existingModal = document.getElementById("confirm-modal");
-
-        if (existingModal) {
-            existingModal.remove();
-        }
-
-        const modal = document.createElement("div");
-        modal.id = "confirm-modal";
-        modal.className = "confirm-modal";
-
-        modal.innerHTML = `
-            <div class="confirm-modal-content" role="dialog"
-                 aria-modal="true" aria-labelledby="confirm-title">
-                <h3 id="confirm-title"></h3>
-                <p id="confirm-message"></p>
-                <div class="confirm-modal-actions">
-                    <button type="button" class="confirm-cancel">
-                        Abbrechen
-                    </button>
-                    <button type="button" class="confirm-ok">
-                        Bestätigen
-                    </button>
-                </div>
-            </div>
-        `;
-
-        modal.querySelector("#confirm-title").textContent = title;
-        modal.querySelector("#confirm-message").textContent = message;
-
-        document.body.appendChild(modal);
-
-        const closeModal = (result) => {
-            modal.remove();
-            resolve(result);
-        };
-
-        modal.querySelector(".confirm-cancel")
-            .addEventListener("click", () => closeModal(false));
-
-        modal.querySelector(".confirm-ok")
-            .addEventListener("click", () => closeModal(true));
-
-        modal.addEventListener("click", (event) => {
-            if (event.target === modal) closeModal(false);
-        });
-    });
 }
 
+function hasPermission(user, key, section, action) {
+    const permissions = user?.permissions || {};
+
+    return (
+        user?.role === "super_admin" ||
+        permissions.all === true ||
+        permissions[key] === true ||
+        permissions[section]?.[action] === true
+    );
+}
+
+function canManageUsers(user) {
+    const permissions = user?.permissions || {};
+
+    return (
+        user?.role === "super_admin" ||
+        permissions.all === true ||
+        permissions["users.manage"] === true ||
+        permissions.users?.manage === true
+    );
+}
+
+function canOpenCard(user, permission) {
+    if (permission === "users.manage") {
+        return canManageUsers(user);
+    }
+
+    if (permission === "employee.portal") {
+        return Boolean(user);
+    }
+
+    const permissionMap = {
+        "contact_messages.read": [
+            "contact_messages.read",
+            "contact_messages",
+            "read"
+        ],
+        "applications.read": [
+            "applications.read",
+            "applications",
+            "read"
+        ],
+        "jobs.manage": [
+            "jobs.manage",
+            "jobs",
+            "manage"
+        ],
+        "news.manage": [
+            "news.manage",
+            "news",
+            "manage"
+        ]
+    };
+
+    const values = permissionMap[permission];
+
+    if (!values) {
+        return false;
+    }
+
+    return hasPermission(
+        user,
+        values[0],
+        values[1],
+        values[2]
+    );
+}
+
+function showLogin(message = "") {
+    dashboardSection.classList.add("hidden");
+    loginSection.classList.remove("hidden");
+    logoutButton.classList.add("hidden");
+
+    loginMessage.textContent = message;
+    passwordInput.value = "";
+}
+
+function showDashboard(user) {
+    loginSection.classList.add("hidden");
+    dashboardSection.classList.remove("hidden");
+    logoutButton.classList.remove("hidden");
+
+    const name = user.full_name || user.username || "Benutzer";
+
+    $("welcome-message").textContent =
+        "Angemeldet als " + name;
+
+    const cards = document.querySelectorAll(
+        ".dashboard-card[data-permission]"
+    );
+
+    let visibleCards = 0;
+
+    cards.forEach(card => {
+        const permission = card.dataset.permission;
+        const allowed = canOpenCard(user, permission);
+
+        card.classList.toggle("hidden", !allowed);
+
+        if (allowed) {
+            visibleCards++;
+        }
+    });
+
+    if (visibleCards === 0) {
+        dashboardMessage.textContent =
+            "Für dieses Konto sind derzeit keine Verwaltungsbereiche freigeschaltet.";
+
+        dashboardMessage.classList.remove("hidden");
+    } else {
+        dashboardMessage.classList.add("hidden");
+        dashboardMessage.textContent = "";
+    }
+}
 
 async function apiRequest(path, options = {}) {
     const response = await fetch(`${API_BASE}${path}`, {
@@ -2521,30 +690,24 @@ async function apiRequest(path, options = {}) {
         }
     });
 
-    const contentType =
-        response.headers.get("content-type") || "";
+    const contentType = response.headers.get("content-type") || "";
 
-    let data;
-
-    if (contentType.includes("application/json")) {
-        data = await response.json();
-    } else {
-        const text = await response.text();
-        console.error("Unerwartete Serverantwort:", text);
-
-        throw new Error(
-            `Keine JSON-Antwort vom Server (HTTP ${response.status}).`
-        );
-    }
+    const data = contentType.includes("application/json")
+        ? await response.json()
+        : {};
 
     if (response.status === 401) {
-        logout();
-        throw new Error(
-            "Sitzung abgelaufen. Bitte erneut anmelden."
+        sessionStorage.removeItem(TOKEN_KEY);
+        sessionStorage.removeItem(USER_KEY);
+
+        showLogin(
+            "Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an."
         );
+
+        throw new Error("Sitzung abgelaufen.");
     }
 
-    if (!response.ok) {
+    if (!response.ok || data.status === "ERROR") {
         throw new Error(
             data.message || "Die Anfrage ist fehlgeschlagen."
         );
@@ -2553,1056 +716,96 @@ async function apiRequest(path, options = {}) {
     return data;
 }
 
-    // Anmeldung
-    async function login(event) {
-        event.preventDefault();
+async function login(event) {
+    event.preventDefault();
 
-        loginButton.disabled = true;
-        loginButton.textContent = "Anmeldung läuft …";
-        loginMessage.textContent = "";
-
-        try {
-            const response = await fetch(`${API_BASE}/auth/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username: usernameInput.value.trim(),
-                    password: passwordInput.value
-                })
-            });
-
-            const data = await response.json();
-
-            if (!response.ok || data.status !== "OK" || !data.token) {
-                throw new Error(data.message || "Anmeldung fehlgeschlagen.");
-            }
-
-            if (data.user.must_change_password) {
-                throw new Error(
-                    "Für dieses Konto muss zuerst ein Passwortwechsel eingerichtet werden."
-                );
-            }
-
-            sessionStorage.setItem(TOKEN_KEY, data.token);
-            sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
-
-            showDashboard(data.user);
-
-            await loadMessages();
-            await loadUsers();
-            await loadApplications();
-
-        } catch (error) {
-            loginMessage.textContent =
-                error.message || "Backend nicht erreichbar.";
-        } finally {
-            loginButton.disabled = false;
-            loginButton.textContent = "Anmelden";
-        }
-    }
-
-    function createCell(value) {
-        const cell = document.createElement("td");
-        cell.textContent = value ?? "";
-        return cell;
-    }
-
-    function formatDate(value) {
-        if (!value) return "–";
-
-        const date = new Date(value);
-
-        if (Number.isNaN(date.getTime())) {
-            return String(value);
-        }
-
-        return date.toLocaleString("de-DE");
-    }
-
-    
-    // Jobbewerbungen aus dem Backend laden
-    const applicationsPanel = document.getElementById("applications-panel");
-    const applicationsMessage = document.getElementById("applications-message");
-    const applicationsTableBody = document.getElementById("applications-table-body");
-    const refreshApplicationsButton = document.getElementById("refresh-applications-button");
-
-    async function loadApplications() {
-        const currentUser = JSON.parse(
-            sessionStorage.getItem(USER_KEY) || "null"
-        );
-
-        console.log("Aktueller Benutzer:", currentUser);
-console.log(
-    "Berechtigung applications.read:",
-    currentUser
-        ? hasPermission(
-            currentUser,
-            "applications.read",
-            "applications",
-            "read"
-        )
-        : false
-);
-
-        if (
-            !currentUser ||
-            !hasPermission(
-                currentUser,
-                "applications.read",
-                "applications",
-                "read"
-            )
-        ) {
-            applicationsPanel.classList.add("hidden");
-            return;
-        }
-
-        applicationsPanel.classList.remove("hidden");
-        refreshApplicationsButton.disabled = true;
-        applicationsMessage.className = "message";
-        applicationsMessage.textContent = "Bewerbungen werden geladen …";
-        applicationsTableBody.replaceChildren();
-
-        try {
-            const data = await apiRequest("/applications");
-
-            if (
-                data.status !== "OK" ||
-                !Array.isArray(data.applications)
-            ) {
-                throw new Error(
-                    "Bewerbungen konnten nicht geladen werden."
-                );
-            }
-
-            if (data.applications.length === 0) {
-                applicationsMessage.textContent =
-                    "Es liegen noch keine Bewerbungen vor.";
-
-                const row = document.createElement("tr");
-                const cell = document.createElement("td");
-                cell.colSpan = 6;
-                cell.textContent = "Keine Bewerbungen vorhanden.";
-                row.appendChild(cell);
-                applicationsTableBody.appendChild(row);
-                return;
-            }
-
-            applicationsMessage.textContent =
-                `${data.applications.length} Bewerbung(en) gefunden.`;
-
-            data.applications.forEach(application => {
-                const row = document.createElement("tr");
-
-                const fullName = [
-                    application.first_name,
-                    application.last_name
-                ].filter(Boolean).join(" ") || "–";
-
-
-row.append(
-    createCell(fullName),
-    createCell(application.position || "–"),
-    createCell(application.email || "–"),
-    createCell(formatDate(application.created_at)),
-    createCell(application.status || "Neu")
-);
-
-              
-
-                
-const actionsCell = document.createElement("td");
-actionsCell.style.textAlign = "right";
-if (application.cv_file_name && application.id) {
-    const downloadButton = document.createElement("button");
-
-    downloadButton.type = "button";
-    downloadButton.textContent = "Lebenslauf herunterladen";
-    downloadButton.className = "details-button";
-
-    downloadButton.addEventListener("click", async () => {
-        downloadButton.disabled = true;
-        downloadButton.textContent = "Wird geladen ...";
-
-        try {
-            const response = await fetch(
-                `${API_BASE}/applications/${application.id}/cv`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${getToken()}`
-                    }
-                }
-            );
-
-            if (!response.ok) {
-                throw new Error("Lebenslauf konnte nicht geladen werden.");
-            }
-
-            const blob = await response.blob();
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-
-            link.href = url;
-            link.download = application.cv_file_name || "Lebenslauf";
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-
-            setTimeout(() => URL.revokeObjectURL(url), 1000);
-
-        } catch (error) {
-            alert(error.message);
-        } finally {
-            downloadButton.disabled = false;
-            downloadButton.textContent = "Lebenslauf herunterladen";
-        }
-    });
-
-    actionsCell.appendChild(downloadButton);
-} else {
-    actionsCell.textContent = "Kein Lebenslauf vorhanden";
-}
-
-
-                row.appendChild(actionsCell);
-                applicationsTableBody.appendChild(row);
-            });
-
-        } catch (error) {
-            applicationsMessage.className = "message error";
-            applicationsMessage.textContent = error.message;
-        } finally {
-            refreshApplicationsButton.disabled = false;
-        }
-    }
-
-    refreshApplicationsButton.addEventListener(
-        "click",
-        loadApplications
-    );
-
- 
-    // Kontaktdetails
-    function showDetails(message) {
-        detailsContainer.replaceChildren();
-
-        const fields = [
-            ["Name", message.name],
-            ["E-Mail", message.email],
-            ["Telefon", message.phone],
-            ["Anliegen", message.subject],
-            ["Nachricht", message.message],
-            ["Status", message.status],
-            ["Eingegangen am", formatDate(message.created_at)]
-        ];
-
-        fields.forEach(([label, value]) => {
-            const row = document.createElement("div");
-            row.className = "detail-row";
-
-            const heading = document.createElement("strong");
-            heading.textContent = label;
-
-            const content = document.createElement("div");
-            content.textContent = value || "–";
-
-            if (label === "Nachricht") {
-                content.className = "detail-message";
-            }
-
-            row.append(heading, content);
-            detailsContainer.appendChild(row);
-        });
-
-        modal.classList.add("open");
-    }
-
-   
-async function loadMessages() {
-    if (!getToken()) {
-        showLogin("Bitte melden Sie sich an.");
-        return;
-    }
-
-    refreshButton.disabled = true;
-    container.className = "message";
-    container.textContent = "Nachrichten werden geladen …";
+    loginButton.disabled = true;
+    loginButton.textContent = "Anmeldung läuft …";
+    loginMessage.textContent = "";
 
     try {
-        const data = await apiRequest("/contact-messages");
-
-        if (data.status !== "OK" || !Array.isArray(data.messages)) {
-            throw new Error("Nachrichten konnten nicht geladen werden.");
-        }
-
-        countElement.textContent = data.count;
-
-        if (data.messages.length === 0) {
-            container.textContent = "Es liegen noch keine Nachrichten vor.";
-            return;
-        }
-
-        const table = document.createElement("table");
-        table.className = "contact-table";
-
-        const thead = document.createElement("thead");
-        const headRow = document.createElement("tr");
-
-        [
-            "Nr.",
-            "Name",
-            "E-Mail",
-            "Anliegen",
-            "Datum",
-            "Status",
-            "Details"
-        ].forEach(label => {
-            const th = document.createElement("th");
-            th.textContent = label;
-            headRow.appendChild(th);
+        const response = await fetch(`${API_BASE}/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: usernameInput.value.trim(),
+                password: passwordInput.value
+            })
         });
 
-        thead.appendChild(headRow);
+        const data = await response.json();
 
-        const tbody = document.createElement("tbody");
+        if (!response.ok || data.status !== "OK" || !data.token) {
+            throw new Error(
+                data.message || "Anmeldung fehlgeschlagen."
+            );
+        }
 
-        data.messages.forEach(message => {
-            const row = document.createElement("tr");
-            row.className = "contact-row";
+        if (data.user.must_change_password) {
+            throw new Error(
+                "Für dieses Konto muss zuerst ein Passwortwechsel eingerichtet werden."
+            );
+        }
 
-            const fields = [
-                ["Nr.", message.id],
-                ["Name", message.name],
-                ["E-Mail", message.email],
-                ["Anliegen", message.subject || "–"],
-                ["Datum", formatDate(message.created_at)]
-            ];
+        sessionStorage.setItem(TOKEN_KEY, data.token);
+        sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
 
-            fields.forEach(([label, value]) => {
-                const cell = createCell(value);
-                cell.dataset.label = label;
-                row.appendChild(cell);
-            });
-
-            const statusCell = document.createElement("td");
-            statusCell.dataset.label = "Status";
-
-            const status = document.createElement("span");
-            status.className = "status";
-            status.textContent = message.status || "neu";
-
-            statusCell.appendChild(status);
-            row.appendChild(statusCell);
-
-            const actionCell = document.createElement("td");
-            actionCell.dataset.label = "Details";
-
-            const button = document.createElement("button");
-            button.className = "details-button";
-            button.textContent = "Öffnen";
-            button.type = "button";
-            button.addEventListener("click", () => showDetails(message));
-
-            actionCell.appendChild(button);
-            row.appendChild(actionCell);
-
-            tbody.appendChild(row);
-        });
-
-        table.append(thead, tbody);
-
-        const wrapper = document.createElement("div");
-        wrapper.className = "table-wrapper";
-        wrapper.appendChild(table);
-
-        container.replaceChildren(wrapper);
-        container.className = "";
-
+        showDashboard(data.user);
     } catch (error) {
-        container.className = "message error";
-        container.textContent = error.message;
+        loginMessage.textContent =
+            error.message || "Backend nicht erreichbar.";
     } finally {
-        refreshButton.disabled = false;
+        loginButton.disabled = false;
+        loginButton.textContent = "Anmelden";
     }
 }
 
-    // Benutzerverwaltung: Berechtigungen prüfen
-    function canManageUsers(user) {
-        const p = user?.permissions || {};
-
-        return (
-            user?.role === "super_admin" ||
-            p.all === true ||
-            p["users.manage"] === true ||
-            p.users?.manage === true
-        );
-    }
-
-   
-function hasPermission(user, key, section, action) {
-    if (user?.role === "super_admin") {
-        return true;
-    }
-
-    const p = user?.permissions || {};
-
-    return p[key] === true || p[section]?.[action] === true;
-}
-
-    // Benutzer laden
-    async function loadUsers() {
-        const currentUser = JSON.parse(
-            sessionStorage.getItem(USER_KEY) || "null"
-        );
-
-        if (!canManageUsers(currentUser)) {
-            usersPanel.classList.add("hidden");
-            return;
-        }
-
-        usersPanel.classList.remove("hidden");
-        refreshUsersButton.disabled = true;
-        usersMessage.className = "message";
-        usersMessage.textContent = "Benutzer werden geladen …";
-
-        try {
-            const data = await apiRequest("/users");
-
-            if (data.status !== "OK" || !Array.isArray(data.users)) {
-                throw new Error("Benutzer konnten nicht geladen werden.");
-            }
-
-            renderUsers(data.users, currentUser);
-
-        } catch (error) {
-            usersMessage.className = "message error";
-            usersMessage.textContent = error.message;
-        } finally {
-            refreshUsersButton.disabled = false;
-        }
-    }
-
-    // Benutzertabelle anzeigen
-    function renderUsers(users, currentUser) {
-        if (users.length === 0) {
-            usersMessage.textContent = "Keine Benutzer gefunden.";
-            return;
-        }
-
-        const table = document.createElement("table");
-        const thead = document.createElement("thead");
-        const headRow = document.createElement("tr");
-
-        [
-            "ID",
-            "Benutzer",
-            "E-Mail",
-            "Rolle",
-            "Status",
-            "Berechtigungen",
-            "Aktionen"
-        ].forEach(label => {
-            const th = document.createElement("th");
-            th.textContent = label;
-            headRow.appendChild(th);
-        });
-
-        thead.appendChild(headRow);
-
-        const tbody = document.createElement("tbody");
-
-        users.forEach(user => {
-            const row = document.createElement("tr");
-
-            row.appendChild(createCell(user.id));
-            row.appendChild(createCell(user.full_name || user.username));
-            row.appendChild(createCell(user.email || "–"));
-            row.appendChild(createCell(user.role));
-
-            const statusCell = document.createElement("td");
-            const status = document.createElement("span");
-
-            status.className = user.is_active
-                ? "status active-status"
-                : "status inactive-status";
-
-            status.textContent = user.is_active ? "Aktiv" : "Deaktiviert";
-
-            statusCell.appendChild(status);
-            row.appendChild(statusCell);
-
-            const permissionCell = document.createElement("td");
-
-            const contactLabel = document.createElement("label");
-            contactLabel.className = "permission-check";
-
-            const contactBox = document.createElement("input");
-            contactBox.type = "checkbox";
-            contactBox.checked = hasPermission(
-                user,
-                "contact_messages.read",
-                "contact_messages",
-                "read"
-            );
-            contactBox.disabled = user.role === "super_admin";
-
-            contactLabel.append(
-                contactBox,
-                document.createTextNode("Kontaktanfragen")
-            );
-
-            const applicationLabel = document.createElement("label");
-            applicationLabel.className = "permission-check";
-
-            const applicationBox = document.createElement("input");
-            applicationBox.type = "checkbox";
-            applicationBox.checked = hasPermission(
-                user,
-                "applications.read",
-                "applications",
-                "read"
-            );
-            applicationBox.disabled = user.role === "super_admin";
-
-            applicationLabel.append(
-                applicationBox,
-                document.createTextNode("Bewerbungen")
-            );
-
-            
-const jobsLabel = document.createElement("label");
-jobsLabel.className = "permission-check";
-
-const jobsBox = document.createElement("input");
-jobsBox.type = "checkbox";
-jobsBox.checked = hasPermission(
-    user,
-    "jobs.manage",
-    "jobs",
-    "manage"
-);
-jobsBox.disabled = user.role === "super_admin";
-
-jobsLabel.append(
-    jobsBox,
-    document.createTextNode("Stellenverwaltung")
-);
-
-const newsLabel = document.createElement("label");
-newsLabel.className = "permission-check";
-
-const newsBox = document.createElement("input");
-newsBox.type = "checkbox";
-newsBox.checked = hasPermission(
-    user,
-    "news.manage",
-    "news",
-    "manage"
-);
-newsBox.disabled = user.role === "super_admin";
-
-newsLabel.append(
-    newsBox,
-    document.createTextNode("Newsverwaltung")
-);
-
-permissionCell.append(
-    contactLabel,
-    applicationLabel,
-    jobsLabel,
-    newsLabel
-);
-
-            row.appendChild(permissionCell);
-
-            const actionCell = document.createElement("td");
-            const actions = document.createElement("div");
-            actions.className = "user-actions";
-
-            if (user.role !== "super_admin") {
-
-
-                // Berechtigungen speichern
-                const saveButton = document.createElement("button");
-                saveButton.type = "button";
-                saveButton.className = "save-button";
-                saveButton.textContent = "Rechte speichern";
-
-                saveButton.addEventListener("click", async () => {
-                    saveButton.disabled = true;
-
-                    try {
-                        const data = await apiRequest(
-                            `/users/${encodeURIComponent(user.id)}/permissions`,
-                            {
-                                method: "PATCH",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    permissions: {
-                              "contact_messages.read": contactBox.checked,
-                              "applications.read": applicationBox.checked,
-                               "jobs.manage": jobsBox.checked,
-                                  "news.manage": newsBox.checked
-                                 }
-                                 
-                                })
-                            }
-                        );
-
-                        usersMessage.className = "message";
-                        usersMessage.textContent =
-                            data.message || "Berechtigungen gespeichert.";
-
-                    } catch (error) {
-                        usersMessage.className = "message error";
-                        usersMessage.textContent = error.message;
-                    } finally {
-                        saveButton.disabled = false;
-                    }
-                });
-
-                actions.appendChild(saveButton);
-
-
-                // Neue Einladung für Benutzer erstellen
-                if (user.must_change_password && user.is_active) {
-                    const invitationButton = document.createElement("button");
-
-                    invitationButton.type = "button";
-                    invitationButton.className = "small-button";
-                    invitationButton.textContent = "Einladung erneuern";
-
-                    invitationButton.addEventListener("click", async () => {
-                        const confirmed = window.confirm(
-                            "Eine neue Einladung für diesen Benutzer erstellen?"
-                        );
-
-                        if (!confirmed) return;
-
-                        invitationButton.disabled = true;
-
-                        try {
-                            const data = await apiRequest(
-                                `/users/${encodeURIComponent(user.id)}/resend-invitation`,
-                                {
-                                    method: "POST"
-                                }
-                            );
-
-                            usersMessage.className = "message";
-                            usersMessage.replaceChildren();
-
-                            const resultText = document.createElement("p");
-                            resultText.textContent = data.message;
-                            usersMessage.appendChild(resultText);
-
-                            if (data.setupToken) {
-                                const tokenLabel = document.createElement("p");
-                                tokenLabel.textContent =
-                                    "Einladungstoken für den lokalen Test:";
-
-                                const tokenField = document.createElement("textarea");
-                                tokenField.readOnly = true;
-                                tokenField.value = data.setupToken;
-                                tokenField.rows = 3;
-                                tokenField.style.width = "100%";
-
-                                const copyButton = document.createElement("button");
-                                copyButton.type = "button";
-                                copyButton.textContent = "Token kopieren";
-
-                                copyButton.addEventListener("click", async () => {
-                                    try {
-                                        await navigator.clipboard.writeText(
-                                            data.setupToken
-                                        );
-                                        copyButton.textContent = "Kopiert";
-                                    } catch {
-                                        tokenField.focus();
-                                        tokenField.select();
-                                        usersMessage.appendChild(
-                                            document.createTextNode(
-                                                " Bitte den Token manuell kopieren."
-                                            )
-                                        );
-                                    }
-                                });
-
-                                usersMessage.append(
-                                    tokenLabel,
-                                    tokenField,
-                                    copyButton
-                                );
-                            }
-
-                        } catch (error) {
-                            usersMessage.className = "message error";
-                            usersMessage.textContent = error.message;
-                        } finally {
-                            invitationButton.disabled = false;
-                        }
-                    });
-
-                    actions.appendChild(invitationButton);
-                }
-
-
-
-                // Eigenes Konto nicht deaktivieren
-                if (Number(user.id) !== Number(currentUser?.id)) {
-                    const toggleButton = document.createElement("button");
-
-                    toggleButton.type = "button";
-                    toggleButton.className = "small-button";
-                    toggleButton.textContent = user.is_active
-                        ? "Deaktivieren"
-                        : "Aktivieren";
-
-                    toggleButton.addEventListener("click", async () => {
-                        const nextStatus = !user.is_active;
-
-                        const confirmed = window.confirm(
-                            nextStatus
-                                ? "Diesen Benutzer aktivieren?"
-                                : "Diesen Benutzer deaktivieren?"
-                        );
-
-                        if (!confirmed) return;
-                        toggleButton.disabled = true;
-                        try {
-                            const data = await apiRequest(
-                                `/users/${encodeURIComponent(user.id)}/status`,
-                                {
-                                    method: "PATCH",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    },
-                                    body: JSON.stringify({
-                                        is_active: nextStatus
-                                    })
-                                }
-                            );
-
-                            usersMessage.textContent =
-                                data.message || "Status geändert.";
-
-                            await loadUsers();
-
-                        } catch (error) {
-                            usersMessage.className = "message error";
-                            usersMessage.textContent = error.message;
-                        } finally {
-                            toggleButton.disabled = false;
-                        }
-                    });
-
-                    actions.appendChild(toggleButton);
-
-                    
-                    // Benutzer löschen
-                    const deleteButton = document.createElement("button");
-                    deleteButton.type = "button";
-                    deleteButton.className = "small-button";
-                    deleteButton.textContent = "Löschen";
-
-                    deleteButton.addEventListener("click", async () => {
-                        const confirmed = await showDeleteModal(
-                            user.full_name || user.username
-                        );
-
-                        if (!confirmed) return;
-
-                        deleteButton.disabled = true;
-
-                        try {
-                            const data = await apiRequest(
-                                `/users/${encodeURIComponent(user.id)}`,
-                                {
-                                    method: "DELETE"
-                                }
-                            );
-
-                            usersMessage.className = "message";
-                            usersMessage.textContent =
-                                data.message || "Benutzer wurde gelöscht.";
-
-                            await loadUsers();
-
-                        } catch (error) {
-                            usersMessage.className = "message error";
-                            usersMessage.textContent = error.message;
-                        } finally {
-                            deleteButton.disabled = false;
-                        }
-                    });
-
-                    actions.appendChild(deleteButton);
-
-                    
-
-                    
-                }
-            } else {
-                actions.textContent = "Geschütztes Super-Admin-Konto";
-            }
-
-            actionCell.appendChild(actions);
-
-                   
-row.appendChild(actionCell);
-
-// Bezeichnungen für die mobile Kartenansicht
-const mobileLabels = [
-    "ID",
-    "Benutzer",
-    "E-Mail",
-    "Rolle",
-    "Status",
-    "Berechtigungen",
-    "Aktionen"
-];
-
-Array.from(row.cells).forEach((cell, index) => {
-    cell.setAttribute(
-        "data-label",
-        mobileLabels[index] || ""
-    );
-});
-
-tbody.appendChild(row);
-
-        });
-
-        table.append(thead, tbody);
-
-        const wrapper = document.createElement("div");
-        wrapper.className = "table-wrapper users-table-wrapper";
-        wrapper.appendChild(table);
-
-        usersMessage.replaceChildren(wrapper);
-        usersMessage.className = "";
-    }
-
-    // Abmelden
- 
 function logout() {
     sessionStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(USER_KEY);
 
-    countElement.textContent = "0";
-    container.replaceChildren();
-    usersMessage.replaceChildren();
-
-    // Alle Verwaltungsbereiche beim Abmelden ausblenden
-    usersPanel.classList.add("hidden");
-    usersPanel.classList.add("hidden");
-
-    if (applicationsPanel) {
-        applicationsPanel.classList.add("hidden");
-    }
-
-    if (messagesPanel) {
-        messagesPanel.classList.add("hidden");
-    }
-
-    if (applicationsMessage) {
-        applicationsMessage.replaceChildren();
-    }
-
-    if (adminMenu) {
-        adminMenu.hidden = true;
-    }
-
     showLogin("Sie wurden abgemeldet.");
 }
 
+async function restoreSession() {
+    if (!getToken()) {
+        showLogin();
+        return;
+    }
 
-    // Bestehende Sitzung überprüfen
-    async function restoreSession() {
-        const token = getToken();
+    try {
+        const data = await apiRequest("/auth/me");
 
-        if (!token) {
-            showLogin();
+        if (
+            data.status !== "OK" ||
+            !data.user ||
+            data.user.must_change_password
+        ) {
+            logout();
             return;
         }
 
-        try {
-            const data = await apiRequest("/auth/me");
+        sessionStorage.setItem(
+            USER_KEY,
+            JSON.stringify(data.user)
+        );
 
-            if (
-                data.status !== "OK" ||
-                !data.user ||
-                data.user.must_change_password
-            ) {
-                logout();
-                return;
-            }
-
-            sessionStorage.setItem(USER_KEY, JSON.stringify(data.user));
-
-            showDashboard(data.user);
-             await loadMessages();
-             await loadUsers();
-             await loadApplications();
-
-        } catch (error) {
-            if (getToken()) {
-                showLogin(error.message || "Bitte erneut anmelden.");
-            }
+        showDashboard(data.user);
+    } catch (error) {
+        if (getToken()) {
+            showLogin(
+                error.message || "Bitte melden Sie sich erneut an."
+            );
         }
     }
+}
 
-    
-    
-    // Neuen Benutzer vorbereiten
-    $("create-user-form").addEventListener("submit", async function (event) {
-        event.preventDefault();
+loginForm.addEventListener("submit", login);
+logoutButton.addEventListener("click", logout);
 
-        const form = this;
-        const button = $("create-user-button");
-        const message = $("create-user-message");
-
-        button.disabled = true;
-        button.textContent = "Wird verarbeitet ...";
-        message.textContent = "";
-        message.style.color = "#777";
-
-        try {
-            const data = await apiRequest("/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    full_name: $("new-full-name").value.trim(),
-                    username: $("new-username").value.trim(),
-                    email: $("new-email").value.trim(),
-                    role: $("new-role").value,
-                    permissions: {
-                        "contact_messages.read": false,
-                        "applications.read": false
-                    }
-                })
-            });
-
-            message.textContent =
-                data.message || "Benutzerkonto wurde erstellt.";
-            message.style.color = "#176534";
-
-            // Einladungstoken nur für lokale Tests anzeigen
-            if (data.setupToken) {
-                const tokenBox = document.createElement("div");
-                tokenBox.style.marginTop = "12px";
-                tokenBox.style.padding = "12px";
-                tokenBox.style.border = "1px solid #d9b45b";
-                tokenBox.style.borderRadius = "8px";
-
-                const title = document.createElement("p");
-                title.textContent = "Einladungstoken für den lokalen Test:";
-                tokenBox.appendChild(title);
-
-                const tokenField = document.createElement("textarea");
-                tokenField.value = data.setupToken;
-                tokenField.readOnly = true;
-                tokenField.style.width = "100%";
-                tokenField.style.boxSizing = "border-box";
-                tokenField.rows = 3;
-                tokenBox.appendChild(tokenField);
-
-                const copyButton = document.createElement("button");
-                copyButton.type = "button";
-                copyButton.textContent = "Token kopieren";
-
-                copyButton.addEventListener("click", async () => {
-                    try {
-                        await navigator.clipboard.writeText(data.setupToken);
-                        copyButton.textContent = "Kopiert";
-                    } catch {
-                        tokenField.focus();
-                        tokenField.select();
-                        message.textContent =
-                            "Bitte den Token manuell kopieren.";
-                    }
-                });
-
-                tokenBox.appendChild(copyButton);
-                message.appendChild(tokenBox);
-            }
-
-            form.reset();
-            await loadUsers();
-
-        } catch (error) {
-            message.textContent =
-                error.message || "Benutzer konnte nicht erstellt werden.";
-            message.style.color = "#a51d1d";
-
-        } finally {
-            button.disabled = false;
-            button.textContent = "Benutzer vorbereiten";
-        }
-    });
-
-    // Ereignisse
-    loginForm.addEventListener("submit", login);
-    refreshButton.addEventListener("click", loadMessages);
-    refreshUsersButton.addEventListener("click", loadUsers);
-    $("logout-button").addEventListener("click", logout);
-
-    $("close-modal").addEventListener("click", () => {
-        modal.classList.remove("open");
-    });
-
-    modal.addEventListener("click", event => {
-        if (event.target === modal) {
-            modal.classList.remove("open");
-        }
-    });
-
-    document.addEventListener("keydown", event => {
-        if (event.key === "Escape") {
-            modal.classList.remove("open");
-        }
-    });
-
-    restoreSession();
-
-    
-const adminMenuToggle = document.getElementById("admin-menu-toggle");
-const adminMenu = document.getElementById("admin-menu");
-
-adminMenuToggle.addEventListener("click", () => {
-    const isOpen = !adminMenu.hidden;
-
-    adminMenu.hidden = isOpen;
-    adminMenuToggle.setAttribute("aria-expanded", String(!isOpen));
-    adminMenuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Menü öffnen" : "Menü schließen"
-    );
-});
-
-
-document.getElementById("admin-menu-close").addEventListener("click", () => {
-    adminMenu.hidden = true;
-    adminMenuToggle.setAttribute("aria-expanded", "false");
-    adminMenuToggle.setAttribute("aria-label", "Menü öffnen");
-});
-
-
-adminMenu.querySelectorAll("a").forEach(link => {
-    link.addEventListener("click", () => {
-        adminMenu.hidden = true;
-        adminMenuToggle.setAttribute("aria-expanded", "false");
-        adminMenuToggle.setAttribute("aria-label", "Menü öffnen");
-    });
-});
-
-
+restoreSession();
 </script>
 
 </body>

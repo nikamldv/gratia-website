@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Benutzerverwaltung | GRATIA</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main class="admin-container">
+
+        
+<div class="user-page-navigation">
+    <a href="admin.html" class="back-dashboard-button">
+        ← Zurück zum Dashboard
+    </a>
+</div>
+
+
+        <!-- Benutzerverwaltung -->
+        <section id="users-panel" class="panel">
+            <div class="panel-header">
+                <div>
+                    <h3>Benutzerverwaltung</h3>
+                    <p>Benutzer und Berechtigungen verwalten</p>
+                </div>
+
+                <button id="refresh-users-button" class="refresh-button">
+                    Benutzer aktualisieren ↻
+                </button>
+            </div>
+
+            <div id="users-message" class="message">
+                Benutzer werden geladen …
+            </div>
+
+            <div id="users-table-container"></div>
+
+            <!-- Neuen Benutzer hinzufügen -->
+            <div class="panel-header">
+                <div>
+                    <h3>Neuen Benutzer hinzufügen</h3>
+                    <p>Neues Benutzerkonto für GRATIA vorbereiten</p>
+                </div>
+            </div>
+
+            <form id="create-user-form" class="user-form">
+                <p class="user-form-intro">
+                    Legen Sie ein neues Benutzerkonto an und wählen Sie
+                    die passende Benutzerrolle.
+                </p>
+
+                <div class="form-grid">
+                    <div class="field field-full">
+                        <label for="new-full-name">Vollständiger Name</label>
+                        <input
+                            type="text"
+                            id="new-full-name"
+                            name="full_name"
+                            placeholder="Vorname und Nachname"
+                            maxlength="150"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="new-username">Benutzername</label>
+                        <input
+                            type="text"
+                            id="new-username"
+                            name="username"
+                            placeholder="z. B. max.mustermann"
+                            maxlength="100"
+                            autocomplete="off"
+                            required
+                        >
+                    </div>
+
+                    <div class="field">
+                        <label for="new-email">E-Mail-Adresse</label>
+                        <input
+                            type="email"
+                            id="new-email"
+                            name="email"
+                            placeholder="name@firma.de"
+                            maxlength="255"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="field field-full">
+                        <label for="new-role">Benutzerrolle</label>
+                        <select id="new-role" name="role" required>
+                            <option value="employee">Mitarbeiter/in</option>
+                            <option value="admin">Administrator/in</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-security-note">
+                    <span class="form-security-icon" aria-hidden="true">🔒</span>
+                    <div>
+                        <strong>Sichere Kontoaktivierung</strong>
+                        <p>
+                            Das Benutzerkonto darf erst nach Einrichtung
+                            eines sicheren Einladungs- und Passwortverfahrens
+                            verwendet werden.
+                        </p>
+                    </div>
+                </div>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                    id="create-user-button"
+                >
+                    Benutzer vorbereiten
+                </button>
+
+                <p
+                    id="create-user-message"
+                    role="status"
+                    aria-live="polite"
+                ></p>
+            </form>
+        </section>
+
+    </main>
+
+ <script src="benutzerverwaltung.js" defer></script>
+
+</body>
+</html>
