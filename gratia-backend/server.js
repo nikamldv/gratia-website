@@ -249,6 +249,39 @@ const uploadNewsImage = multer({
     }
 });
 
+
+app.post(
+    "/api/admin/news/upload-image",
+    authenticateToken,
+    requirePermission("news.manage"),
+    uploadNewsImage.single("image"),
+    (req, res) => {
+        try {
+            if (!req.file) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Bitte wähle ein Bild aus."
+                });
+            }
+
+            res.status(200).json({
+                status: "OK",
+                message: "Bild wurde erfolgreich hochgeladen.",
+                image_url: `/news-images/${req.file.filename}`
+            });
+        } catch (error) {
+            console.error("Fehler beim Bild-Upload:", error);
+
+            res.status(500).json({
+                status: "ERROR",
+                message: "Bild konnte nicht hochgeladen werden."
+            });
+        }
+    }
+);
+
+
+
 // JSON-Berechtigungen aus MySQL vereinheitlichen
 function parsePermissions(value) {
     if (!value) return {};
@@ -2539,6 +2572,45 @@ app.patch(
     }
 );
 
+
+
+app.delete(
+    "/api/admin/news/:id",
+    authenticateToken,
+    requirePermission("news.manage"),
+    async (req, res) => {
+        try {
+            const newsId = Number(req.params.id);
+
+            if (!Number.isInteger(newsId) || newsId <= 0) {
+                return res.status(400).json({
+                    message: "Ungültige Nachrichten-ID."
+                });
+            }
+
+            const sql = "DELETE FROM news WHERE id = ?";
+            const [result] = await db.execute(sql, [newsId]);
+
+            if (result.affectedRows === 0) {
+                return res.status(404).json({
+                    message: "Nachricht nicht gefunden."
+                });
+            }
+
+            return res.status(200).json({
+                message: "Nachricht erfolgreich gelöscht.",
+                id: newsId
+            });
+
+        } catch (error) {
+            console.error("Fehler beim Löschen der Nachricht:", error);
+
+            return res.status(500).json({
+                message: "Die Nachricht konnte nicht gelöscht werden."
+            });
+        }
+    }
+);
 
 
 // Server starten

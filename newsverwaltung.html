@@ -435,11 +435,8 @@ function showGratiaModal(title, message, type = "success") {
 
     button.focus();
 }
-</script>
 
 
-<script>
-    
     const newsForm = document.getElementById("news-form");
     const newsList = document.getElementById("news-list");
     const imageInput = document.getElementById("news-image");
@@ -496,7 +493,12 @@ newsForm.addEventListener("submit", async function (event) {
     const content = document.getElementById("news-content").value.trim();
     const date = document.getElementById("news-date").value;
     const status = document.getElementById("news-status").value;
-    const category = document.getElementById("news-category")?.value.trim() || "";
+    const category =
+        document.getElementById("news-category")?.value.trim() || "";
+
+    const imageFile = imageInput?.files?.[0];
+    const editingId = newsForm.dataset.editingId;
+    const isEditing = Boolean(editingId);
 
     if (!title || !content) {
         alert("Bitte fülle Titel und Nachrichtentext aus.");
@@ -505,27 +507,63 @@ newsForm.addEventListener("submit", async function (event) {
 
     const isPublished = status === "published" ? 1 : 0;
 
-    const newsData = {
-        title: title,
-        category: category,
-        content: content,
-        image_url: "",
-        is_published: isPublished
-    };
-
     try {
-       const token = sessionStorage.getItem("gratia_admin_token");
+        const token = sessionStorage.getItem("gratia_admin_token");
 
-if (!token) {
-    console.log("Token nicht gefunden.");
-    console.log("Aktuelle Seite:", window.location.href);
-    console.log("SessionStorage:", Object.keys(sessionStorage));
-    alert("Kein Login-Token gefunden. Bitte prüfe die Browser-Konsole mit F12.");
-    return;
-}
+        if (!token) {
+            alert("Kein Login-Token gefunden. Bitte erneut anmelden.");
+            return;
+        }
 
-        const response = await fetch("http://localhost:3000/api/admin/news", {
-            method: "POST",
+        // Bestehendes Bild bei einer Bearbeitung beibehalten
+        let imageUrl = isEditing
+            ? newsForm.dataset.imageUrl || ""
+            : "";
+
+        // Neues Bild hochladen, falls eines ausgewählt wurde
+        if (imageFile) {
+            const formData = new FormData();
+            formData.append("image", imageFile);
+
+            const uploadResponse = await fetch(
+                "http://localhost:3000/api/admin/news/upload-image",
+                {
+                    method: "POST",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: formData
+                }
+            );
+
+            const uploadResult = await uploadResponse.json();
+
+            if (!uploadResponse.ok) {
+                throw new Error(
+                    uploadResult.message ||
+                    "Das Bild konnte nicht hochgeladen werden."
+                );
+            }
+
+            imageUrl = uploadResult.image_url;
+        }
+
+        const newsData = {
+            title,
+            category,
+            content,
+            image_url: imageUrl,
+            is_published: isPublished,
+            published_at: date || null
+        };
+
+        // Beim Bearbeiten PUT, bei einer neuen Nachricht POST
+        const url = isEditing
+            ? `http://localhost:3000/api/admin/news/${editingId}`
+            : "http://localhost:3000/api/admin/news";
+
+        const response = await fetch(url, {
+            method: isEditing ? "PUT" : "POST",
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
@@ -536,48 +574,16 @@ if (!token) {
         const result = await response.json();
 
         if (!response.ok) {
-            throw new Error(result.message || "Die Nachricht konnte nicht gespeichert werden.");
+            throw new Error(
+                result.message || "Die Nachricht konnte nicht gespeichert werden."
+            );
         }
 
-        const article = document.createElement("article");
-        article.className = "news-item";
-
-        const heading = document.createElement("h3");
-        heading.textContent = title;
-
-        const statusLabel = document.createElement("span");
-        statusLabel.className = "status";
-        statusLabel.textContent =
-            isPublished ? "Veröffentlicht" : "Entwurf";
-
-        const dateText = document.createElement("p");
-        dateText.textContent = date
-            ? "Datum: " + date
-            : "Veröffentlichungsdatum wird automatisch gesetzt";
-
-        const contentText = document.createElement("p");
-        contentText.textContent = content;
-
-        article.append(heading, statusLabel, dateText, contentText);
-
-        if (imagePreview.src && imagePreview.style.display === "block") {
-            const image = document.createElement("img");
-            image.src = imagePreview.src;
-            image.alt = title;
-            image.style.maxWidth = "100%";
-            image.style.maxHeight = "220px";
-            image.style.display = "block";
-            image.style.marginTop = "12px";
-            article.appendChild(image);
-        }
-
-        const emptyState = newsList.querySelector(".empty-state");
-        if (emptyState) {
-            newsList.replaceChildren();
-        }
-
-        newsList.prepend(article);
+        // Formular zurücksetzen und Liste erneut aus der Datenbank laden
         newsForm.reset();
+        delete newsForm.dataset.editingId;
+        delete newsForm.dataset.imageUrl;
+
         imagePreview.removeAttribute("src");
         imagePreview.style.display = "none";
 
@@ -586,11 +592,15 @@ if (!token) {
             previewImageUrl = null;
         }
 
-       showGratiaModal(
-    "Erfolgreich gespeichert!",
-    "Die Nachricht wurde erfolgreich in der Datenbank gespeichert.",
-    "success"
-);
+        await loadAdminNews();
+
+        showGratiaModal(
+            isEditing ? "Änderungen gespeichert!" : "Erfolgreich gespeichert!",
+            isEditing
+                ? "Die Nachricht wurde erfolgreich aktualisiert."
+                : "Die Nachricht wurde erfolgreich in der Datenbank gespeichert.",
+            "success"
+        );
 
     } catch (error) {
         console.error("Fehler beim Speichern der Nachricht:", error);
@@ -599,16 +609,212 @@ if (!token) {
 });
 
 
-    document.getElementById("reset-button").addEventListener("click", function () {
-        newsForm.reset();
-        imagePreview.removeAttribute("src");
-        imagePreview.style.display = "none";
 
-        if (previewImageUrl) {
-            URL.revokeObjectURL(previewImageUrl);
-            previewImageUrl = null;
+    
+async function loadAdminNews() {
+    const newsList = document.getElementById("news-list");
+    const token = sessionStorage.getItem("gratia_admin_token");
+
+    if (!newsList || !token) {
+        console.warn("News-Liste oder Login-Token nicht gefunden.");
+        return;
+    }
+
+    try {
+        const response = await fetch(
+            "http://localhost:3000/api/admin/news",
+            {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`
+                }
+            }
+        );
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                result.message || "News konnten nicht geladen werden."
+            );
         }
-    });
+
+        const news = result.news || [];
+        newsList.replaceChildren();
+
+        if (news.length === 0) {
+            const empty = document.createElement("div");
+            empty.className = "empty-state";
+            empty.textContent = "Noch keine Nachrichten vorhanden.";
+            newsList.appendChild(empty);
+            return;
+        }
+
+        news.forEach((item) => {
+            const article = document.createElement("article");
+            article.className = "news-item";
+
+            const heading = document.createElement("h3");
+            heading.textContent = item.title;
+
+            const status = document.createElement("span");
+            status.className = "status";
+            status.textContent = Number(item.is_published)
+                ? "Veröffentlicht"
+                : "Entwurf";
+
+            const category = document.createElement("p");
+            category.textContent = "Kategorie: " + (item.category || "GRATIA");
+
+            const content = document.createElement("p");
+            content.textContent = item.content;
+
+            article.append(heading, status, category);
+
+            if (item.image_url) {
+                const image = document.createElement("img");
+                image.src = item.image_url.startsWith("http")
+                    ? item.image_url
+                    : "http://localhost:3000" + item.image_url;
+                image.alt = item.title || "GRATIA News";
+                image.style.maxWidth = "100%";
+                image.style.maxHeight = "220px";
+                image.style.objectFit = "cover";
+                image.style.display = "block";
+                image.style.margin = "12px 0";
+                article.appendChild(image);
+            }
+
+           
+article.appendChild(content);
+
+// Bereich für die Aktionsbuttons
+const actions = document.createElement("div");
+actions.className = "news-actions";
+
+// Bearbeiten-Button
+const editButton = document.createElement("button");
+editButton.type = "button";
+editButton.textContent = "Bearbeiten";
+editButton.className = "btn-edit";
+
+editButton.addEventListener("click", () => {
+    document.getElementById("news-title").value = item.title || "";
+    document.getElementById("news-content").value = item.content || "";
+
+    const categoryInput = document.getElementById("news-category");
+    if (categoryInput) {
+        categoryInput.value = item.category || "";
+    }
+
+    const dateInput = document.getElementById("news-date");
+    if (dateInput) {
+        dateInput.value = item.published_at
+            ? new Date(item.published_at).toISOString().slice(0, 10)
+            : "";
+    }
+
+    const statusInput = document.getElementById("news-status");
+    if (statusInput) {
+        statusInput.value = Number(item.is_published) ? "1" : "0";
+    }
+
+    const form = document.getElementById("news-form");
+    form.dataset.editingId = item.id;
+    form.dataset.imageUrl = item.image_url || "";
+    form.scrollIntoView({ behavior: "smooth", block: "start" });
+
+    showGratiaModal(
+        "Nachricht bearbeiten",
+        "Die Nachricht wurde zum Bearbeiten ins Formular geladen. Speichere sie nach deinen Änderungen.",
+        "success"
+    );
+});
+
+            // Löschen-Button
+            const deleteButton = document.createElement("button");
+            deleteButton.type = "button";
+            deleteButton.textContent = "Löschen";
+            deleteButton.className = "btn-delete";
+
+            deleteButton.addEventListener("click", async () => {
+                const confirmed = confirm(
+                    `Möchtest du die Nachricht "${item.title}" wirklich löschen?`
+                );
+
+                if (!confirmed) return;
+
+                const token = sessionStorage.getItem("gratia_admin_token");
+
+                if (!token) {
+                    showGratiaModal(
+                        "Fehler",
+                        "Bitte melde dich erneut an.",
+                        "error"
+                    );
+                    return;
+                }
+
+                deleteButton.disabled = true;
+
+                try {
+                    const response = await fetch(
+                        `http://localhost:3000/api/admin/news/${item.id}`,
+                        {
+                            method: "DELETE",
+                            headers: {
+                                "Authorization": `Bearer ${token}`
+                            }
+                        }
+                    );
+
+                    const result = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(
+                            result.message || "Die Nachricht konnte nicht gelöscht werden."
+                        );
+                    }
+
+                    await loadAdminNews();
+
+                    showGratiaModal(
+                        "Erfolgreich gelöscht",
+                        "Die Nachricht wurde gelöscht.",
+                        "success"
+                    );
+
+                } catch (error) {
+                    console.error("Fehler beim Löschen:", error);
+
+                    showGratiaModal(
+                        "Fehler beim Löschen",
+                        error.message,
+                        "error"
+                    );
+
+                    deleteButton.disabled = false;
+                }
+            });
+
+            actions.append(editButton, deleteButton);
+            article.appendChild(actions);
+
+                 newsList.appendChild(article);
+        });
+
+    } catch (error) {
+        console.error("Fehler beim Laden der Admin-News:", error);
+        showGratiaModal(
+            "Fehler beim Laden",
+            error.message,
+            "error"
+        );
+    }
+}
+
+loadAdminNews();
+
 
 </script>
 

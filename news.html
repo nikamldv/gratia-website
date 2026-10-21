@@ -495,6 +495,26 @@ async function loadNews() {
             const article = document.createElement("article");
             article.className = "news-card";
 
+            // Bild anzeigen, wenn eine Bildadresse vorhanden ist
+            if (item.image_url) {
+                const image = document.createElement("img");
+
+                image.src = item.image_url.startsWith("http")
+                    ? item.image_url
+                    : "http://localhost:3000" + item.image_url;
+
+                image.alt = item.title || "GRATIA Neuigkeit";
+                image.className = "news-card-image";
+                image.loading = "lazy";
+
+                image.onerror = function () {
+                    console.error("Bild konnte nicht geladen werden:", image.src);
+                    image.style.display = "none";
+                };
+
+                article.appendChild(image);
+            }
+
             const icon = document.createElement("div");
             icon.className = "news-card-icon";
             icon.textContent = "✦";
@@ -506,16 +526,42 @@ async function loadNews() {
             category.className = "news-card-category";
             category.textContent = item.category || "GRATIA";
 
-            const title = document.createElement("h3");
-            title.textContent = item.title;
+            
+const title = document.createElement("h3");
+title.textContent = item.title;
 
-            const description = document.createElement("p");
-            description.textContent = item.content;
+// Datum der Veröffentlichung anzeigen
+const date = document.createElement("time");
+date.className = "news-card-date";
 
-            content.append(category, title, description);
+if (item.published_at) {
+    const publishedDate = new Date(item.published_at);
+
+    if (!Number.isNaN(publishedDate.getTime())) {
+        date.dateTime = publishedDate.toISOString();
+        date.textContent = new Intl.DateTimeFormat("de-DE", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }).format(publishedDate);
+    }
+}
+
+const description = document.createElement("p");
+description.textContent = item.content;
+
+
+            content.append(category, title);
+
+if (date.textContent) {
+    content.appendChild(date);
+}
+
+content.appendChild(description);
             article.append(icon, content);
             newsList.appendChild(article);
         });
+
     } catch (error) {
         console.error("Fehler beim Laden der News:", error);
         newsList.innerHTML =
@@ -525,6 +571,7 @@ async function loadNews() {
 
 document.addEventListener("DOMContentLoaded", loadNews);
 </script>
+
 
 
     <script src="main.js"></script>
