@@ -201,21 +201,17 @@ button {
 /* =========================================================
    3. HEADER
    ========================================================= */
-
 .site-header {
-    position: fixed;
-
-    top: 42px;
-    left: 0;
-    right: 0;
-
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    width: 100%;
     height: 92px;
-
     background: rgba(255, 255, 255, 0.97);
-
     border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-
     z-index: 1000;
+
 
     transition:
         top 0.35s ease,
@@ -1694,7 +1690,7 @@ button {
 .footer {
     width: 100%;
 
-    background: #260605 !important;
+    background: #681919!important;
 
     color: rgba(255, 255, 255, 0.78);
 
@@ -6411,3 +6407,981 @@ body:has(#applications-panel) .admin-header a:hover {
     color: #f0dede;
 }
 
+
+/* =====================================
+   GRATIA – Footer Color Override
+   ===================================== */
+
+/* بخش تماس بالای فوتر */
+.site-footer .footer-cta,
+.footer-cta {
+    background: linear-gradient(135deg, #872020, #681919) !important;
+    color: #ffffff !important;
+}
+
+/* پس‌زمینه اصلی فوتر */
+.site-footer,
+footer.site-footer {
+    background: #3b2925 !important;
+    color: #f5f0eb !important;
+}
+
+/* عنوان‌ها */
+.site-footer h2,
+.site-footer h3,
+.site-footer h4 {
+    color: #ffffff !important;
+}
+
+/* لینک‌ها */
+.site-footer a {
+    color: #e7c9a0 !important;
+    text-decoration: none;
+}
+
+.site-footer a:hover {
+    color: #ffffff !important;
+}
+
+/* قسمت پایین فوتر */
+.site-footer .footer-bottom,
+.footer-bottom {
+    background: #f5f3ef !important;
+    color: #6b625d !important;
+    border-top: 1px solid #e7e0d9 !important;
+}
+
+.site-footer .footer-bottom a,
+.footer-bottom a {
+    color: #872020 !important;
+}
+
+
+
+
+
+
+
+/* Leistungen Hero: Full Background Image with Text Overlay */
+
+.leistungen-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-height: 360px;
+    height: 360px;
+    padding: 0;
+    overflow: hidden;
+    color: #fff;
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(65, 20, 20, 0.96) 0%,
+            rgba(85, 28, 28, 0.88) 34%,
+            rgba(85, 28, 28, 0.38) 58%,
+            rgba(0, 0, 0, 0.02) 100%
+        ),
+        url("images/Leistungen2.png");
+    background-size: cover;
+    background-position: center 42%;
+    background-repeat: no-repeat;
+}
+
+.leistungen-hero-content {
+    position: relative;
+    z-index: 1;
+    width: 48%;
+    max-width: 580px;
+    padding: 35px 0 35px 6%;
+    box-sizing: border-box;
+}
+
+.leistungen-hero .eyebrow {
+    display: block;
+    margin-bottom: 16px;
+    color: #e8c39b;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
+
+.leistungen-hero h1 {
+    margin: 0 0 18px;
+    color: #fffdf9;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(30px, 3.2vw, 43px);
+    line-height: 1.12;
+    font-weight: 700;
+}
+
+.leistungen-hero p {
+    max-width: 410px;
+    margin: 0;
+    color: #fff7f2;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+    .leistungen-hero {
+        min-height: 430px;
+        height: auto;
+        background-position: 58% center;
+    }
+
+    .leistungen-hero-content {
+        width: 100%;
+        max-width: 100%;
+        padding: 40px 7%;
+        background: linear-gradient(
+            90deg,
+            rgba(65, 20, 20, 0.82),
+            rgba(65, 20, 20, 0.35)
+        );
+    }
+
+    .leistungen-hero h1 {
+        font-size: 32px;
+    }
+
+    .leistungen-hero p {
+        font-size: 13px;
+    }
+}
+
+
+
+/* Fix: Leistungen Hero Text */
+
+.leistungen-hero {
+    min-height: 360px !important;
+    height: 360px !important;
+    align-items: center !important;
+}
+
+.leistungen-hero-content {
+    width: 52% !important;
+    max-width: 620px !important;
+    padding: 30px 35px 30px 6% !important;
+    box-sizing: border-box !important;
+}
+
+.leistungen-hero-content h1,
+.leistungen-hero h1 {
+    width: 100% !important;
+    max-width: 520px !important;
+    font-size: 38px !important;
+    line-height: 1.15 !important;
+    margin: 0 0 16px !important;
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+}
+
+.leistungen-hero-content p {
+    width: 100% !important;
+    max-width: 430px !important;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+    margin: 0 !important;
+}
+
+@media (max-width: 700px) {
+    .leistungen-hero {
+        height: auto !important;
+        min-height: 430px !important;
+    }
+
+    .leistungen-hero-content {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 35px 7% !important;
+    }
+
+    .leistungen-hero-content h1,
+    .leistungen-hero h1 {
+        font-size: 31px !important;
+    }
+}
+
+
+
+
+/* Fix navigation overlapping the Hero */
+
+header,
+.site-header,
+.main-header {
+    position: relative;
+    z-index: 1000;
+}
+
+/* Hero starts below the navigation */
+.leistungen-hero {
+    position: relative;
+    z-index: 1;
+    margin-top: 0 !important;
+    overflow: hidden;
+    min-height: 500px !important;
+    height: 500px !important;
+}
+
+/* Keep the complete heading visible */
+.leistungen-hero-content {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+}
+
+/* Prevent the navigation from covering content */
+body {
+    overflow-x: hidden;
+}
+
+@media (max-width: 700px) {
+    .leistungen-hero {
+        height: auto !important;
+        min-height: 430px !important;
+    }
+}
+
+
+
+
+
+/* =========================================
+   LEISTUNGEN – Service Grid
+   Nur für die Leistungen-Seite
+========================================= */
+
+.leistungen-services {
+    padding: 72px 5% 85px;
+    background: #f8f6f1;
+}
+
+.leistungen-services-heading {
+    max-width: 760px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+.leistungen-eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #872020;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+}
+
+.leistungen-services-heading h2 {
+    margin: 0 0 14px;
+    color: #492b28;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.2;
+}
+
+.leistungen-services-heading p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: #77716b;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.leistungen-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.leistung-card {
+    min-height: 165px;
+    padding: 25px 14px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    background: #fffefa;
+    border: 1px solid #eee8df;
+    border-radius: 5px;
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+}
+
+.leistung-card:hover {
+    transform: translateY(-4px);
+    border-color: #d9c5bd;
+    box-shadow: 0 10px 24px rgba(65, 37, 32, 0.08);
+}
+
+.leistung-icon {
+    width: 58px;
+    height: 58px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #82534f;
+    color: #fffaf4;
+    font-size: 27px;
+}
+
+.leistung-card h3 {
+    margin: 0;
+    color: #4a3935;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+/* Tablet */
+@media (max-width: 1050px) {
+    .leistungen-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* Smartphone */
+@media (max-width: 650px) {
+    .leistungen-services {
+        padding: 48px 18px 58px;
+    }
+
+    .leistungen-services-heading {
+        margin-bottom: 30px;
+    }
+
+    .leistungen-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .leistung-card {
+        min-height: 150px;
+        padding: 20px 10px;
+    }
+
+    .leistung-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 23px;
+    }
+
+    .leistung-card h3 {
+        font-size: 13px;
+    }
+}
+
+
+
+/* ==========================================
+   GRATIA – Pflegeleistungen
+========================================== */
+
+.leistungen-services {
+    padding: 70px 5% 18px;
+    background: #faf8f4;
+}
+
+.leistungen-services-heading {
+    max-width: 760px;
+    margin: 0 auto 36px;
+    text-align: center;
+}
+
+.leistungen-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #792e2c;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.5;
+}
+
+.leistungen-services-heading .leistungen-eyebrow {
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.leistungen-eyebrow span {
+    display: inline-block;
+    width: 34px;
+    height: 2px;
+    flex-shrink: 0;
+    background: #792e2c;
+}
+
+.leistungen-services-heading h2,
+.intensivpflege-content h2,
+.leistungen-contact h2 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.leistungen-services-heading h2 {
+    margin: 0 0 12px;
+    color: #47231f;
+    font-size: clamp(29px, 3.2vw, 39px);
+    line-height: 1.2;
+}
+
+.leistungen-services-heading > p {
+    max-width: 690px;
+    margin: 0 auto;
+    color: #6e625d;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Service grid: fünf Spalten */
+
+.leistungen-services .leistungen-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 12px 15px;
+    max-width: 1330px;
+    margin: 0 auto;
+}
+
+/* Service cards */
+
+.leistungen-services .leistung-card {
+    min-width: 0;
+    min-height: 148px;
+    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    background: #fffefd;
+    border: 1px solid #eee7df;
+    border-radius: 7px;
+    text-align: center;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.leistungen-services .leistung-card:hover {
+    transform: translateY(-4px);
+    border-color: #d8bdb6;
+    box-shadow: 0 10px 25px rgba(75, 35, 31, 0.08);
+}
+
+.leistungen-services .leistung-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #fff;
+    background: #803431;
+    border-radius: 50%;
+}
+
+.leistungen-services .leistung-icon svg {
+    width: 29px;
+    height: 29px;
+    stroke-width: 1.6;
+}
+
+.leistungen-services .leistung-card h3 {
+    margin: 0;
+    color: #482823;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+/* Slogan in der letzten Grid-Zeile */
+
+.leistungen-motto {
+    grid-column: span 2;
+    min-height: 148px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    padding: 15px;
+    color: #792e2c;
+}
+
+.leistungen-motto > svg {
+    width: 76px;
+    height: 76px;
+    stroke-width: 1.3;
+    flex-shrink: 0;
+}
+
+.leistungen-motto p {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(17px, 1.7vw, 23px);
+    line-height: 1.35;
+}
+
+/* ==========================================
+   Intensivpflege zu Hause
+========================================== */
+
+.intensivpflege-home {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: center;
+    gap: clamp(30px, 5vw, 65px);
+
+    padding: 18px 5% 22px;
+    background: #fffdf9;
+}
+
+.intensivpflege-content {
+    max-width: 570px;
+    justify-self: center;
+    width: 100%;
+}
+
+.intensivpflege-content .leistungen-eyebrow {
+    margin-bottom: 13px;
+}
+
+.intensivpflege-content h2 {
+    margin: 0 0 16px;
+    color: #47231f;
+    font-size: clamp(27px, 3vw, 36px);
+    line-height: 1.18;
+}
+
+.intensivpflege-content > p {
+    margin: 0 0 18px;
+    color: #625650;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+.intensivpflege-image {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.intensivpflege-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Contact buttons */
+
+.leistungen-button,
+.leistungen-contact-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 46px;
+    padding: 12px 22px;
+    border-radius: 7px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.leistungen-button {
+    color: #fff;
+    background: #792e2c;
+}
+
+.leistungen-button:hover {
+    background: #5f211f;
+    transform: translateY(-2px);
+}
+
+.leistungen-button svg,
+.leistungen-contact-button svg {
+    width: 17px;
+    height: 17px;
+}
+
+/* ==========================================
+   Burgundy contact banner
+========================================== */
+
+.leistungen-contact {
+    padding: 25px 5%;
+    color: #fff;
+    background: #632522;
+}
+
+.leistungen-contact-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 35px;
+}
+
+.leistungen-contact .leistungen-eyebrow {
+    margin-bottom: 8px;
+    color: #f0d8cf;
+}
+
+.leistungen-contact .leistungen-eyebrow span {
+    background: #f0d8cf;
+}
+
+.leistungen-contact h2 {
+    max-width: 850px;
+    margin: 0 0 7px;
+    color: #fffaf5;
+    font-size: clamp(23px, 2.4vw, 31px);
+    line-height: 1.25;
+}
+
+.leistungen-contact-text > p {
+    margin: 0;
+    color: #f0e2dc;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.leistungen-contact-button {
+    flex-shrink: 0;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    background: transparent;
+}
+
+.leistungen-contact-button:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateY(-2px);
+}
+
+/* ==========================================
+   Responsive design
+========================================== */
+
+@media (max-width: 1050px) {
+    .leistungen-services .leistungen-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .intensivpflege-home {
+        gap: 30px;
+    }
+
+    .intensivpflege-image {
+        height: 290px;
+    }
+}
+
+@media (max-width: 700px) {
+    .leistungen-services {
+        padding: 48px 5% 15px;
+    }
+
+    .leistungen-services .leistungen-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .leistungen-services .leistung-card {
+        min-height: 140px;
+        padding: 17px 9px;
+    }
+
+    .leistungen-services .leistung-card h3 {
+        font-size: 13px;
+    }
+
+    .leistungen-services .leistung-icon {
+        width: 49px;
+        height: 49px;
+    }
+
+    .leistungen-services .leistung-icon svg {
+        width: 25px;
+        height: 25px;
+    }
+
+    .leistungen-motto {
+        grid-column: 1 / -1;
+        min-height: 100px;
+    }
+
+    .leistungen-motto > svg {
+        width: 55px;
+        height: 55px;
+    }
+
+    .intensivpflege-home {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        padding: 30px 5%;
+    }
+
+    .intensivpflege-image {
+        height: 260px;
+    }
+
+    .leistungen-contact-inner {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .leistungen-contact {
+        padding: 30px 5%;
+    }
+}
+
+@media (max-width: 380px) {
+    .leistungen-services .leistung-card {
+        padding: 14px 7px;
+    }
+
+    .leistungen-services .leistung-card h3 {
+        font-size: 12px;
+    }
+
+    .leistungen-motto {
+        gap: 10px;
+    }
+
+    .leistungen-motto > svg {
+        width: 43px;
+        height: 43px;
+    }
+}
+
+
+
+
+/* =====================================
+   ÜBER UNS – UNSERE WERTE
+===================================== */
+
+.werte-section {
+    padding: 85px 6%;
+    background: #f8f7f4;
+}
+
+.werte-heading {
+    max-width: 760px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+.section-eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #872020;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.werte-heading h2,
+.philosophie-content h2 {
+    margin: 0 0 18px;
+    color: #512323;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(30px, 3.5vw, 42px);
+    line-height: 1.2;
+}
+
+.werte-heading > p {
+    max-width: 680px;
+    margin: 0 auto;
+    color: #68615e;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.werte-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.werte-card {
+    padding: 30px 24px;
+    background: #fff;
+    border: 1px solid #eee7e2;
+    border-radius: 14px;
+    box-shadow: 0 5px 22px rgba(65, 31, 31, 0.045);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.werte-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(65, 31, 31, 0.09);
+}
+
+.werte-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin-bottom: 22px;
+    color: #872020;
+    background: #f8eeee;
+    border-radius: 50%;
+}
+
+.werte-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.werte-card h3 {
+    margin: 0 0 12px;
+    color: #382e2c;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.werte-card p {
+    margin: 0;
+    color: #6e6865;
+    font-size: 14px;
+    line-height: 1.85;
+}
+
+/* =====================================
+   ÜBER UNS – PHILOSOPHIE
+===================================== */
+
+.philosophie-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 48px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 65px 6% 90px;
+    background: #fff;
+}
+
+.philosophie-image {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 14px;
+}
+
+.philosophie-image img {
+    display: block;
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.philosophie-content h2 {
+    font-size: clamp(28px, 3vw, 36px);
+}
+
+.philosophie-content p {
+    margin: 0 0 26px;
+    color: #68615e;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+.philosophie-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 24px;
+    color: #fff;
+    background: #872020;
+    border: 1px solid #872020;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.philosophie-button:hover {
+    background: #641717;
+    transform: translateY(-2px);
+}
+
+.philosophie-button span {
+    font-size: 19px;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+
+@media (max-width: 1000px) {
+    .werte-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .philosophie-section {
+        gap: 30px;
+    }
+}
+
+@media (max-width: 650px) {
+    .werte-section {
+        padding: 58px 5%;
+    }
+
+    .werte-heading {
+        margin-bottom: 30px;
+    }
+
+    .werte-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .werte-card {
+        padding: 24px;
+    }
+
+    .philosophie-section {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 45px 5% 60px;
+    }
+
+    .philosophie-image img {
+        height: 260px;
+    }
+}

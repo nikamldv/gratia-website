@@ -26,7 +26,7 @@
             --gratia-muted: #6e6666;
         }
 
-        /* صفحه درباره ما */
+        /* Über uns */
 
         .about-page {
             color: var(--gratia-text);
@@ -48,7 +48,7 @@
             margin: 0 auto;
         }
 
-        /* هدر تصویری */
+        /* Photo Header*/
 
         .about-hero {
             min-height: 310px;
@@ -61,7 +61,7 @@
                     rgba(65, 16, 16, .88),
                     rgba(104, 28, 28, .65)
                 ),
-                url("images/pflege-hero.jpg") center / cover no-repeat,
+                url("images/hero.png") center / cover no-repeat,
                 var(--gratia-red);
         }
 
@@ -96,7 +96,7 @@
             line-height: 1.8;
         }
 
-        /* معرفی شرکت و تصویر */
+        /* Die stelle Vorstilung */
 
         .about-intro {
             padding: 75px 0;
@@ -166,7 +166,7 @@
             background: var(--gratia-gold);
         }
 
-        /* ارزش‌های GRATIA */
+        /* GRATIA Werte */
 
         .about-values {
             padding: 70px 0;
@@ -228,7 +228,7 @@
             line-height: 1.8;
         }
 
-        /* کیفیت مراقبت */
+        /* Qualität und Leistungen*/
 
         .about-quality {
             padding: 75px 0;
@@ -282,7 +282,7 @@
             background: var(--gratia-red);
         }
 
-        /* تماس */
+        /* Kontakt*/
 
         .about-cta {
             padding: 58px 24px;
@@ -334,7 +334,7 @@
             background: var(--gratia-gold);
         }
 
-        /* موبایل و تبلت */
+        /* Phone */
 
         @media (max-width: 800px) {
             .about-intro-grid,
@@ -469,7 +469,6 @@
         </div>
     </div>
 
-    <!-- این بخش را با هدر واقعی index.html هماهنگ نگه دار -->
     <header class="site-header" id="siteHeader">
         <div class="container header-inner">
 
@@ -559,7 +558,9 @@
         </section>
 
 
-        <!-- معرفی شرکت با متن تأییدشده -->
+        <!-- Die stelle informationen-->
+
+
         <section class="about-intro">
             <div class="about-container">
 
@@ -624,9 +625,9 @@
                     </div>
 
                     <div class="about-image-frame">
-                        <!-- مسیر را با نام عکس موجود در پروژه خود هماهنگ کن -->
+            
                         <img
-                            src="images/pflege-team.jpg"
+                            src="images/überuns1.jpg"
                             alt="Außerklinische Intensivpflege bei GRATIA"
                         >
                     </div>
@@ -637,176 +638,110 @@
         </section>
 
 
-        <!-- ارزش‌های شرکت -->
-        <section class="about-values">
-            <div class="about-container">
+        <!-- Unternehmenswerte-->
 
-                <div class="about-values-heading">
 
-                    <span class="about-label">
-                        Unsere Werte
-                    </span>
+<section class="werte-section">
+    <div class="werte-heading">
+        <span class="section-eyebrow">UNSERE WERTE</span>
+        <h2>Was uns wichtig ist</h2>
+        <p>
+            Menschlichkeit und Fachkompetenz gehören für uns zusammen.
+            Unsere Arbeit basiert auf Respekt, Vertrauen und Verantwortung.
+        </p>
+    </div>
 
-                    <h2>Was uns wichtig ist</h2>
+    <div class="werte-grid">
 
-                    <p>
-                        Menschlichkeit und Fachkompetenz gehören
-                        für uns zusammen. Unsere Arbeit basiert auf
-                        Respekt, Vertrauen und Verantwortung.
-                    </p>
-
-                </div>
-
-                <div class="about-values-grid">
-
-                    <article class="about-value-card">
-                        <div class="about-value-icon" aria-hidden="true">
-                            ♡
-                        </div>
-
-                        <h3>Menschlichkeit</h3>
-
-                        <p>
-                            Wir begegnen unseren Patientinnen und
-                            Patienten mit Respekt und Wertschätzung.
-                            Der Mensch steht im Mittelpunkt.
-                        </p>
-                    </article>
-
-                    <article class="about-value-card">
-                        <div class="about-value-icon" aria-hidden="true">
-                            ✦
-                        </div>
-
-                        <h3>Fachkompetenz</h3>
-
-                        <p>
-                            Qualifikation, Erfahrung und regelmäßige
-                            Weiterbildung bilden wichtige Grundlagen
-                            unserer Pflege.
-                        </p>
-                    </article>
-
-                    <article class="about-value-card">
-                        <div class="about-value-icon" aria-hidden="true">
-                            ◈
-                        </div>
-
-                        <h3>Vertrauen</h3>
-
-                        <p>
-                            Verlässlichkeit und respektvolle
-                            Kommunikation unterstützen eine
-                            vertrauensvolle Begleitung.
-                        </p>
-                    </article>
-
-                </div>
-
+        <article class="werte-card">
+            <div class="werte-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/>
+                </svg>
             </div>
-        </section>
+            <h3>Menschlichkeit</h3>
+            <p>
+                Wir begegnen unseren Patientinnen und Patienten
+                mit Respekt und Wertschätzung. Der Mensch steht
+                im Mittelpunkt.
+            </p>
+        </article>
 
-
-        <!-- کیفیت و مسئولیت -->
-        <section class="about-quality">
-            <div class="about-container">
-
-                <div class="about-quality-grid">
-
-                    <div class="about-quality-image">
-                        <img
-                            src="images/pflege-alltag.jpg"
-                            alt="Pflege und Betreuung im Alltag"
-                            loading="lazy"
-                        >
-                    </div>
-
-                    <div>
-
-                        <div class="about-quality">
-                            <span class="about-label">
-                                Unser Anspruch
-                            </span>
-
-                            <h2>
-                                Fürsorge mit Herz und Verantwortung
-                            </h2>
-
-                            <p>
-                                Die außerklinische Intensivpflege
-                                bedeutet für uns mehr als medizinische
-                                Versorgung. Wir möchten die
-                                Selbstständigkeit unserer Patientinnen
-                                und Patienten fördern, ihre sozialen
-                                Strukturen stärken und ihre Lebensqualität
-                                unterstützen.
-                            </p>
-                        </div>
-
-                        <ul class="about-quality-list">
-
-                            <li>
-                                <span class="check" aria-hidden="true">✓</span>
-                                <div>
-                                    <strong>Individuelle Begleitung</strong><br>
-                                    Die Bedürfnisse jedes Menschen
-                                    werden ernst genommen.
-                                </div>
-                            </li>
-
-                            <li>
-                                <span class="check" aria-hidden="true">✓</span>
-                                <div>
-                                    <strong>Fachliche Verantwortung</strong><br>
-                                    Wir orientieren uns an aktuellen
-                                    medizinischen und pflegewissenschaftlichen
-                                    Standards.
-                                </div>
-                            </li>
-
-                            <li>
-                                <span class="check" aria-hidden="true">✓</span>
-                                <div>
-                                    <strong>Respekt und Vertrauen</strong><br>
-                                    Eine wertschätzende Kommunikation
-                                    bildet die Grundlage unserer Arbeit.
-                                </div>
-                            </li>
-
-                        </ul>
-
-                    </div>
-
-                </div>
-
+        <article class="werte-card">
+            <div class="werte-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/>
+                    <path d="m9 12 2 2 4-4"/>
+                </svg>
             </div>
-        </section>
+            <h3>Fachkompetenz</h3>
+            <p>
+                Qualifikation, Erfahrung und regelmäßige
+                Weiterbildung bilden wichtige Grundlagen
+                unserer Pflege.
+            </p>
+        </article>
 
-
-        <!-- تماس -->
-        <section class="about-cta">
-            <div class="about-cta-inner">
-
-                <div>
-                    <h2>Wir sind für Sie da.</h2>
-
-                    <p>
-                        Sie möchten mehr über GRATIA und unsere
-                        Pflegeangebote erfahren? Nehmen Sie Kontakt
-                        mit uns auf. Wir freuen uns auf Ihre Nachricht.
-                    </p>
-                </div>
-
-                <a
-                    href="index.html#kontakt"
-                    class="about-cta-button"
-                >
-                    Kontakt aufnehmen →
-                </a>
-
+        <article class="werte-card">
+            <div class="werte-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
             </div>
-        </section>
+            <h3>Vertrauen</h3>
+            <p>
+                Verlässlichkeit und respektvolle Kommunikation
+                unterstützen eine vertrauensvolle Begleitung.
+            </p>
+        </article>
 
+        <article class="werte-card">
+            <div class="werte-icon">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M11 17 7 21l-4-4"/>
+                    <path d="M3 17V9a4 4 0 0 1 4-4h2"/>
+                    <path d="m13 7 3-3 5 5-3 3"/>
+                    <path d="m9 13 3-3a2 2 0 0 1 3 3l-4 4a4 4 0 0 1-6 0"/>
+                    <path d="m14 12 2-2a2 2 0 0 1 3 3l-3 3"/>
+                </svg>
+            </div>
+            <h3>Verantwortung</h3>
+            <p>
+                Wir übernehmen Verantwortung für eine
+                sorgfältige Pflege und eine respektvolle
+                Zusammenarbeit.
+            </p>
+        </article>
+
+    </div>
+</section>
+
+<section class="philosophie-section">
+    <div class="philosophie-image">
+        <img
+            src="images/haus-sonnenblumen.png"
+            alt="Gebäude und Außenbereich von GRATIA"
+            loading="lazy"
+        >
+    </div>
+
+    <div class="philosophie-content">
+        <span class="section-eyebrow">UNSERE PHILOSOPHIE</span>
+        <h2>Pflege mit Respekt und Menschlichkeit</h2>
+        <p>
+            Wir glauben an eine Pflege, die den Menschen
+            ganzheitlich sieht – mit Respekt, Würde und
+            individueller Betreuung.
+        </p>
+        <a href="index.html#kontakt" class="philosophie-button">
+            Unser Unternehmen
+            <span aria-hidden="true">→</span>
+        </a>
+    </div>
+</section>
     </main>
 
 
