@@ -7903,3 +7903,774 @@ body {
     }
 }
 
+
+
+/* =========================================
+   INTENSIVPFLEGE – GRATIA
+========================================= */
+
+.intensiv-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 550px;
+    padding: 65px 8%;
+    overflow: hidden;
+    color: #fff;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(48, 22, 20, 0.94) 0%,
+            rgba(75, 32, 29, 0.78) 43%,
+            rgba(75, 32, 29, 0.08) 100%
+        ),
+        url("images/pflege.png")
+        center 45% / cover no-repeat;
+}
+
+.intensiv-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 580px;
+}
+
+.intensiv-eyebrow {
+    display: block;
+    margin-bottom: 13px;
+    color: #a77d5d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    line-height: 1.6;
+    text-transform: uppercase;
+}
+
+.intensiv-hero .intensiv-eyebrow {
+    color: #e8c996;
+}
+
+.intensiv-hero h1 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 5vw, 64px);
+    line-height: 1.1;
+}
+
+.intensiv-hero h2 {
+    margin: 0 0 18px;
+    color: #f0d6a0;
+    font-size: clamp(21px, 2.5vw, 29px);
+    line-height: 1.4;
+}
+
+.intensiv-hero p {
+    max-width: 470px;
+    margin: 0 0 27px;
+    color: rgba(255, 255, 255, 0.92);
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+
+/* BUTTON */
+
+.intensiv-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    min-height: 48px;
+    padding: 13px 23px;
+    border: 1px solid #872020;
+    border-radius: 7px;
+    background: #872020;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.25s ease,
+                transform 0.25s ease;
+}
+
+.intensiv-button:hover {
+    background: #641717;
+    transform: translateY(-2px);
+}
+
+
+/* SCHWERPUNKTE */
+
+.intensiv-schwerpunkte {
+    padding: 50px 7%;
+    background: #faf8f4;
+}
+
+.intensiv-section-heading {
+    max-width: 700px;
+    margin: 0 auto 35px;
+    text-align: center;
+}
+
+.intensiv-section-heading h2 {
+    margin: 0 0 13px;
+    color: #542b29;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(28px, 3.5vw, 38px);
+}
+
+.intensiv-section-heading p {
+    margin: 0;
+    color: #77706a;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+.intensiv-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.intensiv-card {
+    padding: 30px 24px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #eee6df;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(60, 35, 25, 0.045);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.intensiv-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(60, 35, 25, 0.09);
+}
+
+.intensiv-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 17px;
+    color: #872020;
+}
+
+.intensiv-icon svg {
+    display: block;
+    width: 54px;
+    height: 54px;
+}
+
+.intensiv-card h3 {
+    margin: 0 0 12px;
+    color: #342725;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+.intensiv-card p {
+    margin: 0;
+    color: #746c67;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+
+/* ERFAHRUNG */
+
+.intensiv-erfahrung {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 38px;
+    margin: 65px;
+    padding: 22px;
+    background: #f7eee7;
+    border: 1px solid #eee3da;
+    border-radius: 12px;
+
+}
+
+.intensiv-erfahrung-image {
+    min-width: 0;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.intensiv-erfahrung-image img {
+    display: block;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.intensiv-erfahrung-content {
+    padding: 15px 20px 15px 0;
+}
+
+.intensiv-erfahrung-content h2 {
+    margin: 0 0 15px;
+    color: #542b29;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(26px, 3vw, 34px);
+}
+
+.intensiv-erfahrung-content p {
+    margin: 0 0 23px;
+    color: #655c57;
+    font-size: 15px;
+    line-height: 1.9;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 800px) {
+    .intensiv-hero {
+        min-height: 420px;
+        padding: 50px 6%;
+    }
+
+    .intensiv-schwerpunkte {
+        padding: 45px 5%;
+    }
+
+    .intensiv-cards {
+        gap: 15px;
+    }
+
+    .intensiv-card {
+        padding: 25px 15px;
+    }
+
+    .intensiv-card h3 {
+        font-size: 17px;
+    }
+
+    .intensiv-erfahrung {
+        gap: 22px;
+        margin-right: 5%;
+        margin-left: 5%;
+    }
+}
+
+@media (max-width: 600px) {
+    .intensiv-hero {
+        min-height: 440px;
+        padding: 42px 24px;
+        background-position: 60% center;
+    }
+
+    .intensiv-hero p {
+        font-size: 14px;
+    }
+
+    .intensiv-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .intensiv-card {
+        padding: 27px 22px;
+    }
+
+    .intensiv-erfahrung {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin: 0 22px 45px;
+        padding: 16px;
+    }
+
+    .intensiv-erfahrung-image img {
+        height: 230px;
+    }
+
+    .intensiv-erfahrung-content {
+        padding: 8px 5px 12px;
+    }
+}
+
+
+
+
+/* ==============================
+   UNSER TEAM – GRATIA
+================================ */
+
+.team-page {
+    color: #352725;
+    background: #fffdf9;
+}
+
+.team-hero {
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    padding: 70px 8%;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(67, 24, 22, 0.96) 0%,
+            rgba(91, 34, 31, 0.88) 48%,
+            rgba(91, 34, 31, 0.25) 100%
+        ),
+        url("images/team-hero.png") center 35% / cover no-repeat;
+    color: #fff;
+}
+
+.team-hero-content {
+    max-width: 620px;
+}
+
+.team-eyebrow {
+    display: block;
+    margin-bottom: 18px;
+    color: #a87558;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.team-hero .team-eyebrow {
+    color: #e5c99b;
+}
+
+.team-hero h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
+    line-height: 1.1;
+    color: #fff;
+}
+
+.team-hero h2 {
+    max-width: 540px;
+    margin: 0 0 18px;
+    color: #e7c99b;
+    font-size: clamp(1.3rem, 2.4vw, 2rem);
+    line-height: 1.4;
+}
+
+.team-hero p {
+    max-width: 500px;
+    margin-bottom: 28px;
+    color: #f6eeee;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.team-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 14px 24px;
+    border: 1px solid #a51f2a;
+    border-radius: 8px;
+    background: #981d27;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.team-button:hover {
+    background: #74151e;
+    transform: translateY(-2px);
+}
+
+/* Geschäftsführung */
+
+.team-management {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 55px;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 90px 35px;
+}
+
+.team-management-text h2 {
+    margin: 0 0 24px;
+    color: #702c2c;
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    line-height: 1.25;
+}
+
+.team-management-text p {
+    margin-bottom: 18px;
+    color: #665b56;
+    font-size: 0.98rem;
+    line-height: 1.9;
+}
+
+.team-management-image img {
+    display: block;
+    width: 100%;
+    min-height: 420px;
+    max-height: 560px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: 0 14px 38px rgba(65, 30, 25, 0.12);
+}
+
+/* Werte */
+
+.team-values {
+    padding: 80px 6%;
+    background: #f8f4ed;
+}
+
+.team-section-heading {
+    max-width: 720px;
+    margin: 0 auto 42px;
+    text-align: center;
+}
+
+.team-section-heading h2 {
+    margin: 0 0 14px;
+    color: #702c2c;
+    font-size: clamp(2rem, 3.5vw, 2.7rem);
+}
+
+.team-section-heading p {
+    color: #746761;
+    line-height: 1.8;
+}
+
+.team-values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 22px;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.team-value-card {
+    padding: 30px 22px;
+    border: 1px solid #eee5dc;
+    border-radius: 14px;
+    background: #fff;
+    text-align: center;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.team-value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(65, 30, 25, 0.09);
+}
+
+.team-value-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: #702c2c;
+    color: #fff;
+    font-size: 1.8rem;
+}
+
+.team-value-card h3 {
+    margin-bottom: 12px;
+    color: #702c2c;
+    font-size: 1.12rem;
+}
+
+.team-value-card p {
+    margin: 0;
+    color: #746761;
+    font-size: 0.92rem;
+    line-height: 1.75;
+}
+
+/* Abschluss */
+
+.team-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1240px;
+    margin: 70px auto;
+    padding: 42px;
+    border-radius: 16px;
+    background: linear-gradient(120deg, #682321, #8d252b);
+    color: #fff;
+}
+
+.team-cta .team-eyebrow {
+    color: #e7c99b;
+}
+
+.team-cta h2 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+}
+
+.team-cta p {
+    margin: 0;
+    color: #f2e5df;
+    line-height: 1.8;
+}
+
+.team-cta .team-button {
+    flex-shrink: 0;
+    border-color: #fff;
+    background: #fff;
+    color: #702c2c;
+}
+
+.team-cta .team-button:hover {
+    background: #f4e9df;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+    .team-management {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 65px 25px;
+    }
+
+    .team-management-image img {
+        min-height: 300px;
+        max-height: 430px;
+    }
+
+    .team-values-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .team-cta {
+        margin: 45px 20px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .team-hero {
+        min-height: 390px;
+        padding: 55px 24px;
+        background-position: 58% center;
+    }
+
+    .team-values {
+        padding: 60px 20px;
+    }
+
+    .team-values-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .team-value-card {
+        padding: 26px 20px;
+    }
+
+    .team-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 35px 16px;
+        padding: 28px 22px;
+    }
+}
+
+
+.team-slideshow {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 600px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f5f0ed;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.10);
+}
+
+.team-slide {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.team-slide.active {
+    display: block;
+    animation: teamFade 0.6s ease;
+}
+
+.team-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.slide-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(135, 32, 32, 0.9);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.slide-btn:hover {
+    background: #641717;
+}
+
+.slide-btn.prev {
+    left: 18px;
+}
+
+.slide-btn.next {
+    right: 18px;
+}
+
+.slide-dots {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.slide-dot {
+    width: 11px;
+    height: 11px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.65);
+    cursor: pointer;
+}
+
+.slide-dot.active {
+    background: #872020;
+    outline: 2px solid white;
+}
+
+@keyframes teamFade {
+    from {
+        opacity: 0.5;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-slideshow {
+        height: 280px;
+        margin: 25px auto;
+        border-radius: 10px;
+    }
+
+    .slide-btn {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .slide-btn.prev {
+        left: 10px;
+    }
+
+    .slide-btn.next {
+        right: 10px;
+    }
+}
+
+
+
+/* Languages and flags */
+.team-languages {
+    margin-top: 28px;
+    padding-top: 10px;
+}
+
+.team-languages p {
+    margin-bottom: 18px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.language-flags {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.language-flags span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    line-height: 1;
+    cursor: default;
+    transition: transform 0.25s ease;
+}
+
+.language-flags span:hover {
+    transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+    .team-languages p {
+        font-size: 14px;
+    }
+
+    .language-flags {
+        gap: 10px;
+    }
+
+    .language-flags span {
+        font-size: 32px;
+    }
+}
+
+
+/* Abstand zwischen Text und Sprachflaggen korrigieren */
+.team-languages {
+    margin-top: 0px !important;
+    padding-top: 0 !important;
+}
+
+.team-languages p {
+    margin-top: 0 !important;
+    margin-bottom: 0px !important;
+}
+
+.language-flags {
+    margin-top: 0 !important;
+    gap: 12px;
+}
+
+/* Unnötigen Abstand im übergeordneten Textbereich reduzieren */
+.team-languages {
+    align-self: flex-start;
+}

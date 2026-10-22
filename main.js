@@ -694,3 +694,54 @@ if (applicationForm) {
     });
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+    const slides = document.querySelectorAll(".team-slide");
+    const dots = document.querySelectorAll(".slide-dot");
+    const prevButton = document.querySelector(".slide-btn.prev");
+    const nextButton = document.querySelector(".slide-btn.next");
+
+    if (!slides.length || !prevButton || !nextButton) return;
+
+    let currentSlide = 0;
+    let slideTimer;
+
+    function showSlide(index) {
+        currentSlide = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => {
+            slide.classList.toggle("active", i === currentSlide);
+        });
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle("active", i === currentSlide);
+        });
+    }
+
+    function startSlideshow() {
+        clearInterval(slideTimer);
+
+        slideTimer = setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+    }
+
+    prevButton.addEventListener("click", () => {
+        showSlide(currentSlide - 1);
+        startSlideshow();
+    });
+
+    nextButton.addEventListener("click", () => {
+        showSlide(currentSlide + 1);
+        startSlideshow();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            showSlide(index);
+            startSlideshow();
+        });
+    });
+
+    showSlide(0);
+    startSlideshow();
+});
