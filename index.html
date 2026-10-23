@@ -114,9 +114,61 @@
                     Über uns
                 </a>
 
-                <a href="leistungen.html" class="nav-link">
-                    Leistungen
+                
+<div class="nav-dropdown" id="leistungenDropdown">
+
+    <button
+        type="button"
+        class="nav-link dropdown-toggle"
+        aria-expanded="false"
+        aria-haspopup="true"
+    >
+        Leistungen
+        <span class="dropdown-arrow">⌄</span>
+    </button>
+
+    <div class="dropdown-menu">
+
+        <a href="leistungen.html" class="dropdown-item">
+            Leistungen
+        </a>
+
+        <div class="submenu-dropdown">
+
+            <button
+                type="button"
+                class="dropdown-item submenu-toggle"
+                aria-expanded="false"
+            >
+                Weitere Leistungen
+                <span class="dropdown-arrow">›</span>
+            </button>
+
+            <div class="submenu-menu">
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Reinigungsservice
                 </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Edelmetalle und Edelsteine
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Entrümpelungsservice
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Massage-Service
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Bauleistungen – Oskarbau GmbH
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Immobilien
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
                 <a href="haus-sonnenblume.html" class="nav-link">
                     Haus Sonnenblume
@@ -575,6 +627,161 @@
         </section>
 
 
+
+
+<!-- =========================================
+     WEITERE DIENSTLEISTUNGEN
+========================================== -->
+<section class="partner-services section-padding" id="weitere-dienstleistungen">
+
+    <div class="container">
+
+        <div class="section-heading center">
+            <span class="section-kicker">UNSERE UNTERNEHMEN & DIENSTLEISTUNGEN</span>
+
+            <h2>Mehr als Pflege – vielseitige Dienstleistungen</h2>
+
+            <p>
+                Gemeinsam mit unseren Partnerunternehmen bieten wir
+                Dienstleistungen aus verschiedenen Bereichen –
+                zuverlässig, professionell und kundenorientiert.
+            </p>
+        </div>
+
+        <div class="partner-services-grid">
+
+            <!-- 1. Reinigungsservice -->
+            <article class="partner-service-card">
+                <div class="partner-service-image">
+                    <img src="images/reinigungsservice.png"
+                         alt="Professioneller Reinigungsservice"
+                         loading="lazy">
+                </div>
+
+                <div class="partner-service-content">
+                    <span class="partner-service-number">01</span>
+                    <h3>Reinigungsservice</h3>
+                    <p>
+                        Professionelle Reinigung für private und
+                        gewerbliche Räumlichkeiten.
+                    </p>
+                    <a href="#kontakt" class="partner-service-link">
+                        Mehr erfahren <span>→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 2. Edelmetalle und Edelsteine -->
+            <article class="partner-service-card">
+                <div class="partner-service-image">
+                    <img src="images/edelmetalle.png"
+                         alt="Gold, Edelmetalle und Edelsteine"
+                         loading="lazy">
+                </div>
+
+                <div class="partner-service-content">
+                    <span class="partner-service-number">02</span>
+                    <h3>Edelmetalle und Edelsteine</h3>
+                    <p>
+                        Informationen rund um Edelmetalle, Gold,
+                        Silber und Edelsteine.
+                    </p>
+                    <a href="#kontakt" class="partner-service-link">
+                        Mehr erfahren <span>→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 3. Entrümpelungsservice -->
+            <article class="partner-service-card">
+                <div class="partner-service-image">
+                    <img src="images/entruempelungsservice.png"
+                         alt="Entrümpelung und Haushaltsauflösung"
+                         loading="lazy">
+                </div>
+
+                <div class="partner-service-content">
+                    <span class="partner-service-number">03</span>
+                    <h3>Entrümpelungsservice</h3>
+                    <p>
+                        Unterstützung bei Entrümpelungen und
+                        Haushaltsauflösungen.
+                    </p>
+                    <a href="#kontakt" class="partner-service-link">
+                        Mehr erfahren <span>→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 4. Massage-Service -->
+            <article class="partner-service-card">
+                <div class="partner-service-image">
+                    <img src="images/massage.png"
+                         alt="Massage und Entspannung"
+                         loading="lazy">
+                </div>
+
+                <div class="partner-service-content">
+                    <span class="partner-service-number">04</span>
+                    <h3>Massage-Service</h3>
+                    <p>
+                        Massageangebote für Entspannung und
+                        persönliches Wohlbefinden.
+                    </p>
+                    <a href="#kontakt" class="partner-service-link">
+                        Mehr erfahren <span>→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 5. Bauleistungen -->
+            <article class="partner-service-card">
+                <div class="partner-service-image">
+                    <img src="images/bauleistungen.png"
+                         alt="Bauleistungen und Renovierung"
+                         loading="lazy">
+                </div>
+
+                <div class="partner-service-content">
+                    <span class="partner-service-number">05</span>
+                    <h3>Bauleistungen</h3>
+                    <p>
+                        Oskarbau GmbH – Informationen zu Bau,
+                        Renovierung und Sanierung.
+                    </p>
+                    <a href="#kontakt" class="partner-service-link">
+                        Mehr erfahren <span>→</span>
+                    </a>
+                </div>
+            </article>
+
+            <!-- 6. Immobilien -->
+            <article class="partner-service-card">
+                <div class="partner-service-image">
+                    <img src="images/immobilien.png"
+                         alt="Immobilien und moderne Gebäude"
+                         loading="lazy">
+                </div>
+
+                <div class="partner-service-content">
+                    <span class="partner-service-number">06</span>
+                    <h3>Immobilien</h3>
+                    <p>
+                        Informationen rund um Immobilien und
+                        Wohnobjekte.
+                    </p>
+                    <a href="#kontakt" class="partner-service-link">
+                        Mehr erfahren <span>→</span>
+                    </a>
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+</section>
+
+
         <!-- =========================================
              HAUS SONNENBLUME
         ========================================== -->
@@ -655,7 +862,7 @@
 
                         <div class="main-image">
                             <img
-                                src="images/haus-sonnenblumen.jpg"
+                                src="images/haus-sonnenblumen.png"
                                 alt="Haus Sonnenblume"
                             >
                         </div>
