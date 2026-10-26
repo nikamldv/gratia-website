@@ -9018,3 +9018,87 @@ body {
         text-align: left;
     }
 }
+
+
+
+
+/* Footer: Weitere Leistungen */
+.footer-services-dropdown {
+    width: auto;
+    max-width: none;
+    margin: 0;
+}
+
+.footer-services-toggle {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    background: transparent;
+    color: inherit;
+
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+
+    cursor: pointer;
+}
+
+.footer-services-arrow {
+    font-size: 14px;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.footer-services-dropdown.is-open .footer-services-arrow {
+    transform: rotate(180deg);
+}
+
+.footer-services-links {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+
+    margin: 0;
+    padding: 6px 0 4px;
+}
+
+.footer-services-dropdown.is-open .footer-services-links {
+    display: flex;
+}
+
+.footer-services-links a {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.85);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-decoration: none;
+}
+
+.footer-services-links a:hover {
+    color: #e7cda5;
+}
+
+/* Weitere Leistungen etwas nach links verschieben */
+footer .footer-services-dropdown {
+    margin-left: -12px;
+}
+
+footer .footer-services-toggle {
+    padding-left: 0;
+}

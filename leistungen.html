@@ -114,9 +114,60 @@
                     Über uns
                 </a>
 
-                <a href="leistungen.html" class="nav-link">
-                    Leistungen
+                              
+<div class="nav-dropdown" id="leistungenDropdown">
+
+    <button
+        type="button"
+        class="nav-link dropdown-toggle"
+        aria-expanded="false"
+        aria-haspopup="true"
+    >
+        Leistungen
+        <span class="dropdown-arrow"> › </span>
+    </button>
+
+    <div class="dropdown-menu">
+
+        <a href="leistungen.html" class="dropdown-item">
+            Leistungen
+        </a>
+
+        <div class="submenu-dropdown">
+
+            <button
+                type="button"
+                class="dropdown-item submenu-toggle"
+                aria-expanded="false"
+            >
+                Weitere Leistungen
+                <span class="dropdown-arrow">›</span>
+            </button>
+
+            <div class="submenu-menu">
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Reinigungsservice
                 </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Edelmetalle und Edelsteine
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Entrümpelungsservice
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Massage-Service
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Bauleistungen – Oskarbau GmbH
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Immobilien
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
                 <a href="haus-sonnenblume.html" class="nav-link">
                     Haus Sonnenblume
@@ -202,12 +253,12 @@
         </article>
 
         <article class="leistung-card">
-            <span class="leistung-icon"><i data-lucide="heart-pulse"></i></span>
+            <span class="leistung-icon"><i data-lucide="stethoscope"></i></span>
             <h3>Trachealkanülenpflege</h3>
         </article>
 
         <article class="leistung-card">
-            <span class="leistung-icon"><i data-lucide="cylinder"></i></span>
+            <span class="leistung-icon"><i data-lucide="accessibility"></i></span>
             <h3>Sauerstoffversorgung</h3>
         </article>
 
@@ -222,13 +273,13 @@
         </article>
 
         <article class="leistung-card">
-            <span class="leistung-icon"><i data-lucide="activity"></i></span>
+            <span class="leistung-icon"><i data-lucide="package"></i></span>
             <h3>Stomaversorgung</h3>
         </article>
 
         <article class="leistung-card">
-            <span class="leistung-icon"><i data-lucide="pill"></i></span>
-            <h3>PEG-Versorgung</h3>
+            <span class="leistung-icon"><i data-lucide="heart-pulse"></i></span>
+            <h3>Kunstherz</h3>
         </article>
 
         <article class="leistung-card">
@@ -237,7 +288,7 @@
         </article>
 
         <article class="leistung-card">
-            <span class="leistung-icon"><i data-lucide="flask-conical"></i></span>
+            <span class="leistung-icon"><i data-lucide="syringe"></i></span>
             <h3>Infusionstherapie</h3>
         </article>
 
@@ -342,9 +393,28 @@
                     Über uns
                 </a>
 
-                <a href="leistungen.html">
-                    Leistungen
-                </a>
+            
+<div class="footer-services-dropdown">
+    <button
+        class="footer-services-toggle"
+        type="button"
+        aria-expanded="false"
+        onclick="this.parentElement.classList.toggle('is-open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('is-open'))"
+    >
+        Weitere Leistungen
+        <span class="footer-services-arrow">⌄</span>
+    </button>
+
+    <div class="footer-services-links">
+        <a href="#weitere-leistungen">Reinigungsservice</a>
+        <a href="#weitere-leistungen">Edelmetalle und Edelsteine</a>
+        <a href="#weitere-leistungen">Entrümpelungsservice</a>
+        <a href="#weitere-leistungen">Massage-Service</a>
+        <a href="#weitere-leistungen">Bauleistungen – Oskarbau GmbH</a>
+        <a href="#weitere-leistungen">Immobilien</a>
+    </div>
+</div>
+
 
                 <a href="#haus-sonnenblume">
                     Haus Sonnenblume

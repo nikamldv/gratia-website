@@ -124,7 +124,7 @@
         aria-haspopup="true"
     >
         Leistungen
-        <span class="dropdown-arrow">⌄</span>
+        <span class="dropdown-arrow"> › </span>
     </button>
 
     <div class="dropdown-menu">
@@ -1373,9 +1373,31 @@ document.addEventListener("DOMContentLoaded", () => {
                     Über uns
                 </a>
 
-                <a href="leistungen.html">
-                    Leistungen
-                </a>
+                               
+
+<div class="footer-services-dropdown">
+    <button
+        class="footer-services-toggle"
+        type="button"
+        aria-expanded="false"
+        onclick="this.parentElement.classList.toggle('is-open'); this.setAttribute('aria-expanded', this.parentElement.classList.contains('is-open'))"
+    >
+        Weitere Leistungen
+        <span class="footer-services-arrow">⌄</span>
+    </button>
+
+    <div class="footer-services-links">
+        <a href="#weitere-leistungen">Reinigungsservice</a>
+        <a href="#weitere-leistungen">Edelmetalle und Edelsteine</a>
+        <a href="#weitere-leistungen">Entrümpelungsservice</a>
+        <a href="#weitere-leistungen">Massage-Service</a>
+        <a href="#weitere-leistungen">Bauleistungen – Oskarbau GmbH</a>
+        <a href="#weitere-leistungen">Immobilien</a>
+    </div>
+</div>
+
+
+
 
                 <a href="haus-sonnenblume.html">
                     Haus Sonnenblume
