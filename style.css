@@ -532,9 +532,9 @@ button {
    ========================================================= */
 
 .section-heading {
-    max-width: 760px;
+    max-width: 700px;
 
-    margin-bottom: 55px;
+    margin-bottom:0px;
 }
 
 
@@ -546,12 +546,12 @@ button {
 }
 
 
-.section-heading h2 {
-    margin-bottom: 18px;
+.section-heading h3 {
+    margin-bottom: 10px;
 
     color: var(--primary);
 
-    font-size: clamp(32px, 4vw, 48px);
+    font-size: clamp(28px, 4vw, 38px);
 
     line-height: 1.2;
 }
@@ -575,25 +575,21 @@ button {
 
 .value-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 25px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 36px;
 }
 
 
+
 .value-card {
-    padding: 38px 30px;
+    padding: 32px 28px;
 
     background: var(--white);
-
     border: 1px solid var(--border);
-
     border-radius: var(--radius-md);
 
     text-align: center;
-
     box-shadow: var(--shadow-sm);
 
     transition:
@@ -772,27 +768,21 @@ button {
 
 .services-grid {
     display: grid;
-
-    grid-template-columns:
-        repeat(3, 1fr);
-
-    gap: 20px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 36px;
 }
+
 
 
 .service-card {
     position: relative;
-
     min-height: 220px;
-
-    padding: 30px;
+    padding: 32px;
 
     background: var(--white);
-
     border: 1px solid var(--border);
-
     border-radius: var(--radius-md);
-
     overflow: hidden;
 
     transition:
@@ -800,7 +790,6 @@ button {
         box-shadow var(--transition),
         border-color var(--transition);
 }
-
 
 .service-card::before {
     content: "";
@@ -849,19 +838,21 @@ button {
 
 
 .service-card h3 {
-    margin-bottom: 12px;
+    margin-top: 0;
+    margin-bottom: 16px;
 
     color: var(--primary);
-
     font-size: 20px;
+    line-height: 1.5;
 }
-
 
 .service-card p {
+    margin: 0;
     color: var(--text-light);
-
     font-size: 14px;
+    line-height: 1.8;
 }
+
 
 
 .service-card.featured {
@@ -879,6 +870,19 @@ button {
     opacity: 0.88;
 }
 
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        margin-top: 26px;
+    }
+
+    .service-card {
+        padding: 26px 22px;
+        min-height: auto;
+    }
+}
 
 /* =========================================================
    10. HAUS SONNENBLUME
@@ -1066,73 +1070,115 @@ button {
    12. TEAM
    ========================================================= */
 
+/* ==========================================
+   TEAM SECTION – ABSTÄNDE UND LAYOUT
+========================================== */
+
 .team-section {
     background: var(--white);
+    padding-top: 30px;
+    padding-bottom: 70px;
 }
-
 
 .team-layout {
     display: grid;
-
-    grid-template-columns:
-        minmax(0, 1.25fr)
-        minmax(0, 0.75fr);
-
-    gap: 65px;
-
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 40px;
     align-items: center;
+    max-width: 1120px;
+    margin: 0 auto;
 }
-
 
 .team-images {
     display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
 }
-
 
 .team-image {
     overflow: hidden;
-
     border-radius: var(--radius-md);
-
     box-shadow: var(--shadow-md);
 }
 
-
 .team-image img {
+    display: block;
     width: 100%;
-    height: 420px;
-
+    height: 380px;
     object-fit: cover;
-
     transition: transform 0.6s ease;
 }
-
 
 .team-image:hover img {
     transform: scale(1.04);
 }
 
-
-.team-content h3 {
-    margin-bottom: 20px;
-
-    color: var(--primary);
-
-    font-size: 30px;
+.team-content {
+    min-width: 0;
 }
 
+.team-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--primary);
+    font-size: 30px;
+    line-height: 1.4;
+}
 
 .team-content p {
-    margin-bottom: 17px;
-
+    margin-top: 0;
+    margin-bottom: 20px;
     color: var(--text-light);
-
     font-size: 16px;
+    line-height: 1.8;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .team-section {
+        padding-top: 50px;
+        padding-bottom: 55px;
+    }
+
+    .team-layout {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        max-width: 700px;
+    }
+
+    .team-image img {
+        height: 340px;
+    }
+}
+
+/* Smartphone */
+@media (max-width: 600px) {
+    .team-section {
+        padding-top: 35px;
+        padding-bottom: 40px;
+    }
+
+    .team-layout {
+        gap: 26px;
+    }
+
+    .team-images {
+        gap: 12px;
+    }
+
+    .team-image img {
+        height: 240px;
+    }
+
+    .team-content h3 {
+        font-size: 25px;
+        margin-bottom: 16px;
+    }
+
+    .team-content p {
+        font-size: 15px;
+        margin-bottom: 16px;
+    }
 }
 
 
@@ -8910,6 +8956,85 @@ body {
 }
 
 
+
+/* ==========================================
+   GRATIA – PARTNER SERVICES
+   Abstände sauber und einheitlich
+========================================== */
+
+.partner-services {
+    padding-top: 45px;
+    padding-bottom: 65px;
+}
+
+/* Überschrift und Beschreibung */
+.partner-services .section-heading,
+.partner-services .section-header {
+    width: 100%;
+    max-width: 650px;
+    margin: 0 auto 24px;
+    padding: 0 16px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.partner-services .section-heading h2,
+.partner-services .section-header h2 {
+    max-width: 600px;
+    margin: 0 auto 14px;
+    line-height: 1.3;
+}
+
+.partner-services .section-heading p,
+.partner-services .section-header p {
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Karten etwas weiter von der Beschreibung entfernen */
+.partner-services .partner-services-grid {
+    width: calc(100% - 40px);
+    max-width: 1050px;
+    margin: 0 auto;
+    gap: 24px;
+    box-sizing: border-box;
+}
+
+/* Einheitliche Kartenhöhe */
+.partner-services .partner-service-card {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+/* Tablet */
+@media (max-width: 1000px) {
+    .partner-services .partner-services-grid {
+        max-width: 760px;
+        gap: 20px;
+    }
+}
+
+/* Smartphone */
+@media (max-width: 600px) {
+    .partner-services {
+        padding-top: 35px;
+        padding-bottom: 45px;
+    }
+
+    .partner-services .section-heading,
+    .partner-services .section-header {
+        margin-bottom: 22px;
+    }
+
+    .partner-services .partner-services-grid {
+        width: calc(100% - 32px);
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+
 /* Dropdown für Leistungen */
 .nav-dropdown {
     position: relative;
@@ -9101,4 +9226,632 @@ footer .footer-services-dropdown {
 
 footer .footer-services-toggle {
     padding-left: 0;
+}
+
+
+
+/* ==========================================
+   GRATIA – KONTAKTSEITE
+   ZENTRIERTE UND KOMPAKTE KARTEN
+========================================== */
+
+/* Gesamten Kontaktbereich zentrieren */
+.kontakt-page .contact-section {
+    padding: 50px 0 80px;
+    background: #f8f5ef;
+}
+
+.kontakt-page .contact-section > .container {
+    width: 100%;
+    max-width: 1040px;
+    padding: 0 24px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* Formular und Kontaktkarten */
+.kontakt-page .contact-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 24px;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* Formular-Karte */
+.kontakt-page .contact-form-box {
+    width: 100%;
+    min-width: 0;
+    padding: 26px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #eee8dc;
+    border-radius: 16px;
+    box-shadow: 0 6px 22px rgba(40, 20, 15, 0.05);
+}
+
+/* Formularfelder */
+.kontakt-page .contact-form-box .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.kontakt-page .contact-form-box .form-group {
+    min-width: 0;
+}
+
+.kontakt-page .contact-form-box input:not([type="checkbox"]),
+.kontakt-page .contact-form-box textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Rechte Spalte */
+.kontakt-page .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+}
+
+/* Einheitliche, kompaktere Kontaktkarten */
+.kontakt-page .contact-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+    min-width: 0;
+    min-height: 105px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: #fff;
+    border: 1px solid #eee8dc;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(40, 20, 15, 0.04);
+}
+
+.kontakt-page .contact-card-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kontakt-page .contact-card > div:last-child {
+    min-width: 0;
+}
+
+.kontakt-page .contact-card p,
+.kontakt-page .contact-card small {
+    overflow-wrap: anywhere;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+    .kontakt-page .contact-section > .container {
+        max-width: 720px;
+        padding: 0 20px;
+    }
+
+    .kontakt-page .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+    }
+
+    .kontakt-page .contact-form-box {
+        height: auto;
+    }
+}
+
+/* Smartphone */
+@media (max-width: 560px) {
+    .kontakt-page .contact-section {
+        padding: 32px 0 50px;
+    }
+
+    .kontakt-page .contact-section > .container {
+        padding: 0 16px;
+    }
+
+    .kontakt-page .contact-form-box {
+        padding: 20px 16px;
+    }
+
+    .kontakt-page .contact-form-box .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .kontakt-page .contact-card {
+        min-height: 95px;
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .kontakt-page .contact-card-icon {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+
+/* ==========================================
+   GRATIA KONTAKT – ZWEI SPALTEN ZENTRIEREN
+========================================== */
+
+.kontakt-page .contact-section > .container {
+    width: 90% !important;
+    max-width: 1040px !important;
+    padding: 0 20px !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+}
+
+/* Beide Spalten gemeinsam kleiner und mittig */
+.kontakt-page .contact-layout {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr) !important;
+    gap: 24px !important;
+    align-items: stretch !important;
+    width: 90% !important;
+    margin: 0 auto !important;
+}
+
+/* Linke Karte */
+.kontakt-page .contact-form-box {
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 24px !important;
+    box-sizing: border-box !important;
+}
+
+/* Rechte Karten */
+.kontakt-page .contact-info {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+}
+
+.kontakt-page .contact-card {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 100px !important;
+    padding: 18px !important;
+    box-sizing: border-box !important;
+}
+
+/* Eingabefelder passend zur linken Karte */
+.kontakt-page .contact-form-box .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.kontakt-page .contact-form-box .form-group {
+    min-width: 0;
+}
+
+.kontakt-page .contact-form-box input:not([type="checkbox"]),
+.kontakt-page .contact-form-box textarea {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Tablet */
+@media (max-width: 800px) {
+    .kontakt-page .contact-section > .container {
+        max-width: 650px !important;
+        padding: 0 16px !important;
+    }
+
+    .kontakt-page .contact-layout {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Smartphone */
+@media (max-width: 560px) {
+    .kontakt-page .contact-form-box {
+        padding: 18px !important;
+    }
+
+    .kontakt-page .contact-form-box .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .kontakt-page .contact-card {
+        min-height: 90px !important;
+        padding: 16px !important;
+    }
+}
+
+
+
+/* ==========================================
+   KONTAKT – STANDORT UND FAQ
+========================================== */
+
+.kontakt-page .kontakt-content-container {
+    width: 90%;
+    max-width: 10150px;
+    padding: 0 24px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.kontakt-page .kontakt-location-section {
+    padding: 0 0 34px;
+    background: #f8f5ef;
+}
+
+.kontakt-page .kontakt-location-card {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #eee8dc;
+    border-radius: 18px;
+    box-shadow: 0 6px 24px rgba(40, 20, 15, 0.04);
+}
+
+.kontakt-page .kontakt-section-heading {
+    margin-bottom: 22px;
+}
+
+.kontakt-page .kontakt-eyebrow {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: #872020;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.kontakt-page .kontakt-section-heading h2,
+.kontakt-page .kontakt-faq-card h2 {
+    margin: 0 0 10px;
+    color: #872020;
+    font-size: 28px;
+    line-height: 1.3;
+}
+
+.kontakt-page .kontakt-section-heading p {
+    margin: 0;
+    color: #666;
+    line-height: 1.7;
+}
+
+.kontakt-page .kontakt-map-wrapper {
+    position: relative;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #eee8dc;
+}
+
+.kontakt-page .kontakt-map-wrapper iframe {
+    display: block;
+    width: 90%;
+    height: 100%;
+    border: 0;
+}
+
+.kontakt-page .kontakt-map-address {
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    width: 235px;
+    max-width: calc(100% - 36px);
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
+    box-sizing: border-box;
+}
+
+.kontakt-page .kontakt-map-pin {
+    color: #872020;
+    font-size: 25px;
+}
+
+.kontakt-page .kontakt-map-address h3 {
+    margin: 8px 0;
+    color: #872020;
+    font-size: 16px;
+}
+
+.kontakt-page .kontakt-map-address p {
+    margin: 0 0 12px;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.kontakt-page .kontakt-map-address a {
+    color: #872020;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.kontakt-page .kontakt-map-address a:hover {
+    text-decoration: underline;
+}
+
+/* FAQ und Bild */
+
+.kontakt-page .kontakt-faq-section {
+    padding: 0 0 70px;
+    background: #f8f5ef;
+}
+
+.kontakt-page .kontakt-faq-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+    align-items: stretch;
+    gap: 24px;
+}
+
+.kontakt-page .kontakt-faq-card {
+    padding: 30px;
+    background: #fff;
+    border: 1px solid #eee8dc;
+    border-radius: 18px;
+    box-shadow: 0 6px 24px rgba(40, 20, 15, 0.04);
+}
+
+.kontakt-page .kontakt-faq-card h2 {
+    margin-bottom: 22px;
+}
+
+.kontakt-page .kontakt-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.kontakt-page .kontakt-faq-item {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e8e4df;
+    border-radius: 12px;
+    transition: border-color 0.2s ease;
+}
+
+.kontakt-page .kontakt-faq-item[open] {
+    border-color: #d5b4b0;
+}
+
+.kontakt-page .kontakt-faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 17px 18px;
+    color: #383333;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+    cursor: pointer;
+    list-style: none;
+}
+
+.kontakt-page .kontakt-faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.kontakt-page .faq-chevron {
+    flex-shrink: 0;
+    color: #872020;
+    font-size: 21px;
+    transition: transform 0.2s ease;
+}
+
+.kontakt-page .kontakt-faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+}
+
+.kontakt-page .kontakt-faq-answer {
+    padding: 0 18px 18px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.kontakt-page .kontakt-faq-answer a {
+    color: #872020;
+    font-weight: 600;
+}
+
+/* Bild rechts neben den Fragen */
+
+.kontakt-page .kontakt-faq-image {
+    position: relative;
+    min-height: 350px;
+    overflow: hidden;
+    border-radius: 18px;
+    background: #e7e0d5;
+}
+
+.kontakt-page .kontakt-faq-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 350px;
+    object-fit: cover;
+}
+
+.kontakt-page .kontakt-faq-image-caption {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 35px 22px 22px;
+    color: #fff;
+    background: linear-gradient(
+        transparent,
+        rgba(45, 12, 10, 0.75)
+    );
+}
+
+.kontakt-page .kontakt-faq-image-caption span {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.kontakt-page .kontakt-faq-image-caption p {
+    margin: 7px 0 0;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/* Tablet */
+
+@media (max-width: 800px) {
+    .kontakt-page .kontakt-faq-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .kontakt-page .kontakt-faq-image {
+        min-height: 280px;
+    }
+
+    .kontakt-page .kontakt-faq-image img {
+        min-height: 280px;
+        max-height: 360px;
+    }
+}
+
+/* Smartphone */
+
+@media (max-width: 560px) {
+    .kontakt-page .kontakt-content-container {
+        padding: 0 16px;
+    }
+
+    .kontakt-page .kontakt-location-card,
+    .kontakt-page .kontakt-faq-card {
+        padding: 20px 16px;
+    }
+
+    .kontakt-page .kontakt-section-heading h2,
+    .kontakt-page .kontakt-faq-card h2 {
+        font-size: 24px;
+    }
+
+    .kontakt-page .kontakt-map-wrapper {
+        height: 340px;
+    }
+
+    .kontakt-page .kontakt-map-address {
+        top: 12px;
+        left: 12px;
+        max-width: calc(100% - 24px);
+    }
+
+    .kontakt-page .kontakt-faq-image,
+    .kontakt-page .kontakt-faq-image img {
+        min-height: 250px;
+    }
+}
+
+
+
+/* Kontakt Button – größer und eleganter */
+.main-nav a.nav-link[href="kontakt.html"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 120px;
+    min-height: 46px;
+    padding: 12px 28px;
+
+    background-color: #872020;
+    color: #ffffff !important;
+
+    border: 1px solid #872020;
+    border-radius: 30px;
+
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+
+    box-sizing: border-box;
+    transition: background-color 0.25s ease,
+                box-shadow 0.25s ease;
+}
+
+.main-nav a.nav-link[href="kontakt.html"]:hover {
+    background-color: #6f1919;
+    border-color: #6f1919;
+    box-shadow: 0 4px 12px rgba(135, 32, 32, 0.2);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .main-nav a.nav-link[href="kontakt.html"] {
+        min-width: 150px;
+        min-height: 48px;
+        padding: 13px 28px;
+        margin: 12px auto;
+        font-size: 16px;
+        border-radius: 30px;
+    }
+}
+
+
+
+/* =========================================
+   KONTAKT BUTTON – DESKTOP & MOBILE
+========================================= */
+
+.main-nav a.nav-link[href="kontakt.html"] {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    background-color: #872020;
+    color: #ffffff !important;
+    border: 1px solid #872020;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+.main-nav a.nav-link[href="kontakt.html"]:hover {
+    background-color: #6f1919;
+    border-color: #6f1919;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(135, 32, 32, 0.18);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .main-nav a.nav-link[href="kontakt.html"] {
+        display: flex;
+        width: fit-content;
+        max-width: 100%;
+        padding: 11px 24px;
+        margin: 12px auto;
+        border-radius: 30px;
+        text-align: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .main-nav a.nav-link[href="kontakt.html"]:hover {
+        transform: none;
+        box-shadow: none;
+    }
 }

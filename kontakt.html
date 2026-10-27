@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kontakt | Pflegedienst GRATIA GmbH</title>
+    <meta name="description" content="Kontaktieren Sie Pflegedienst GRATIA GmbH. Wir beraten Sie gerne zu unseren Pflegeleistungen.">
+    <link rel="stylesheet" href="style.css">
+
+
+<style>
+    /* Abstand unter dem Header auf der Kontaktseite */
+    .kontakt-page main {
+        padding-top: 42px;
+    }
+
+    .kontakt-page .contact-section {
+        padding-top: 42px;
+    }
+
+    .kontakt-page .section-heading {
+        margin-top: 0;
+    }
+
+    @media (max-width: 768px) {
+        .kontakt-page main {
+            padding-top: 28px;
+        }
+
+        .kontakt-page .contact-section {
+            padding-top: 28px;
+        }
+    }
+
+
+/* ==============================
+   KONTAKT HERO
+============================== */
+
+.kontakt-page main {
+    padding-top: 0;
+}
+
+.kontakt-page .kontakt-hero {
+    position: relative;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    background-image: url("images/koontakt-hero.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #fff;
+}
+
+.kontakt-page .kontakt-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(45, 12, 10, 0.82) 0%,
+        rgba(45, 12, 10, 0.58) 55%,
+        rgba(45, 12, 10, 0.12) 100%
+    );
+}
+
+.kontakt-page .kontakt-hero-content {
+    position: relative;
+    z-index: 1;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.kontakt-page .kontakt-hero h1 {
+    margin: 0 0 12px;
+    color: #fff;
+    font-size: clamp(38px, 5vw, 58px);
+    line-height: 1.15;
+}
+
+.kontakt-page .kontakt-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.kontakt-page .kontakt-breadcrumb a {
+    color: #fff;
+}
+
+.kontakt-page .kontakt-breadcrumb a:hover {
+    color: #e2c477;
+}
+
+.kontakt-page .kontakt-hero-text {
+    max-width: 650px;
+}
+
+.kontakt-page .kontakt-hero-text h2 {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: clamp(23px, 3vw, 30px);
+}
+
+.kontakt-page .kontakt-hero-text p {
+    max-width: 600px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.kontakt-page .contact-section {
+    padding-top: 65px;
+}
+
+@media (max-width: 768px) {
+    .kontakt-page .kontakt-hero {
+        min-height: 300px;
+        background-position: center;
+    }
+
+    .kontakt-page .kontakt-hero-content {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+    .kontakt-page .kontakt-breadcrumb {
+        margin-bottom: 25px;
+    }
+
+    .kontakt-page .kontakt-hero-text p {
+        font-size: 15px;
+    }
+
+    .kontakt-page .contact-section {
+        padding-top: 40px;
+    }
+}
+
+
+
+</style>
+
+
+</head>
+<body class="kontakt-page">
+
+    <!-- Social Media Leiste wie auf der Startseite -->
+    <div class="social-bar" id="socialBar">
+        <div class="container social-bar-inner">
+            <div class="social-bar-left"></div>
+            <div class="social-links">
+                <a href="https://www.facebook.com/PflegedienstGRATIA/" class="social-link" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 8h3V4h-3c-3.3 0-5 1.7-5 5v3H6v4h3v4h4v-4h3l1-4h-4V9c0-.7.3-1 1-1z"/></svg>
+                </a>
+                <a href="https://www.instagram.com/gratia.intensivpflege/" class="social-link" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1"></circle></svg>
+                </a>
+                <a href="https://www.tiktok.com/@pflegedienst.gratia.gmbh" class="social-link" aria-label="TikTok" title="TikTok" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 3v11.2a4.8 4.8 0 1 1-4-4.7v3.1a1.8 1.8 0 1 0 1 1.6V3h3c.2 1.5 1.2 2.7 3 3.2v3c-1.1-.1-2.1-.5-3-1.1V3z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="site-header" id="siteHeader">
+        <div class="container header-inner">
+            <a href="index.html" class="logo-link" aria-label="GRATIA Startseite">
+                <img src="images/gratia-logo.png" alt="Pflegedienst GRATIA GmbH" class="site-logo">
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false" type="button">
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="mainNav">
+                <a href="index.html" class="nav-link">Startseite</a>
+                <a href="ueber-uns.html" class="nav-link">Über uns</a>
+                <div class="nav-dropdown" id="leistungenDropdown">
+                    <button type="button" class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        Leistungen <span class="dropdown-arrow">›</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a href="leistungen.html" class="dropdown-item">Leistungen</a>
+                        <div class="submenu-dropdown">
+                            <button type="button" class="dropdown-item submenu-toggle" aria-expanded="false">
+                                Weitere Leistungen <span class="dropdown-arrow">›</span>
+                            </button>
+                            <div class="submenu-menu">
+                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Reinigungsservice</a>
+                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Edelmetalle und Edelsteine</a>
+                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Entrümpelungsservice</a>
+                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Massage-Service</a>
+                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Bauleistungen – Oskarbau GmbH</a>
+                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Immobilien</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="haus-sonnenblume.html" class="nav-link">Haus Sonnenblume</a>
+                <a href="intensivpflege.html" class="nav-link">Intensivpflege</a>
+                <a href="unser-team.html" class="nav-link">Unser Team</a>
+                <a href="jobs.html" class="nav-link">Karriere</a>
+                <a href="news.html" class="nav-link">Aktuelles</a>
+                <a href="kontakt.html" class="nav-link active" aria-current="page">Kontakt</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+
+     
+<!-- HERO / KONTAKT -->
+<section class="kontakt-hero">
+    <div class="kontakt-hero-overlay"></div>
+
+    <div class="container kontakt-hero-content">
+        <h1>Kontakt</h1>
+
+        <div class="kontakt-breadcrumb">
+            <a href="index.html">Startseite</a>
+            <span>›</span>
+            <span>Kontakt</span>
+        </div>
+
+        <div class="kontakt-hero-text">
+            <h2>Wir sind für Sie da</h2>
+            <p>
+                Nehmen Sie gerne Kontakt mit uns auf. Wir freuen uns
+                auf Ihre Nachricht und helfen Ihnen schnellstmöglich weiter.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+        <section class="contact-section" id="kontakt">
+                <div class="contact-layout">
+                    <div class="contact-form-box">
+                        <h2>Kontaktformular</h2>
+                        <p class="form-intro">Füllen Sie bitte das Formular aus. Wir freuen uns auf Ihre Nachricht.</p>
+
+                        <form id="gratia-contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-name">Name *</label>
+                                    <input type="text" id="contact-name" name="name" placeholder="Ihr vollständiger Name" maxlength="150" autocomplete="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-email">E-Mail *</label>
+                                    <input type="email" id="contact-email" name="email" placeholder="Ihre E-Mail-Adresse" maxlength="255" autocomplete="email" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="contact-phone">Telefon</label>
+                                    <input type="tel" id="contact-phone" name="phone" placeholder="Ihre Telefonnummer" maxlength="50" autocomplete="tel">
+                                </div>
+                                <div class="form-group">
+                                    <label for="contact-subject">Anliegen</label>
+                                    <input type="text" id="contact-subject" name="subject" placeholder="Worum geht es?" maxlength="255">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="contact-message">Nachricht *</label>
+                                <textarea id="contact-message" name="message" rows="6" placeholder="Ihre Nachricht an uns..." maxlength="10000" required></textarea>
+                            </div>
+
+                            <div class="form-consent">
+                                <label>
+                                    <input type="checkbox" name="Datenschutz" value="Zustimmung" required>
+                                    <span>Ich stimme zu, dass meine Angaben zur Bearbeitung meiner Anfrage verwendet werden. Bitte beachten Sie unsere <a href="Datenschutz.html">Datenschutzerklärung</a>. *</span>
+                                </label>
+                            </div>
+
+                            <button type="submit" class="contact-submit-btn">
+                                Nachricht senden <span>→</span>
+                            </button>
+                            <div id="form-result" class="form-result" aria-live="polite" role="status"></div>
+                        </form>
+                    </div>
+
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-card-icon" aria-hidden="true">⌖</div>
+                            <div>
+                                <h3>Adresse</h3>
+                                <p>Pfaffenpfad 1<br>97440 Werneck<br>Deutschland</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon" aria-hidden="true">☎</div>
+                            <div>
+                                <h3>Telefon</h3>
+                                <p><a href="tel:+4915787757403">01578 7757403</a></p>
+                                <small>Außerhalb der Bürozeiten sind wir telefonisch erreichbar.</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon" aria-hidden="true">✉</div>
+                            <div>
+                                <h3>E-Mail</h3>
+                                <p><a href="mailto:pflegedienstgratia@gmail.com">pflegedienstgratia@gmail.com</a></p>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-card-icon" aria-hidden="true">◷</div>
+                            <div>
+                                <h3>Bürozeiten</h3>
+                                <p>Montag – Freitag<br>09:00 – 12:00 Uhr</p>
+                                <small>Außerhalb der Bürozeiten sind wir telefonisch erreichbar.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+<!-- ==============================
+     STANDORT / GOOGLE MAPS
+============================== -->
+<section class="kontakt-location-section">
+    <div class="container kontakt-content-container">
+
+        <div class="kontakt-location-card">
+            <div class="kontakt-section-heading">
+                <span class="kontakt-eyebrow">UNSER STANDORT</span>
+                <h2>So finden Sie uns</h2>
+                <p>
+                    Unser Standort in Werneck.
+                    Sie können uns gerne persönlich besuchen.
+                </p>
+            </div>
+
+            <div class="kontakt-map-wrapper">
+                <iframe
+                    src="https://maps.google.com/maps?q=Pfaffenpfad%201%2C%2097440%20Werneck%2C%20Deutschland&output=embed"
+                    title="Standort Pflegedienst GRATIA GmbH in Werneck"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allowfullscreen>
+                </iframe>
+
+                <div class="kontakt-map-address">
+                    <span class="kontakt-map-pin">⌖</span>
+                    <h3>Pflegedienst GRATIA GmbH</h3>
+                    <p>
+                        Pfaffenpfad 1<br>
+                        97440 Werneck<br>
+                        Deutschland
+                    </p>
+                    <a
+                        href="https://www.google.com/maps/search/?api=1&query=Pfaffenpfad+1%2C+97440+Werneck%2C+Deutschland"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        In Google Maps öffnen →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ==============================
+     HÄUFIGE FRAGEN / FAQ
+============================== -->
+<section class="kontakt-faq-section">
+    <div class="container kontakt-content-container">
+
+        <div class="kontakt-faq-layout">
+
+            <div class="kontakt-faq-card">
+                <span class="kontakt-eyebrow">WIR HELFEN IHNEN GERNE</span>
+                <h2>Häufige Fragen</h2>
+
+                <div class="kontakt-faq-list">
+
+                    <details class="kontakt-faq-item">
+                        <summary>
+                            Wie schnell erhalte ich eine Antwort?
+                            <span class="faq-chevron">⌄</span>
+                        </summary>
+                        <div class="kontakt-faq-answer">
+                            Wir bemühen uns, Ihre Anfrage so schnell wie
+                            möglich zu beantworten. In dringenden Fällen
+                            können Sie uns telefonisch kontaktieren.
+                        </div>
+                    </details>
+
+                    <details class="kontakt-faq-item">
+                        <summary>
+                            Kann ich auch telefonisch einen Termin vereinbaren?
+                            <span class="faq-chevron">⌄</span>
+                        </summary>
+                        <div class="kontakt-faq-answer">
+                            Ja. Sie erreichen uns telefonisch unter
+                            <a href="tel:+4915787757403">01578 7757403</a>.
+                            Gerne besprechen wir Ihr Anliegen persönlich
+                            mit Ihnen.
+                        </div>
+                    </details>
+
+                    <details class="kontakt-faq-item">
+                        <summary>
+                            Welche Leistungen bietet GRATIA an?
+                            <span class="faq-chevron">⌄</span>
+                        </summary>
+                        <div class="kontakt-faq-answer">
+                            Informationen zu unseren Pflege- und
+                            Betreuungsleistungen finden Sie auf unserer
+                            <a href="leistungen.html">Leistungsseite</a>.
+                            Bei individuellen Fragen helfen wir Ihnen gerne weiter.
+                        </div>
+                    </details>
+
+                </div>
+            </div>
+
+            <div class="kontakt-faq-image">
+                <img
+                    src="images/kontakt-blumen.png"
+                    alt="Blumen in einem gemütlichen Wohnraum"
+                    loading="lazy">
+                <div class="kontakt-faq-image-caption">
+                    <span>Pflegedienst GRATIA</span>
+                    <p>Mit Herz für Menschen da.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-mobile-style">
+            <div class="footer-section">
+                <h3>Navigation</h3>
+                <div class="footer-navigation">
+                    <a href="index.html">Startseite</a>
+                    <a href="ueber-uns.html">Über uns</a>
+                    <a href="leistungen.html">Leistungen</a>
+                    <a href="haus-sonnenblume.html">Haus Sonnenblume</a>
+                    <a href="intensivpflege.html">Intensivpflege</a>
+                    <a href="unser-team.html">Unser Team</a>
+                    <a href="jobs.html">Karriere</a>
+                    <a href="news.html">Aktuelles</a>
+                    <a href="kontakt.html" aria-current="page">Kontakt</a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Kontakt</h3>
+                <div class="footer-contact-new">
+                    <p class="footer-address">
+                        <span class="footer-icon">●</span>
+                        <span>Pfaffenpfad 1<br>97440 Werneck</span>
+                    </p>
+                    <a href="tel:+4915787757403" class="footer-contact-link"><span class="footer-icon">☎</span><span>01578 7757403</span></a>
+                    <a href="mailto:pflegedienstgratia@gmail.com" class="footer-contact-link"><span class="footer-icon">✉</span><span>pflegedienstgratia@gmail.com</span></a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/PflegedienstGRATIA/" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer">f</a>
+                    <a href="https://www.instagram.com/gratia.intensivpflege/" aria-label="Instagram" title="Instagram" target="_blank" rel="noopener noreferrer">◎</a>
+                    <a href="https://www.tiktok.com/@pflegedienst.gratia.gmbh" aria-label="TikTok" title="TikTok" target="_blank" rel="noopener noreferrer">♪</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <div class="container footer-bottom-content">
+                <p class="footer-copyright">© <span id="currentYear"></span> Pflegedienst GRATIA GmbH. Alle Rechte vorbehalten.</p>
+                <div class="footer-legal">
+                    <a href="Datenschutz.html">Datenschutz</a>
+                    <span>|</span>
+                    <a href="Impressum.html">Impressum</a>
+                    <span>|</span>
+                    <span>Website entwickelt von: <strong>FN</strong></span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <button id="backToTop" class="back-to-top" type="button" aria-label="Nach oben" title="Nach oben">↑</button>
+    <script src="main.js"></script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("gratia-contact-form");
+        const result = document.getElementById("form-result");
+        if (!form || !result) return;
+
+        let isSubmitting = false;
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            if (!form.reportValidity() || isSubmitting) return;
+
+            const button = form.querySelector('button[type="submit"]');
+            const originalHTML = button.innerHTML;
+            const formData = new FormData(form);
+            const payload = {
+                name: String(formData.get("name") || "").trim(),
+                email: String(formData.get("email") || "").trim(),
+                phone: String(formData.get("phone") || "").trim(),
+                subject: String(formData.get("subject") || "").trim(),
+                message: String(formData.get("message") || "").trim()
+            };
+
+            isSubmitting = true;
+            button.disabled = true;
+            button.textContent = "Wird gesendet ...";
+            result.textContent = "";
+
+            try {
+                /*
+                  Wenn Frontend und Backend auf derselben Domain laufen,
+                  kann dieser relative API-Pfad verwendet werden.
+                  Bei getrenntem Hosting muss die Backend-URL angepasst werden.
+                */
+                const response = await fetch("/api/contact-messages", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok || data.status !== "OK") {
+                    throw new Error(data.message || "Die Nachricht konnte nicht gesendet werden.");
+                }
+
+                result.textContent = "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.";
+                form.reset();
+            } catch (error) {
+                console.error("Kontaktformular:", error);
+                result.textContent = "Leider konnte Ihre Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut.";
+            } finally {
+                isSubmitting = false;
+                button.disabled = false;
+                button.innerHTML = originalHTML;
+            }
+        });
+
+        const year = document.getElementById("currentYear");
+        if (year) year.textContent = new Date().getFullYear();
+    });
+    </script>
+</body>
+</html>
