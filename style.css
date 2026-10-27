@@ -581,7 +581,6 @@ button {
 }
 
 
-
 .value-card {
     padding: 32px 28px;
 
@@ -774,7 +773,6 @@ button {
 }
 
 
-
 .service-card {
     position: relative;
     min-height: 220px;
@@ -852,7 +850,6 @@ button {
     font-size: 14px;
     line-height: 1.8;
 }
-
 
 
 .service-card.featured {
@@ -2395,76 +2392,6 @@ iframe {
 
 
 /* =========================================================
-   TABLET PORTRAIT - MOBILE MENU
-   761px - 850px
-   ========================================================= */
-
-@media (max-width: 850px) and (min-width: 761px) {
-
-    .menu-toggle {
-        display: flex;
-
-        flex-shrink: 0;
-    }
-
-
-    .main-nav {
-        position: absolute;
-
-        top: 78px;
-
-        left: 18px;
-        right: 18px;
-
-        display: none;
-
-        flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 0;
-
-        padding: 10px;
-
-        background: var(--white);
-
-        border-radius: 0 0 14px 14px;
-
-        box-shadow: var(--shadow-lg);
-
-        z-index: 2000;
-    }
-
-
-    .main-nav.open {
-        display: flex;
-    }
-
-
-    .nav-link {
-        width: 100%;
-
-        padding: 13px 15px;
-
-        font-size: 14px;
-
-        border-bottom: 1px solid var(--border);
-    }
-
-
-    .nav-link:last-child {
-        border-bottom: none;
-    }
-
-
-    .nav-link::after {
-        display: none;
-    }
-
-}
-
-
-/* =========================================================
    MOBILE
    561px - 760px
    ========================================================= */
@@ -2480,41 +2407,6 @@ iframe {
 
     .section-padding {
         padding: 70px 0;
-    }
-
-
-    /* ---------- Social Bar ---------- */
-
-    .social-bar {
-        height: 42px;
-        min-height: 42px;
-    }
-
-
-    .social-bar-left {
-        display: none;
-    }
-
-
-    .social-bar-inner {
-        justify-content: flex-end;
-    }
-
-
-    .social-links {
-        gap: 7px;
-    }
-
-
-    .social-link {
-        width: 28px;
-        height: 28px;
-    }
-
-
-    .social-link svg {
-        width: 15px;
-        height: 15px;
     }
 
 
@@ -3051,31 +2943,6 @@ iframe {
     }
 
 
-    /* ---------- Social Bar ---------- */
-
-    .social-bar {
-        height: 38px;
-        min-height: 38px;
-    }
-
-
-    /* ---------- Header ---------- */
-
-    .site-header {
-        top: 38px;
-    }
-
-
-    .site-header.social-hidden {
-        top: 0;
-    }
-
-
-    .site-logo {
-        width: 145px;
-    }
-
-
     .main-nav {
         top: 75px;
 
@@ -3388,312 +3255,12 @@ iframe {
 
 }
 
-/* =========================================================
-   GRATIA — FINAL TOP BAR + HEADER
-   ========================================================= */
 
-.social-bar {
-    position: fixed !important;
-
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-
-    width: 100% !important;
-
-    height: 36px !important;
-    min-height: 36px !important;
-
-    background: var(--primary-dark) !important;
-
-    z-index: 1100 !important;
-}
-
-
-.social-bar-inner {
-    width: min(
-        calc(100% - 40px),
-        var(--container)
-    ) !important;
-
-    height: 36px !important;
-
-    margin: 0 auto !important;
-
-    display: flex !important;
-    align-items: center !important;
-
-    justify-content: space-between !important;
-}
-
-
-/* Text */
-
-.social-bar-left {
-    display: block !important;
-
-    font-size: 11px !important;
-
-    line-height: 1 !important;
-
-    letter-spacing: .4px !important;
-
-    opacity: .9 !important;
-}
-
-
-/* Social icons */
-
-.social-links {
-    display: flex !important;
-
-    align-items: center !important;
-
-    justify-content: flex-end !important;
-
-    gap: 6px !important;
-
-    margin-left: auto !important;
-}
-
-
-.social-link {
-    width: 24px !important;
-    height: 24px !important;
-
-    min-width: 24px !important;
-    min-height: 24px !important;
-
-    display: flex !important;
-
-    align-items: center !important;
-    justify-content: center !important;
-
-    padding: 0 !important;
-
-    border-radius: 50% !important;
-}
-
-
-.social-link svg {
-    width: 13px !important;
-    height: 13px !important;
-}
-
-
-/* =========================================================
-   MAIN HEADER
-   ========================================================= */
-
-.site-header {
-    position: fixed !important;
-
-    top: 36px !important;
-    left: 0 !important;
-    right: 0 !important;
-
-    width: 100% !important;
-
-    height: 80px !important;
-
-    background: rgba(255,255,255,.98) !important;
-
-    z-index: 1000 !important;
-
-    border-bottom: 1px solid rgba(0,0,0,.06) !important;
-
-    transition:
-        top .35s ease,
-        box-shadow .25s ease !important;
-}
-
-
-/* When social bar disappears */
-
-.site-header.social-hidden {
-    top: 0 !important;
-
-    box-shadow:
-        0 5px 20px rgba(0,0,0,.08) !important;
-}
-
-
-/* Header content */
-
-.header-inner {
-    height: 80px !important;
-
-    display: flex !important;
-
-    align-items: center !important;
-
-    justify-content: space-between !important;
-}
-
-
-/* Logo */
-
-.site-logo {
-    width: 175px !important;
-    height: 62px !important;
-
-    object-fit: contain !important;
-
-    object-position: left center !important;
-}
-
-
-/* Navigation */
-
-.main-nav {
-    display: flex !important;
-
-    align-items: center !important;
-
-    justify-content: flex-end !important;
-
-    gap: 20px !important;
-
-    margin-left: auto !important;
-}
-
-
-.nav-link {
-    white-space: nowrap !important;
-
-    font-size: 13px !important;
-
-    padding: 8px 0 !important;
-}
-
-
-/* =========================================================
-   HERO POSITION
-   ========================================================= */
-
+/* Preserve the existing content offset below the fixed social bar and header. */
 .hero {
     margin-top: 116px !important;
 }
 
-
-/* =========================================================
-   DESKTOP
-   ========================================================= */
-
-@media (min-width: 851px) {
-
-    .menu-toggle {
-        display: none !important;
-    }
-
-}
-
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 850px) {
-
-    .social-bar {
-        height: 36px !important;
-        min-height: 36px !important;
-    }
-
-
-    .social-bar-inner {
-        width: calc(100% - 24px) !important;
-
-        height: 36px !important;
-    }
-
-
-    .social-bar-left {
-        display: none !important;
-    }
-
-
-    .social-link {
-        width: 25px !important;
-        height: 25px !important;
-    }
-
-
-    .site-header {
-        top: 36px !important;
-
-        height: 75px !important;
-    }
-
-
-    .site-header.social-hidden {
-        top: 0 !important;
-    }
-
-
-    .header-inner {
-        height: 75px !important;
-    }
-
-
-    .site-logo {
-        width: 150px !important;
-        height: 58px !important;
-    }
-
-
-    .main-nav {
-        top: 75px !important;
-
-        left: 12px !important;
-        right: 12px !important;
-
-        display: none !important;
-
-        flex-direction: column !important;
-
-        align-items: stretch !important;
-
-        gap: 0 !important;
-
-        margin: 0 !important;
-
-        padding: 10px !important;
-
-        background: var(--white) !important;
-
-        border-radius: 0 0 12px 12px !important;
-
-        box-shadow: var(--shadow-lg) !important;
-    }
-
-
-    .main-nav.open {
-        display: flex !important;
-    }
-
-
-    .nav-link {
-        width: 100% !important;
-
-        padding: 13px 15px !important;
-
-        font-size: 14px !important;
-
-        border-bottom: 1px solid var(--border) !important;
-    }
-
-
-    .nav-link:last-child {
-        border-bottom: none !important;
-    }
-
-
-    .hero {
-        margin-top: 111px !important;
-    }
-
-}
 
 /* =========================================================
    GRATIA - CONTACT FINAL
@@ -4407,7 +3974,6 @@ iframe {
 }
 
 
-
 /* =========================================================
    APPLICATION
 ========================================================= */
@@ -4769,9 +4335,6 @@ iframe {
 }
 
 
-
-
-
 /* Jobs toolbar */
 
 .jobs-toolbar {
@@ -4979,7 +4542,6 @@ iframe {
         width: 100%;
     }
 }
-
 
 
 /* ===== GRATIA Stellendetails ===== */
@@ -5288,7 +4850,6 @@ iframe {
         line-height: 1.5;
     }
 }
-
 
 
 /* =========================================
@@ -5733,8 +5294,6 @@ iframe {
 }
 
 
-
-
 /* NEWS PAGE - HEADING AND SPACING FIX */
 
 .news-page-hero {
@@ -5778,8 +5337,6 @@ iframe {
     color: #777;
     font-size: 0.85rem;
 }
-
-
 
 
 /* =========================================
@@ -6064,7 +5621,6 @@ iframe {
 }
 
 
-
 /* Back to Dashboard button */
 .user-page-navigation {
     width: 100%;
@@ -6099,7 +5655,6 @@ iframe {
         margin-top: 16px;
     }
 }
-
 
 
 /* ===================================
@@ -6207,7 +5762,6 @@ iframe {
         align-items: flex-start;
     }
 }
-
 
 
 /* ========================================
@@ -6431,7 +5985,6 @@ iframe {
 }
 
 
-
 /* Jobbewerbungen – gleicher Banner wie Mitarbeiterportal */
 
 body:has(#applications-panel) .admin-header {
@@ -6501,12 +6054,6 @@ footer.site-footer {
 .footer-bottom a {
     color: #872020 !important;
 }
-
-
-
-
-
-
 
 /* Leistungen Hero: Full Background Image with Text Overlay */
 
@@ -6597,8 +6144,6 @@ footer.site-footer {
     }
 }
 
-
-
 /* Fix: Leistungen Hero Text */
 
 .leistungen-hero {
@@ -6651,18 +6196,6 @@ footer.site-footer {
     }
 }
 
-
-
-
-/* Fix navigation overlapping the Hero */
-
-header,
-.site-header,
-.main-header {
-    position: relative;
-    z-index: 1000;
-}
-
 /* Hero starts below the navigation */
 .leistungen-hero {
     position: relative;
@@ -6690,9 +6223,6 @@ body {
         min-height: 430px !important;
     }
 }
-
-
-
 
 
 /* =========================================
@@ -6826,7 +6356,6 @@ body {
         font-size: 13px;
     }
 }
-
 
 
 /* ==========================================
@@ -7224,8 +6753,6 @@ body {
 }
 
 
-
-
 /* =====================================
    ÜBER UNS – UNSERE WERTE
 ===================================== */
@@ -7431,7 +6958,6 @@ body {
         height: 260px;
     }
 }
-
 
 
 /* =========================================
@@ -7950,7 +7476,6 @@ body {
 }
 
 
-
 /* =========================================
    INTENSIVPFLEGE – GRATIA
 ========================================= */
@@ -8242,8 +7767,6 @@ body {
         padding: 8px 5px 12px;
     }
 }
-
-
 
 
 /* ==============================
@@ -9016,7 +8539,6 @@ body {
 }
 
 
-
 /* ==========================================
    GRATIA – PARTNER SERVICES
    Abstände sauber und einheitlich
@@ -9205,8 +8727,6 @@ body {
 }
 
 
-
-
 /* Footer: Weitere Leistungen */
 .footer-services-dropdown {
     width: auto;
@@ -9287,7 +8807,6 @@ footer .footer-services-dropdown {
 footer .footer-services-toggle {
     padding-left: 0;
 }
-
 
 
 /* ==========================================
@@ -9532,7 +9051,6 @@ footer .footer-services-toggle {
         padding: 16px !important;
     }
 }
-
 
 
 /* ==========================================
@@ -9823,7 +9341,6 @@ footer .footer-services-toggle {
 }
 
 
-
 /* Kontakt Button – größer und eleganter */
 .main-nav a.nav-link[href="kontakt.html"] {
     display: inline-flex;
@@ -9867,7 +9384,6 @@ footer .footer-services-toggle {
         border-radius: 30px;
     }
 }
-
 
 
 /* =========================================
@@ -9917,80 +9433,325 @@ footer .footer-services-toggle {
 }
 
 
+/* =========================================================
+   GRATIA — UNIFIED SOCIAL BAR, HEADER & NAVIGATION
+   Compatible with the existing main.js
+   ========================================================= */
 
+:root {
+    --gratia-header-height: 80px;
+    --gratia-social-height: 36px;
+    --gratia-primary: #872020;
+    --gratia-primary-dark: #681919;
+    --gratia-header-bg: #ffffff;
+    --gratia-header-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
 
+/* =========================================================
+   1. SOCIAL BAR
+   ========================================================= */
 
-/* ==========================================
-   GRATIA - Global Mobile Header Fix
-   Applies to all pages except the homepage
-   ========================================== */
+.social-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
 
-@media (max-width: 768px) {
+    width: 100%;
+    height: var(--gratia-social-height);
+    min-height: var(--gratia-social-height);
 
-    /* Keep the header in the normal page layout */
-    .site-header {
-        position: relative;
-        top: auto;
-        left: auto;
-        right: auto;
-        width: 100%;
-        z-index: 1000;
-        background: #fff;
+    background: var(--gratia-primary-dark);
+    z-index: 1100;
+
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+
+    transition:
+        transform 0.3s ease,
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+}
+
+.social-bar.hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.social-bar-inner {
+    width: min(1180px, calc(100% - 40px));
+    height: 100%;
+    margin-inline: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.social-bar-left {
+    min-width: 0;
+    font-size: 11px;
+    line-height: 1.4;
+    color: #ffffff;
+}
+
+.social-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.social-link {
+    width: 26px;
+    height: 26px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 50%;
+
+    transition:
+        background-color 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.social-link:hover {
+    background-color: rgba(255, 255, 255, 0.14);
+    opacity: 0.9;
+}
+
+.social-link svg {
+    display: block;
+    width: 15px;
+    height: 15px;
+
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* =========================================================
+   2. MAIN HEADER
+   ========================================================= */
+
+.site-header {
+    position: fixed;
+    top: var(--gratia-social-height);
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    height: var(--gratia-header-height);
+
+    background: var(--gratia-header-bg);
+    z-index: 1000;
+
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+
+    transition:
+        top 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* main.js adds this class when scrolling down */
+
+.site-header.social-hidden {
+    top: 0;
+    box-shadow: var(--gratia-header-shadow);
+}
+
+.header-inner {
+    width: min(1180px, calc(100% - 40px));
+    height: 100%;
+    margin-inline: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.logo-link {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.site-logo {
+    display: block;
+    width: 155px;
+    height: 60px;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+/* =========================================================
+   3. DESKTOP NAVIGATION
+   ========================================================= */
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.main-nav .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 10px;
+
+    color: #342b29;
+    text-decoration: none;
+    white-space: nowrap;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.main-nav .nav-link:hover,
+.main-nav .nav-link.active {
+    color: var(--gratia-primary);
+}
+
+/* =========================================================
+   4. MOBILE MENU BUTTON
+   ========================================================= */
+
+.menu-toggle {
+    display: none;
+
+    width: 44px;
+    height: 44px;
+    padding: 0;
+
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+
+    border: 1px solid #e8e1de;
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--gratia-primary);
+
+    cursor: pointer;
+    position: relative;
+    z-index: 1002;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.menu-toggle:hover {
+    background: #faf5f3;
+}
+
+/* =========================================================
+   5. TABLET & MOBILE NAVIGATION
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    :root {
+        --gratia-header-height: 75px;
     }
 
-    .site-header.social-hidden {
-        top: auto;
+    .social-bar-inner {
+        width: calc(100% - 24px);
     }
 
-    /* Header content */
+    .social-bar-left {
+        display: none;
+    }
+
+    .social-links {
+        margin-left: auto;
+        gap: 6px;
+    }
+
+    .social-link {
+        width: 25px;
+        height: 25px;
+    }
+
+    .social-link svg {
+        width: 15px;
+        height: 15px;
+    }
+
     .header-inner {
-        width: 100%;
-        min-height: 88px;
-        height: auto;
-        padding: 10px 18px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        width: calc(100% - 30px);
         gap: 12px;
     }
 
     .site-logo {
         width: 145px;
-        max-width: 100%;
         height: 58px;
-        object-fit: contain;
     }
 
-    /* Mobile navigation button */
     .menu-toggle {
         display: flex;
-        flex-shrink: 0;
-        width: 44px;
-        height: 44px;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        z-index: 1002;
     }
 
-    /* Mobile navigation panel */
     .main-nav {
         display: none;
+
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
+
         width: 100%;
-        max-height: calc(100vh - 100px);
+        max-height: calc(100vh - 111px);
+        max-height: calc(100dvh - 111px);
         overflow-y: auto;
-        padding: 12px 20px 20px;
+        overscroll-behavior: contain;
+
+        padding: 12px 18px 20px;
+
         flex-direction: column;
         align-items: stretch;
-        gap: 4px;
-        background: #fff;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        justify-content: flex-start;
+        gap: 2px;
+
+        background: #ffffff;
+        border-top: 1px solid #f0e9e6;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+
         z-index: 1001;
     }
+
+    /* Exact class toggled by main.js */
 
     .main-nav.open {
         display: flex;
@@ -10000,31 +9761,72 @@ footer .footer-services-toggle {
         display: flex;
         width: 100%;
         min-height: 46px;
+
         align-items: center;
         justify-content: space-between;
+
         padding: 12px 8px;
+
+        white-space: normal;
         text-align: left;
+
+        border-bottom: 1px solid #f0e9e6;
     }
 
-    /* Prevent content from hiding behind the header */
-    .hero {
-        margin-top: 0;
+    .main-nav .nav-link:last-child {
+        border-bottom: none;
     }
 
-    main {
-        position: relative;
-        z-index: 0;
+    /* Preserve touch-based dropdown behavior */
+
+    .nav-dropdown {
+        display: block;
+        width: 100%;
+    }
+
+    .dropdown-menu,
+    .submenu-menu {
+        position: static;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .nav-dropdown.is-open > .dropdown-menu,
+    .submenu-dropdown.is-open > .submenu-menu {
+        display: block;
     }
 }
 
+/* =========================================================
+   6. SMALL MOBILE SCREENS
+   ========================================================= */
+
 @media (max-width: 380px) {
+
     .header-inner {
-        padding-left: 12px;
-        padding-right: 12px;
+        width: calc(100% - 24px);
+        gap: 8px;
     }
 
     .site-logo {
         width: 125px;
         height: 52px;
+    }
+
+    .menu-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .main-nav {
+        padding-inline: 12px;
+    }
+
+    .social-bar-inner {
+        width: calc(100% - 16px);
     }
 }
