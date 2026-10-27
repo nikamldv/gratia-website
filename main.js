@@ -126,24 +126,6 @@ if (menuToggle && mainNav) {
 }
 
 
-        // Close the mobile menu after clicking a navigation link.
-
-        navLinks.forEach((link) => {
-
-            link.addEventListener("click", () => {
-
-                mainNav.classList.remove("open");
-
-                menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.setAttribute("aria-label", "Menü öffnen");
-
-            });
-
-        });
-
-    }
-
-
     /* =====================================================
        4. SOCIAL BAR AND HEADER ON SCROLL
        ===================================================== */
