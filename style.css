@@ -9855,3 +9855,43 @@ footer .footer-services-toggle {
         box-shadow: none;
     }
 }
+
+
+
+/* Leistungen Dropdown */
+#leistungenDropdown {
+    position: relative;
+}
+
+#leistungenDropdown > .dropdown-menu {
+    display: none;
+}
+
+#leistungenDropdown.is-open > .dropdown-menu {
+    display: block;
+}
+
+#leistungenDropdown .submenu-menu {
+    display: none;
+}
+
+#leistungenDropdown .submenu-dropdown.is-open > .submenu-menu {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    #leistungenDropdown,
+    #leistungenDropdown > .dropdown-menu,
+    #leistungenDropdown .submenu-dropdown,
+    #leistungenDropdown .submenu-menu {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #leistungenDropdown .dropdown-toggle,
+    #leistungenDropdown .submenu-toggle {
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+}

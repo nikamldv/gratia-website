@@ -31,27 +31,99 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       3. MOBILE NAVIGATION
-       ===================================================== */
+/* =====================================================
+   3. MOBILE NAVIGATION + LEISTUNGEN DROPDOWN
+===================================================== */
 
-    if (menuToggle && mainNav) {
+if (menuToggle && mainNav) {
 
-        menuToggle.addEventListener("click", () => {
+    menuToggle.addEventListener("click", () => {
+        const isOpen = mainNav.classList.toggle("open");
 
-            const isOpen = mainNav.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(isOpen));
+        menuToggle.setAttribute(
+            "aria-label",
+            isOpen ? "Menü schließen" : "Menü öffnen"
+        );
+    });
 
-            menuToggle.setAttribute(
+    const leistungenDropdown = document.getElementById(
+        "leistungenDropdown"
+    );
+
+    const dropdownToggle = leistungenDropdown?.querySelector(
+        ".dropdown-toggle"
+    );
+
+    const submenu = leistungenDropdown?.querySelector(
+        ".submenu-dropdown"
+    );
+
+    const submenuToggle = leistungenDropdown?.querySelector(
+        ".submenu-toggle"
+    );
+
+    // Hauptmenü Leistungen öffnen und schließen
+    if (dropdownToggle && leistungenDropdown) {
+        dropdownToggle.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const isOpen = leistungenDropdown.classList.toggle("is-open");
+
+            dropdownToggle.setAttribute(
                 "aria-expanded",
-                isOpen ? "true" : "false"
+                String(isOpen)
             );
 
-            menuToggle.setAttribute(
-                "aria-label",
-                isOpen ? "Menü schließen" : "Menü öffnen"
-            );
-
+            if (!isOpen && submenu && submenuToggle) {
+                submenu.classList.remove("is-open");
+                submenuToggle.setAttribute("aria-expanded", "false");
+            }
         });
+    }
+
+    // Untermenü Weitere Leistungen öffnen und schließen
+    if (submenuToggle && submenu) {
+        submenuToggle.addEventListener("click", (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            const isOpen = submenu.classList.toggle("is-open");
+
+            submenuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+        });
+    }
+
+    // Navigation schließen, aber nicht beim Öffnen der Dropdowns
+    navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+
+            if (
+                link.classList.contains("dropdown-toggle") ||
+                link.classList.contains("submenu-toggle")
+            ) {
+                return;
+            }
+
+            mainNav.classList.remove("open");
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Menü öffnen");
+        });
+    });
+
+    // Nach Auswahl eines Untermenü-Links das mobile Menü schließen
+    mainNav.querySelectorAll(".dropdown-item[href]").forEach((link) => {
+        link.addEventListener("click", () => {
+            mainNav.classList.remove("open");
+            menuToggle.setAttribute("aria-expanded", "false");
+            menuToggle.setAttribute("aria-label", "Menü öffnen");
+        });
+    });
+}
 
 
         // Close the mobile menu after clicking a navigation link.
