@@ -8484,7 +8484,7 @@ body {
 
 /* Responsive */
 
-@media (max-width: 1000px) {
+@media (max-width: 10120px) {
     .team-management {
         grid-template-columns: 1fr;
         gap: 30px;
