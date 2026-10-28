@@ -8225,10 +8225,12 @@ body {
         border-radius: 10px;
     }
 
-    .team-slide img {
-        object-fit: cover;
-        object-position: center;
-    }
+   .team-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
 
     .slide-btn {
         width: 34px;
@@ -9831,3 +9833,6 @@ footer .footer-services-toggle {
         width: calc(100% - 16px);
     }
 }
+
+
+
