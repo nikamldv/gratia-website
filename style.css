@@ -1164,7 +1164,7 @@ button {
     }
 
     .team-image img {
-        height: 240px;
+        height: 340px;
     }
 
     .team-content h3 {
@@ -2380,7 +2380,7 @@ iframe {
 
 
     .team-image img {
-        height: 300px;
+        height: 430px;
     }
 
 
@@ -2650,7 +2650,7 @@ iframe {
     /* ---------- Intensive ---------- */
 
     .intensive-image img {
-        height: 400px;
+        height: 430px;
     }
 
 
@@ -2670,7 +2670,7 @@ iframe {
 
         width: 100% !important;
 
-        height: 430px !important;
+        height: 300px !important;
         min-height: 430px !important;
 
         display: block !important;
@@ -3017,7 +3017,7 @@ iframe {
     /* ---------- Intensive ---------- */
 
     .intensive-image img {
-        height: 350px;
+        height: 450px;
     }
 
 
