@@ -7703,41 +7703,19 @@ body {
 
 
 /* RESPONSIVE */
-
-@media (max-width: 800px) {
-    .intensiv-hero {
-        min-height: 420px;
-        padding: 50px 6%;
-    }
-
-    .intensiv-schwerpunkte {
-        padding: 45px 5%;
-    }
-
-    .intensiv-cards {
-        gap: 15px;
-    }
-
-    .intensiv-card {
-        padding: 25px 15px;
-    }
-
-    .intensiv-card h3 {
-        font-size: 17px;
-    }
-
-    .intensiv-erfahrung {
-        gap: 22px;
-        margin-right: 5%;
-        margin-left: 5%;
-    }
-}
-
 @media (max-width: 600px) {
     .intensiv-hero {
         min-height: 440px;
-        padding: 42px 24px;
+        padding: 135px 24px 42px;
         background-position: 60% center;
+        background-size: cover;
+        box-sizing: border-box;
+    }
+
+    .intensiv-hero h1 {
+        margin-top: 0;
+        font-size: clamp(32px, 8vw, 44px);
+        line-height: 1.15;
     }
 
     .intensiv-hero p {
@@ -7767,7 +7745,6 @@ body {
         padding: 8px 5px 12px;
     }
 }
-
 
 /* ==============================
    UNSER TEAM – GRATIA
