@@ -8061,82 +8061,151 @@ body {
         padding: 26px 22px;
     }
 }
+/* ========================================
+   Team Slideshow - Mobile Responsive
+======================================== */
 
-/* Team Slideshow */
 @media (max-width: 600px) {
+
     .team-slideshow {
+        position: relative;
         width: calc(100% - 40px);
         height: auto;
         aspect-ratio: 4 / 3;
         margin: 24px auto;
         border-radius: 10px;
+        overflow: hidden;
+        box-sizing: border-box;
     }
 
+    /* Hide all slides by default */
     .team-slide {
+        display: none;
         width: 100%;
         height: 100%;
     }
 
+    /* Show only the active slide */
+    .team-slide.active {
+        display: block;
+        animation: teamFade 0.6s ease;
+    }
+
+    /* Slide images */
+   
     .team-slide img {
+        display: block;
         width: 100%;
         height: 100%;
         object-fit: contain;
-        object-position: center;
+        object-position: center top;
+    }
+
+    /* Previous and next buttons */
+    .slide-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 34px;
+        height: 34px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(135, 32, 32, 0.9);
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+        z-index: 2;
+    }
+
+    .slide-btn:hover {
+        background: #641717;
+    }
+
+    .slide-btn.prev {
+        left: 10px;
+    }
+
+    .slide-btn.next {
+        right: 10px;
+    }
+
+    /* Slide indicators */
+    .slide-dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        gap: 9px;
+        z-index: 2;
+    }
+
+    .slide-dot {
+        width: 11px;
+        height: 11px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.75);
+        cursor: pointer;
+    }
+
+    .slide-dot.active {
+        background: #872020;
+        outline: 2px solid #fff;
+    }
+
+    /* Languages */
+    .team-languages {
+        margin-top: 10px;
+        padding: 0;
+    }
+
+    .team-languages p {
+        margin-bottom: 14px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #641717;
+    }
+
+    .language-flags {
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .language-flags span {
+        font-size: 30px;
+    }
+
+    /* Team management */
+    .team-management {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+        gap: 24px;
+    }
+
+    .team-management-image img {
+        width: 100%;
+        min-height: 220px;
+        max-height: 320px;
+        object-fit: cover;
+    }
+
+    /* Call to action */
+    .team-cta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+        margin: 25px 16px;
+        padding: 24px 20px;
     }
 }
-.slide-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    border: none;
-    border-radius: 50%;
-    background: rgba(135, 32, 32, 0.9);
-    color: #fff;
-    font-size: 22px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    z-index: 2;
-}
 
-.slide-btn:hover {
-    background: #641717;
-}
-
-.slide-btn.prev {
-    left: 18px;
-}
-
-.slide-btn.next {
-    right: 18px;
-}
-
-.slide-dots {
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    z-index: 2;
-}
-
-.slide-dot {
-    width: 11px;
-    height: 11px;
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.75);
-    cursor: pointer;
-}
-
-.slide-dot.active {
-    background: #872020;
-    outline: 2px solid #fff;
-}
+/* ========================================
+   Team Slideshow Animation
+======================================== */
 
 @keyframes teamFade {
     from {
@@ -8216,6 +8285,7 @@ body {
         margin: 24px auto;
         border-radius: 10px;
     }
+}
 
     .team-slide img {
         object-fit: cover;
@@ -8240,42 +8310,21 @@ body {
         bottom: 12px;
         gap: 9px;
     }
-.team-languages {
+ .language-flags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
     margin-top: 10px;
-    padding: 0;
 }
 
-    .team-languages p {
-        margin-bottom: 14px;
-        font-size: 14px;
-        line-height: 1.6;
-        color: #641717;
-    }
-
-    .language-flags {
-        gap: 10px;
-        margin-top: 10px;
-    }
-
-    .language-flags span {
-        font-size: 30px;
-    }
-
-    .team-management {
-        padding: 40px 20px;
-        gap: 24px;
-    }
-
-    .team-management-image img {
-        min-height: 220px;
-        max-height: 320px;
-    }
-
-    .team-cta {
-        margin: 25px 16px;
-        padding: 24px 20px;
-    }
+.language-flags img {
+    display: block;
+    width: 34px;
+    height: 24px;
+    object-fit: contain;
 }
+
 
 /* Very small phones */
 @media (max-width: 380px) {
@@ -9819,5 +9868,32 @@ footer .footer-services-toggle {
 
     .social-bar-inner {
         width: calc(100% - 16px);
+    }
+}
+
+
+/* Fix team slideshow image cropping on mobile */
+@media (max-width: 600px) {
+    .team-slideshow {
+        height: auto !important;
+        aspect-ratio: auto !important;
+        overflow: hidden;
+    }
+
+    .team-slide {
+        height: auto !important;
+    }
+
+    .team-slide.active {
+        height: auto !important;
+    }
+
+    .team-slide img {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        max-height: none !important;
+        object-fit: contain !important;
+        object-position: center top !important;
     }
 }
