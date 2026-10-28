@@ -14,7 +14,6 @@
     >
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="responsiv.css">
 
     <style>
         :root {
@@ -459,11 +458,14 @@
         </div>
     </div>
 
+    <!-- =========================================
+         HEADER / NAVIGATION
+    ========================================== -->
     <header class="site-header" id="siteHeader">
+
         <div class="container header-inner">
 
-            <a href="index.html" class="logo-link"
-               aria-label="GRATIA Startseite">
+            <a href="#home" class="logo-link" aria-label="GRATIA Startseite">
                 <img
                     src="images/gratia-logo.png"
                     alt="Pflegedienst GRATIA GmbH"
@@ -474,9 +476,9 @@
             <button
                 class="menu-toggle"
                 id="menuToggle"
-                type="button"
                 aria-label="Menü öffnen"
                 aria-expanded="false"
+                type="button"
             >
                 <span></span>
                 <span></span>
@@ -484,16 +486,14 @@
             </button>
 
             <nav class="main-nav" id="mainNav">
-                <a href="index.html#home" class="nav-link">
-                    Startseite
-                </a>
 
-                <a href="ueber-uns.html"
-                   class="nav-link active"
-                   aria-current="page">
+                <a href="index.html" class="nav-link active">Startseite</a>
+
+                <a href="ueber-uns.html" class="nav-link">
                     Über uns
                 </a>
-               
+
+                
 <div class="nav-dropdown" id="leistungenDropdown">
 
     <button
@@ -548,6 +548,7 @@
     </div>
 </div>
 
+
                 <a href="haus-sonnenblume.html" class="nav-link">
                     Haus Sonnenblume
                 </a>
@@ -561,16 +562,18 @@
                 </a>
 
                 <a href="jobs.html" class="nav-link">
-                    Karriere
+                  Karriere
                 </a>
+
 
                 <a href="news.html" class="nav-link">
                     Aktuelles
                 </a>
 
-                <a href="index.html#kontakt" class="nav-link">
+                <a href="kontakt.html" class="nav-link">
                     Kontakt
                 </a>
+
             </nav>
 
         </div>
@@ -800,7 +803,7 @@
 
             <div class="footer-navigation">
 
-                <a href="#home">
+                <a href="index.html">
                     Startseite
                 </a>
 
@@ -986,29 +989,25 @@
 
     </div>
 
+
 </footer>
 
 
-    <script>
-        const menuToggle = document.getElementById("menuToggle");
-        const mainNav = document.getElementById("mainNav");
+    <!-- BACK TO TOP -->
 
-        if (menuToggle && mainNav) {
-            menuToggle.addEventListener("click", function () {
-                const isOpen = mainNav.classList.toggle("open");
+    <button
+        id="backToTop"
+        class="back-to-top"
+        type="button"
+        aria-label="Nach oben"
+        title="Nach oben"
+    >
+        ↑
+    </button>
 
-                menuToggle.setAttribute(
-                    "aria-expanded",
-                    String(isOpen)
-                );
 
-                menuToggle.setAttribute(
-                    "aria-label",
-                    isOpen ? "Menü schließen" : "Menü öffnen"
-                );
-            });
-        }
-    </script>
+
+<script src="main.js"></script>
 
 </body>
 </html>

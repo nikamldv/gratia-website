@@ -171,51 +171,127 @@
         </div>
     </div>
 
-    <!-- Header -->
+    
+    <!-- =========================================
+         HEADER / NAVIGATION
+    ========================================== -->
     <header class="site-header" id="siteHeader">
+
         <div class="container header-inner">
+
             <a href="index.html" class="logo-link" aria-label="GRATIA Startseite">
-                <img src="images/gratia-logo.png" alt="Pflegedienst GRATIA GmbH" class="site-logo">
+                <img
+                    src="images/gratia-logo.png"
+                    alt="Pflegedienst GRATIA GmbH"
+                    class="site-logo"
+                >
             </a>
 
-            <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen" aria-expanded="false" type="button">
-                <span></span><span></span><span></span>
+            <button
+                class="menu-toggle"
+                id="menuToggle"
+                aria-label="Menü öffnen"
+                aria-expanded="false"
+                type="button"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
             </button>
 
             <nav class="main-nav" id="mainNav">
-                <a href="index.html" class="nav-link">Startseite</a>
-                <a href="ueber-uns.html" class="nav-link">Über uns</a>
-                <div class="nav-dropdown" id="leistungenDropdown">
-                    <button type="button" class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
-                        Leistungen <span class="dropdown-arrow">›</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a href="leistungen.html" class="dropdown-item">Leistungen</a>
-                        <div class="submenu-dropdown">
-                            <button type="button" class="dropdown-item submenu-toggle" aria-expanded="false">
-                                Weitere Leistungen <span class="dropdown-arrow">›</span>
-                            </button>
-                            <div class="submenu-menu">
-                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Reinigungsservice</a>
-                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Edelmetalle und Edelsteine</a>
-                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Entrümpelungsservice</a>
-                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Massage-Service</a>
-                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Bauleistungen – Oskarbau GmbH</a>
-                                <a href="index.html#weitere-dienstleistungen" class="dropdown-item">Immobilien</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <a href="haus-sonnenblume.html" class="nav-link">Haus Sonnenblume</a>
-                <a href="intensivpflege.html" class="nav-link">Intensivpflege</a>
-                <a href="unser-team.html" class="nav-link">Unser Team</a>
-                <a href="jobs.html" class="nav-link">Karriere</a>
-                <a href="news.html" class="nav-link">Aktuelles</a>
-                <a href="kontakt.html" class="nav-link active" aria-current="page">Kontakt</a>
+
+                <a href="index.html" class="nav-link active">Startseite</a>
+
+                <a href="ueber-uns.html" class="nav-link">
+                    Über uns
+                </a>
+
+                
+<div class="nav-dropdown" id="leistungenDropdown">
+
+    <button
+        type="button"
+        class="nav-link dropdown-toggle"
+        aria-expanded="false"
+        aria-haspopup="true"
+    >
+        Leistungen
+        <span class="dropdown-arrow"> › </span>
+    </button>
+
+    <div class="dropdown-menu">
+
+        <a href="leistungen.html" class="dropdown-item">
+            Leistungen
+        </a>
+
+        <div class="submenu-dropdown">
+
+            <button
+                type="button"
+                class="dropdown-item submenu-toggle"
+                aria-expanded="false"
+            >
+                Weitere Leistungen
+                <span class="dropdown-arrow">›</span>
+            </button>
+
+            <div class="submenu-menu">
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Reinigungsservice
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Edelmetalle und Edelsteine
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Entrümpelungsservice
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Massage-Service
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Bauleistungen – Oskarbau GmbH
+                </a>
+                <a href="#weitere-leistungen" class="dropdown-item">
+                    Immobilien
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+                <a href="haus-sonnenblume.html" class="nav-link">
+                    Haus Sonnenblume
+                </a>
+
+                <a href="intensivpflege.html" class="nav-link">
+                    Intensivpflege
+                </a>
+
+                <a href="unser-team.html" class="nav-link">
+                    Unser Team
+                </a>
+
+                <a href="jobs.html" class="nav-link">
+                  Karriere
+                </a>
+
+
+                <a href="news.html" class="nav-link">
+                    Aktuelles
+                </a>
+
+                <a href="kontakt.html" class="nav-link">
+                    Kontakt
+                </a>
+
             </nav>
+
         </div>
     </header>
-
     <main>
 
      
@@ -500,6 +576,19 @@
         </div>
     </footer>
 
+    
+    <!-- BACK TO TOP -->
+
+    <button
+        id="backToTop"
+        class="back-to-top"
+        type="button"
+        aria-label="Nach oben"
+        title="Nach oben"
+    >
+        ↑
+    </button>
+
     <button id="backToTop" class="back-to-top" type="button" aria-label="Nach oben" title="Nach oben">↑</button>
     <script src="main.js"></script>
 
@@ -564,5 +653,8 @@
         if (year) year.textContent = new Date().getFullYear();
     });
     </script>
+
+<script src="main.js"></script>
+
 </body>
 </html>

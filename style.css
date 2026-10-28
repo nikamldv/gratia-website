@@ -4244,11 +4244,11 @@ iframe {
 
 
 @media (max-width: 760px) {
-
-    .jobs-page-hero {
-        min-height: 330px;
-    }
-
+.jobs-page-hero {
+    min-height: 330px;
+    margin-top: 117px;
+}
+n
     .jobs-page-hero-content {
         padding: 40px 15px;
     }
@@ -5338,7 +5338,13 @@ iframe {
     font-size: 0.85rem;
 }
 
+/* NEWS PAGE - MOBILE HERO SPACING FIX */
 
+@media (max-width: 760px) {
+    .news-page-hero {
+        margin-top: 117px;
+    }
+}
 /* =========================================
    GRATIA – Benutzerverwaltung
 ========================================= */
@@ -6055,18 +6061,30 @@ footer.site-footer {
     color: #872020 !important;
 }
 
-/* Leistungen Hero: Full Background Image with Text Overlay */
+/* =========================================
+   LEISTUNGEN HERO
+   Desktop + Mobile Responsive Design
+========================================= */
 
 .leistungen-hero {
     position: relative;
+    z-index: 1;
+
     display: flex;
     align-items: center;
+
     width: 100%;
-    min-height: 360px;
-    height: 360px;
+    min-height: 500px;
+    height: 500px;
+
+    margin-top: 0;
     padding: 0;
+
     overflow: hidden;
+    box-sizing: border-box;
+
     color: #fff;
+
     background-image:
         linear-gradient(
             90deg,
@@ -6076,58 +6094,99 @@ footer.site-footer {
             rgba(0, 0, 0, 0.02) 100%
         ),
         url("images/Leistungen2.png");
+
     background-size: cover;
     background-position: center 42%;
     background-repeat: no-repeat;
 }
 
+/* Hero Content */
+
 .leistungen-hero-content {
     position: relative;
-    z-index: 1;
-    width: 48%;
-    max-width: 580px;
-    padding: 35px 0 35px 6%;
+    z-index: 2;
+
+    width: 52%;
+    max-width: 620px;
+
+    padding: 40px 35px 40px 6%;
+
     box-sizing: border-box;
 }
 
+/* Eyebrow */
+
 .leistungen-hero .eyebrow {
     display: block;
+
     margin-bottom: 16px;
+
     color: #e8c39b;
+
     font-size: 11px;
     letter-spacing: 2px;
+    line-height: 1.5;
 }
 
-.leistungen-hero h1 {
-    margin: 0 0 18px;
+/* Main Heading */
+
+.leistungen-hero h1,
+.leistungen-hero-content h1 {
+    width: 100%;
+    max-width: 520px;
+
+    margin: 0 0 16px;
+
     color: #fffdf9;
+
     font-family: Georgia, "Times New Roman", serif;
-    font-size: clamp(30px, 3.2vw, 43px);
-    line-height: 1.12;
+    font-size: clamp(30px, 3.2vw, 38px);
     font-weight: 700;
+    line-height: 1.15;
+
+    overflow-wrap: normal;
+    word-break: normal;
 }
+
+/* Description */
 
 .leistungen-hero p {
-    max-width: 410px;
+    width: 100%;
+    max-width: 430px;
+
     margin: 0;
+
     color: #fff7f2;
+
     font-size: 14px;
-    line-height: 1.7;
+    line-height: 1.65;
 }
 
-/* Responsive */
+/* =========================================
+   MOBILE RESPONSIVE
+========================================= */
 
-@media (max-width: 700px) {
+@media (max-width: 760px) {
+
     .leistungen-hero {
+        width: 100%;
+
         min-height: 430px;
         height: auto;
+
+        margin-top: 117px;
+
+        align-items: center;
+
         background-position: 58% center;
     }
 
     .leistungen-hero-content {
         width: 100%;
         max-width: 100%;
+
         padding: 40px 7%;
+
         background: linear-gradient(
             90deg,
             rgba(65, 20, 20, 0.82),
@@ -6135,93 +6194,26 @@ footer.site-footer {
         );
     }
 
-    .leistungen-hero h1 {
-        font-size: 32px;
+    .leistungen-hero h1,
+    .leistungen-hero-content h1 {
+        max-width: 100%;
+
+        font-size: 31px;
+        line-height: 1.15;
     }
 
     .leistungen-hero p {
+        max-width: 100%;
+
         font-size: 13px;
+        line-height: 1.7;
     }
 }
 
-/* Fix: Leistungen Hero Text */
+/* Prevent horizontal overflow */
 
-.leistungen-hero {
-    min-height: 360px !important;
-    height: 360px !important;
-    align-items: center !important;
-}
-
-.leistungen-hero-content {
-    width: 52% !important;
-    max-width: 620px !important;
-    padding: 30px 35px 30px 6% !important;
-    box-sizing: border-box !important;
-}
-
-.leistungen-hero-content h1,
-.leistungen-hero h1 {
-    width: 100% !important;
-    max-width: 520px !important;
-    font-size: 38px !important;
-    line-height: 1.15 !important;
-    margin: 0 0 16px !important;
-    overflow-wrap: normal !important;
-    word-break: normal !important;
-}
-
-.leistungen-hero-content p {
-    width: 100% !important;
-    max-width: 430px !important;
-    font-size: 14px !important;
-    line-height: 1.65 !important;
-    margin: 0 !important;
-}
-
-@media (max-width: 700px) {
-    .leistungen-hero {
-        height: auto !important;
-        min-height: 430px !important;
-    }
-
-    .leistungen-hero-content {
-        width: 100% !important;
-        max-width: 100% !important;
-        padding: 35px 7% !important;
-    }
-
-    .leistungen-hero-content h1,
-    .leistungen-hero h1 {
-        font-size: 31px !important;
-    }
-}
-
-/* Hero starts below the navigation */
-.leistungen-hero {
-    position: relative;
-    z-index: 1;
-    margin-top: 0 !important;
-    overflow: hidden;
-    min-height: 500px !important;
-    height: 500px !important;
-}
-
-/* Keep the complete heading visible */
-.leistungen-hero-content {
-    padding-top: 40px !important;
-    padding-bottom: 40px !important;
-}
-
-/* Prevent the navigation from covering content */
 body {
     overflow-x: hidden;
-}
-
-@media (max-width: 700px) {
-    .leistungen-hero {
-        height: auto !important;
-        min-height: 430px !important;
-    }
 }
 
 
