@@ -8033,7 +8033,9 @@ body {
 @media (max-width: 600px) {
     .team-hero {
         min-height: 390px;
-        padding: 60px 22px 45px;
+        padding: 135px 22px 45px;
+        box-sizing: border-box;
+        align-items: flex-start;
         background-position: 58% center;
         background-size: cover;
     }
