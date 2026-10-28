@@ -1164,7 +1164,7 @@ button {
     }
 
     .team-image img {
-        height: 340px;
+        height: 240px;
     }
 
     .team-content h3 {
@@ -2380,7 +2380,7 @@ iframe {
 
 
     .team-image img {
-        height: 430px;
+        height: 300px;
     }
 
 
@@ -2650,7 +2650,7 @@ iframe {
     /* ---------- Intensive ---------- */
 
     .intensive-image img {
-        height: 430px;
+        height: 400px;
     }
 
 
@@ -2670,7 +2670,7 @@ iframe {
 
         width: 100% !important;
 
-        height: 300px !important;
+        height: 430px !important;
         min-height: 430px !important;
 
         display: block !important;
@@ -3017,7 +3017,7 @@ iframe {
     /* ---------- Intensive ---------- */
 
     .intensive-image img {
-        height: 450px;
+        height: 350px;
     }
 
 
@@ -7704,7 +7704,7 @@ body {
 
 /* RESPONSIVE */
 
-@media (max-width: 900px) {
+@media (max-width: 800px) {
     .intensiv-hero {
         min-height: 420px;
         padding: 50px 6%;
@@ -8004,19 +8004,38 @@ body {
 .team-cta .team-button:hover {
     background: #f4e9df;
 }
+
+/* Responsive: Team Management */
+@media (max-width: 1024px) {
+    .team-management {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 55px 25px;
+    }
+
+    .team-management-image img {
+        width: 100%;
+        min-height: 280px;
+        max-height: 430px;
+        object-fit: cover;
+    }
+
+    .team-values-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .team-cta {
+        margin: 40px 20px;
+        padding: 30px;
+    }
+}
+
 @media (max-width: 600px) {
     .team-hero {
         min-height: 390px;
-        padding: 45px 22px 45px;
+        padding: 60px 22px 45px;
         background-position: 58% center;
         background-size: cover;
-        box-sizing: border-box;
-    }
-
-    .team-hero h1 {
-        font-size: clamp(32px, 8vw, 44px);
-        line-height: 1.15;
-        margin-top: 0;
     }
 
     .team-values {
@@ -8040,12 +8059,13 @@ body {
         padding: 26px 22px;
     }
 }
+
 /* Team Slideshow */
 .team-slideshow {
     position: relative;
     width: calc(100% - 40px);
     max-width: 1200px;
-    height: 300px;
+    height: 600px;
     margin: 40px auto;
     overflow: hidden;
     border-radius: 16px;
@@ -8205,12 +8225,10 @@ body {
         border-radius: 10px;
     }
 
-   .team-slide img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center;
-}
+    .team-slide img {
+        object-fit: cover;
+        object-position: center;
+    }
 
     .slide-btn {
         width: 34px;
@@ -9783,7 +9801,6 @@ footer .footer-services-toggle {
     }
 }
 
-
 /* =========================================================
    6. SMALL MOBILE SCREENS
    ========================================================= */
@@ -9813,6 +9830,3 @@ footer .footer-services-toggle {
         width: calc(100% - 16px);
     }
 }
-
-
-
