@@ -7704,7 +7704,7 @@ body {
 
 /* RESPONSIVE */
 
-@media (max-width: 800px) {
+@media (max-width: 900px) {
     .intensiv-hero {
         min-height: 420px;
         padding: 50px 6%;
