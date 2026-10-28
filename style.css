@@ -8004,38 +8004,19 @@ body {
 .team-cta .team-button:hover {
     background: #f4e9df;
 }
-
-/* Responsive: Team Management */
-@media (max-width: 900px) {
-    .team-management {
-        grid-template-columns: 1fr;
-        gap: 30px;
-        padding: 55px 25px;
-    }
-
-    .team-management-image img {
-        width: 100%;
-        min-height: 280px;
-        max-height: 430px;
-        object-fit: cover;
-    }
-
-    .team-values-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .team-cta {
-        margin: 40px 20px;
-        padding: 30px;
-    }
-}
-
 @media (max-width: 600px) {
     .team-hero {
         min-height: 390px;
-        padding: 60px 22px 45px;
+        padding: 45px 22px 45px;
         background-position: 58% center;
         background-size: cover;
+        box-sizing: border-box;
+    }
+
+    .team-hero h1 {
+        font-size: clamp(32px, 8vw, 44px);
+        line-height: 1.15;
+        margin-top: 0;
     }
 
     .team-values {
@@ -8059,7 +8040,6 @@ body {
         padding: 26px 22px;
     }
 }
-
 /* Team Slideshow */
 .team-slideshow {
     position: relative;
