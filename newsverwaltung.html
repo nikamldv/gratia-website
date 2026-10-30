@@ -526,7 +526,7 @@ newsForm.addEventListener("submit", async function (event) {
             formData.append("image", imageFile);
 
             const uploadResponse = await fetch(
-                "http://localhost:3000/api/admin/news/upload-image",
+                "https://api.pflegedienstgratia.com/api/contact-messages",
                 {
                     method: "POST",
                     headers: {
@@ -558,9 +558,9 @@ newsForm.addEventListener("submit", async function (event) {
         };
 
         // Beim Bearbeiten PUT, bei einer neuen Nachricht POST
-        const url = isEditing
-            ? `http://localhost:3000/api/admin/news/${editingId}`
-            : "http://localhost:3000/api/admin/news";
+       const url = isEditing
+    ? `https://api.pflegedienstgratia.com/api/admin/news/${editingId}`
+    : "https://api.pflegedienstgratia.com/api/admin/news";
 
         const response = await fetch(url, {
             method: isEditing ? "PUT" : "POST",
@@ -622,7 +622,7 @@ async function loadAdminNews() {
 
     try {
         const response = await fetch(
-            "http://localhost:3000/api/admin/news",
+            "https://api.pflegedienstgratia.com/api/contact-messages",
             {
                 method: "GET",
                 headers: {
@@ -675,7 +675,7 @@ async function loadAdminNews() {
                 const image = document.createElement("img");
                 image.src = item.image_url.startsWith("http")
                     ? item.image_url
-                    : "http://localhost:3000" + item.image_url;
+                    : "https://api.pflegedienstgratia.com/api/contact-messages" + item.image_url;
                 image.alt = item.title || "GRATIA News";
                 image.style.maxWidth = "100%";
                 image.style.maxHeight = "220px";
@@ -759,7 +759,7 @@ editButton.addEventListener("click", () => {
 
                 try {
                     const response = await fetch(
-                        `http://localhost:3000/api/admin/news/${item.id}`,
+                        `https://api.pflegedienstgratia.com/api/admin/news/${item.id}`,
                         {
                             method: "DELETE",
                             headers: {

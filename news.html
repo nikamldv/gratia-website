@@ -520,10 +520,10 @@ async function loadNews() {
             if (item.image_url) {
                 const image = document.createElement("img");
 
-                image.src = item.image_url.startsWith("http")
-                    ? item.image_url
-                    : "http://localhost:3000" + item.image_url;
-
+               image.src = item.image_url.startsWith("http")
+    ? item.image_url
+    : "https://api.pflegedienstgratia.com" + item.image_url;
+    
                 image.alt = item.title || "GRATIA Neuigkeit";
                 image.className = "news-card-image";
                 image.loading = "lazy";
