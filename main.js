@@ -379,7 +379,7 @@ if (!submitButton) {
             // Send the message to the local GRATIA backend.
 
             const response = await fetch(
-                "https://pflegedienstgratia.com/api/contact-messages",
+                "https://api.pflegedienstgratia.com/api/contact-messages",
                 {
                     method: "POST",
 
@@ -713,7 +713,7 @@ if (applicationForm) {
             const formData = new FormData(applicationForm);
 
             const response = await fetch(
-                "http://localhost:3000/api/applications",
+                "https://api.pflegedienstgratia.com/api/applications",
                 {
                     method: "POST",
                     body: formData

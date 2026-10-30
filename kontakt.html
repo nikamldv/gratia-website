@@ -592,69 +592,7 @@
     <button id="backToTop" class="back-to-top" type="button" aria-label="Nach oben" title="Nach oben">↑</button>
     <script src="main.js"></script>
 
-    <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const form = document.getElementById("gratia-contact-form");
-        const result = document.getElementById("form-result");
-        if (!form || !result) return;
 
-        let isSubmitting = false;
-
-        form.addEventListener("submit", async (event) => {
-            event.preventDefault();
-            if (!form.reportValidity() || isSubmitting) return;
-
-            const button = form.querySelector('button[type="submit"]');
-            const originalHTML = button.innerHTML;
-            const formData = new FormData(form);
-            const payload = {
-                name: String(formData.get("name") || "").trim(),
-                email: String(formData.get("email") || "").trim(),
-                phone: String(formData.get("phone") || "").trim(),
-                subject: String(formData.get("subject") || "").trim(),
-                message: String(formData.get("message") || "").trim()
-            };
-
-            isSubmitting = true;
-            button.disabled = true;
-            button.textContent = "Wird gesendet ...";
-            result.textContent = "";
-
-            try {
-                /*
-                  Wenn Frontend und Backend auf derselben Domain laufen,
-                  kann dieser relative API-Pfad verwendet werden.
-                  Bei getrenntem Hosting muss die Backend-URL angepasst werden.
-                */
-                const response = await fetch("/api/contact-messages", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json().catch(() => ({}));
-                if (!response.ok || data.status !== "OK") {
-                    throw new Error(data.message || "Die Nachricht konnte nicht gesendet werden.");
-                }
-
-                result.textContent = "Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.";
-                form.reset();
-            } catch (error) {
-                console.error("Kontaktformular:", error);
-                result.textContent = "Leider konnte Ihre Nachricht nicht gesendet werden. Bitte versuchen Sie es später erneut.";
-            } finally {
-                isSubmitting = false;
-                button.disabled = false;
-                button.innerHTML = originalHTML;
-            }
-        });
-
-        const year = document.getElementById("currentYear");
-        if (year) year.textContent = new Date().getFullYear();
-    });
-    </script>
-
-<script src="main.js"></script>
 
 </body>
 </html>
