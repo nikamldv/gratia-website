@@ -1,5 +1,5 @@
 
-const API_BASE = "http://localhost:3000/api";
+const API_BASE = "https://api.pflegedienstgratia.com/api";
 
 const TOKEN_KEY = "gratia_admin_token";
 const USER_KEY = "gratia_admin_user";
