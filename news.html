@@ -495,7 +495,7 @@ async function loadNews() {
     const newsList = document.getElementById("news-list");
 
     try {
-        const response = await fetch("http://localhost:3000/api/news");
+        const response = await fetch("https://api.pflegedienstgratia.com/api/jobs");
 
         if (!response.ok) {
             throw new Error("News konnten nicht geladen werden.");
