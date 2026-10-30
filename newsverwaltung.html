@@ -673,9 +673,9 @@ async function loadAdminNews() {
 
             if (item.image_url) {
                 const image = document.createElement("img");
-                image.src = item.image_url.startsWith("http")
-                    ? item.image_url
-                    : "https://api.pflegedienstgratia.com/api/contact-messages" + item.image_url;
+               image.src = item.image_url.startsWith("http")
+    ? item.image_url
+    : `https://api.pflegedienstgratia.com${item.image_url}`;
                 image.alt = item.title || "GRATIA News";
                 image.style.maxWidth = "100%";
                 image.style.maxHeight = "220px";

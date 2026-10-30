@@ -141,19 +141,14 @@ Ihr GRATIA Team`,
 }
 
 
-app.use(cors());
-app.use(express.json({ limit: "1mb" }));
-
-const db = mysql.createPool({
-    host: process.env.DB_HOST || "localhost",
-    port: Number(process.env.DB_PORT || 3306),
-    user: process.env.DB_USER || "root",
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME || "gratia_db",
-    waitForConnections: true,
-    connectionLimit: 10
-});
-
+app.use(cors({
+    origin: [
+        "https://pflegedienstgratia.com",
+        "https://www.pflegedienstgratia.com"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 
 const CV_UPLOAD_DIR = path.join(__dirname, "private_uploads");
 
