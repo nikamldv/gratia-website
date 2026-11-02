@@ -634,15 +634,15 @@ async function loadEmployeeApplications() {
                 application.last_name
             ].filter(Boolean).join(" ");
 
-            row.append(
-                createCell(fullName || "Unbekannter Bewerber"),
-                createCell(application.position),
-                createCell(application.email),
-                createCell(formatDate(application.created_at)),
-                createCell(application.status || "Neu")
-            );
-
+           row.append(
+    createCell(fullName || "Unbekannter Bewerber", "Name"),
+    createCell(application.position, "Position"),
+    createCell(application.email, "E-Mail"),
+    createCell(formatDate(application.created_at), "Eingegangen am"),
+    createCell(application.status || "Neu", "Status")
+);
             const actions = document.createElement("td");
+            actions.dataset.label = "Aktionen";
 
             if (application.id && application.cv_file_name) {
                 const downloadButton = document.createElement("button");
@@ -775,16 +775,16 @@ async function loadEmployeeMessages() {
         for (const item of messages) {
             const row = document.createElement("tr");
 
-            row.append(
-                createCell(item.id),
-                createCell(item.name),
-                createCell(item.email),
-                createCell(item.subject),
-                createCell(formatDate(item.created_at)),
-                createCell(item.status || "Neu")
-            );
-
+           row.append(
+    createCell(item.id, "Nr."),
+    createCell(item.name, "Name"),
+    createCell(item.email, "E-Mail"),
+    createCell(item.subject, "Anliegen"),
+    createCell(formatDate(item.created_at), "Datum"),
+    createCell(item.status || "Neu", "Status")
+);
             const actions = document.createElement("td");
+            actions.dataset.label = "Details";
             const detailButton = document.createElement("button");
 
             detailButton.type = "button";
