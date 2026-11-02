@@ -35,7 +35,7 @@ const transporter = nodemailer.createTransport({
 async function sendInvitationEmail(email, fullName, token) {
     const path = require("path");
 
-    const logoPath =path.join(__dirname, "..", "images", "gratia-logo.png");
+    const logoPath = path.join(__dirname, "images", "gratia-logo.png");
 
     const frontendUrl = process.env.FRONTEND_URL;
 
