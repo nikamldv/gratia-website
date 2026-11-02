@@ -1527,6 +1527,8 @@ app.post(
                 }
             };
 
+
+
             // Token nur für lokale Tests zurückgeben.
             if (process.env.NODE_ENV !== "production") {
                 response.setupToken = invitationToken;
@@ -1633,6 +1635,84 @@ app.delete(
     }
 );
 
+
+
+/* Benutzer aktivieren oder deaktivieren */
+app.patch(
+    "/api/users/:id/status",
+    authenticateToken,
+    requirePermission("users.manage"),
+    async (req, res) => {
+        try {
+            const userId = Number(req.params.id);
+            const active = Number(req.body?.is_active);
+
+            if (
+                !Number.isInteger(userId) ||
+                userId <= 0 ||
+                ![0, 1].includes(active)
+            ) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Ungültige Benutzer-ID oder Status."
+                });
+            }
+
+            if (userId === Number(req.user.id)) {
+                return res.status(400).json({
+                    status: "ERROR",
+                    message: "Sie können Ihr eigenes Konto nicht deaktivieren."
+                });
+            }
+
+            const [users] = await db.execute(
+                "SELECT id, role FROM users WHERE id = ? LIMIT 1",
+                [userId]
+            );
+
+            if (users.length === 0) {
+                return res.status(404).json({
+                    status: "ERROR",
+                    message: "Benutzer wurde nicht gefunden."
+                });
+            }
+
+            if (users[0].role === "super_admin") {
+                return res.status(403).json({
+                    status: "ERROR",
+                    message: "Ein Super-Admin-Konto kann nicht deaktiviert werden."
+                });
+            }
+
+            await db.execute(
+                "UPDATE users SET is_active = ?, updated_at = NOW() WHERE id = ?",
+                [active, userId]
+            );
+
+            return res.json({
+                status: "OK",
+                message: active
+                    ? "Benutzer wurde aktiviert."
+                    : "Benutzer wurde deaktiviert.",
+                user: {
+                    id: userId,
+                    is_active: Boolean(active)
+                }
+            });
+
+        } catch (error) {
+            console.error(
+                "Fehler beim Ändern des Benutzerstatus:",
+                error.message
+            );
+
+            return res.status(500).json({
+                status: "ERROR",
+                message: "Benutzerstatus konnte nicht geändert werden."
+            });
+        }
+    }
+);
 
 /* Berechtigungen eines Benutzers ändern */
 app.patch(
