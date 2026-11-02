@@ -518,12 +518,17 @@ function formatDate(value) {
 /* -----------------------------
    Sichere Tabellenzelle
 ----------------------------- */
-function createCell(value) {
+function createCell(value, label = "") {
     const cell = document.createElement("td");
+
     cell.textContent =
         value === null || value === undefined || value === ""
             ? "–"
             : String(value);
+
+    if (label) {
+        cell.dataset.label = label;
+    }
 
     return cell;
 }
