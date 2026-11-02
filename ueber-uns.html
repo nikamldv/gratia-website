@@ -390,6 +390,35 @@
                 padding: 55px 0;
             }
         }
+
+/* Über uns: Inhalt zentrieren und Seitenabstände verbessern */
+
+.about-container {
+    width: min(1160px, calc(100% - 80px));
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+}
+
+.about-intro-grid {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Tablet */
+@media (max-width: 800px) {
+    .about-container {
+        width: calc(100% - 48px);
+    }
+}
+
+/* Smartphone */
+@media (max-width: 540px) {
+    .about-container {
+        width: calc(100% - 36px);
+    }
+}
+
     </style>
 </head>
 
@@ -779,7 +808,7 @@
             ganzheitlich sieht – mit Respekt, Würde und
             individueller Betreuung.
         </p>
-        <a href="index.html#kontakt" class="philosophie-button">
+        <a href="kontakt.html" class="philosophie-button">
             Unser Unternehmen
             <span aria-hidden="true">→</span>
         </a>
