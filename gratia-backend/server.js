@@ -146,7 +146,7 @@ app.use(cors({
         "https://pflegedienstgratia.com",
         "https://www.pflegedienstgratia.com"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
