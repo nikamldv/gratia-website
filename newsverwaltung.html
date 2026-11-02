@@ -526,7 +526,7 @@ newsForm.addEventListener("submit", async function (event) {
             formData.append("image", imageFile);
 
             const uploadResponse = await fetch(
-                "https://api.pflegedienstgratia.com/api/contact-messages",
+                "https://api.pflegedienstgratia.com/api/admin/news/upload-image",
                 {
                     method: "POST",
                     headers: {
@@ -558,7 +558,8 @@ newsForm.addEventListener("submit", async function (event) {
         };
 
         // Beim Bearbeiten PUT, bei einer neuen Nachricht POST
-       const url = isEditing
+
+     const url = isEditing
     ? `https://api.pflegedienstgratia.com/api/admin/news/${editingId}`
     : "https://api.pflegedienstgratia.com/api/admin/news";
 
@@ -622,7 +623,7 @@ async function loadAdminNews() {
 
     try {
         const response = await fetch(
-            "https://api.pflegedienstgratia.com/api/contact-messages",
+           "https://api.pflegedienstgratia.com/api/admin/news",
             {
                 method: "GET",
                 headers: {
