@@ -7,212 +7,155 @@
     <title>GRATIA – Kontaktanfragen</title>
 
     <style>
-        * {
-            box-sizing: border-box;
+        :root {
+            color-scheme: light;
+            --brand: #872020;
+            --brand-dark: #681919;
+            --gold: #c59a45;
+            --ink: #332e2b;
+            --muted: #77716d;
+            --line: #e9e2dc;
+            --paper: #fff;
+            --canvas: #f6f3ef;
+            --shadow: 0 12px 34px rgba(56, 31, 25, .08);
         }
+
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f4f4f4;
-            color: #333;
+            font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+            background: var(--canvas);
+            color: var(--ink);
+            line-height: 1.55;
         }
 
         header {
-            background: #872020;
-            color: white;
-            padding: 24px 5%;
+            position: relative;
+            overflow: hidden;
+            padding: 32px max(24px, calc((100% - 1240px) / 2));
+            color: #fff;
+            background: linear-gradient(115deg, var(--brand-dark), var(--brand) 68%, #a34a3d);
+            border-bottom: 4px solid var(--gold);
         }
 
-        header h1 {
-            margin: 0 0 8px;
-            font-size: 26px;
+        header::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            right: 5%;
+            top: -210px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 50%;
+            box-shadow: 0 0 0 28px rgba(255,255,255,.025), 0 0 0 56px rgba(255,255,255,.02);
+            pointer-events: none;
         }
 
-        header p {
-            margin: 0;
-            font-size: 14px;
-        }
+        header h1 { margin: 0 0 5px; font-size: clamp(24px, 3vw, 32px); line-height: 1.2; }
+        header p { margin: 0; color: rgba(255,255,255,.78); font-size: 14px; }
 
-        main {
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+        main { width: min(1240px, calc(100% - 40px)); margin: 34px auto 56px; }
 
         .toolbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 16px;
+            gap: 18px;
             flex-wrap: wrap;
             margin-bottom: 22px;
         }
 
-        .toolbar h2 {
-            margin: 0;
-        }
-
-        .toolbar-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        .toolbar h2 { margin: 0; color: var(--ink); font-size: 23px; letter-spacing: -.02em; }
+        .toolbar-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
         button {
-            background: #872020;
-            color: white;
-            border: 1px solid #872020;
-            border-radius: 6px;
-            padding: 11px 16px;
-            font-weight: bold;
+            min-height: 42px;
+            padding: 10px 16px;
+            color: #fff;
+            background: var(--brand);
+            border: 1px solid var(--brand);
+            border-radius: 8px;
+            font: inherit;
+            font-size: 14px;
+            font-weight: 650;
             cursor: pointer;
+            transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
         }
 
-        button:hover {
-            background: #681717;
+        button:hover { background: var(--brand-dark); box-shadow: 0 5px 13px rgba(104,25,25,.16); transform: translateY(-1px); }
+        button:disabled { opacity: .6; cursor: wait; transform: none; box-shadow: none; }
+        #backButton { color: var(--brand); background: transparent; border-color: #d8c9c3; }
+        #backButton:hover { color: var(--brand-dark); background: #fff; }
+
+        .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+
+        .stat-card, .panel {
+            background: var(--paper);
+            border: 1px solid rgba(135,32,32,.07);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
         }
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: wait;
-        }
+        .stat-card { position: relative; overflow: hidden; padding: 20px 22px; }
+        .stat-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--gold); }
+        .stat-card p { margin: 0 0 5px; color: var(--muted); font-size: 13px; font-weight: 600; }
+        .stat-card strong { color: var(--brand); font-size: 30px; line-height: 1.2; }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 16px;
-            margin-bottom: 22px;
-        }
-
-        .stat-card,
-        .panel {
-            background: white;
-            border-radius: 10px;
-            padding: 22px;
-            box-shadow: 0 3px 14px rgba(0, 0, 0, 0.05);
-        }
-
-        .stat-card p {
-            margin: 0 0 10px;
-            color: #666;
-        }
-
-        .stat-card strong {
-            font-size: 28px;
-            color: #872020;
-        }
-
+        .panel { padding: 22px; }
         .search {
-            width: 100%;
-            max-width: 420px;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 15px;
-            margin-bottom: 18px;
+            width: min(100%, 440px);
+            min-height: 46px;
+            margin-bottom: 16px;
+            padding: 11px 14px;
+            color: var(--ink);
+            background: #fcfbfa;
+            border: 1px solid #ded6d0;
+            border-radius: 8px;
+            font: inherit;
+            font-size: 14px;
+            transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
         }
 
-        .table-wrapper {
-            width: 100%;
-            overflow-x: auto;
-        }
+        .search:focus { outline: none; border-color: var(--brand); background: #fff; box-shadow: 0 0 0 3px rgba(135,32,32,.1); }
+        .table-wrapper { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: 13px; }
+        th, td { padding: 13px 14px; border-bottom: 1px solid #eee9e4; text-align: left; vertical-align: top; }
+        th { position: sticky; top: 0; z-index: 1; color: #5f2823; background: #f7f1ed; font-size: 12px; font-weight: 700; letter-spacing: .025em; }
+        tbody tr:last-child td { border-bottom: 0; }
+        tbody tr:nth-child(even) { background: #fcfbfa; }
+        tbody tr:hover { background: #faf4f1; }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 760px;
-        }
+        .status { display: inline-block; padding: 4px 9px; color: var(--brand); background: #f6eae6; border: 1px solid #edd8d1; border-radius: 999px; font-size: 12px; font-weight: 650; }
+        .message { min-height: 24px; padding: 8px 0 14px; color: var(--muted); font-size: 14px; }
+        .error { color: #b42318; }
 
-        th,
-        td {
-            padding: 13px 12px;
-            border-bottom: 1px solid #eee;
-            text-align: left;
-            vertical-align: top;
-        }
+        dialog { width: min(600px, calc(100% - 30px)); padding: 26px; color: var(--ink); background: var(--paper); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 24px 70px rgba(30,16,12,.25); }
+        dialog::backdrop { background: rgba(35, 20, 17, .52); backdrop-filter: blur(3px); }
+        dialog h2 { margin: 0 0 18px; color: var(--brand); font-size: 22px; }
+        .detail-row { margin: 16px 0; padding-bottom: 14px; border-bottom: 1px solid #f0ebe6; }
+        .detail-row strong { display: block; margin-bottom: 5px; color: var(--brand); font-size: 13px; }
+        .detail-content { white-space: pre-wrap; overflow-wrap: anywhere; }
+        .dialog-actions { display: flex; justify-content: flex-end; margin-top: 22px; }
 
-        th {
-            background: #f8f3f3;
-            color: #672020;
-        }
+        footer { padding: 24px; color: var(--muted); font-size: 13px; text-align: center; }
 
-        .status {
-            display: inline-block;
-            padding: 5px 9px;
-            border-radius: 20px;
-            background: #f5e5e5;
-            color: #872020;
-            font-size: 12px;
-        }
+        :where(button, input):focus-visible { outline: 3px solid rgba(197,154,69,.75); outline-offset: 3px; }
 
-        .message {
-            padding: 14px 0;
-            color: #555;
-        }
-
-        .error {
-            color: #b42318;
-        }
-
-        dialog {
-            width: min(600px, calc(100% - 30px));
-            border: none;
-            border-radius: 10px;
-            padding: 25px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        dialog::backdrop {
-            background: rgba(0, 0, 0, 0.45);
-        }
-
-        .detail-row {
-            margin: 16px 0;
-        }
-
-        .detail-row strong {
-            display: block;
-            color: #872020;
-            margin-bottom: 5px;
-        }
-
-        .detail-content {
-            white-space: pre-wrap;
-            overflow-wrap: anywhere;
-        }
-
-        .dialog-actions {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 22px;
-        }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #777;
-            font-size: 13px;
-        }
-
-        @media (max-width: 600px) {
-            header h1 {
-                font-size: 21px;
-            }
-
-            .stats {
-                grid-template-columns: 1fr;
-            }
-
-            .toolbar {
-                align-items: flex-start;
-            }
-
-            .toolbar-actions {
-                width: 100%;
-            }
+        @media (max-width: 680px) {
+            header { padding: 24px 20px; }
+            main { width: min(100% - 28px, 1240px); margin-top: 24px; }
+            .toolbar { align-items: flex-start; }
+            .toolbar h2 { font-size: 21px; }
+            .toolbar-actions { width: 100%; }
+            .toolbar-actions button { flex: 1 1 170px; }
+            .stats { grid-template-columns: 1fr; gap: 12px; }
+            .stat-card { padding: 17px 20px; }
+            .panel { padding: 14px; }
+            .table-wrapper { margin-inline: -1px; }
         }
     </style>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 
 <body>

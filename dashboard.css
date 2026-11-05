@@ -1,0 +1,173 @@
+:root {
+    --dash-brand: #872020;
+    --dash-brand-dark: #681919;
+    --dash-accent: #c59a45;
+    --dash-ink: #292323;
+    --dash-muted: #786e6e;
+    --dash-border: #e8dddd;
+    --dash-canvas: #f6f3f2;
+    --dash-surface: #ffffff;
+    --dash-shadow: 0 10px 28px rgba(45, 22, 19, .07);
+}
+
+html,
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif !important;
+}
+
+body {
+    color: var(--dash-ink);
+    background-color: var(--dash-canvas);
+}
+
+header,
+.admin-header {
+    color: #fff;
+    background: linear-gradient(112deg, var(--dash-brand-dark), var(--dash-brand));
+    border-bottom: 3px solid var(--dash-accent);
+}
+
+header h1,
+.admin-header h1 {
+    color: #fff;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.2;
+    letter-spacing: -.02em;
+}
+
+header p,
+.admin-header p {
+    color: rgba(255, 255, 255, .8);
+}
+
+header h2,
+header h3,
+.admin-header h2,
+.admin-header h3 {
+    color: #fff;
+}
+
+main,
+.admin-main,
+.admin-container {
+    width: min(1240px, calc(100% - 40px));
+    max-width: 1240px;
+    margin: 32px auto 56px;
+    padding-inline: 0;
+}
+
+.card,
+.panel,
+.welcome,
+.stat-card,
+.form-card,
+.applications-card,
+.user-card {
+    background-color: var(--dash-surface);
+    border: 1px solid rgba(135, 32, 32, .09);
+    border-radius: 14px;
+    box-shadow: var(--dash-shadow);
+}
+
+h1,
+h2,
+h3,
+h4 {
+    color: var(--dash-brand);
+    font-family: inherit;
+    line-height: 1.25;
+    letter-spacing: -.015em;
+    text-wrap: balance;
+}
+
+button,
+.button,
+.refresh-button,
+.primary-button {
+    min-height: 40px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-weight: 650;
+    transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+
+button:not(:disabled):hover,
+.button:hover,
+.refresh-button:hover,
+.primary-button:hover {
+    box-shadow: 0 5px 14px rgba(104, 25, 25, .14);
+}
+
+input,
+select,
+textarea {
+    border-color: #ded6d0;
+    border-radius: 8px;
+    font: inherit;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: 0;
+    border-color: var(--dash-brand);
+    box-shadow: 0 0 0 3px rgba(135, 32, 32, .1);
+}
+
+table {
+    border-collapse: collapse;
+}
+
+thead th {
+    color: #5f2823;
+    background: #f7f1ed;
+    border-bottom: 1px solid var(--dash-border);
+}
+
+tbody tr:nth-child(even) {
+    background: #fcfbfa;
+}
+
+tbody tr:hover {
+    background: #faf4f1;
+}
+
+dialog {
+    border: 1px solid var(--dash-border);
+    border-radius: 14px;
+    box-shadow: 0 24px 64px rgba(35, 20, 17, .22);
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid rgba(197, 154, 69, .75);
+    outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+    main,
+    .admin-main,
+    .admin-container {
+        width: calc(100% - 28px);
+        margin: 24px auto 40px;
+    }
+
+    header {
+        padding: 22px 20px;
+    }
+
+    .grid {
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr));
+    }
+}
+
+@media (max-width: 520px) {
+    .panel,
+    .card,
+    .welcome {
+        border-radius: 12px;
+    }
+
+    .table-wrapper {
+        overflow-x: auto;
+    }
+}

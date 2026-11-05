@@ -9,9 +9,9 @@
    ========================================================= */
 
 :root {
-    --primary: #74110f;
-    --primary-dark: #520b09;
-    --primary-light: #941f1c;
+    --primary: #872020;
+    --primary-dark: #681919;
+    --primary-light: #a34a3d;
 
     --gold: #c59a45;
     --gold-light: #e2c477;
@@ -355,7 +355,7 @@ button {
     align-items: center;
 
     background-image:
-        url("images/hero.png");
+        url("images/hero.jpg");
 
     background-size: cover;
     background-position: center;
@@ -489,7 +489,7 @@ button {
 
     border: 1px solid var(--primary);
 
-    box-shadow: 0 8px 20px rgba(116, 17, 15, 0.18);
+    box-shadow: 0 8px 20px rgba(135, 32, 32, 0.18);
 }
 
 
@@ -1045,7 +1045,7 @@ button {
 
     color: var(--gold);
 
-    font-family: Georgia, serif;
+    font-family: inherit;
 
     font-size: 50px;
 
@@ -1290,7 +1290,7 @@ button {
 
     border-radius: 50%;
 
-    background: rgba(116, 17, 15, 0.08);
+    background: rgba(135, 32, 32, 0.08);
 
     color: var(--primary);
 
@@ -1837,7 +1837,7 @@ button {
 
 
 .footer-contact-link:hover {
-    color: #e4c276;
+    color: #e2c477;
 }
 
 
@@ -1855,7 +1855,7 @@ button {
 
     min-width: 22px;
 
-    color: #e4c276;
+    color: #e2c477;
 
     font-size: 17px;
 }
@@ -1904,9 +1904,9 @@ button {
 
 
 .footer-social a:hover {
-    background: #e4c276;
+    background: #e2c477;
 
-    border-color: #e4c276;
+    border-color: #e2c477;
 
     color: #260605;
 }
@@ -1984,7 +1984,7 @@ button {
 
 
 .footer-legal a:hover {
-    color: #e4c276;
+    color: #e2c477;
 }
 
 
@@ -3612,7 +3612,7 @@ iframe {
             rgba(51, 51, 51, 0.78),
             rgba(51, 51, 51, 0.78)
         ),
-        url("images/hero.png");
+        url("images/hero.jpg");
 
     background-size: cover;
     background-position: center;
@@ -3920,8 +3920,8 @@ iframe {
 
 .job-button:hover {
     color: #ffffff;
-    background: #6f1919;
-    border-color: #6f1919;
+    background: #681919;
+    border-color: #681919;
     transform: translateY(-2px);
 }
 
@@ -4639,7 +4639,7 @@ n
 }
 
 .job-details-card .job-button:hover {
-    background: #651717;
+    background: #681919;
 }
 
 @media (max-width: 600px) {
@@ -4674,7 +4674,7 @@ n
 ===================================== */
 
 .footer {
-    background: #971414;
+    background: #872020;
     color: #ffffff;
     padding: 28px 0 0;
     margin-top: 0;
@@ -4770,7 +4770,7 @@ n
 
 .footer .footer-social a:hover {
     background: #ffffff;
-    color: #882424;
+    color: #681919;
 }
 
 /* Unterer Footer-Bereich */
@@ -4812,7 +4812,7 @@ n
 }
 
 .footer .footer-legal a:hover {
-    color: #4a1010;
+    color: #681919;
     text-decoration: underline;
 }
 
@@ -5477,7 +5477,7 @@ n
 
 #users-panel .refresh-button:hover,
 #users-panel .save-button:hover {
-    background: #651717;
+    background: #681919;
     transform: translateY(-1px);
 }
 
@@ -5580,7 +5580,7 @@ n
 }
 
 #users-panel .primary-button:hover {
-    background: #651717;
+    background: #681919;
 }
 
 #users-panel #create-user-message {
@@ -5651,7 +5651,7 @@ n
 }
 
 .back-dashboard-button:hover {
-    background: #651717;
+    background: #681919;
     color: #ffffff;
 }
 
@@ -5706,7 +5706,7 @@ n
 }
 
 .messages-panel button:hover {
-    background: #681717;
+    background: #681919;
     transform: translateY(-1px);
 }
 
@@ -5822,7 +5822,7 @@ n
 }
 
 #refresh-applications-button:hover {
-    background: #681717;
+    background: #681919;
     transform: translateY(-1px);
 }
 
@@ -5911,7 +5911,7 @@ n
 }
 
 #applications-table .details-button:hover {
-    background: #681717;
+    background: #681919;
 }
 
 #applications-table .details-button:disabled {
@@ -6093,7 +6093,7 @@ footer.site-footer {
             rgba(85, 28, 28, 0.38) 58%,
             rgba(0, 0, 0, 0.02) 100%
         ),
-        url("images/Leistungen2.png");
+        url("images/Leistungen2.jpg");
 
     background-size: cover;
     background-position: center 42%;
@@ -6139,7 +6139,7 @@ footer.site-footer {
 
     color: #fffdf9;
 
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(30px, 3.2vw, 38px);
     font-weight: 700;
     line-height: 1.15;
@@ -6245,7 +6245,7 @@ body {
 .leistungen-services-heading h2 {
     margin: 0 0 14px;
     color: #492b28;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(28px, 3vw, 38px);
     line-height: 1.2;
 }
@@ -6305,7 +6305,7 @@ body {
 .leistung-card h3 {
     margin: 0;
     color: #4a3935;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: 14px;
     font-weight: 600;
     line-height: 1.5;
@@ -6369,7 +6369,7 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #792e2c;
+    color: #872020;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -6386,13 +6386,13 @@ body {
     width: 34px;
     height: 2px;
     flex-shrink: 0;
-    background: #792e2c;
+    background: #872020;
 }
 
 .leistungen-services-heading h2,
 .intensivpflege-content h2,
 .leistungen-contact h2 {
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-weight: 600;
     letter-spacing: -0.5px;
 }
@@ -6460,7 +6460,7 @@ body {
     justify-content: center;
 
     color: #fff;
-    background: #803431;
+    background: #872020;
     border-radius: 50%;
 }
 
@@ -6473,7 +6473,7 @@ body {
 .leistungen-services .leistung-card h3 {
     margin: 0;
     color: #482823;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: 15px;
     font-weight: 600;
     line-height: 1.35;
@@ -6489,7 +6489,7 @@ body {
     justify-content: center;
     gap: 18px;
     padding: 15px;
-    color: #792e2c;
+    color: #872020;
 }
 
 .leistungen-motto > svg {
@@ -6501,7 +6501,7 @@ body {
 
 .leistungen-motto p {
     margin: 0;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(17px, 1.7vw, 23px);
     line-height: 1.35;
 }
@@ -6578,11 +6578,11 @@ body {
 
 .leistungen-button {
     color: #fff;
-    background: #792e2c;
+    background: #872020;
 }
 
 .leistungen-button:hover {
-    background: #5f211f;
+    background: #681919;
     transform: translateY(-2px);
 }
 
@@ -6773,7 +6773,7 @@ body {
 .philosophie-content h2 {
     margin: 0 0 18px;
     color: #512323;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(30px, 3.5vw, 42px);
     line-height: 1.2;
 }
@@ -6900,7 +6900,7 @@ body {
 }
 
 .philosophie-button:hover {
-    background: #641717;
+    background: #681919;
     transform: translateY(-2px);
 }
 
@@ -6998,7 +6998,7 @@ body {
             rgba(74, 25, 23, 0.72) 45%,
             rgba(74, 25, 23, 0.12) 100%
         ),
-        url("images/haus-sonnenblumen.png") center 55% / cover no-repeat;
+        url("images/haus-sonnenblumen.jpg") center 55% / cover no-repeat;
     color: #fff;
 }
 
@@ -7065,7 +7065,7 @@ body {
 }
 
 .sonnenblume-button:hover {
-    background: #641717;
+    background: #681919;
     transform: translateY(-2px);
 }
 
@@ -7332,7 +7332,7 @@ body {
 .sonnenblume-philosophy blockquote {
     margin: 28px 0 12px;
     color: var(--sonnenblume-red);
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(22px, 3vw, 30px);
     font-style: italic;
     line-height: 1.6;
@@ -7488,7 +7488,7 @@ body {
             rgba(75, 32, 29, 0.78) 43%,
             rgba(75, 32, 29, 0.08) 100%
         ),
-        url("images/pflege.png")
+        url("images/pflege.jpg")
         center 45% / cover no-repeat;
 }
 
@@ -7516,7 +7516,7 @@ body {
 .intensiv-hero h1 {
     margin: 0 0 12px;
     color: #fff;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(42px, 5vw, 64px);
     line-height: 1.1;
 }
@@ -7558,7 +7558,7 @@ body {
 }
 
 .intensiv-button:hover {
-    background: #641717;
+    background: #681919;
     transform: translateY(-2px);
 }
 
@@ -7579,7 +7579,7 @@ body {
 .intensiv-section-heading h2 {
     margin: 0 0 13px;
     color: #542b29;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(28px, 3.5vw, 38px);
 }
 
@@ -7633,7 +7633,7 @@ body {
 .intensiv-card h3 {
     margin: 0 0 12px;
     color: #342725;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: 20px;
     line-height: 1.4;
 }
@@ -7682,7 +7682,7 @@ body {
 .intensiv-erfahrung-content h2 {
     margin: 0 0 15px;
     color: #542b29;
-    font-family: Georgia, "Times New Roman", serif;
+    font-family: inherit;
     font-size: clamp(26px, 3vw, 34px);
 }
 
@@ -7759,7 +7759,7 @@ body {
             rgba(91, 34, 31, 0.88) 48%,
             rgba(91, 34, 31, 0.25) 100%
         ),
-        url("images/team-hero.png") center 35% / cover no-repeat;
+        url("images/team-hero.jpg") center 35% / cover no-repeat;
     color: #fff;
 }
 
@@ -7791,7 +7791,7 @@ body {
 .team-hero h2 {
     max-width: 540px;
     margin: 0 0 18px;
-    color: #e7c99b;
+    color: #e2c477;
     font-size: clamp(1.3rem, 2.4vw, 2rem);
     line-height: 1.4;
 }
@@ -7810,9 +7810,9 @@ body {
     justify-content: center;
     gap: 12px;
     padding: 14px 24px;
-    border: 1px solid #a51f2a;
+    border: 1px solid #872020;
     border-radius: 8px;
-    background: #981d27;
+    background: #872020;
     color: #fff;
     text-decoration: none;
     font-weight: 600;
@@ -7820,7 +7820,7 @@ body {
 }
 
 .team-button:hover {
-    background: #74151e;
+    background: #681919;
     transform: translateY(-2px);
 }
 
@@ -7838,7 +7838,7 @@ body {
 
 .team-management-text h2 {
     margin: 0 0 24px;
-    color: #702c2c;
+    color: #872020;
     font-size: clamp(2rem, 3.5vw, 2.8rem);
     line-height: 1.25;
 }
@@ -7875,7 +7875,7 @@ body {
 
 .team-section-heading h2 {
     margin: 0 0 14px;
-    color: #702c2c;
+    color: #872020;
     font-size: clamp(2rem, 3.5vw, 2.7rem);
 }
 
@@ -7914,14 +7914,14 @@ body {
     height: 58px;
     margin: 0 auto 20px;
     border-radius: 50%;
-    background: #702c2c;
+    background: #872020;
     color: #fff;
     font-size: 1.8rem;
 }
 
 .team-value-card h3 {
     margin-bottom: 12px;
-    color: #702c2c;
+    color: #872020;
     font-size: 1.12rem;
 }
 
@@ -7943,12 +7943,12 @@ body {
     margin: 70px auto;
     padding: 42px;
     border-radius: 16px;
-    background: linear-gradient(120deg, #682321, #8d252b);
+    background: linear-gradient(120deg, #681919, #a34a3d);
     color: #fff;
 }
 
 .team-cta .team-eyebrow {
-    color: #e7c99b;
+    color: #e2c477;
 }
 
 .team-cta h2 {
@@ -7967,7 +7967,7 @@ body {
     flex-shrink: 0;
     border-color: #fff;
     background: #fff;
-    color: #702c2c;
+    color: #872020;
 }
 
 .team-cta .team-button:hover {
@@ -8088,7 +8088,7 @@ body {
     }
 
     .slide-btn:hover {
-        background: #641717;
+        background: #681919;
     }
 
     .slide-btn.prev {
@@ -8136,7 +8136,7 @@ body {
         margin-bottom: 14px;
         font-size: 14px;
         line-height: 1.6;
-        color: #641717;
+        color: #681919;
     }
 
     .language-flags {
@@ -8195,7 +8195,7 @@ body {
 
 .team-languages p {
     margin: 0 0 18px;
-    color: #641717;
+    color: #681919;
     font-size: 16px;
     line-height: 1.7;
 }
@@ -8403,7 +8403,7 @@ body {
 /* Überschrift */
 .partner-service-content h3 {
     margin: 0 0 10px;
-    color: #702020;
+    color: #872020;
     font-size: 1.08rem;
     line-height: 1.4;
 }
@@ -9377,8 +9377,8 @@ footer .footer-services-toggle {
 }
 
 .main-nav a.nav-link[href="kontakt.html"]:hover {
-    background-color: #6f1919;
-    border-color: #6f1919;
+    background-color: #681919;
+    border-color: #681919;
     box-shadow: 0 4px 12px rgba(135, 32, 32, 0.2);
 }
 
@@ -9414,8 +9414,8 @@ footer .footer-services-toggle {
 }
 
 .main-nav a.nav-link[href="kontakt.html"]:hover {
-    background-color: #6f1919;
-    border-color: #6f1919;
+    background-color: #681919;
+    border-color: #681919;
     color: #ffffff !important;
     transform: translateY(-2px);
     box-shadow: 0 5px 12px rgba(135, 32, 32, 0.18);
@@ -9598,8 +9598,8 @@ footer .footer-services-toggle {
 
 .site-logo {
     display: block;
-    width: 155px;
-    height: 60px;
+    width: 120px;
+    height: 80px;
     max-width: 100%;
     object-fit: contain;
 }
@@ -9723,8 +9723,8 @@ footer .footer-services-toggle {
     }
 
     .site-logo {
-        width: 145px;
-        height: 58px;
+        width: 108px;
+        height: 72px;
     }
 
     .menu-toggle {
@@ -9822,8 +9822,8 @@ footer .footer-services-toggle {
     }
 
     .site-logo {
-        width: 125px;
-        height: 52px;
+        width: 100px;
+        height: 67px;
     }
 
     .menu-toggle {
@@ -9914,5 +9914,180 @@ footer .footer-services-toggle {
     .team-slide img {
         height: 100%;
         object-fit: contain;
+    }
+}
+
+/* =========================================================
+   VISUAL POLISH
+   Consistent surfaces, spacing and keyboard focus across pages
+   ========================================================= */
+
+:where(a, button, input, select, textarea):focus-visible {
+    outline: 3px solid rgba(197, 154, 69, 0.72);
+    outline-offset: 3px;
+}
+
+.site-header {
+    border-bottom: 1px solid rgba(104, 25, 25, 0.08);
+    box-shadow: 0 8px 24px rgba(48, 24, 18, 0.07);
+}
+
+.main-nav .nav-link {
+    border-radius: 8px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    font-family: inherit;
+    font-size: 14px;
+    letter-spacing: 0;
+}
+
+.main-nav .nav-link:hover,
+.main-nav .nav-link.active {
+    background-color: rgba(135, 32, 32, 0.055);
+}
+
+.dropdown-menu,
+.submenu-menu {
+    border-color: #eee5df;
+    border-radius: 12px;
+    box-shadow: 0 16px 38px rgba(47, 27, 22, 0.14);
+    overflow: hidden;
+}
+
+.dropdown-item {
+    padding: 11px 16px;
+    line-height: 1.45;
+}
+
+.section-heading h2,
+.section-heading h3 {
+    text-wrap: balance;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.22;
+    letter-spacing: -.02em;
+    text-wrap: balance;
+}
+
+@media (max-width: 760px) {
+    h1,
+    h2,
+    h3,
+    h4 {
+        letter-spacing: -.01em;
+    }
+}
+
+.service-card,
+.partner-service-card,
+.feature-card,
+.team-card {
+    border-color: rgba(135, 32, 32, 0.1);
+}
+
+.btn,
+.contact-submit-btn {
+    border-radius: 9px;
+    font-weight: 650;
+    letter-spacing: 0.01em;
+}
+
+/* Keep partner offers visually distinct from the core care services. */
+.partner-services {
+    background: linear-gradient(180deg, #f3efe9 0%, #f8f5f1 100%);
+    border-block: 1px solid #ece5dc;
+}
+
+.partner-services .section-kicker {
+    color: #8a6b34;
+}
+
+.partner-services .section-heading h2 {
+    margin: 0 auto 14px;
+    color: var(--primary);
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.partner-services .section-heading p {
+    max-width: 650px;
+    margin: 0 auto;
+    color: var(--text-light);
+    line-height: 1.75;
+}
+
+.partner-services .partner-service-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 14px rgba(65, 35, 28, 0.045);
+}
+
+.partner-services .partner-service-image {
+    height: 155px;
+}
+
+@media (max-width: 600px) {
+    .partner-services .partner-service-image {
+        height: 185px;
+    }
+}
+
+@media (max-width: 1100px) and (min-width: 761px) {
+    .header-inner {
+        gap: 12px;
+    }
+
+    .site-logo {
+        width: 120px;
+        height: 80px;
+    }
+
+    .main-nav {
+        gap: 1px;
+    }
+
+    .main-nav .nav-link {
+        padding-inline: 7px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 760px) {
+    .main-nav .nav-link:hover,
+    .main-nav .nav-link.active {
+        background-color: #faf4f1;
+    }
+
+    .section-padding {
+        padding-block: 68px;
+    }
+}
+
+/* Quiet, one-time reveal for major page sections. */
+.scroll-reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 520ms ease, transform 520ms ease;
+}
+
+.scroll-reveal.is-visible,
+.scroll-reveal:focus-within {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-reveal,
+    .scroll-reveal.is-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
     }
 }
