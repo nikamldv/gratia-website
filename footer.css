@@ -1,0 +1,207 @@
+/* Shared, accessible footer for public pages */
+.site-footer {
+    --footer-bg: #681919;
+    --footer-text: #f8eeee;
+    --footer-muted: #e0caca;
+    --footer-accent: #e8c778;
+    width: 100%;
+    color: var(--footer-text);
+    background: linear-gradient(125deg, #541313 0%, var(--footer-bg) 52%, #812323 100%);
+    border-top: 3px solid #c59a45;
+}
+
+.site-footer-main {
+    width: min(1200px, calc(100% - 48px));
+    margin: 0 auto;
+    padding: 54px 0 48px;
+    display: grid;
+    grid-template-columns: minmax(210px, 1.25fr) repeat(2, minmax(145px, .8fr)) minmax(210px, 1fr);
+    gap: clamp(24px, 4vw, 56px);
+    align-items: start;
+}
+
+.site-footer-brand,
+.site-footer-column {
+    min-width: 0;
+}
+
+.site-footer-logo {
+    display: inline-flex;
+    max-width: 190px;
+    border-radius: 10px;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.site-footer-logo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.site-footer-brand > p {
+    max-width: 280px;
+    margin: 18px 0 20px;
+    color: var(--footer-muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.site-footer-column h2 {
+    margin: 5px 0 17px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.site-footer-column > a,
+.site-footer-contact > address {
+    display: block;
+    margin: 0;
+    padding: 6px 0;
+    color: var(--footer-muted);
+    font-size: 14px;
+    line-height: 1.55;
+    font-style: normal;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+    transition: color .18s ease;
+}
+
+.site-footer-column > a:hover,
+.site-footer-column > a:focus-visible,
+.site-footer-meta a:hover,
+.site-footer-meta a:focus-visible {
+    color: var(--footer-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.site-footer-column > a:focus-visible,
+.site-footer-social a:focus-visible,
+.site-footer-logo:focus-visible,
+.site-footer-meta a:focus-visible {
+    outline: 2px solid var(--footer-accent);
+    outline-offset: 4px;
+    border-radius: 3px;
+}
+
+.site-footer-contact > address {
+    margin-bottom: 6px;
+}
+
+.site-footer-social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.site-footer-social a {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, .42);
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.site-footer-social a:hover {
+    color: #541313;
+    background: #fff;
+    border-color: #fff;
+}
+
+.site-footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(35, 7, 7, .22);
+}
+
+.site-footer-bottom-inner {
+    width: min(1200px, calc(100% - 48px));
+    min-height: 60px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px 28px;
+    flex-wrap: wrap;
+}
+
+.site-footer-bottom p,
+.site-footer-meta {
+    margin: 0;
+    color: var(--footer-muted);
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.site-footer-meta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.site-footer-meta a {
+    color: var(--footer-text);
+    text-decoration: none;
+}
+
+.site-footer-meta strong {
+    color: #fff;
+}
+
+@media (max-width: 900px) {
+    .site-footer-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 36px 48px;
+    }
+}
+
+@media (max-width: 560px) {
+    .site-footer-main {
+        width: calc(100% - 40px);
+        max-width: 440px;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 38px 0 34px;
+    }
+
+    .site-footer-logo {
+        max-width: 170px;
+    }
+
+    .site-footer-column h2 {
+        margin-bottom: 10px;
+    }
+
+    .site-footer-column > a {
+        padding: 8px 0;
+    }
+
+    .site-footer-bottom-inner {
+        width: calc(100% - 40px);
+        max-width: 440px;
+        padding: 15px 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 9px;
+    }
+
+    .site-footer-meta {
+        gap: 8px 16px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .site-footer a {
+        transition: none;
+    }
+}
