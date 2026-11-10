@@ -14,6 +14,18 @@ const crypto = require("crypto");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+const db = mysql.createPool({
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+
 
 // بدون JWT_SECRET سرور نباید اجرا شود.
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
@@ -149,6 +161,8 @@ app.use(cors({
    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
+app.use(express.json({ limit: "1mb" }));
 
 const CV_UPLOAD_DIR = path.join(__dirname, "private_uploads");
 
@@ -390,6 +404,55 @@ function requirePermission(permission) {
 
         next();
     };
+}
+
+async function changeWorkflowStatus({ table, entityType, id, nextStatus, actor }) {
+    const connection = await db.getConnection();
+    try {
+        await connection.beginTransaction();
+        const [rows] = await connection.execute(
+            `SELECT status FROM ${table} WHERE id = ? LIMIT 1 FOR UPDATE`,
+            [id]
+        );
+
+        if (rows.length === 0) {
+            await connection.rollback();
+            return { notFound: true };
+        }
+
+        const previousStatus = rows[0].status == null ? null : String(rows[0].status);
+        if (previousStatus === nextStatus) {
+            await connection.commit();
+            return { changed: false, status: nextStatus };
+        }
+
+        await connection.execute(
+            `UPDATE ${table} SET status = ? WHERE id = ?`,
+            [nextStatus, id]
+        );
+        await connection.execute(
+            `INSERT INTO admin_audit_log
+                (actor_user_id, actor_name, action_key, entity_type, entity_id, old_value, new_value)
+             VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [
+                actor.id,
+                actor.full_name || actor.username || "Administrator",
+                `${entityType}_status_changed`,
+                entityType,
+                id,
+                previousStatus,
+                nextStatus
+            ]
+        );
+
+        await connection.commit();
+        return { changed: true, status: nextStatus, previousStatus };
+    } catch (error) {
+        await connection.rollback();
+        throw error;
+    } finally {
+        connection.release();
+    }
 }
 
 // Startseite
@@ -640,8 +703,8 @@ app.post("/api/contact-messages", async (req, res) => {
         console.log("CONTACT FORM INSERT:", new Date().toISOString());
         const sql = `
             INSERT INTO contact_messages
-                (name, email, phone, subject, message)
-            VALUES (?, ?, ?, ?, ?)
+                (name, email, phone, subject, message, status)
+            VALUES (?, ?, ?, ?, ?, 'Neu')
         `;
 
         console.log("REQUEST RECEIVED:", Date.now());
@@ -686,7 +749,7 @@ app.get(
     async (req, res) => {
         try {
             const [messages] = await db.execute(`
-                SELECT id, name, email, phone, subject, message, created_at
+                SELECT id, name, email, phone, subject, message, status, created_at
                 FROM contact_messages
                 ORDER BY id DESC
             `);
@@ -702,6 +765,41 @@ app.get(
                 status: "ERROR",
                 message: "Kontaktanfragen konnten nicht geladen werden."
             });
+        }
+    }
+);
+
+app.patch(
+    "/api/contact-messages/:id/status",
+    authenticateToken,
+    requirePermission("contact_messages.manage"),
+    async (req, res) => {
+        const id = Number(req.params.id);
+        const status = req.body?.status;
+        const allowedStatuses = ["Neu", "In Bearbeitung", "Erledigt"];
+
+        if (!Number.isSafeInteger(id) || id <= 0) {
+            return res.status(400).json({ status: "ERROR", message: "Ungültige Anfrage-ID." });
+        }
+        if (!allowedStatuses.includes(status)) {
+            return res.status(400).json({ status: "ERROR", message: "Ungültiger Status." });
+        }
+
+        try {
+            const result = await changeWorkflowStatus({
+                table: "contact_messages",
+                entityType: "contact_message",
+                id,
+                nextStatus: status,
+                actor: req.user
+            });
+            if (result.notFound) {
+                return res.status(404).json({ status: "ERROR", message: "Anfrage nicht gefunden." });
+            }
+            return res.json({ status: "OK", message: "Status gespeichert.", data: result });
+        } catch (error) {
+            console.error("Status der Kontaktanfrage konnte nicht geändert werden:", error.message);
+            return res.status(500).json({ status: "ERROR", message: "Status konnte nicht gespeichert werden." });
         }
     }
 );
@@ -1092,6 +1190,66 @@ app.get(
     }
 );
 
+app.patch(
+    "/api/applications/:id/status",
+    authenticateToken,
+    requirePermission("applications.manage"),
+    async (req, res) => {
+        const id = Number(req.params.id);
+        const status = req.body?.status;
+        const allowedStatuses = ["neu", "in_bearbeitung", "abgeschlossen", "abgelehnt"];
+
+        if (!Number.isSafeInteger(id) || id <= 0) {
+            return res.status(400).json({ status: "ERROR", message: "Ungültige Bewerbungs-ID." });
+        }
+        if (!allowedStatuses.includes(status)) {
+            return res.status(400).json({ status: "ERROR", message: "Ungültiger Bewerbungsstatus." });
+        }
+
+        try {
+            const result = await changeWorkflowStatus({
+                table: "applications",
+                entityType: "application",
+                id,
+                nextStatus: status,
+                actor: req.user
+            });
+            if (result.notFound) {
+                return res.status(404).json({ status: "ERROR", message: "Bewerbung nicht gefunden." });
+            }
+            return res.json({ status: "OK", message: "Bewerbungsstatus gespeichert.", data: result });
+        } catch (error) {
+            console.error("Bewerbungsstatus konnte nicht geändert werden:", error.message);
+            return res.status(500).json({ status: "ERROR", message: "Bewerbungsstatus konnte nicht gespeichert werden." });
+        }
+    }
+);
+
+app.get(
+    "/api/admin/audit-log",
+    authenticateToken,
+    requirePermission("users.manage"),
+    async (req, res) => {
+        const requestedLimit = Number(req.query.limit) || 30;
+        const limit = Math.min(Math.max(Math.trunc(requestedLimit), 1), 100);
+
+        try {
+            const [entries] = await db.execute(
+                `SELECT id, actor_user_id, actor_name, action_key, entity_type,
+                        entity_id, old_value, new_value, changed_at
+                 FROM admin_audit_log
+                 ORDER BY changed_at DESC, id DESC
+                 LIMIT ?`,
+                [limit]
+            );
+            return res.json({ status: "OK", count: entries.length, entries });
+        } catch (error) {
+            console.error("Admin-Aktivitäten konnten nicht geladen werden:", error.message);
+            return res.status(500).json({ status: "ERROR", message: "Aktivitäten konnten nicht geladen werden." });
+        }
+    }
+);
+
 
 
 /* Neue Bewerbung empfangen und speichern */
@@ -1314,10 +1472,25 @@ app.post(
                     permissions["contact_messages.read"] === true ||
                     permissions.contact_messages?.read === true,
 
+                "contact_messages.manage":
+                    permissions["contact_messages.manage"] === true ||
+                    permissions.contact_messages?.manage === true,
+
                 "applications.read":
                     permissions["applications.read"] === true ||
-                    permissions.applications?.read === true
+                    permissions.applications?.read === true,
+
+                "applications.manage":
+                    permissions["applications.manage"] === true ||
+                    permissions.applications?.manage === true
             };
+
+            if (cleanPermissions["contact_messages.manage"]) {
+                cleanPermissions["contact_messages.read"] = true;
+            }
+            if (cleanPermissions["applications.manage"]) {
+                cleanPermissions["applications.read"] = true;
+            }
 
             // Doppelte Benutzernamen oder E-Mail-Adressen verhindern
             const [existing] = await db.execute(
@@ -1776,9 +1949,17 @@ const contactRead =
     permissions["contact_messages.read"] === true ||
     permissions.contact_messages?.read === true;
 
+const contactManage =
+    permissions["contact_messages.manage"] === true ||
+    permissions.contact_messages?.manage === true;
+
 const applicationsRead =
     permissions["applications.read"] === true ||
     permissions.applications?.read === true;
+
+const applicationsManage =
+    permissions["applications.manage"] === true ||
+    permissions.applications?.manage === true;
 
 const jobsManage =
     permissions["jobs.manage"] === true ||
@@ -1789,8 +1970,10 @@ const newsManage =
     permissions.news?.manage === true;
 
 const cleanPermissions = {
-    "contact_messages.read": contactRead,
-    "applications.read": applicationsRead,
+    "contact_messages.read": contactRead || contactManage,
+    "contact_messages.manage": contactManage,
+    "applications.read": applicationsRead || applicationsManage,
+    "applications.manage": applicationsManage,
     "jobs.manage": jobsManage,
     "news.manage": newsManage
 };

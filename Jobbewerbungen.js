@@ -2,9 +2,20 @@
 const API_BASE = "https://api.pflegedienstgratia.com/api";
 const USER_KEY = "gratia_admin_user";
 const TOKEN_KEY = "gratia_admin_token";
+const EMPLOYEE_USER_KEY = "gratiaEmployeeUser";
+const EMPLOYEE_TOKEN_KEY = "gratiaEmployeeToken";
 
 function getToken() {
-    return sessionStorage.getItem(TOKEN_KEY);
+    return sessionStorage.getItem(TOKEN_KEY) ||
+        sessionStorage.getItem(EMPLOYEE_TOKEN_KEY);
+}
+
+function getCurrentUser() {
+    return JSON.parse(
+        sessionStorage.getItem(USER_KEY) ||
+        sessionStorage.getItem(EMPLOYEE_USER_KEY) ||
+        "null"
+    );
 }
 
 async function apiRequest(path, options = {}) {
@@ -26,9 +37,14 @@ async function apiRequest(path, options = {}) {
     }
 
     if (response.status === 401) {
-        sessionStorage.removeItem(TOKEN_KEY);
-        sessionStorage.removeItem(USER_KEY);
-        window.location.replace("admin.html");
+        if (getToken() === sessionStorage.getItem(TOKEN_KEY)) {
+            sessionStorage.removeItem(TOKEN_KEY);
+            sessionStorage.removeItem(USER_KEY);
+        } else {
+            sessionStorage.removeItem(EMPLOYEE_TOKEN_KEY);
+            sessionStorage.removeItem(EMPLOYEE_USER_KEY);
+        }
+        window.location.replace("login.html");
         throw new Error("Sitzung abgelaufen. Bitte erneut anmelden.");
     }
 
@@ -66,6 +82,15 @@ function hasPermission(user, key, section, action) {
     );
 }
 
+function applicationStatusLabel(status) {
+    return ({
+        neu: "Neu",
+        in_bearbeitung: "In Bearbeitung",
+        abgeschlossen: "Abgeschlossen",
+        abgelehnt: "Abgelehnt"
+    })[status] || status || "Neu";
+}
+
 const applicationsMessage =
     document.getElementById("applications-message");
 
@@ -75,10 +100,75 @@ const applicationsTableBody =
 const refreshApplicationsButton =
     document.getElementById("refresh-applications-button");
 
-async function loadApplications() {
-    const currentUser = JSON.parse(
-        sessionStorage.getItem(USER_KEY) || "null"
+function createApplicationStatusCell(application, currentUser) {
+    const cell = document.createElement("td");
+    const canUpdate = hasPermission(
+        currentUser,
+        "applications.manage",
+        "applications",
+        "manage"
     );
+
+    if (!canUpdate) {
+        cell.textContent = applicationStatusLabel(application.status);
+        return cell;
+    }
+
+    const controls = document.createElement("div");
+    controls.className = "application-status-controls";
+    const select = document.createElement("select");
+    select.setAttribute("aria-label", `Status für Bewerbung ${application.id}`);
+    const statuses = [
+        ["neu", applicationStatusLabel("neu")],
+        ["in_bearbeitung", applicationStatusLabel("in_bearbeitung")],
+        ["abgeschlossen", applicationStatusLabel("abgeschlossen")],
+        ["abgelehnt", applicationStatusLabel("abgelehnt")]
+    ];
+
+    if (application.status && !statuses.some(([value]) => value === application.status)) {
+        statuses.unshift([application.status, application.status]);
+    }
+    statuses.forEach(([value, label]) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        option.selected = value === (application.status || "neu");
+        select.appendChild(option);
+    });
+
+    const saveButton = document.createElement("button");
+    saveButton.type = "button";
+    saveButton.className = "details-button";
+    saveButton.textContent = "Status speichern";
+    saveButton.addEventListener("click", async () => {
+        saveButton.disabled = true;
+        try {
+            const result = await apiRequest(
+                `/applications/${encodeURIComponent(application.id)}/status`,
+                {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ status: select.value })
+                }
+            );
+            application.status = select.value;
+            applicationsMessage.className = "message";
+            applicationsMessage.textContent = result.message || "Bewerbungsstatus gespeichert.";
+        } catch (error) {
+            applicationsMessage.className = "message error";
+            applicationsMessage.textContent = error.message;
+        } finally {
+            saveButton.disabled = false;
+        }
+    });
+
+    controls.append(select, saveButton);
+    cell.appendChild(controls);
+    return cell;
+}
+
+async function loadApplications() {
+    const currentUser = getCurrentUser();
 
     if (
         !currentUser ||
@@ -129,6 +219,8 @@ async function loadApplications() {
         applicationsMessage.textContent =
             `${data.applications.length} Bewerbung(en) gefunden.`;
 
+        const currentUser = getCurrentUser();
+
         data.applications.forEach(application => {
             const row = document.createElement("tr");
 
@@ -142,7 +234,7 @@ async function loadApplications() {
                 createCell(application.position || "–"),
                 createCell(application.email || "–"),
                 createCell(formatDate(application.created_at)),
-                createCell(application.status || "Neu")
+                createApplicationStatusCell(application, currentUser)
             );
 
             const actionsCell = document.createElement("td");

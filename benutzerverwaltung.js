@@ -198,12 +198,38 @@ function renderUsers(users, currentUser) {
             "Kontaktanfragen"
         );
 
+        const contactManageBox = createPermission(
+            "contact_messages.manage",
+            "contact_messages",
+            "manage",
+            "Kontaktstatus ändern"
+        );
+
         const applicationBox = createPermission(
             "applications.read",
             "applications",
             "read",
             "Bewerbungen"
         );
+
+        const applicationManageBox = createPermission(
+            "applications.manage",
+            "applications",
+            "manage",
+            "Bewerbungsstatus ändern"
+        );
+
+        function requireReadPermission(readBox, manageBox) {
+            if (manageBox.checked) readBox.checked = true;
+            readBox.disabled = manageBox.checked || user.role === "super_admin";
+            manageBox.addEventListener("change", () => {
+                if (manageBox.checked) readBox.checked = true;
+                readBox.disabled = manageBox.checked || user.role === "super_admin";
+            });
+        }
+
+        requireReadPermission(contactBox, contactManageBox);
+        requireReadPermission(applicationBox, applicationManageBox);
 
         const jobsBox = createPermission(
             "jobs.manage",
@@ -293,7 +319,9 @@ if (user.role !== "super_admin") {
                     body: JSON.stringify({
                         permissions: {
                             "contact_messages.read": contactBox.checked,
+                            "contact_messages.manage": contactManageBox.checked,
                             "applications.read": applicationBox.checked,
+                            "applications.manage": applicationManageBox.checked,
                             "jobs.manage": jobsBox.checked,
                             "news.manage": newsBox.checked
                         }
@@ -347,6 +375,26 @@ document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("create-user-form");
 
     if (form) {
+        const newContactRead = document.getElementById("new-contact-read");
+        const newContactManage = document.getElementById("new-contact-manage");
+        const newApplicationRead = document.getElementById("new-application-read");
+        const newApplicationManage = document.getElementById("new-application-manage");
+
+        newContactManage.addEventListener("change", () => {
+            if (newContactManage.checked) newContactRead.checked = true;
+            newContactRead.disabled = newContactManage.checked;
+        });
+        newApplicationManage.addEventListener("change", () => {
+            if (newApplicationManage.checked) newApplicationRead.checked = true;
+            newApplicationRead.disabled = newApplicationManage.checked;
+        });
+        form.addEventListener("reset", () => {
+            window.setTimeout(() => {
+                newContactRead.disabled = false;
+                newApplicationRead.disabled = false;
+            }, 0);
+        });
+
         form.addEventListener("submit", async (event) => {
             event.preventDefault();
 
@@ -368,7 +416,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 full_name: formData.get("full_name"),
                 username: formData.get("username"),
                 email: formData.get("email"),
-                role: formData.get("role")
+                role: formData.get("role"),
+                permissions: {
+                    "contact_messages.read": newContactRead.checked,
+                    "contact_messages.manage": newContactManage.checked,
+                    "applications.read": newApplicationRead.checked,
+                    "applications.manage": newApplicationManage.checked
+                }
             };
 
             try {

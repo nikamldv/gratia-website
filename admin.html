@@ -226,9 +226,219 @@
     </style>
     <link rel="stylesheet" href="dashboard.css">
     <meta name="robots" content="noindex, nofollow">
+    <style>
+        /* Dashboard-only visual layer. Kept here so other admin pages are unaffected. */
+        body.admin-dashboard {
+            --admin-ink: #332a2a;
+            --admin-muted: #817474;
+            --admin-burgundy: #76252a;
+            --admin-burgundy-deep: #5c1b22;
+            --admin-gold: #d8b879;
+            --admin-paper: #fbf8f6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--admin-ink);
+            background:
+                radial-gradient(ellipse at 88% 4%, rgba(216, 184, 121, .14), transparent 28rem),
+                linear-gradient(180deg, #f8f3f0 0%, var(--admin-paper) 38rem);
+        }
+
+        body.admin-dashboard > header {
+            position: relative;
+            overflow: hidden;
+            padding: 30px max(5%, calc((100% - 1240px) / 2));
+            background: linear-gradient(115deg, var(--admin-burgundy-deep), #87363a 72%, #9b5350);
+            border: 0;
+            box-shadow: 0 12px 32px rgba(75, 29, 32, .15);
+        }
+
+        body.admin-dashboard > header::after {
+            content: "";
+            position: absolute;
+            width: 310px;
+            height: 310px;
+            right: 11%;
+            top: -220px;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: 50%;
+            box-shadow: 0 0 0 30px rgba(255, 255, 255, .035), 0 0 0 62px rgba(255, 255, 255, .025);
+            pointer-events: none;
+        }
+
+        body.admin-dashboard > header > div,
+        body.admin-dashboard .logout { position: relative; z-index: 1; }
+        body.admin-dashboard > header h1 { font-size: clamp(23px, 2.4vw, 30px); letter-spacing: -.035em; }
+        body.admin-dashboard > header p { font-size: 14px; letter-spacing: .01em; }
+        body.admin-dashboard .logout {
+            padding: 12px 18px;
+            color: var(--admin-burgundy-deep);
+            background: rgba(255, 255, 255, .96);
+            border: 1px solid rgba(255, 255, 255, .5);
+            border-radius: 10px;
+            box-shadow: 0 4px 14px rgba(38, 14, 16, .12);
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+        body.admin-dashboard .logout:hover { background: #fff; transform: translateY(-1px); }
+
+        body.admin-dashboard > main {
+            flex: 1;
+            width: min(1180px, calc(100% - 48px));
+            margin: 38px auto 54px;
+        }
+        body.admin-dashboard .welcome {
+            position: relative;
+            padding: 25px 28px;
+            margin-bottom: 27px;
+            border: 1px solid rgba(118, 37, 42, .08);
+            border-radius: 17px;
+            background: rgba(255, 255, 255, .84);
+            box-shadow: 0 10px 30px rgba(63, 39, 35, .045);
+        }
+        body.admin-dashboard .welcome h2 { margin-bottom: 7px; color: var(--admin-burgundy); font-size: clamp(21px, 2vw, 25px); }
+        body.admin-dashboard .welcome p { color: var(--admin-muted); line-height: 1.55; }
+        body.admin-dashboard .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 13px;
+            color: #386849;
+            background: #edf6ef;
+            border: 1px solid #dbece0;
+            font-size: 12px;
+            font-weight: 650;
+            letter-spacing: .01em;
+        }
+        body.admin-dashboard .status::first-letter { color: #4c9564; }
+
+        body.admin-dashboard .summary-section { margin: 0 0 28px; }
+        body.admin-dashboard .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin: 0 2px 14px; }
+        body.admin-dashboard .section-heading h2 { margin: 0; color: var(--admin-ink); font-size: 19px; }
+        body.admin-dashboard .section-kicker { display: block; margin: 0 0 5px; color: #9a7771; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+        body.admin-dashboard .updated-at { color: var(--admin-muted); font-size: 12px; }
+        body.admin-dashboard .summary-tools { display: flex; align-items: center; gap: 10px; }
+        body.admin-dashboard .summary-refresh {
+            min-height: 34px;
+            padding: 7px 11px;
+            color: var(--admin-burgundy);
+            background: #fff;
+            border: 1px solid rgba(118, 37, 42, .14);
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 650;
+        }
+        body.admin-dashboard .summary-refresh:hover:not(:disabled) { background: #fbf2f0; }
+        body.admin-dashboard .summary-refresh:disabled { cursor: wait; opacity: .65; }
+        body.admin-dashboard .summary-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+        body.admin-dashboard .metric-card { min-width: 0; padding: 17px 18px 16px; border: 1px solid rgba(118, 37, 42, .08); border-radius: 14px; background: rgba(255, 255, 255, .9); box-shadow: 0 7px 20px rgba(63, 39, 35, .04); }
+        body.admin-dashboard .metric-label { display: block; color: var(--admin-muted); font-size: 12px; }
+        body.admin-dashboard .metric-value { display: block; margin: 8px 0 3px; color: var(--admin-burgundy); font-size: 29px; font-weight: 700; letter-spacing: -.04em; }
+        body.admin-dashboard .metric-detail { display: block; color: #9a8e8e; font-size: 11px; line-height: 1.45; }
+        body.admin-dashboard .activity-panel { margin: 27px 0 0; padding: 20px 22px; border: 1px solid rgba(118, 37, 42, .08); border-radius: 15px; background: rgba(255, 255, 255, .88); box-shadow: 0 7px 20px rgba(63, 39, 35, .04); }
+        body.admin-dashboard .activity-panel h2 { margin: 0; color: var(--admin-ink); font-size: 17px; }
+        body.admin-dashboard .activity-list { display: grid; gap: 0; margin: 10px 0 0; padding: 0; list-style: none; }
+        body.admin-dashboard .activity-list li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 0; border-top: 1px solid #f0e9e6; color: #574c4c; font-size: 13px; }
+        body.admin-dashboard .activity-list li span { min-width: 0; overflow-wrap: anywhere; }
+        body.admin-dashboard .activity-list time { flex: 0 0 auto; color: #978989; font-size: 11px; }
+        body.admin-dashboard .activity-empty { color: var(--admin-muted) !important; }
+        body.admin-dashboard .grid { gap: 18px; }
+        body.admin-dashboard .card {
+            position: relative;
+            min-height: 218px;
+            overflow: hidden;
+            padding: 23px;
+            border: 1px solid rgba(118, 37, 42, .09);
+            border-radius: 16px;
+            background: linear-gradient(145deg, #fff 55%, #fdfaf8);
+            box-shadow: 0 7px 22px rgba(63, 39, 35, .055);
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+        body.admin-dashboard .card::after {
+            content: "";
+            position: absolute;
+            width: 105px;
+            height: 105px;
+            top: -64px;
+            right: -54px;
+            border-radius: 50%;
+            background: rgba(216, 184, 121, .12);
+            transition: transform .25s ease;
+        }
+        body.admin-dashboard .card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(118, 37, 42, .2);
+            box-shadow: 0 16px 34px rgba(63, 39, 35, .11);
+        }
+        body.admin-dashboard .card:hover::after { transform: scale(1.35); }
+        body.admin-dashboard .card-icon {
+            position: relative;
+            z-index: 1;
+            width: 46px;
+            height: 46px;
+            margin-bottom: 18px;
+            color: var(--admin-burgundy);
+            background: linear-gradient(145deg, #fbefed, #f5e5e1);
+            border: 1px solid rgba(118, 37, 42, .07);
+            border-radius: 13px;
+            font-size: 0;
+        }
+        body.admin-dashboard .card-icon::before {
+            font-size: 21px;
+            line-height: 1;
+            font-family: "Segoe UI Symbol", "Apple Symbols", sans-serif;
+        }
+        body.admin-dashboard .card:nth-child(1) .card-icon::before { content: "✉"; }
+        body.admin-dashboard .card:nth-child(2) .card-icon::before { content: "▤"; }
+        body.admin-dashboard .card:nth-child(3) .card-icon::before { content: "♙"; }
+        body.admin-dashboard .card:nth-child(4) .card-icon::before { content: "▣"; }
+        body.admin-dashboard .card:nth-child(5) .card-icon::before { content: "▧"; }
+        body.admin-dashboard .card:nth-child(6) .card-icon::before { content: "♧"; }
+        body.admin-dashboard .card h3 { margin-bottom: 8px; font-size: 17px; }
+        body.admin-dashboard .card p { color: var(--admin-muted); line-height: 1.65; }
+        body.admin-dashboard .card .open {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 19px;
+            color: var(--admin-burgundy);
+            font-size: 12px;
+            letter-spacing: .015em;
+        }
+        body.admin-dashboard .card .open::after { content: "↗"; font-size: 16px; transition: transform .18s ease; }
+        body.admin-dashboard .card:hover .open::after { transform: translate(2px, -2px); }
+        body.admin-dashboard .empty {
+            margin-top: 20px;
+            padding: 18px 20px;
+            border-color: rgba(118, 37, 42, .1);
+            border-radius: 13px;
+            background: #fff;
+            line-height: 1.6;
+        }
+        body.admin-dashboard > footer { padding: 22px; color: #918585; }
+        body.admin-dashboard :where(a, button):focus-visible { outline: 3px solid rgba(216, 184, 121, .9); outline-offset: 3px; }
+
+        @media (max-width: 580px) {
+            body.admin-dashboard > header { padding: 23px 5%; }
+            body.admin-dashboard > main { width: calc(100% - 30px); margin: 24px auto 36px; }
+            body.admin-dashboard .welcome { align-items: flex-start; padding: 21px 19px; }
+            body.admin-dashboard .status { margin-top: 2px; }
+            body.admin-dashboard .summary-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+            body.admin-dashboard .metric-card { padding: 14px; }
+            body.admin-dashboard .metric-value { font-size: 25px; }
+            body.admin-dashboard .section-heading { align-items: flex-start; flex-direction: column; gap: 5px; }
+            body.admin-dashboard .summary-tools { width: 100%; justify-content: space-between; }
+            body.admin-dashboard .activity-panel { padding: 18px 16px; }
+            body.admin-dashboard .activity-list li { align-items: flex-start; }
+            body.admin-dashboard .grid { gap: 13px; }
+            body.admin-dashboard .card { min-height: 185px; padding: 20px; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            body.admin-dashboard *, body.admin-dashboard *::before, body.admin-dashboard *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+    </style>
 </head>
 
-<body>
+<body class="admin-dashboard">
 
     <header>
         <div>
@@ -253,6 +463,41 @@
 
             <span class="status">● Geschützter Bereich</span>
         </div>
+
+        <section class="summary-section" aria-labelledby="summary-title">
+            <div class="section-heading">
+                <div>
+                    <span class="section-kicker">GRATIA Verwaltung</span>
+                    <h2 id="summary-title">Ihr Überblick</h2>
+                </div>
+                <div class="summary-tools">
+                    <span class="updated-at" id="summary-updated" aria-live="polite">Übersicht wird geladen …</span>
+                    <button class="summary-refresh" id="summary-refresh" type="button">Aktualisieren</button>
+                </div>
+            </div>
+            <div class="summary-grid">
+                <article class="metric-card" data-summary="contacts">
+                    <span class="metric-label">Kontaktanfragen</span>
+                    <strong class="metric-value" id="summary-contacts">–</strong>
+                    <span class="metric-detail" id="summary-contacts-detail">Wird geladen</span>
+                </article>
+                <article class="metric-card" data-summary="applications">
+                    <span class="metric-label">Bewerbungen</span>
+                    <strong class="metric-value" id="summary-applications">–</strong>
+                    <span class="metric-detail" id="summary-applications-detail">Wird geladen</span>
+                </article>
+                <article class="metric-card" data-summary="jobs">
+                    <span class="metric-label">Aktive Stellen</span>
+                    <strong class="metric-value" id="summary-jobs">–</strong>
+                    <span class="metric-detail" id="summary-jobs-detail">Wird geladen</span>
+                </article>
+                <article class="metric-card" data-summary="news">
+                    <span class="metric-label">Veröffentlichte News</span>
+                    <strong class="metric-value" id="summary-news">–</strong>
+                    <span class="metric-detail" id="summary-news-detail">Wird geladen</span>
+                </article>
+            </div>
+        </section>
 
         <div
             id="notice"
@@ -327,6 +572,13 @@
 
         </section>
 
+        <section class="activity-panel" aria-labelledby="activity-title">
+            <h2 id="activity-title">Letzte Aktivität</h2>
+            <ul class="activity-list" id="activity-list" aria-live="polite">
+                <li class="activity-empty">Aktivitäten werden geladen …</li>
+            </ul>
+        </section>
+
         <p class="empty" id="empty-message">
             Für dieses Konto sind keine Verwaltungsbereiche freigeschaltet.
             Bitte wenden Sie sich an die Administration.
@@ -346,6 +598,9 @@
         const ADMIN_USER_KEY = "gratia_admin_user";
         const EMPLOYEE_TOKEN_KEY = "gratiaEmployeeToken";
         const EMPLOYEE_USER_KEY = "gratiaEmployeeUser";
+        let currentDashboardUser = null;
+        let currentDashboardToken = null;
+        let summaryRefreshInProgress = false;
 
         function showError(message) {
             const box = document.getElementById("notice");
@@ -424,6 +679,190 @@
                 .style.display = visible ? "none" : "block";
         }
 
+        function formatActivityDate(value) {
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) return "";
+            return new Intl.DateTimeFormat("de-DE", {
+                dateStyle: "medium",
+                timeStyle: "short"
+            }).format(date);
+        }
+
+        async function loadDashboardSummary(user, token) {
+            const sources = [
+                {
+                    key: "contacts",
+                    permission: "contact_messages.read",
+                    endpoint: "/contact-messages",
+                    resultKey: "messages",
+                    label: "Kontaktanfrage eingegangen",
+                    valueId: "summary-contacts",
+                    detailId: "summary-contacts-detail",
+                    detail: (count, total, items) => `${items.filter(item => !item.status).length} ohne Status · ${total} insgesamt`
+                },
+                {
+                    key: "applications",
+                    permission: "applications.read",
+                    endpoint: "/applications",
+                    resultKey: "applications",
+                    label: "Bewerbung eingegangen",
+                    valueId: "summary-applications",
+                    detailId: "summary-applications-detail",
+                    detail: (count, total, items) => `${items.filter(item => String(item.status || "neu").toLowerCase() === "neu").length} neu · ${total} insgesamt`
+                },
+                {
+                    key: "jobs",
+                    permission: "jobs.manage",
+                    endpoint: "/admin/jobs",
+                    resultKey: "jobs",
+                    label: "Stellenangebot angelegt",
+                    valueId: "summary-jobs",
+                    detailId: "summary-jobs-detail",
+                    isActive: item => item.is_active === true || Number(item.is_active) === 1,
+                    detail: (count, total) => `${count} aktiv von ${total}`
+                },
+                {
+                    key: "news",
+                    permission: "news.manage",
+                    endpoint: "/admin/news",
+                    resultKey: "news",
+                    label: "News-Eintrag angelegt",
+                    valueId: "summary-news",
+                    detailId: "summary-news-detail",
+                    isActive: item => item.is_published === true || Number(item.is_published) === 1,
+                    detail: (count, total) => `${count} veröffentlicht von ${total}`
+                }
+            ];
+
+            const activityItems = [];
+            const availableSources = sources.filter(source => {
+                const allowed = hasPermission(user, source.permission);
+                document.querySelector(`[data-summary="${source.key}"]`).hidden = !allowed;
+                return allowed;
+            });
+
+            const results = await Promise.all(availableSources.map(async source => {
+                const response = await fetch(`${API_BASE}${source.endpoint}`, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Accept": "application/json"
+                    }
+                });
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                const data = await response.json();
+                const items = Array.isArray(data[source.resultKey]) ? data[source.resultKey] : [];
+                const count = source.isActive
+                    ? items.filter(source.isActive).length
+                    : items.length;
+
+                document.getElementById(source.valueId).textContent = String(count);
+                document.getElementById(source.detailId).textContent = source.detail(count, items.length, items);
+
+                items.forEach(item => {
+                    if (item.created_at) activityItems.push({
+                        label: source.label,
+                        date: item.created_at,
+                        timestamp: new Date(item.created_at).getTime()
+                    });
+                });
+                return source.key;
+            }).map(promise => promise.catch(error => ({ error }))));
+
+            results.forEach((result, index) => {
+                if (!result || result.error) {
+                    const source = availableSources[index];
+                    document.getElementById(source.valueId).textContent = "–";
+                    document.getElementById(source.detailId).textContent = "Derzeit nicht verfügbar";
+                }
+            });
+
+            if (hasPermission(user, "users.manage")) {
+                try {
+                    const response = await fetch(`${API_BASE}/admin/audit-log?limit=10`, {
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Accept": "application/json"
+                        }
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        (Array.isArray(data.entries) ? data.entries : []).forEach(entry => {
+                            const kind = entry.entity_type === "contact_message"
+                                ? "Kontaktanfrage"
+                                : "Bewerbung";
+                            const statusLabels = {
+                                neu: "Neu",
+                                in_bearbeitung: "In Bearbeitung",
+                                abgeschlossen: "Abgeschlossen",
+                                abgelehnt: "Abgelehnt"
+                            };
+                            const oldValue = statusLabels[entry.old_value] || entry.old_value || "Nicht erfasst";
+                            const newValue = statusLabels[entry.new_value] || entry.new_value;
+                            activityItems.push({
+                                label: `${entry.actor_name}: ${kind} #${entry.entity_id} · ${oldValue} → ${newValue}`,
+                                date: entry.changed_at,
+                                timestamp: new Date(entry.changed_at).getTime()
+                            });
+                        });
+                    }
+                } catch (error) {
+                    console.info("Audit-Protokoll derzeit nicht verfügbar.");
+                }
+            }
+
+            const list = document.getElementById("activity-list");
+            list.replaceChildren();
+            activityItems
+                .filter(item => Number.isFinite(item.timestamp))
+                .sort((a, b) => b.timestamp - a.timestamp)
+                .slice(0, 5)
+                .forEach(item => {
+                    const row = document.createElement("li");
+                    const label = document.createElement("span");
+                    const time = document.createElement("time");
+                    label.textContent = item.label;
+                    time.dateTime = new Date(item.timestamp).toISOString();
+                    time.textContent = formatActivityDate(item.date);
+                    row.append(label, time);
+                    list.appendChild(row);
+                });
+
+            if (!list.children.length) {
+                const row = document.createElement("li");
+                row.className = "activity-empty";
+                row.textContent = "Noch keine Aktivitäten vorhanden oder keine Berechtigung zum Anzeigen.";
+                list.appendChild(row);
+            }
+
+            document.getElementById("summary-updated").textContent =
+                `Zuletzt aktualisiert: ${new Intl.DateTimeFormat("de-DE", { timeStyle: "short" }).format(new Date())}`;
+        }
+
+        async function refreshDashboardSummary() {
+            if (!currentDashboardUser || summaryRefreshInProgress) return;
+            const button = document.getElementById("summary-refresh");
+            summaryRefreshInProgress = true;
+            button.disabled = true;
+            button.textContent = "Wird aktualisiert …";
+
+            try {
+                await loadDashboardSummary(currentDashboardUser, currentDashboardToken);
+            } catch (error) {
+                console.warn("Dashboard-Übersicht konnte nicht geladen werden:", error);
+                document.getElementById("summary-updated").textContent = "Übersicht derzeit nicht verfügbar";
+                const list = document.getElementById("activity-list");
+                list.replaceChildren();
+                const row = document.createElement("li");
+                row.className = "activity-empty";
+                row.textContent = "Aktivitäten konnten momentan nicht geladen werden.";
+                list.appendChild(row);
+            } finally {
+                summaryRefreshInProgress = false;
+                button.disabled = false;
+                button.textContent = "Aktualisieren";
+            }
+        }
+
         async function init() {
             const token = getToken();
 
@@ -487,6 +926,9 @@
                     );
 
                 showCards(user);
+                currentDashboardUser = user;
+                currentDashboardToken = token;
+                refreshDashboardSummary();
 
             } catch (error) {
                 showError(
@@ -500,6 +942,8 @@
 
         document.getElementById("logout-button")
             .addEventListener("click", logout);
+        document.getElementById("summary-refresh")
+            .addEventListener("click", refreshDashboardSummary);
 
         init();
     </script>

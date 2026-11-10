@@ -128,6 +128,10 @@
         tbody tr:hover { background: #faf4f1; }
 
         .status { display: inline-block; padding: 4px 9px; color: var(--brand); background: #f6eae6; border: 1px solid #edd8d1; border-radius: 999px; font-size: 12px; font-weight: 650; }
+        .status-controls { display: grid; gap: 6px; min-width: 145px; }
+        .status-controls select { min-height: 36px; padding: 6px 8px; background: #fff; border: 1px solid var(--line); border-radius: 7px; font: inherit; font-size: 12px; }
+        .status-controls button { min-height: 32px; padding: 6px 9px; color: #fff; background: var(--brand); border: 0; border-radius: 7px; font: inherit; font-size: 12px; cursor: pointer; }
+        .status-controls button:disabled { opacity: .6; cursor: wait; }
         .message { min-height: 24px; padding: 8px 0 14px; color: var(--muted); font-size: 14px; }
         .error { color: #b42318; }
 
@@ -187,7 +191,7 @@
             </div>
 
             <div class="stat-card">
-                <p>Neue Anfragen</p>
+                <p>Status nicht erfasst</p>
                 <strong id="newCount">–</strong>
             </div>
         </div>
@@ -251,9 +255,9 @@
 "use strict";
 
 const API_BASE = "https://api.pflegedienstgratia.com/api";
-const LOGIN_PAGE = "mitarbeiter-login.html";
-
-const token = sessionStorage.getItem("gratiaEmployeeToken");
+const token = sessionStorage.getItem("gratia_admin_token") ||
+              sessionStorage.getItem("gratiaEmployeeToken");
+const LOGIN_PAGE = "login.html";
 
 const searchInput = document.getElementById("searchInput");
 const tableBody = document.getElementById("requestsTableBody");
@@ -261,11 +265,17 @@ const messageElement = document.getElementById("message");
 const dialog = document.getElementById("detailsDialog");
 
 let requests = [];
+let canManageContactStatus = false;
 
 
 function logout() {
-    sessionStorage.removeItem("gratiaEmployeeToken");
-    sessionStorage.removeItem("gratiaEmployeeUser");
+    if (token && token === sessionStorage.getItem("gratia_admin_token")) {
+        sessionStorage.removeItem("gratia_admin_token");
+        sessionStorage.removeItem("gratia_admin_user");
+    } else {
+        sessionStorage.removeItem("gratiaEmployeeToken");
+        sessionStorage.removeItem("gratiaEmployeeUser");
+    }
     window.location.replace(LOGIN_PAGE);
 }
 
@@ -281,9 +291,11 @@ function hasPermission(permissions, key) {
     return current === true;
 }
 
-async function apiRequest(endpoint) {
+async function apiRequest(endpoint, options = {}) {
     const response = await fetch(`${API_BASE}${endpoint}`, {
+        ...options,
         headers: {
+            ...(options.headers || {}),
             Authorization: `Bearer ${token}`,
             Accept: "application/json"
         }
@@ -323,6 +335,68 @@ function createCell(value) {
     return cell;
 }
 
+function createStatusCell(request) {
+    const cell = document.createElement("td");
+    const currentStatus = request.status || "";
+
+    if (!canManageContactStatus) {
+        cell.textContent = currentStatus || "Nicht erfasst";
+        return cell;
+    }
+
+    const controls = document.createElement("div");
+    controls.className = "status-controls";
+    const select = document.createElement("select");
+    select.setAttribute("aria-label", `Status für Anfrage ${request.id}`);
+
+    const placeholder = document.createElement("option");
+    placeholder.value = "";
+    placeholder.textContent = currentStatus || "Status wählen";
+    select.appendChild(placeholder);
+
+    ["Neu", "In Bearbeitung", "Erledigt"].forEach(status => {
+        const option = document.createElement("option");
+        option.value = status;
+        option.textContent = status;
+        option.selected = currentStatus === status;
+        select.appendChild(option);
+    });
+
+    const save = document.createElement("button");
+    save.type = "button";
+    save.textContent = "Speichern";
+    save.addEventListener("click", async () => {
+        if (!select.value) {
+            messageElement.textContent = "Bitte zuerst einen Status wählen.";
+            return;
+        }
+        save.disabled = true;
+        try {
+            const result = await apiRequest(
+                `/contact-messages/${encodeURIComponent(request.id)}/status`,
+                {
+                    method: "PATCH",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ status: select.value })
+                }
+            );
+            request.status = select.value;
+            renderRequests();
+            messageElement.className = "message";
+            messageElement.textContent = result.message || "Status gespeichert.";
+        } catch (error) {
+            messageElement.className = "message error";
+            messageElement.textContent = error.message;
+        } finally {
+            save.disabled = false;
+        }
+    });
+
+    controls.append(select, save);
+    cell.appendChild(controls);
+    return cell;
+}
+
 function showDetails(request) {
     const container = document.getElementById("detailsContent");
     container.replaceChildren();
@@ -333,7 +407,7 @@ function showDetails(request) {
         ["Telefon", request.phone],
         ["Anliegen", request.subject],
         ["Nachricht", request.message],
-        ["Status", request.status || "Neu"],
+        ["Status", request.status || "Nicht erfasst"],
         ["Eingegangen am", formatDate(request.created_at)]
     ];
 
@@ -370,7 +444,7 @@ function renderRequests() {
     tableBody.replaceChildren();
     document.getElementById("totalCount").textContent = requests.length;
     document.getElementById("newCount").textContent =
-        requests.filter(item => !item.status || item.status === "Neu").length;
+        requests.filter(item => !item.status).length;
 
     if (!filtered.length) {
         const row = document.createElement("tr");
@@ -396,12 +470,7 @@ function renderRequests() {
             createCell(formatDate(request.created_at))
         );
 
-        const statusCell = document.createElement("td");
-        const badge = document.createElement("span");
-        badge.className = "status";
-        badge.textContent = request.status || "Neu";
-        statusCell.appendChild(badge);
-        row.appendChild(statusCell);
+        row.appendChild(createStatusCell(request));
 
         const actionCell = document.createElement("td");
         const button = document.createElement("button");
@@ -454,6 +523,8 @@ async function initializePage() {
         }
 
         const user = data.user;
+        canManageContactStatus = user.role === "super_admin" ||
+            hasPermission(user.permissions, "contact_messages.manage");
         const allowed =
             user.role === "super_admin" ||
             hasPermission(user.permissions, "contact_messages.read");
