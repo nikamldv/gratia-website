@@ -14,18 +14,6 @@ const crypto = require("crypto");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT || 3306),
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0
-});
-
-
 
 // بدون JWT_SECRET سرور نباید اجرا شود.
 if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) {
@@ -160,9 +148,19 @@ app.use(cors({
     ],
    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
+}));app.use(cors());
 app.use(express.json({ limit: "1mb" }));
+
+const db = mysql.createPool({
+    host: process.env.DB_HOST || "localhost",
+    port: Number(process.env.DB_PORT || 3306),
+    user: process.env.DB_USER || "root",
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME || "gratia_db",
+    waitForConnections: true,
+    connectionLimit: 10
+});
+
 
 const CV_UPLOAD_DIR = path.join(__dirname, "private_uploads");
 
@@ -522,9 +520,9 @@ app.post("/api/auth/login", async (req, res) => {
                 must_change_password,
                 permissions
              FROM users
-             WHERE username = ?
-             LIMIT 1`,
-            [username.trim()]
+             WHERE username = ? OR email = ?
+LIMIT 1`,
+[username.trim(), username.trim()]
         );
 
         if (
@@ -1190,6 +1188,8 @@ app.get(
     }
 );
 
+
+
 app.patch(
     "/api/applications/:id/status",
     authenticateToken,
@@ -1249,8 +1249,6 @@ app.get(
         }
     }
 );
-
-
 
 /* Neue Bewerbung empfangen und speichern */
 app.post(
@@ -1700,8 +1698,6 @@ app.post(
                 }
             };
 
-
-
             // Token nur für lokale Tests zurückgeben.
             if (process.env.NODE_ENV !== "production") {
                 response.setupToken = invitationToken;
@@ -1807,7 +1803,7 @@ app.delete(
         }
     }
 );
- 
+
 
 
 /* Benutzer aktivieren oder deaktivieren */
