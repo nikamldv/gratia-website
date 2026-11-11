@@ -309,10 +309,20 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     const formResult = document.getElementById("form-result");
+    const requestType = document.getElementById("contact-request-type");
+    const consultationFields = document.getElementById("consultation-fields");
 
     if (!contactForm || !formResult) {
         return;
     }
+
+    const updateConsultationFields = () => {
+        const isConsultation = requestType?.value !== "message";
+        if (consultationFields) consultationFields.hidden = !isConsultation;
+    };
+
+    requestType?.addEventListener("change", updateConsultationFields);
+    updateConsultationFields();
 
 
     contactForm.addEventListener("submit", async (event) => {
@@ -351,6 +361,29 @@ if (!submitButton) {
 
             // Read the contact form fields.
 
+            const requestLabels = {
+                message: "Allgemeine Anfrage",
+                consultation: "Beratungstermin angefragt",
+                "home-care": "Beratung zu Pflege zu Hause",
+                "intensive-care": "Beratung zu Intensivpflege",
+                "haus-sonnenblume": "Informationen zum Haus Sonnenblume",
+                callback: "Rückruf erbeten"
+            };
+            const requestKind = String(formData.get("requestType") || "message");
+            const requestLabel = requestLabels[requestKind] || requestLabels.message;
+            const suggestedTimes = [
+                formData.get("preferredTimeOne"),
+                formData.get("preferredTimeTwo")
+            ].filter(Boolean).map(value => new Date(value).toLocaleString("de-DE"));
+            const originalMessage = String(formData.get("message") || "").trim();
+            const consultationDetails = requestKind === "message" ? [] : [
+                `Art der Anfrage: ${requestLabel}`,
+                `Gesprächsform: ${String(formData.get("meetingType") || "Telefon")}`,
+                formData.get("city") ? `Ort: ${String(formData.get("city")).trim()}` : "",
+                suggestedTimes.length ? `Wunschzeiten (noch nicht bestätigt): ${suggestedTimes.join(" / ")}` : "",
+                "Hinweis: Termin erst nach Bestätigung durch GRATIA verbindlich."
+            ].filter(Boolean);
+
             const payload = {
                 name: String(
                     formData.get("name") || ""
@@ -364,15 +397,13 @@ if (!submitButton) {
                     formData.get("phone") || ""
                 ).trim(),
 
-                subject: String(
+                subject: `${requestKind === "message" ? "" : "Beratungsanfrage: "}${requestLabel}${String(
                     formData.get("Anliegen") ||
                     formData.get("subject") ||
                     ""
-                ).trim(),
+                ).trim() ? ` – ${String(formData.get("Anliegen") || formData.get("subject") || "").trim()}` : ""}`.slice(0, 255),
 
-                message: String(
-                    formData.get("message") || ""
-                ).trim()
+                message: [...consultationDetails, originalMessage].filter(Boolean).join("\n\n")
             };
 
 
@@ -411,10 +442,12 @@ if (!submitButton) {
 
             formResult.className = "form-result success";
 
-            formResult.textContent =
-                "Vielen Dank! Ihre Nachricht wurde erfolgreich übermittelt.";
+            formResult.textContent = requestKind === "message"
+                ? "Vielen Dank! Ihre Nachricht wurde erfolgreich übermittelt."
+                : "Vielen Dank! Ihre Anfrage wurde übermittelt. GRATIA meldet sich zur Abstimmung. Ein Termin ist erst nach unserer Bestätigung verbindlich.";
 
             contactForm.reset();
+            updateConsultationFields();
 
 
         } catch (error) {

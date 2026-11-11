@@ -706,8 +706,6 @@ app.post("/api/contact-messages", async (req, res) => {
         `;
 
         console.log("REQUEST RECEIVED:", Date.now());
-console.log("BODY:", req.body);
-console.log("REQUEST ID:", req.headers["x-request-id"]);
 
         const [result] = await db.execute(sql, [
             
@@ -747,7 +745,9 @@ app.get(
     async (req, res) => {
         try {
             const [messages] = await db.execute(`
-                SELECT id, name, email, phone, subject, message, status, created_at
+                SELECT id, name, email, phone, subject, message, status, created_at,
+                       DATE_FORMAT(appointment_confirmed_at, '%Y-%m-%d %H:%i:%s') AS appointment_confirmed_at,
+                       DATE_FORMAT(appointment_email_sent_at, '%Y-%m-%d %H:%i:%s') AS appointment_email_sent_at
                 FROM contact_messages
                 ORDER BY id DESC
             `);
@@ -774,10 +774,22 @@ app.patch(
     async (req, res) => {
         const id = Number(req.params.id);
         const status = req.body?.status;
-        const allowedStatuses = ["Neu", "In Bearbeitung", "Erledigt"];
+        const allowedStatuses = [
+            "Neu",
+            "In Bearbeitung",
+            "Terminvorschlag gesendet",
+            "Abgelehnt",
+            "Erledigt"
+        ];
 
         if (!Number.isSafeInteger(id) || id <= 0) {
             return res.status(400).json({ status: "ERROR", message: "Ungültige Anfrage-ID." });
+        }
+        if (status === "Termin bestätigt") {
+            return res.status(400).json({
+                status: "ERROR",
+                message: "Bitte bestätigen Sie den Termin über die Terminbestätigung, damit die E-Mail versendet wird."
+            });
         }
         if (!allowedStatuses.includes(status)) {
             return res.status(400).json({ status: "ERROR", message: "Ungültiger Status." });
@@ -798,6 +810,157 @@ app.patch(
         } catch (error) {
             console.error("Status der Kontaktanfrage konnte nicht geändert werden:", error.message);
             return res.status(500).json({ status: "ERROR", message: "Status konnte nicht gespeichert werden." });
+        }
+    }
+);
+
+app.post(
+    "/api/contact-messages/:id/confirm-appointment",
+    authenticateToken,
+    requirePermission("contact_messages.manage"),
+    async (req, res) => {
+        const id = Number(req.params.id);
+        const appointmentDate = new Date(req.body?.appointmentAt);
+
+        if (!Number.isSafeInteger(id) || id <= 0) {
+            return res.status(400).json({ status: "ERROR", message: "Ungültige Anfrage-ID." });
+        }
+        if (typeof req.body?.appointmentAt !== "string" || Number.isNaN(appointmentDate.getTime())) {
+            return res.status(400).json({ status: "ERROR", message: "Bitte geben Sie einen gültigen Termin an." });
+        }
+        if (appointmentDate.getTime() <= Date.now()) {
+            return res.status(400).json({ status: "ERROR", message: "Der bestätigte Termin muss in der Zukunft liegen." });
+        }
+        if (!process.env.SMTP_USER || !process.env.SMTP_APP_PASSWORD) {
+            return res.status(503).json({ status: "ERROR", message: "Der E-Mail-Versand ist derzeit nicht konfiguriert." });
+        }
+
+        const appointmentUtc = appointmentDate.toISOString().slice(0, 19).replace("T", " ");
+        const appointmentLabel = new Intl.DateTimeFormat("de-DE", {
+            dateStyle: "full",
+            timeStyle: "short",
+            timeZone: "Europe/Berlin"
+        }).format(appointmentDate);
+        let connection;
+
+        try {
+            connection = await db.getConnection();
+            await connection.beginTransaction();
+            const [rows] = await connection.execute(
+                `SELECT id, name, email, subject, message, status, appointment_email_sent_at
+                 FROM contact_messages WHERE id = ? LIMIT 1 FOR UPDATE`,
+                [id]
+            );
+
+            if (!rows.length) {
+                await connection.rollback();
+                return res.status(404).json({ status: "ERROR", message: "Anfrage nicht gefunden." });
+            }
+
+            const request = rows[0];
+            if (!String(request.subject || "").startsWith("Beratungsanfrage:")) {
+                await connection.rollback();
+                return res.status(400).json({ status: "ERROR", message: "Diese Anfrage ist keine Beratungsanfrage." });
+            }
+            if (!request.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(request.email))) {
+                await connection.rollback();
+                return res.status(400).json({ status: "ERROR", message: "Für diese Anfrage ist keine gültige E-Mail-Adresse hinterlegt." });
+            }
+            if (request.appointment_email_sent_at) {
+                await connection.rollback();
+                return res.status(409).json({ status: "ERROR", message: "Die Terminbestätigung wurde bereits per E-Mail versendet." });
+            }
+
+            const previousStatus = request.status == null ? null : String(request.status);
+            await connection.execute(
+                `UPDATE contact_messages
+                 SET appointment_confirmed_at = ?, status = 'Termin bestätigt'
+                 WHERE id = ?`,
+                [appointmentUtc, id]
+            );
+
+            if (previousStatus !== "Termin bestätigt") {
+                await connection.execute(
+                    `INSERT INTO admin_audit_log
+                        (actor_user_id, actor_name, action_key, entity_type, entity_id, old_value, new_value)
+                     VALUES (?, ?, ?, ?, ?, ?, ?)`,
+                    [
+                        req.user.id,
+                        req.user.full_name || req.user.username || "Administrator",
+                        "contact_message_appointment_confirmed",
+                        "contact_message",
+                        id,
+                        previousStatus,
+                        "Termin bestätigt"
+                    ]
+                );
+            }
+            await connection.commit();
+            connection.release();
+            connection = null;
+
+            const escapeHtml = value => String(value || "").replace(/[&<>"']/g, char => ({
+                "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+            })[char]);
+            const safeName = escapeHtml(request.name || "");
+            const meetingType = String(request.message || "").match(/^Gesprächsform:\s*(.+)$/mi)?.[1]?.trim();
+            const location = String(request.message || "").match(/^Ort:\s*(.+)$/mi)?.[1]?.trim();
+            const detailLines = [
+                `Datum und Uhrzeit: ${appointmentLabel}`,
+                meetingType ? `Gesprächsform: ${meetingType}` : "",
+                location ? `Ort: ${location}` : ""
+            ].filter(Boolean);
+            const detailHtml = detailLines.map(line => `<li style="margin:8px 0;">${escapeHtml(line)}</li>`).join("");
+
+            await transporter.sendMail({
+                from: `"GRATIA Pflegedienst" <${process.env.SMTP_USER}>`,
+                replyTo: process.env.SMTP_USER,
+                to: request.email,
+                subject: "Ihre Terminbestätigung – GRATIA",
+                text: `Guten Tag ${request.name || ""},\n\nwir bestätigen Ihren Beratungstermin bei GRATIA:\n\n${detailLines.join("\n")}\n\nFalls Sie den Termin ändern müssen, antworten Sie bitte auf diese E-Mail.\n\nFreundliche Grüße\nIhr GRATIA Team`,
+                html: `<div style="margin:0;padding:32px 12px;background:#f7f3ef;font-family:Arial,Helvetica,sans-serif;color:#342d2a;">
+                    <div style="max-width:600px;margin:0 auto;background:#fff;border:1px solid #eee4dc;border-radius:14px;overflow:hidden;">
+                        <div style="padding:22px 28px;background:#7d2020;color:#fff;font-size:20px;font-weight:700;">GRATIA · Terminbestätigung</div>
+                        <div style="padding:28px;line-height:1.7;">
+                            <p>Guten Tag ${safeName},</p>
+                            <p>wir bestätigen Ihren Beratungstermin bei GRATIA:</p>
+                            <ul style="padding:16px 22px;background:#faf6f1;border-left:3px solid #c59a45;border-radius:8px;list-style:none;">${detailHtml}</ul>
+                            <p>Falls Sie den Termin ändern müssen, antworten Sie bitte auf diese E-Mail.</p>
+                            <p>Freundliche Grüße<br><strong>Ihr GRATIA Team</strong><br>Pflegedienst GRATIA GmbH</p>
+                        </div>
+                    </div>
+                </div>`
+            });
+
+            await db.execute(
+                `UPDATE contact_messages
+                 SET appointment_email_sent_at = UTC_TIMESTAMP()
+                 WHERE id = ? AND appointment_email_sent_at IS NULL`,
+                [id]
+            );
+
+            const [updatedRows] = await db.execute(
+                `SELECT status,
+                        DATE_FORMAT(appointment_confirmed_at, '%Y-%m-%d %H:%i:%s') AS appointment_confirmed_at,
+                        DATE_FORMAT(appointment_email_sent_at, '%Y-%m-%d %H:%i:%s') AS appointment_email_sent_at
+                 FROM contact_messages WHERE id = ? LIMIT 1`,
+                [id]
+            );
+            return res.json({
+                status: "OK",
+                message: "Der Termin wurde gespeichert und die Bestätigungs-E-Mail versendet.",
+                data: updatedRows[0]
+            });
+        } catch (error) {
+            if (connection) {
+                try { await connection.rollback(); } catch (_) {}
+                connection.release();
+            }
+            console.error("Terminbestätigung konnte nicht abgeschlossen werden:", error.message);
+            return res.status(502).json({
+                status: "ERROR",
+                message: "Der Termin wurde gespeichert, aber die Bestätigungs-E-Mail konnte nicht versendet werden. Bitte prüfen Sie die E-Mail-Einstellungen und versuchen Sie es erneut."
+            });
         }
     }
 );

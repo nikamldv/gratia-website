@@ -89,7 +89,7 @@
         #backButton { color: var(--brand); background: transparent; border-color: #d8c9c3; }
         #backButton:hover { color: var(--brand-dark); background: #fff; }
 
-        .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
+        .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 20px; }
 
         .stat-card, .panel {
             background: var(--paper);
@@ -119,6 +119,9 @@
         }
 
         .search:focus { outline: none; border-color: var(--brand); background: #fff; box-shadow: 0 0 0 3px rgba(135,32,32,.1); }
+        .request-filter { width: min(100%, 440px); min-height: 44px; margin: 0 0 16px 10px; padding: 9px 12px; color: var(--ink); background: #fff; border: 1px solid #ded6d0; border-radius: 8px; font: inherit; }
+        .request-tools { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+        .request-tools .search, .request-tools .request-filter { width: auto; flex: 1 1 260px; max-width: 460px; margin: 0; }
         .table-wrapper { width: 100%; overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
         table { width: 100%; border-collapse: collapse; min-width: 760px; font-size: 13px; }
         th, td { padding: 13px 14px; border-bottom: 1px solid #eee9e4; text-align: left; vertical-align: top; }
@@ -141,14 +144,51 @@
         .detail-row { margin: 16px 0; padding-bottom: 14px; border-bottom: 1px solid #f0ebe6; }
         .detail-row strong { display: block; margin-bottom: 5px; color: var(--brand); font-size: 13px; }
         .detail-content { white-space: pre-wrap; overflow-wrap: anywhere; }
+        .appointment-confirm { margin-top: 20px; padding: 20px; background: linear-gradient(145deg, #fbf8f4, #f7f1eb); border: 1px solid #ecdfd7; border-left: 3px solid var(--gold); border-radius: 12px; }
+        .appointment-confirm label { display: block; margin: 0 0 8px; font-weight: 650; }
+        .appointment-confirm input { width: 100%; min-height: 42px; margin-bottom: 12px; padding: 8px 10px; border: 1px solid #ded6d0; border-radius: 7px; font: inherit; }
+        .appointment-confirm p { margin: 0 0 12px; color: var(--muted); font-size: 13px; }
         .dialog-actions { display: flex; justify-content: flex-end; margin-top: 22px; }
 
         footer { padding: 24px; color: var(--muted); font-size: 13px; text-align: center; }
 
-        :where(button, input):focus-visible { outline: 3px solid rgba(197,154,69,.75); outline-offset: 3px; }
+        :where(button, input, select):focus-visible { outline: 3px solid rgba(197,154,69,.75); outline-offset: 3px; }
+
+        /* Soft, clear administration workspace */
+        body { background: radial-gradient(ellipse at 50% -20%, #fff 0, #f8f5f1 42%, #f3efea 100%); }
+        header { padding-top: 38px; padding-bottom: 38px; box-shadow: 0 10px 32px rgba(66, 31, 27, .13); }
+        header h1 { font-size: clamp(26px, 3.2vw, 35px); letter-spacing: -.035em; }
+        header p { margin-top: 7px; font-size: 15px; }
+        main { width: min(1280px, calc(100% - 48px)); margin-top: 36px; }
+        .toolbar { padding: 5px 2px 14px; }
+        .toolbar h2 { font-size: 25px; letter-spacing: -.035em; }
+        button { border-radius: 10px; box-shadow: 0 4px 12px rgba(104,25,25,.08); }
+        #backButton { box-shadow: none; }
+        .stats { gap: 18px; }
+        .stat-card, .panel { border-color: rgba(115,44,36,.09); border-radius: 18px; box-shadow: 0 12px 32px rgba(56,31,25,.065); }
+        .stat-card { min-height: 116px; padding: 23px 25px; background: linear-gradient(145deg, #fff, #fdfbf9); transition: transform .2s ease, box-shadow .2s ease; }
+        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(56,31,25,.09); }
+        .stat-card::before { width: 4px; background: linear-gradient(180deg, #d1ad68, #a76a50); }
+        .stat-card p { font-size: 13px; letter-spacing: .015em; }
+        .stat-card strong { font-size: 34px; letter-spacing: -.04em; }
+        .panel { padding: clamp(16px, 2.4vw, 28px); }
+        .search, .request-filter { min-height: 48px; border-color: #e4ddd6; border-radius: 11px; box-shadow: 0 2px 6px rgba(52,38,30,.025); }
+        .search:focus, .request-filter:focus { outline: none; border-color: #9b5148; box-shadow: 0 0 0 4px rgba(135,32,32,.08); }
+        .table-wrapper { overflow: auto; border-color: #eee7e1; border-radius: 13px; }
+        table { min-width: 820px; font-size: 13px; }
+        th { padding-top: 15px; padding-bottom: 15px; color: #6e332e; background: #f8f3ee; }
+        td { padding-top: 15px; padding-bottom: 15px; }
+        tbody tr { transition: background-color .15s ease; }
+        tbody tr:hover { background: #faf4ef; }
+        .status-controls select { min-height: 39px; border-radius: 8px; }
+        .status-controls button { border-radius: 8px; box-shadow: none; }
+        .message { padding-top: 10px; }
+        dialog { border-color: #eee4dd; border-radius: 20px; }
+        dialog h2 { letter-spacing: -.025em; }
+        .appointment-confirm button { min-height: 46px; }
 
         @media (max-width: 680px) {
-            header { padding: 24px 20px; }
+            header { padding: 25px 20px; }
             main { width: min(100% - 28px, 1240px); margin-top: 24px; }
             .toolbar { align-items: flex-start; }
             .toolbar h2 { font-size: 21px; }
@@ -158,6 +198,8 @@
             .stat-card { padding: 17px 20px; }
             .panel { padding: 14px; }
             .table-wrapper { margin-inline: -1px; }
+            .request-tools { display: grid; grid-template-columns: 1fr; }
+            .request-tools .search, .request-tools .request-filter { width: 100%; max-width: none; }
         }
     </style>
     <link rel="stylesheet" href="dashboard.css">
@@ -191,19 +233,30 @@
             </div>
 
             <div class="stat-card">
-                <p>Status nicht erfasst</p>
+                <p>Offen oder neu</p>
                 <strong id="newCount">–</strong>
+            </div>
+            <div class="stat-card">
+                <p>Beratungsanfragen</p>
+                <strong id="appointmentCount">–</strong>
             </div>
         </div>
 
         <section class="panel">
-            <input
-                class="search"
-                type="search"
-                id="searchInput"
-                placeholder="Nach Name, E-Mail oder Anliegen suchen …"
-                aria-label="Anfragen durchsuchen"
-            >
+            <div class="request-tools">
+                <input
+                    class="search"
+                    type="search"
+                    id="searchInput"
+                    placeholder="Nach Name, E-Mail oder Anliegen suchen …"
+                    aria-label="Anfragen durchsuchen"
+                >
+                <select class="request-filter" id="requestFilter" aria-label="Anfragen filtern">
+                    <option value="all">Alle Anfragen</option>
+                    <option value="appointments">Nur Beratungsanfragen</option>
+                    <option value="messages">Nur allgemeine Anfragen</option>
+                </select>
+            </div>
 
             <div id="message" class="message" role="status">
                 Diese Seite ist vorbereitet. Die Verbindung zum Backend
@@ -267,6 +320,10 @@ const dialog = document.getElementById("detailsDialog");
 let requests = [];
 let canManageContactStatus = false;
 
+function isConsultationRequest(request) {
+    return String(request.subject || "").startsWith("Beratungsanfrage:");
+}
+
 
 function logout() {
     if (token && token === sessionStorage.getItem("gratia_admin_token")) {
@@ -329,6 +386,31 @@ function formatDate(value) {
         : date.toLocaleString("de-DE");
 }
 
+function parseDatabaseUtcDate(value) {
+    if (!value) return null;
+    const text = String(value).trim();
+    const normalized = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(text)
+        ? text
+        : `${text.replace(" ", "T")}Z`;
+    const date = new Date(normalized);
+    return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function formatAppointmentDate(value) {
+    const date = parseDatabaseUtcDate(value);
+    return date
+        ? date.toLocaleString("de-DE", { timeZone: "Europe/Berlin" })
+        : "–";
+}
+
+function appointmentInputValue(value) {
+    const date = parseDatabaseUtcDate(value);
+    if (!date) return "";
+    return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+        .toISOString()
+        .slice(0, 16);
+}
+
 function createCell(value) {
     const cell = document.createElement("td");
     cell.textContent = value == null || value === "" ? "–" : String(value);
@@ -354,7 +436,11 @@ function createStatusCell(request) {
     placeholder.textContent = currentStatus || "Status wählen";
     select.appendChild(placeholder);
 
-    ["Neu", "In Bearbeitung", "Erledigt"].forEach(status => {
+    const statuses = isConsultationRequest(request)
+        ? ["Neu", "In Bearbeitung", "Terminvorschlag gesendet", "Abgelehnt", "Erledigt"]
+        : ["Neu", "In Bearbeitung", "Erledigt"];
+    if (currentStatus && !statuses.includes(currentStatus)) statuses.unshift(currentStatus);
+    statuses.forEach(status => {
         const option = document.createElement("option");
         option.value = status;
         option.textContent = status;
@@ -410,6 +496,12 @@ function showDetails(request) {
         ["Status", request.status || "Nicht erfasst"],
         ["Eingegangen am", formatDate(request.created_at)]
     ];
+    if (request.appointment_confirmed_at) {
+        fields.splice(6, 0, ["Bestätigter Termin", formatAppointmentDate(request.appointment_confirmed_at)]);
+    }
+    if (request.appointment_email_sent_at) {
+        fields.splice(7, 0, ["Bestätigungs-E-Mail", `Gesendet am ${formatAppointmentDate(request.appointment_email_sent_at)}`]);
+    }
 
     for (const [label, value] of fields) {
         const row = document.createElement("div");
@@ -426,25 +518,109 @@ function showDetails(request) {
         container.appendChild(row);
     }
 
+    if (isConsultationRequest(request) && canManageContactStatus) {
+        const confirmation = document.createElement("section");
+        confirmation.className = "appointment-confirm";
+        const heading = document.createElement("h3");
+        heading.textContent = "Beratungstermin bestätigen";
+        const explanation = document.createElement("p");
+        const sentAt = request.appointment_email_sent_at;
+        explanation.textContent = sentAt
+            ? `Die Bestätigungs-E-Mail wurde am ${formatAppointmentDate(sentAt)} versendet.`
+            : request.appointment_confirmed_at
+                ? "Der Termin ist gespeichert, aber die E-Mail wurde noch nicht versendet. Sie können den Versand erneut versuchen."
+                : "Wählen Sie den vereinbarten Zeitpunkt. Nach der Bestätigung sendet GRATIA automatisch eine E-Mail an die Kundin oder den Kunden.";
+        confirmation.append(heading, explanation);
+
+        if (!sentAt) {
+            const label = document.createElement("label");
+            label.textContent = "Vereinbarter Zeitpunkt";
+            const dateInput = document.createElement("input");
+            dateInput.type = "datetime-local";
+            dateInput.required = true;
+            dateInput.id = `appointment-confirmed-time-${request.id}`;
+            dateInput.value = appointmentInputValue(request.appointment_confirmed_at);
+            label.htmlFor = dateInput.id;
+            dateInput.setAttribute("aria-label", "Vereinbarter Beratungstermin");
+            const sendButton = document.createElement("button");
+            sendButton.type = "button";
+            sendButton.textContent = request.appointment_confirmed_at
+                ? "Bestätigungs-E-Mail jetzt senden"
+                : "Termin bestätigen und E-Mail senden";
+            const feedback = document.createElement("p");
+            feedback.setAttribute("aria-live", "polite");
+            sendButton.addEventListener("click", async () => {
+                if (!dateInput.value || Number.isNaN(new Date(dateInput.value).getTime())) {
+                    dateInput.focus();
+                    return;
+                }
+                const appointmentDate = new Date(dateInput.value);
+                if (appointmentDate <= new Date()) {
+                    feedback.className = "error";
+                    feedback.textContent = "Bitte wählen Sie einen Zeitpunkt in der Zukunft.";
+                    return;
+                }
+                sendButton.disabled = true;
+                feedback.className = "";
+                feedback.textContent = "Termin wird gespeichert und E-Mail wird gesendet …";
+                try {
+                    const result = await apiRequest(
+                        `/contact-messages/${encodeURIComponent(request.id)}/confirm-appointment`,
+                        {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ appointmentAt: appointmentDate.toISOString() })
+                        }
+                    );
+                    Object.assign(request, result.data || {}, {
+                        status: "Termin bestätigt",
+                        appointment_confirmed_at: result.data?.appointment_confirmed_at,
+                        appointment_email_sent_at: result.data?.appointment_email_sent_at
+                    });
+                    dialog.close();
+                    renderRequests();
+                    messageElement.className = "message";
+                    messageElement.textContent = result.message || "Termin bestätigt und E-Mail versendet.";
+                } catch (error) {
+                    feedback.className = "error";
+                    feedback.textContent = error.message;
+                    sendButton.disabled = false;
+                    if (error.message.includes("bereits per E-Mail versendet")) {
+                        dialog.close();
+                        await loadRequests();
+                    }
+                }
+            });
+            confirmation.append(label, dateInput, sendButton, feedback);
+        }
+        container.appendChild(confirmation);
+    }
+
     dialog.showModal();
 }
 
 function renderRequests() {
     const term = searchInput.value.trim().toLowerCase();
 
-    const filtered = requests.filter(request =>
-        [
+    const selectedFilter = document.getElementById("requestFilter").value;
+    const filtered = requests.filter(request => {
+        const consultation = isConsultationRequest(request);
+        if (selectedFilter === "appointments" && !consultation) return false;
+        if (selectedFilter === "messages" && consultation) return false;
+        return [
             request.name,
             request.email,
             request.subject,
             request.message
-        ].join(" ").toLowerCase().includes(term)
-    );
+        ].join(" ").toLowerCase().includes(term);
+    });
 
     tableBody.replaceChildren();
     document.getElementById("totalCount").textContent = requests.length;
     document.getElementById("newCount").textContent =
-        requests.filter(item => !item.status).length;
+        requests.filter(item => !item.status || item.status === "Neu").length;
+    document.getElementById("appointmentCount").textContent =
+        requests.filter(isConsultationRequest).length;
 
     if (!filtered.length) {
         const row = document.createElement("tr");
@@ -545,6 +721,7 @@ async function initializePage() {
 }
 
 searchInput.addEventListener("input", renderRequests);
+document.getElementById("requestFilter").addEventListener("change", renderRequests);
 document.getElementById("refreshButton")
     .addEventListener("click", loadRequests);
 document.getElementById("closeDialogButton")
