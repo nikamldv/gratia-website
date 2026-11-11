@@ -1,3 +1,6 @@
+---
+permalink: /anfragen/
+---
 
 <!DOCTYPE html>
 <html lang="de">
@@ -202,7 +205,7 @@
             .request-tools .search, .request-tools .request-filter { width: 100%; max-width: none; }
         }
     </style>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="/dashboard.css">
     <meta name="robots" content="noindex, nofollow">
 </head>
 
@@ -310,7 +313,7 @@
 const API_BASE = "https://api.pflegedienstgratia.com/api";
 const token = sessionStorage.getItem("gratia_admin_token") ||
               sessionStorage.getItem("gratiaEmployeeToken");
-const LOGIN_PAGE = "login.html";
+const LOGIN_PAGE = "/login/";
 
 const searchInput = document.getElementById("searchInput");
 const tableBody = document.getElementById("requestsTableBody");
@@ -728,12 +731,12 @@ document.getElementById("closeDialogButton")
     .addEventListener("click", () => dialog.close());
 document.getElementById("backButton")
     .addEventListener("click", () => {
-        window.location.href = "mitarbeiter.html";
+        window.location.href = "/mitarbeiter/";
     });
 
 initializePage();
 </script>
-<script src="main.js"></script>
+<script src="/main.js"></script>
 
 </body>
 </html>

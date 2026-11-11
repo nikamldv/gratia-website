@@ -1,3 +1,6 @@
+---
+permalink: /stellenverwaltung/
+---
 
 <!DOCTYPE html>
 <html lang="de">
@@ -261,14 +264,14 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="/dashboard.css">
     <meta name="robots" content="noindex, nofollow">
 </head>
 
 <body>
 
 <header>
-    <a class="back-link" href="admin.html">
+    <a class="back-link" href="/admin/">
         ← Zurück zum Adminbereich
     </a>
 
@@ -433,7 +436,7 @@ async function apiRequest(path, options = {}) {
 
     if (!token) {
         alert("Bitte melden Sie sich zuerst im Admin-Bereich an.");
-        window.location.replace("admin.html");
+        window.location.replace("/admin/");
         throw new Error("Kein Login-Token vorhanden.");
     }
 
@@ -454,7 +457,7 @@ async function apiRequest(path, options = {}) {
     if (response.status === 401) {
         sessionStorage.removeItem(TOKEN_KEY);
         alert("Ihre Sitzung ist abgelaufen. Bitte melden Sie sich erneut an.");
-        window.location.replace("admin.html");
+        window.location.replace("/admin/");
         throw new Error("Sitzung abgelaufen.");
     }
 

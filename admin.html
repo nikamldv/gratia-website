@@ -1,3 +1,6 @@
+---
+permalink: /admin/
+---
 
 <!DOCTYPE html>
 <html lang="de">
@@ -224,7 +227,7 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="/dashboard.css">
     <meta name="robots" content="noindex, nofollow">
     <style>
         /* Dashboard-only visual layer. Kept here so other admin pages are unaffected. */
@@ -512,7 +515,7 @@
 
             <a
                 class="card"
-                href="anfragen.html"
+                href="/anfragen/"
                 data-permission="contact_messages.read">
                 <div class="card-icon" aria-hidden="true">✉</div>
                 <h3>Kontaktanfragen</h3>
@@ -522,7 +525,7 @@
 
             <a
                 class="card"
-                href="Jobbewerbungen.html"
+                href="/jobbewerbungen/"
                 data-permission="applications.read">
                 <div class="card-icon" aria-hidden="true">▤</div>
                 <h3>Jobbewerbungen</h3>
@@ -532,7 +535,7 @@
 
             <a
                 class="card"
-                href="benutzerverwaltung.html"
+                href="/benutzerverwaltung/"
                 data-permission="users.manage">
                 <div class="card-icon" aria-hidden="true">♙</div>
                 <h3>Benutzerverwaltung</h3>
@@ -542,7 +545,7 @@
 
             <a
                 class="card"
-                href="stellenverwaltung.html"
+                href="/stellenverwaltung/"
                 data-permission="jobs.manage">
                 <div class="card-icon" aria-hidden="true">▣</div>
                 <h3>Stellenverwaltung</h3>
@@ -552,7 +555,7 @@
 
             <a
                 class="card"
-                href="newsverwaltung.html"
+                href="/newsverwaltung/"
                 data-permission="news.manage">
                 <div class="card-icon" aria-hidden="true">▧</div>
                 <h3>Newsverwaltung</h3>
@@ -562,7 +565,7 @@
 
             <a
                 class="card"
-                href="mitarbeiter.html"
+                href="/mitarbeiter/"
                 data-permission="employee.portal">
                 <div class="card-icon" aria-hidden="true">♧</div>
                 <h3>Mitarbeiterportal</h3>
@@ -622,7 +625,7 @@
 
         function logout() {
             clearSession();
-            window.location.replace("login.html");
+            window.location.replace("/login/");
         }
 
         function isAdmin(user) {
@@ -867,7 +870,7 @@
             const token = getToken();
 
             if (!token) {
-                window.location.replace("login.html");
+                window.location.replace("/login/");
                 return;
             }
 
@@ -887,7 +890,7 @@
                     response.status === 403
                 ) {
                     clearSession();
-                    window.location.replace("login.html");
+                    window.location.replace("/login/");
                     return;
                 }
 
@@ -907,7 +910,7 @@
                 }
 
                 if (!isAdmin(user)) {
-                    window.location.replace("mitarbeiter.html");
+                    window.location.replace("/mitarbeiter/");
                     return;
                 }
 

@@ -1,3 +1,6 @@
+---
+permalink: /mitarbeiter/
+---
 
 <!DOCTYPE html>
 <html lang="de">
@@ -341,7 +344,7 @@ button:disabled {
 
 
     </style>
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="/dashboard.css">
     <meta name="robots" content="noindex, nofollow">
 </head>
 
@@ -449,7 +452,7 @@ button:disabled {
 "use strict";
 
 const API_BASE = "https://api.pflegedienstgratia.com/api";
-const LOGIN_PAGE = "mitarbeiter-login.html";
+const LOGIN_PAGE = "/login/";
 const token = sessionStorage.getItem("gratiaEmployeeToken");
 
 /* -----------------------------
@@ -932,7 +935,7 @@ async function initializeEmployeePage() {
         const user = data.user;
 
         if (user.must_change_password) {
-            window.location.replace("setup-password.html");
+            window.location.replace("/setup-password/");
             return;
         }
 

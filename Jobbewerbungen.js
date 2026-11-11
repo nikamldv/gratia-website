@@ -44,7 +44,7 @@ async function apiRequest(path, options = {}) {
             sessionStorage.removeItem(EMPLOYEE_TOKEN_KEY);
             sessionStorage.removeItem(EMPLOYEE_USER_KEY);
         }
-        window.location.replace("login.html");
+        window.location.replace("/login/");
         throw new Error("Sitzung abgelaufen. Bitte erneut anmelden.");
     }
 

@@ -1,3 +1,6 @@
+---
+permalink: /login/
+---
 
 <!DOCTYPE html>
 <html lang="de">
@@ -572,7 +575,7 @@
             // This is only the client-side redirect.
             // The backend must independently enforce permissions.
             window.location.replace(
-                admin ? "admin.html" : "mitarbeiter.html"
+                admin ? "/admin/" : "/mitarbeiter/"
             );
         }
 

@@ -12,7 +12,7 @@ async function apiRequest(path, options = {}) {
     const token = getToken();
 
     if (!token) {
-        window.location.href = "admin.html";
+        window.location.href = "/admin/";
         throw new Error("Bitte melden Sie sich zuerst an.");
     }
 
@@ -38,7 +38,7 @@ async function apiRequest(path, options = {}) {
     if (response.status === 401) {
         sessionStorage.removeItem(TOKEN_KEY);
         sessionStorage.removeItem(USER_KEY);
-        window.location.href = "admin.html";
+        window.location.href = "/admin/";
         throw new Error("Sitzung abgelaufen. Bitte erneut anmelden.");
     }
 
