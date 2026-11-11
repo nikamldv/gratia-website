@@ -336,7 +336,7 @@ document.addEventListener("DOMContentLoaded", () => {
 contactForm.dataset.submitting = "true";
 
         const submitButton = contactForm.querySelector(
-            ".contact-submit-btn"
+            ".contact-submit-btn, .beratung-submit"
         );
 if (!submitButton) {
     contactForm.dataset.submitting = "false";
